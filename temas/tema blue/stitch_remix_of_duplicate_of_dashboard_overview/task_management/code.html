@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#137fec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+                "surface-light": "#ffffff",
+                "surface-dark": "#1c2127",
+                "border-light": "#e5e7eb",
+                "border-dark": "#283039",
+              },
+              fontFamily: {
+                "display": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display overflow-x-hidden min-h-screen relative pb-24">
+<!-- Top AppBar -->
+<div class="flex flex-col gap-2 p-4 pb-2 pt-6">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-surface-light dark:border-surface-dark shadow-sm" data-alt="User profile picture showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-lg size-10 bg-surface-light dark:bg-surface-dark text-[#111418] dark:text-white shadow-sm border border-border-light dark:border-border-dark">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div>
+<p class="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Tuesday, Oct 24</p>
+<h1 class="text-[#111418] dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good Morning, Alex</h1>
+</div>
+</div>
+</div>
+<!-- Date Strip (Calendar Adaptation) -->
+<div class="flex flex-col gap-2 mb-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 pb-2">
+<!-- Active Day -->
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-primary text-white shadow-md shadow-primary/30 shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium opacity-80">Tue</span>
+<span class="text-2xl font-bold mt-1">24</span>
+<span class="w-1.5 h-1.5 rounded-full bg-white mt-1.5"></span>
+</button>
+<!-- Other Days -->
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-[#637588] dark:text-[#9dabb9] shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium">Wed</span>
+<span class="text-2xl font-bold mt-1 text-[#111418] dark:text-white">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-[#637588] dark:text-[#9dabb9] shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium">Thu</span>
+<span class="text-2xl font-bold mt-1 text-[#111418] dark:text-white">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-[#637588] dark:text-[#9dabb9] shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium">Fri</span>
+<span class="text-2xl font-bold mt-1 text-[#111418] dark:text-white">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-[#637588] dark:text-[#9dabb9] shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium">Sat</span>
+<span class="text-2xl font-bold mt-1 text-[#111418] dark:text-white">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-[#637588] dark:text-[#9dabb9] shrink-0 transform transition-transform active:scale-95">
+<span class="text-xs font-medium">Sun</span>
+<span class="text-2xl font-bold mt-1 text-[#111418] dark:text-white">29</span>
+</button>
+</div>
+</div>
+<!-- Progress Bar -->
+<div class="px-4 py-2">
+<div class="flex flex-col gap-3 p-5 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm">
+<div class="flex gap-6 justify-between items-center">
+<p class="text-[#111418] dark:text-white text-base font-bold leading-normal">Daily Progress</p>
+<span class="text-primary text-sm font-bold bg-primary/10 px-2 py-0.5 rounded-md">37%</span>
+</div>
+<div class="rounded-full bg-[#e5e7eb] dark:bg-[#3b4754] h-2.5 w-full overflow-hidden">
+<div class="h-full rounded-full bg-primary transition-all duration-500 ease-out" style="width: 37%;"></div>
+</div>
+<p class="text-[#637588] dark:text-[#9dabb9] text-xs font-medium leading-normal">3/8 Tasks Completed</p>
+</div>
+</div>
+<!-- Headline -->
+<h2 class="text-[#111418] dark:text-white tracking-tight text-xl font-bold leading-tight px-4 text-left pt-4 pb-2">Today's Tasks</h2>
+<!-- Task List -->
+<div class="flex flex-col px-4 gap-3">
+<!-- Task Item 1 -->
+<div class="group relative flex items-center gap-4 p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary/50">
+<button class="flex-shrink-0 size-6 rounded-full border-2 border-[#d1d5db] dark:border-[#4b5563] group-hover:border-primary flex items-center justify-center transition-colors">
+<!-- Checkbox unchecked state empty -->
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight line-through opacity-40 hidden">Review Financial Report</p>
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Review Financial Report</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-[#637588] dark:text-[#9dabb9] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 10:00 AM
+                    </span>
+<span class="w-1 h-1 rounded-full bg-[#d1d5db] dark:bg-[#4b5563]"></span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-100 text-purple-700 dark:bg-purple-500/20 dark:text-purple-300">Work</span>
+</div>
+</div>
+</div>
+<!-- Task Item 2 (Completed) -->
+<div class="group relative flex items-center gap-4 p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm opacity-80">
+<button class="flex-shrink-0 size-6 rounded-full border-2 border-primary bg-primary flex items-center justify-center transition-colors">
+<span class="material-symbols-outlined text-white text-sm font-bold">check</span>
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight line-through opacity-50">Grocery Shopping</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-[#637588] dark:text-[#9dabb9] flex items-center gap-1 opacity-50">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5:30 PM
+                    </span>
+<span class="w-1 h-1 rounded-full bg-[#d1d5db] dark:bg-[#4b5563]"></span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-100 text-green-700 dark:bg-green-500/20 dark:text-green-300">Personal</span>
+</div>
+</div>
+</div>
+<!-- Task Item 3 -->
+<div class="group relative flex items-center gap-4 p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary/50">
+<button class="flex-shrink-0 size-6 rounded-full border-2 border-[#d1d5db] dark:border-[#4b5563] group-hover:border-primary flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Gym Workout</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-[#637588] dark:text-[#9dabb9] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 7:00 PM
+                    </span>
+<span class="w-1 h-1 rounded-full bg-[#d1d5db] dark:bg-[#4b5563]"></span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-100 text-orange-700 dark:bg-orange-500/20 dark:text-orange-300">Health</span>
+</div>
+</div>
+</div>
+<!-- Task Item 4 -->
+<div class="group relative flex items-center gap-4 p-4 rounded-2xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary/50">
+<button class="flex-shrink-0 size-6 rounded-full border-2 border-[#d1d5db] dark:border-[#4b5563] group-hover:border-primary flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-[#111418] dark:text-white text-base font-semibold leading-tight">Read 20 pages</p>
+<div class="flex items-center gap-2">
+<span class="text-xs font-medium text-[#637588] dark:text-[#9dabb9] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 9:30 PM
+                    </span>
+<span class="w-1 h-1 rounded-full bg-[#d1d5db] dark:bg-[#4b5563]"></span>
+<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-blue-100 text-blue-700 dark:bg-blue-500/20 dark:text-blue-300">Education</span>
+</div>
+</div>
+</div>
+</div>
+<!-- FAB -->
+<button class="fixed bottom-24 right-5 z-20 flex size-14 items-center justify-center rounded-full bg-primary text-white shadow-xl shadow-primary/40 transition-transform active:scale-90 hover:scale-105">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<!-- Bottom Navigation -->
+<div class="fixed bottom-0 left-0 w-full z-10">
+<!-- Frosted glass effect container -->
+<div class="relative flex w-full flex-col bg-surface-light/90 dark:bg-[#1c2127]/90 backdrop-blur-md border-t border-border-light dark:border-border-dark pb-5 pt-3">
+<div class="flex justify-around items-center px-4">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-primary">
+<span class="material-symbols-outlined fill-current" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">check_circle</span>
+</div>
+<p class="text-[11px] font-semibold leading-tight text-primary">Tasks</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#9dabb9] group-hover:text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">account_balance_wallet</span>
+</div>
+<p class="text-[11px] font-medium leading-tight text-[#9dabb9] group-hover:text-primary">Finance</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#9dabb9] group-hover:text-primary">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">settings</span>
+</div>
+<p class="text-[11px] font-medium leading-tight text-[#9dabb9] group-hover:text-primary">Settings</p>
+</a>
+</div>
+<!-- Home Indicator (iOS style) -->
+<div class="mx-auto mt-4 h-1 w-32 rounded-full bg-[#111418]/20 dark:bg-white/20"></div>
+</div>
+</div>
+</body></html>

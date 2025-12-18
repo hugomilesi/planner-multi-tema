@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings - Classy Theme</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Inter:wght@300;400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            100: "#F9F1D8",
+                            200: "#EADFB4",
+                            300: "#DBC688",
+                            400: "#C6A87C", // Primary Gold
+                            500: "#BFA15F", // Accent
+                            600: "#9E8256",
+                            700: "#7A623D",
+                            800: "#59462A",
+                        },
+                        stone: {
+                            50: "#FAFAF9",
+                            100: "#F5F5F4",
+                            200: "#E7E5E4",
+                            300: "#D6D3D1",
+                            800: "#292524",
+                            900: "#1C1917",
+                            950: "#0c0a09",
+                        },
+                        "surface-light": "#F2F2F7", // iOS system gray 6ish
+                        "surface-dark": "#000000",
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#1C1C1E",
+                    },
+                    fontFamily: {
+                        "display": ["Playfair Display", "serif"],
+                        "body": ["Inter", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'soft': '0 8px 30px rgba(0,0,0,0.04)',
+                        'metallic': '0 2px 4px rgba(0,0,0,0.05), 0 1px 0 rgba(255,255,255,0.4) inset',
+                        'metallic-dark': '0 2px 4px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.05) inset',
+                    },
+                    backgroundImage: {
+                        'metal-gradient': 'linear-gradient(135deg, #F5F5F7 0%, #E5E5EA 100%)',
+                        'metal-gradient-dark': 'linear-gradient(135deg, #2C2C2E 0%, #1C1C1E 100%)',
+                        'gold-gradient': 'linear-gradient(135deg, #DBC688 0%, #BFA15F 100%)',
+                        'gold-sheen': 'linear-gradient(45deg, rgba(255,255,255,0) 40%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 60%)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }.toggle-checkbox:checked {
+            right: 0;
+            border-color: #BFA15F;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-image: linear-gradient(135deg, #DBC688 0%, #BFA15F 100%);
+        }.swatch-ring {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .group:active .swatch-ring {
+            transform: scale(0.95);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface-light dark:bg-surface-dark min-h-screen flex flex-col font-body text-stone-800 dark:text-stone-200 overflow-x-hidden antialiased selection:bg-gold-200 dark:selection:bg-gold-800">
+<div class="sticky top-0 z-50 flex items-center bg-surface-light/80 dark:bg-surface-dark/80 backdrop-blur-md px-4 py-4 justify-between border-b border-stone-200/50 dark:border-stone-800/50 transition-all duration-300">
+<button class="flex size-10 items-center justify-center rounded-full text-stone-500 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors">
+<span class="material-symbols-outlined font-medium">arrow_back</span>
+</button>
+<h2 class="text-xl font-display font-semibold tracking-wide text-center flex-1 text-stone-900 dark:text-white">Settings</h2>
+<div class="size-10"></div> 
+</div>
+<div class="flex flex-col w-full mt-4 animate-fade-in-up">
+<div class="flex items-center justify-between px-6 pb-4 pt-2">
+<h3 class="text-stone-500 dark:text-stone-400 text-xs font-bold uppercase tracking-[0.15em]">Theme</h3>
+<span class="text-gold-600 dark:text-gold-400 text-xs font-medium cursor-pointer hover:underline">View All</span>
+</div>
+<div class="flex w-full overflow-x-auto px-6 pb-8 no-scrollbar gap-5 snap-x">
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group items-center">
+<div class="relative w-20 h-20 rounded-2xl p-1 shadow-lg shadow-gold-400/20 dark:shadow-black/40 ring-2 ring-gold-500 ring-offset-2 ring-offset-surface-light dark:ring-offset-surface-dark swatch-ring">
+<div class="w-full h-full rounded-[10px] overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0PdoHgc2GvwbrpfavLxYcDwQfCvSqvR_I-8TaGTCxZkNH5ZN4B6tNmvax_pTJhR1C4MJMU5gsZjev236niqJCwWFDRLg5dgS4cAl9JgHXSjDkSqPPWh1RTibDFrWhb1FPfMBcpH4mHbN_4znca4eYKLIYRXbhsowBn46FURuYzMkMLu0uKvwXm8SNhKZnzTizLjeLds0-N-tRgP3ltatzXnv1DOF_21qMo4f_Dn6UJhKeb2gU0LyV4BrPoDzPBJokcMlFJrN96hE");'></div>
+<div class="absolute inset-0 bg-gradient-to-tr from-gold-500/20 to-transparent mix-blend-overlay"></div>
+<div class="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]">
+<span class="material-symbols-outlined text-white drop-shadow-md">check</span>
+</div>
+</div>
+</div>
+<p class="text-center text-[13px] font-semibold text-gold-700 dark:text-gold-300 font-display">Classy</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group items-center opacity-70 hover:opacity-100 transition-opacity">
+<div class="relative w-20 h-20 rounded-2xl p-1 shadow-md hover:shadow-lg ring-1 ring-stone-200 dark:ring-stone-700 ring-offset-0 transition-all duration-300 group-hover:ring-gold-300 dark:group-hover:ring-gold-700 swatch-ring bg-white dark:bg-stone-800">
+<div class="w-full h-full rounded-[10px] overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center sepia" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQ_rmuxqaGDqd90lSmys-KBIL5Lx1Fp1fyYKuvF7lnWkb6CQm2IJGFA9_JNEzg2FXTevvOHvo61W5jd2q-FCyEvwQpOy9BwpQazdVbz4vjoyqWD_-UZuPI3RZ1qz7i5SNk0nFTxEMq1eu3gTC7iJLPfE2ziXRHaiLxW8j2zOVtHBKzTTHs77UunBUr3Dg7aqeT-nuP6SsE8tEA0o9p9r0vfYXNdk021M1U-RKeGVX2K8DTi8PdGZWjtALRHxZ1nEIkoe4GJD2dxo");'></div>
+</div>
+</div>
+<p class="text-center text-[13px] font-medium text-stone-500 dark:text-stone-400 group-hover:text-stone-800 dark:group-hover:text-stone-200 font-display">Retro</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group items-center opacity-70 hover:opacity-100 transition-opacity">
+<div class="relative w-20 h-20 rounded-2xl p-1 shadow-md hover:shadow-lg ring-1 ring-stone-200 dark:ring-stone-700 ring-offset-0 transition-all duration-300 group-hover:ring-purple-400 swatch-ring bg-white dark:bg-stone-800">
+<div class="w-full h-full rounded-[10px] overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center contrast-125" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgOAeXiPZgUBkgvuFejn9cMrIpq1GYUNBPWTEuU_JUYGgn-rmxxzjdkX5G-pN_KCaI1J1TwYoxjp_yRsOsvwz1LfbdUjXI7UGW5EnhFjtuQEQ8RNlr0N5ZjBFZZ65hMz3LK0p-C_qwVAbLPhtoOTjBie3Hr58aAnXh-6GsD7MS7Ln_AP6VmkERbhujV62NmSuqyHb1t6uHKBXN1j3BqdaV7RldRaXAPdVhDXHT9Ygd1qdjbRKsDpNzqmIA3L5t7f_lTl17l3W02gY");'></div>
+</div>
+</div>
+<p class="text-center text-[13px] font-medium text-stone-500 dark:text-stone-400 group-hover:text-stone-800 dark:group-hover:text-stone-200 font-display">Neon</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group items-center opacity-70 hover:opacity-100 transition-opacity">
+<div class="relative w-20 h-20 rounded-2xl p-1 shadow-md hover:shadow-lg ring-1 ring-stone-200 dark:ring-stone-700 ring-offset-0 transition-all duration-300 group-hover:ring-amber-700 swatch-ring bg-white dark:bg-stone-800">
+<div class="w-full h-full rounded-[10px] overflow-hidden relative">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARk10TfcNOGHmMY3QBE3EZ2k7tn75iOmFf7TgwoT33Ocg5qd4Ip65oYQM_7mcSKezANEVhtT3p6buMhU9f1idx0iVucvRyVLL8ZzA4buVCmcg9nZXjKAf1MRvd3Hvcr8rInxfWGQwhoAPSdq-2LA1UZ7qUAzf7gqo7vA9slZf26mDrDWGB1qgB0lnWLpqoyNaTMPFj1WK_SVr0p_7TsWEru-QKY9uNVFZuMU6CPGCJ9WYFbSmk0JnIjygdTQpdRG4Q-fY2JWaTY2c");'></div>
+</div>
+</div>
+<p class="text-center text-[13px] font-medium text-stone-500 dark:text-stone-400 group-hover:text-stone-800 dark:group-hover:text-stone-200 font-display">Rustic</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<h3 class="text-stone-500 dark:text-stone-400 text-xs font-bold uppercase tracking-[0.15em] px-6 pb-2">Account</h3>
+<div class="mx-4 bg-card-light dark:bg-card-dark rounded-2xl shadow-metallic dark:shadow-metallic-dark ring-1 ring-black/5 dark:ring-white/5 overflow-hidden">
+<div class="flex items-center p-4 border-b border-stone-100 dark:border-stone-800 active:bg-stone-50 dark:active:bg-stone-800/50 transition-colors cursor-pointer group">
+<div class="relative size-12 mr-4">
+<div class="absolute inset-0 rounded-full bg-gradient-to-tr from-gold-300 to-gold-100 p-[2px]">
+<img class="w-full h-full rounded-full object-cover border-2 border-white dark:border-stone-800" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgi1E-DS_2cZNjdqnwEVS9P6NTa3WgpiIc2C2-o00ypqxzrNvV16T2clbFx28yePUhqOerDhTQhfIknAbhZHPsK20_veHxeTan58K1_Q_D5o4DZEUwxbDoYf8iz-d0jHlS4WX23ZOHUQ76zUSWHT9G3-KekC6uUDQkcZeZUjwYNA5w0Zy_cDNO1rMJtUJZJVc60_xUYf_HeMVJf6JIAhKaNJsSEoc0n4QBYtXhB8nqNNoZ0L8PgsyK5XM1JyC1E5_qUjIHcCTXPDI"/>
+</div>
+</div>
+<div class="flex-1">
+<h4 class="text-base font-semibold text-stone-900 dark:text-white font-display">Alex Johnson</h4>
+<p class="text-xs text-stone-500 dark:text-stone-400">Premium Member</p>
+</div>
+<span class="material-symbols-outlined text-stone-300 text-xl group-hover:text-gold-500 transition-colors">arrow_forward_ios</span>
+</div>
+<div class="flex items-center justify-between p-4 active:bg-stone-50 dark:active:bg-stone-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-gold-600 dark:text-gold-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">diamond</span>
+</div>
+<span class="text-sm font-medium">Subscription</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-bold text-white bg-gold-gradient px-2.5 py-1 rounded-full uppercase tracking-wider shadow-sm">Pro</span>
+<span class="material-symbols-outlined text-stone-300 text-xl group-hover:text-gold-500 transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<h3 class="text-stone-500 dark:text-stone-400 text-xs font-bold uppercase tracking-[0.15em] px-6 pb-2">Preferences</h3>
+<div class="mx-4 bg-card-light dark:bg-card-dark rounded-2xl shadow-metallic dark:shadow-metallic-dark ring-1 ring-black/5 dark:ring-white/5 divide-y divide-stone-100 dark:divide-stone-800">
+<div class="flex items-center justify-between p-4 pl-4 pr-5">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">notifications</span>
+</div>
+<span class="text-sm font-medium">Notifications</span>
+</div>
+<div class="relative inline-flex h-7 w-12 items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-stone-200 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-gold-300 dark:peer-focus:ring-gold-800 rounded-full peer dark:bg-stone-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gold-gradient shadow-inner"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pl-4 pr-5 active:bg-stone-50 dark:active:bg-stone-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">currency_exchange</span>
+</div>
+<span class="text-sm font-medium">Currency</span>
+</div>
+<div class="flex items-center gap-2 text-stone-500 dark:text-stone-400">
+<span class="text-sm font-display text-stone-800 dark:text-stone-200">USD ($)</span>
+<span class="material-symbols-outlined text-stone-300 text-xl group-hover:text-gold-500 transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pl-4 pr-5 active:bg-stone-50 dark:active:bg-stone-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+</div>
+<span class="text-sm font-medium">Start of Week</span>
+</div>
+<div class="flex items-center gap-2 text-stone-500 dark:text-stone-400">
+<span class="text-sm font-display text-stone-800 dark:text-stone-200">Monday</span>
+<span class="material-symbols-outlined text-stone-300 text-xl group-hover:text-gold-500 transition-colors">arrow_forward_ios</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-8">
+<h3 class="text-stone-500 dark:text-stone-400 text-xs font-bold uppercase tracking-[0.15em] px-6 pb-2">Security</h3>
+<div class="mx-4 bg-card-light dark:bg-card-dark rounded-2xl shadow-metallic dark:shadow-metallic-dark ring-1 ring-black/5 dark:ring-white/5 divide-y divide-stone-100 dark:divide-stone-800">
+<div class="flex items-center justify-between p-4 pl-4 pr-5">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">face</span>
+</div>
+<span class="text-sm font-medium">Face ID Lock</span>
+</div>
+<div class="relative inline-flex h-7 w-12 items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-stone-200 dark:bg-stone-700 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-gold-300 dark:peer-focus:ring-gold-800 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-gold-gradient shadow-inner"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 pl-4 pr-5 active:bg-stone-50 dark:active:bg-stone-800/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-8 rounded-full bg-stone-50 dark:bg-stone-800 border border-stone-200 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 shadow-sm">
+<span class="material-symbols-outlined text-[18px]">download</span>
+</div>
+<span class="text-sm font-medium">Export Data</span>
+</div>
+<span class="material-symbols-outlined text-stone-300 text-xl group-hover:text-gold-500 transition-colors">arrow_forward_ios</span>
+</div>
+<div class="flex items-center justify-center p-4 active:bg-red-50 dark:active:bg-red-900/10 transition-colors cursor-pointer">
+<span class="text-sm font-medium text-red-500/90 dark:text-red-400 tracking-wide">Log Out</span>
+</div>
+</div>
+<div class="mt-8 flex flex-col items-center justify-center space-y-1">
+<div class="size-6 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-stone-400">eco</span>
+</div>
+<p class="text-[10px] uppercase tracking-widest text-stone-400 font-medium">Version 2.4.0</p>
+</div>
+<div class="h-8"></div>
+</div>
+
+</body></html>

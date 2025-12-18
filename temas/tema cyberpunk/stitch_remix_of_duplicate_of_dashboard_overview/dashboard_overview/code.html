@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - 80s Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&amp;family=Space+Grotesk:wght@300;400;500;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "neon-pink": "#ff00ff",
+                        "neon-cyan": "#00ffff",
+                        "neon-yellow": "#ffff00",
+                        "neon-purple": "#bc13fe",
+                        "retro-bg": "#120024",
+                        "retro-card": "#2a0052",
+                        "retro-grid": "#4d008c",
+                    },
+                    fontFamily: {
+                        "display": ["Orbitron", "sans-serif"],
+                        "body": ["Space Grotesk", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(rgba(188, 19, 254, 0.2) 1px, transparent 1px), linear-gradient(90deg, rgba(188, 19, 254, 0.2) 1px, transparent 1px)",
+                        'retro-gradient': "linear-gradient(135deg, #120024 0%, #2a0052 100%)",
+                    },
+                    boxShadow: {
+                        'neon-pink': '0 0 10px rgba(255, 0, 255, 0.5), 0 0 20px rgba(255, 0, 255, 0.3)',
+                        'neon-cyan': '0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3)',
+                        'retro-card': '4px 4px 0px rgba(0, 0, 0, 0.5)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+            background-color: #120024;
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(rgba(77, 0, 140, 0.2) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(77, 0, 140, 0.2) 1px, transparent 1px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-white selection:bg-neon-pink selection:text-white">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<header class="flex items-center justify-between p-4 pb-2 sticky top-0 z-20 bg-retro-bg/90 backdrop-blur-md border-b-2 border-neon-purple/30">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-none size-10 border-2 border-neon-cyan shadow-neon-cyan transform -skew-x-6" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="absolute -bottom-1 -right-1 w-3 h-3 bg-neon-yellow border border-black transform rotate-45"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-bold text-neon-pink uppercase tracking-widest font-display">Oct 24, 198X</span>
+<h2 class="text-xl font-black italic tracking-tight text-white drop-shadow-[2px_2px_0_rgba(188,19,254,1)]">RADICAL ALEX</h2>
+</div>
+</div>
+<button class="flex items-center justify-center size-10 bg-gradient-to-br from-neon-purple to-retro-card border border-neon-purple/50 text-white hover:bg-neon-purple/20 transition-colors shadow-retro-card active:translate-y-1 active:translate-x-1 active:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 24px;">notifications</span>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-4">
+<div class="flex items-center justify-between px-4">
+<span class="text-xs font-bold text-neon-cyan uppercase tracking-[0.2em] font-display">Timeline</span>
+<div class="h-px flex-1 bg-neon-cyan/30 mx-3"></div>
+</div>
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2">
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-neon-pink text-black border-2 border-white shadow-neon-pink shrink-0 transform -skew-x-3">
+<span class="text-[10px] font-black uppercase">Mon</span>
+<span class="text-xl font-black font-display">24</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-retro-card/80 text-neon-cyan border border-neon-cyan/30 hover:border-neon-cyan hover:shadow-neon-cyan transition-all shrink-0">
+<span class="text-[10px] font-bold opacity-70">Tue</span>
+<span class="text-xl font-bold font-display">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-retro-card/80 text-neon-cyan border border-neon-cyan/30 hover:border-neon-cyan hover:shadow-neon-cyan transition-all shrink-0">
+<span class="text-[10px] font-bold opacity-70">Wed</span>
+<span class="text-xl font-bold font-display">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-retro-card/80 text-neon-cyan border border-neon-cyan/30 hover:border-neon-cyan hover:shadow-neon-cyan transition-all shrink-0">
+<span class="text-[10px] font-bold opacity-70">Thu</span>
+<span class="text-xl font-bold font-display">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-retro-card/80 text-neon-cyan border border-neon-cyan/30 hover:border-neon-cyan hover:shadow-neon-cyan transition-all shrink-0">
+<span class="text-[10px] font-bold opacity-70">Fri</span>
+<span class="text-xl font-bold font-display">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-retro-card/80 text-neon-cyan border border-neon-cyan/30 hover:border-neon-cyan hover:shadow-neon-cyan transition-all shrink-0">
+<span class="text-[10px] font-bold opacity-70">Sat</span>
+<span class="text-xl font-bold font-display">29</span>
+</button>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-2 p-1 border-2 border-neon-yellow bg-black/40 shadow-[4px_4px_0px_#ffff00]">
+<div class="flex justify-between items-center px-3 pt-2">
+<p class="text-xs font-bold text-neon-yellow font-display uppercase tracking-wider">System Status</p>
+<p class="text-sm font-black text-neon-yellow font-display">65%</p>
+</div>
+<div class="h-6 w-full bg-retro-grid p-1 flex items-center gap-1">
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink shadow-[0_0_5px_#ff00ff]"></div>
+<div class="h-full w-[5%] bg-neon-pink/30"></div>
+<div class="h-full w-[5%] bg-neon-pink/30"></div>
+<div class="h-full w-[5%] bg-neon-pink/30"></div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-8">
+<div class="relative group cursor-pointer transform hover:scale-[1.01] transition-transform duration-200">
+<div class="absolute -top-2 -right-2 w-full h-full border-2 border-neon-cyan bg-transparent z-0"></div>
+<div class="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-tr from-neon-pink to-transparent opacity-50 blur-xl"></div>
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end pt-24 border-2 border-white relative z-10 bg-retro-card shadow-[8px_8px_0px_rgba(0,255,255,0.4)]" data-alt="Abstract dark blue geometric gradient background" style='background-image: linear-gradient(180deg, rgba(18, 0, 36, 0.2) 0%, rgba(18, 0, 36, 0.95) 80%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute top-0 right-0 bg-neon-pink text-white px-3 py-1 text-[10px] font-black font-display uppercase tracking-widest skew-x-[-15deg] origin-top-right mr-4 mt-0 border-b-2 border-l-2 border-black shadow-[2px_2px_0_rgba(0,0,0,1)]">
+                        Primary Mission
+                    </div>
+<div class="flex w-full items-end justify-between gap-4 p-5 z-10">
+<div class="flex flex-1 flex-col gap-1">
+<div class="flex items-center gap-2 mb-1">
+<div class="w-2 h-2 bg-neon-cyan animate-pulse"></div>
+<p class="text-neon-cyan text-xs font-bold uppercase tracking-[0.2em] font-display">Target Acquired</p>
+</div>
+<p class="text-white text-2xl font-black leading-none font-display italic drop-shadow-md">CLIENT<br/>PRESENTATION</p>
+<div class="flex items-center gap-2 mt-2 bg-black/50 w-fit px-2 py-1 rounded border border-white/20">
+<span class="material-symbols-outlined text-neon-yellow" style="font-size: 16px;">schedule</span>
+<p class="text-neon-yellow text-sm font-bold font-mono">14:00 - 15:30</p>
+</div>
+</div>
+<div class="bg-gradient-to-br from-neon-cyan to-blue-600 rounded-none border border-white p-3 text-white shadow-[4px_4px_0_rgba(0,0,0,1)] hover:translate-y-1 hover:translate-x-1 hover:shadow-none transition-all">
+<span class="material-symbols-outlined font-bold" style="font-size: 24px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-10">
+<div class="relative p-5 bg-retro-card border-2 border-neon-purple shadow-[0_0_15px_rgba(188,19,254,0.3)]">
+<div class="absolute inset-0 bg-[linear-gradient(rgba(188,19,254,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(188,19,254,0.1)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
+<div class="relative z-10 flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-white font-display uppercase tracking-wider flex items-center gap-2">
+<span class="material-symbols-outlined text-neon-purple">savings</span>
+                            Credits
+                        </h3>
+<p class="text-xs text-neon-purple/80 mt-1 font-mono">CYCLE: OCT 2023</p>
+</div>
+<button class="text-black text-xs font-black uppercase tracking-wide px-4 py-1 bg-neon-purple clip-path-polygon hover:bg-white transition-colors border-2 border-transparent hover:border-neon-purple">
+                        Info
+                    </button>
+</div>
+<div class="relative z-10 grid grid-cols-2 gap-4 mb-4">
+<div class="flex flex-col gap-1 border-l-4 border-neon-cyan pl-3 bg-black/30 py-2">
+<span class="text-[10px] text-neon-cyan/70 font-bold uppercase tracking-wider">Utilized</span>
+<span class="text-2xl font-black text-white font-display tracking-wide">$1,240</span>
+</div>
+<div class="flex flex-col gap-1 border-l-4 border-neon-pink pl-3 bg-black/30 py-2">
+<span class="text-[10px] text-neon-pink/70 font-bold uppercase tracking-wider">Cap</span>
+<span class="text-2xl font-black text-gray-400 font-display tracking-wide">$2,000</span>
+</div>
+</div>
+<div class="relative z-10 flex items-end gap-1.5 h-16 mt-2 border-b-2 border-neon-purple/50 pb-0 px-2 bg-black/20">
+<div class="flex-1 bg-neon-purple/20 border-t border-x border-neon-purple/40 h-[30%]"></div>
+<div class="flex-1 bg-neon-purple/20 border-t border-x border-neon-purple/40 h-[50%]"></div>
+<div class="flex-1 bg-neon-purple/20 border-t border-x border-neon-purple/40 h-[40%]"></div>
+<div class="flex-1 bg-neon-cyan/40 border-t border-x border-neon-cyan/60 h-[60%]"></div>
+<div class="flex-1 bg-neon-cyan/60 border-t border-x border-neon-cyan/80 h-[45%]"></div>
+<div class="flex-1 bg-neon-cyan border-2 border-white h-[85%] relative group shadow-[0_0_10px_#00ffff]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-neon-yellow text-black text-[10px] font-bold px-2 py-1 uppercase opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-black shadow-[2px_2px_0_black]">
+                            Current
+                        </div>
+</div>
+<div class="flex-1 bg-neon-purple/20 border-t border-x border-neon-purple/40 h-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 relative">
+<div class="flex items-center justify-between px-4 pb-4">
+<h3 class="text-xl font-black text-white italic tracking-wide font-display drop-shadow-[2px_2px_0_#bc13fe]">QUEST LOG</h3>
+<span class="text-[10px] font-bold text-black bg-neon-yellow px-3 py-1 border-2 border-white transform rotate-2">3 ACTIVE</span>
+</div>
+<div class="flex flex-col gap-3 px-4 mt-2">
+<label class="group flex items-center gap-4 p-4 bg-retro-card border border-neon-pink/30 hover:border-neon-pink transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-neon-pink group-hover:w-2 transition-all"></div>
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-neon-pink bg-transparent checked:bg-neon-pink transition-all rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-black opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-white group-hover:text-neon-pink transition-colors font-display tracking-wide peer-checked:line-through peer-checked:text-gray-500">Pay Power Bill</span>
+<span class="text-xs text-neon-pink/70 font-mono">DUE: TODAY</span>
+</div>
+<span class="bg-transparent border border-orange-500 text-orange-500 text-[10px] font-bold px-2 py-1 uppercase tracking-wider">Med</span>
+</label>
+<label class="group flex items-center gap-4 p-4 bg-retro-card border border-neon-cyan/30 hover:border-neon-cyan transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-neon-cyan group-hover:w-2 transition-all"></div>
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-neon-cyan bg-transparent checked:bg-neon-cyan transition-all rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-black opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-white group-hover:text-neon-cyan transition-colors font-display tracking-wide">Gym Session</span>
+<span class="text-xs text-neon-cyan/70 font-mono">18:00 HRS</span>
+</div>
+<span class="bg-transparent border border-green-500 text-green-500 text-[10px] font-bold px-2 py-1 uppercase tracking-wider">Low</span>
+</label>
+<label class="group flex items-center gap-4 p-4 bg-retro-card border border-white/20 hover:border-white transition-all cursor-pointer relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-white/50 group-hover:w-2 transition-all"></div>
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-white/50 bg-transparent checked:bg-white checked:border-white transition-all rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-black opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-white group-hover:text-gray-200 transition-colors font-display tracking-wide">Review Q3 Data</span>
+<span class="text-xs text-white/50 font-mono">TOMORROW 09:00</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-8"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-retro-bg/95 backdrop-blur-xl border-t-2 border-neon-pink z-50 shadow-[0_-5px_20px_rgba(255,0,255,0.2)]">
+<div class="flex justify-around items-end pb-6 pt-3 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-neon-pink group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform drop-shadow-[0_0_5px_rgba(255,0,255,0.8)]" style="font-variation-settings: 'FILL' 1, 'wght' 600;">dashboard</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Base</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-white/50 hover:text-neon-cyan transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">calendar_month</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Dates</span>
+</button>
+<button class="flex items-center justify-center -mt-10 size-16 bg-gradient-to-t from-neon-purple to-neon-pink text-white border-2 border-white shadow-[0_0_15px_rgba(255,0,255,0.6)] hover:scale-110 transition-transform active:scale-95 group relative overflow-hidden">
+<div class="absolute inset-0 bg-white/20 -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+<span class="material-symbols-outlined font-black" style="font-size: 32px;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-white/50 hover:text-neon-cyan transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">account_balance_wallet</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Creds</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-white/50 hover:text-neon-cyan transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="text-[9px] font-bold uppercase tracking-widest">Config</span>
+</button>
+</div>
+</nav>
+
+</body></html>

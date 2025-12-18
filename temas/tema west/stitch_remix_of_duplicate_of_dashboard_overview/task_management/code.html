@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management - Wild West</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rye&amp;family=Crimson+Pro:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#8B4513","primary-light": "#A0522D",
+                "accent": "#CD853F","accent-gold": "#DAA520","background-light": "#F0EAD6","background-dark": "#1a120b","surface-light": "#FDF5E6","surface-dark": "#2c1e16","border-light": "#D2B48C","border-dark": "#4a3b32","ink": "#3E2723","ink-light": "#EFEBE9",},
+              fontFamily: {
+                "display": ["Rye", "cursive"],
+                "body": ["Crimson Pro", "serif"]
+              },
+              boxShadow: {
+                "paper": "2px 2px 0px 0px rgba(139, 69, 19, 0.15)",
+                "deep": "4px 4px 0px 0px rgba(62, 39, 35, 0.3)",
+              },
+              backgroundImage: {
+                'paper-texture': "url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmZmZmIi8+CjxyZWN0IHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9IiMwMDAwMDAiIG9wYWNpdHk9IjAuMDIiLz4KPC9zdmc+')",
+              }
+            },
+          },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+        .frontier-border {
+            border: 2px solid #D2B48C;
+            border-radius: 0.5rem;
+            position: relative;
+        }.stitching {
+            border: 2px dashed rgba(139, 69, 19, 0.3);
+        }
+        .dark .stitching {
+            border: 2px dashed rgba(210, 180, 140, 0.2);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-ink dark:text-ink-light font-body overflow-x-hidden min-h-screen relative pb-24 bg-paper-texture">
+<div class="flex flex-col gap-2 p-4 pb-2 pt-6">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center relative">
+<div class="absolute inset-0 rounded-full border-2 border-primary dark:border-border-light border-dashed animate-spin-slow" style="animation-duration: 10s;"></div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-[#8B4513] dark:border-accent shadow-sm ml-1" data-alt="User profile picture showing a smiling person" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-lg size-10 bg-surface-light dark:bg-surface-dark text-primary dark:text-accent shadow-paper border-2 border-border-light dark:border-border-dark">
+<span class="material-symbols-outlined">tune</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-end mt-2">
+<div>
+<p class="text-primary/70 dark:text-border-light/70 text-base font-semibold italic tracking-wide">Tuesday, Oct 24</p>
+<h1 class="text-primary dark:text-surface-light font-display text-3xl leading-tight drop-shadow-sm">Howdy, Alex</h1>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 pb-2">
+<button class="flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg bg-primary text-surface-light shadow-deep shrink-0 transform transition-transform active:scale-95 border-2 border-[#5D4037] relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-[#5D4037]/30"></div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-[#5D4037]/30"></div>
+<span class="text-xs font-bold uppercase tracking-widest opacity-90 mt-1">Tue</span>
+<span class="text-3xl font-display mt-1">24</span>
+<span class="material-symbols-outlined text-[10px] mt-1 text-accent-gold">star</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg bg-surface-light dark:bg-surface-dark border-2 border-border-light dark:border-border-dark text-ink/60 dark:text-ink-light/60 shrink-0 transform transition-transform active:scale-95 hover:bg-[#F5DEB3] dark:hover:bg-[#3E2723] transition-colors">
+<span class="text-xs font-bold uppercase tracking-widest">Wed</span>
+<span class="text-2xl font-bold mt-1 font-display text-ink dark:text-ink-light">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg bg-surface-light dark:bg-surface-dark border-2 border-border-light dark:border-border-dark text-ink/60 dark:text-ink-light/60 shrink-0 transform transition-transform active:scale-95 hover:bg-[#F5DEB3] dark:hover:bg-[#3E2723] transition-colors">
+<span class="text-xs font-bold uppercase tracking-widest">Thu</span>
+<span class="text-2xl font-bold mt-1 font-display text-ink dark:text-ink-light">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg bg-surface-light dark:bg-surface-dark border-2 border-border-light dark:border-border-dark text-ink/60 dark:text-ink-light/60 shrink-0 transform transition-transform active:scale-95 hover:bg-[#F5DEB3] dark:hover:bg-[#3E2723] transition-colors">
+<span class="text-xs font-bold uppercase tracking-widest">Fri</span>
+<span class="text-2xl font-bold mt-1 font-display text-ink dark:text-ink-light">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg bg-surface-light dark:bg-surface-dark border-2 border-border-light dark:border-border-dark text-ink/60 dark:text-ink-light/60 shrink-0 transform transition-transform active:scale-95 hover:bg-[#F5DEB3] dark:hover:bg-[#3E2723] transition-colors">
+<span class="text-xs font-bold uppercase tracking-widest">Sat</span>
+<span class="text-2xl font-bold mt-1 font-display text-ink dark:text-ink-light">28</span>
+</button>
+</div>
+</div>
+<div class="px-4 py-2">
+<div class="flex flex-col gap-3 p-5 rounded-lg bg-surface-light dark:bg-surface-dark border-2 border-border-light dark:border-border-dark shadow-paper relative overflow-hidden">
+<div class="absolute top-0 right-0 p-2 opacity-10 pointer-events-none">
+<span class="material-symbols-outlined text-6xl rotate-12">local_police</span>
+</div>
+<div class="flex gap-6 justify-between items-center z-10">
+<p class="text-ink dark:text-ink-light text-lg font-display tracking-wide">Daily Bounty</p>
+<span class="text-primary-light dark:text-accent font-bold bg-border-light/20 px-3 py-1 rounded-sm border border-border-light/50 text-sm">37% Done</span>
+</div>
+<div class="rounded-full bg-[#E6DCC3] dark:bg-[#1a120b] h-3 w-full overflow-hidden border border-border-light/50 z-10">
+<div class="h-full rounded-full bg-[repeating-linear-gradient(45deg,#8B4513,#8B4513_10px,#A0522D_10px,#A0522D_20px)] transition-all duration-500 ease-out shadow-[0_0_10px_rgba(139,69,19,0.5)]" style="width: 37%;"></div>
+</div>
+<p class="text-ink/60 dark:text-ink-light/60 text-sm font-semibold italic z-10">3 of 8 Tasks Rounded Up</p>
+</div>
+</div>
+<div class="flex items-center px-4 pt-6 pb-2">
+<div class="h-px bg-border-light flex-1 opacity-50"></div>
+<h2 class="text-ink dark:text-surface-light font-display text-2xl px-4 text-center">Today's Tasks</h2>
+<div class="h-px bg-border-light flex-1 opacity-50"></div>
+</div>
+<div class="flex flex-col px-4 gap-4 pb-4">
+<div class="group relative flex items-center gap-4 p-4 rounded-sm bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary">
+<div class="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-background-light border-r-border-light dark:border-t-background-dark dark:border-r-border-dark shadow-sm"></div>
+<button class="flex-shrink-0 size-7 rounded-full border-2 border-[#8B4513] dark:border-[#A0522D] group-hover:bg-[#8B4513]/10 flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-ink dark:text-ink-light text-lg font-bold leading-tight font-display tracking-wide">Review Financial Report</p>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-ink/60 dark:text-ink-light/60 flex items-center gap-1 font-serif italic">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 10:00 AM
+                </span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-light"></span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-sm border border-purple-800/20 bg-purple-100/50 text-purple-900 dark:bg-purple-900/40 dark:text-purple-200 dark:border-purple-400/30 uppercase tracking-wider">Work</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-sm bg-[#E8E0CC] dark:bg-[#231812] border border-border-light/60 dark:border-border-dark/60 shadow-inner opacity-70">
+<button class="flex-shrink-0 size-7 rounded-full bg-primary border-2 border-primary flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-white text-base font-bold">grade</span>
+</button>
+<div class="flex flex-1 flex-col gap-1 relative">
+<div class="absolute top-1/2 left-0 w-full h-0.5 bg-ink/30 dark:bg-ink-light/30 -rotate-1"></div>
+<p class="text-ink dark:text-ink-light text-lg font-bold leading-tight font-display tracking-wide opacity-60">Grocery Shopping</p>
+<div class="flex items-center gap-2 opacity-60">
+<span class="text-sm font-medium text-ink/60 dark:text-ink-light/60 flex items-center gap-1 font-serif italic">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 5:30 PM
+                </span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-light"></span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-sm border border-green-800/20 bg-green-100/50 text-green-900 dark:bg-green-900/40 dark:text-green-200 uppercase tracking-wider">Personal</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-sm bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary">
+<div class="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-background-light border-r-border-light dark:border-t-background-dark dark:border-r-border-dark shadow-sm"></div>
+<button class="flex-shrink-0 size-7 rounded-full border-2 border-[#8B4513] dark:border-[#A0522D] group-hover:bg-[#8B4513]/10 flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-ink dark:text-ink-light text-lg font-bold leading-tight font-display tracking-wide">Gym Workout</p>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-ink/60 dark:text-ink-light/60 flex items-center gap-1 font-serif italic">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 7:00 PM
+                </span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-light"></span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-sm border border-orange-800/20 bg-orange-100/50 text-orange-900 dark:bg-orange-900/40 dark:text-orange-200 uppercase tracking-wider">Health</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-sm bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm transition-all hover:border-primary">
+<div class="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-background-light border-r-border-light dark:border-t-background-dark dark:border-r-border-dark shadow-sm"></div>
+<button class="flex-shrink-0 size-7 rounded-full border-2 border-[#8B4513] dark:border-[#A0522D] group-hover:bg-[#8B4513]/10 flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-ink dark:text-ink-light text-lg font-bold leading-tight font-display tracking-wide">Read 20 pages</p>
+<div class="flex items-center gap-2">
+<span class="text-sm font-medium text-ink/60 dark:text-ink-light/60 flex items-center gap-1 font-serif italic">
+<span class="material-symbols-outlined text-[16px]">schedule</span> 9:30 PM
+                </span>
+<span class="w-1.5 h-1.5 rounded-full bg-border-light"></span>
+<span class="text-[11px] font-bold px-2 py-0.5 rounded-sm border border-blue-800/20 bg-blue-100/50 text-blue-900 dark:bg-blue-900/40 dark:text-blue-200 uppercase tracking-wider">Education</span>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-24 right-5 z-20 flex size-16 items-center justify-center rounded-full bg-accent-gold text-[#3E2723] shadow-xl shadow-black/40 transition-transform active:scale-90 hover:scale-105 border-4 border-[#B8860B] group">
+<div class="absolute inset-0 rounded-full border border-[#FFF8DC] opacity-50 m-1"></div>
+<span class="material-symbols-outlined text-[36px] drop-shadow-sm group-hover:rotate-180 transition-transform duration-500">local_police</span>
+</button>
+<div class="fixed bottom-0 left-0 w-full z-10">
+<div class="relative flex w-full flex-col bg-[#3E2723] dark:bg-[#150F0A] border-t-4 border-[#5D4037] pb-5 pt-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.3)]">
+<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[length:20px_20px] pointer-events-none opacity-20"></div>
+<div class="flex justify-around items-center px-4 relative z-10">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-accent-gold">
+<span class="material-symbols-outlined fill-current text-[28px]" style="font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;">assignment</span>
+</div>
+<p class="text-[12px] font-display tracking-widest leading-tight text-accent-gold uppercase">Tasks</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#D2B48C] group-hover:text-accent-gold">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">account_balance</span>
+</div>
+<p class="text-[12px] font-display tracking-widest leading-tight text-[#D2B48C] group-hover:text-accent-gold uppercase">Bank</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#D2B48C] group-hover:text-accent-gold">
+<span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;">settings</span>
+</div>
+<p class="text-[12px] font-display tracking-widest leading-tight text-[#D2B48C] group-hover:text-accent-gold uppercase">Setup</p>
+</a>
+</div>
+<div class="mx-auto mt-4 h-1 w-32 rounded-full bg-[#D2B48C]/30"></div>
+</div>
+</div>
+
+</body></html>

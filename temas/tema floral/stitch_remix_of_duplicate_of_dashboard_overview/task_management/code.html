@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management - Floral Theme</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;family=Lora:ital,wght@0,400;0,500;0,600;1,400&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#c05b6a",
+                "primary-dark": "#9e4250",
+                "accent-green": "#7a9187",
+                "accent-gold": "#d4b06a",
+                "background-light": "#fdfaf6",
+                "background-dark": "#2a2424",
+                "surface-light": "#fffefd",
+                "surface-dark": "#362e2e",
+                "border-light": "#eaddd5",
+                "border-dark": "#4d4242",
+                "text-main": "#594a42",
+                "text-light": "#968b83",
+              },
+              fontFamily: {
+                "display": ["Playfair Display", "serif"],
+                "body": ["Lora", "serif"]
+              },
+              borderRadius: {
+                "DEFAULT": "0.25rem", 
+                "lg": "0.5rem", 
+                "xl": "1rem", 
+                "2xl": "1.5rem", 
+                "3xl": "2rem",
+                "full": "9999px",
+                "flower-petal": "2rem 2rem 0.5rem 2rem",
+                "flower-card": "2rem 0.5rem 2rem 0.5rem"
+              },
+              backgroundImage: {
+                'botanical-garden': "url('https://images.unsplash.com/photo-1507290439931-a861b5a38200?q=80&w=2832&auto=format&fit=crop')",
+                'vintage-floral': "url('https://images.unsplash.com/photo-1629196914375-f7e48f477b6d?q=80&w=2606&auto=format&fit=crop')",
+                'texture-paper': "url('https://www.transparenttextures.com/patterns/cream-paper.png')"
+              },
+              boxShadow: {
+                'soft-glow': '0 0 20px -5px rgba(192, 91, 106, 0.3)',
+                'petal': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01)'
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body {
+        min-height: max(884px, 100dvh);
+        background-color: var(--background-light);
+    }
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+    }
+    .dark .glass-panel {
+        background: rgba(54, 46, 46, 0.85);
+    }
+    .floral-gradient-text {
+        background: linear-gradient(135deg, #c05b6a 0%, #d4b06a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }.flower-check {
+      clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-[#e6ded6] font-body overflow-x-hidden min-h-screen relative pb-24 transition-colors duration-300 selection:bg-primary/20">
+<div class="fixed inset-0 z-0 bg-botanical-garden bg-cover bg-center opacity-25 dark:opacity-15 mix-blend-multiply"></div>
+<div class="fixed inset-0 z-0 bg-gradient-to-b from-white/80 via-white/60 to-white/90 dark:from-[#2a2424]/90 dark:via-[#2a2424]/70 dark:to-[#2a2424]/95"></div>
+<div class="fixed top-0 right-0 z-0 w-64 h-64 bg-vintage-floral bg-cover opacity-30 rounded-bl-[100px] pointer-events-none mix-blend-multiply dark:mix-blend-soft-light filter contrast-125"></div>
+<div class="fixed bottom-24 left-0 z-0 w-80 h-80 bg-vintage-floral bg-cover opacity-20 rounded-tr-[150px] pointer-events-none rotate-180 mix-blend-multiply dark:mix-blend-soft-light filter contrast-125"></div>
+<div class="fixed inset-0 z-0 bg-texture-paper opacity-40 pointer-events-none mix-blend-overlay"></div>
+<div class="relative z-10 flex flex-col gap-2 p-5 pb-2 pt-6">
+<div class="flex items-center h-14 justify-between">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="relative bg-center bg-no-repeat bg-cover rounded-flower-petal size-14 border-2 border-primary/30 p-1 shadow-soft-glow rotate-[-5deg] overflow-hidden group">
+<div class="w-full h-full rounded-2xl bg-cover bg-center transition-transform duration-700 group-hover:scale-110" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<span class="absolute -bottom-1 -right-1 text-primary bg-surface-light dark:bg-surface-dark rounded-full p-1 shadow-sm border border-primary/20">
+<span class="material-symbols-outlined text-[16px] animate-bounce" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+</span>
+</div>
+<div class="flex flex-col">
+<p class="text-accent-green dark:text-accent-green/90 text-xs font-bold tracking-widest uppercase flex items-center gap-1 font-display">
+<span class="material-symbols-outlined text-sm">energy_savings_leaf</span>
+                    Oct 24, Tuesday
+                </p>
+<h1 class="text-3xl font-display font-bold leading-tight">
+<span class="floral-gradient-text">Hello, Alex</span>
+</h1>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-full size-11 bg-surface-light/50 dark:bg-surface-dark/50 backdrop-blur-md text-text-main dark:text-white shadow-sm border border-border-light dark:border-border-dark hover:bg-primary/10 transition-colors group">
+<span class="material-symbols-outlined group-hover:rotate-180 transition-transform duration-500">settings</span>
+</button>
+</div>
+</div>
+<div class="relative z-10 flex flex-col gap-2 mb-2 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-4 px-5 pb-4 pt-2 snap-x">
+<button class="snap-center flex flex-col items-center justify-between min-w-[70px] h-[110px] p-2 rounded-t-[40px] rounded-b-[40px] bg-gradient-to-b from-[#c05b6a] to-[#9e4250] text-white shadow-lg shadow-primary/30 shrink-0 transform scale-105 border-2 border-white/20 relative overflow-hidden group">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/flowers.png')] opacity-20 mix-blend-overlay"></div>
+<span class="material-symbols-outlined text-lg mt-1 relative z-10 opacity-80">wb_sunny</span>
+<div class="flex flex-col items-center z-10">
+<span class="text-3xl font-display font-bold">24</span>
+<span class="text-xs font-medium font-body uppercase tracking-wider opacity-90">Tue</span>
+</div>
+<span class="material-symbols-outlined text-sm mb-1 relative z-10" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+</button>
+<button class="snap-center group flex flex-col items-center justify-between min-w-[65px] h-[100px] p-2 rounded-t-[35px] rounded-b-[35px] glass-panel border border-border-light dark:border-border-dark text-text-light dark:text-text-light shrink-0 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft-glow relative overflow-hidden my-auto">
+<span class="text-xs font-medium font-body uppercase tracking-wider mt-2 group-hover:text-primary transition-colors">Wed</span>
+<span class="text-2xl font-display font-bold group-hover:text-text-main dark:group-hover:text-white transition-colors">25</span>
+<div class="w-1.5 h-1.5 rounded-full bg-accent-green/30 group-hover:bg-primary transition-colors mb-2"></div>
+</button>
+<button class="snap-center group flex flex-col items-center justify-between min-w-[65px] h-[100px] p-2 rounded-t-[35px] rounded-b-[35px] glass-panel border border-border-light dark:border-border-dark text-text-light dark:text-text-light shrink-0 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft-glow relative overflow-hidden my-auto">
+<span class="text-xs font-medium font-body uppercase tracking-wider mt-2 group-hover:text-primary transition-colors">Thu</span>
+<span class="text-2xl font-display font-bold group-hover:text-text-main dark:group-hover:text-white transition-colors">26</span>
+<div class="w-1.5 h-1.5 rounded-full bg-accent-green/30 group-hover:bg-primary transition-colors mb-2"></div>
+</button>
+<button class="snap-center group flex flex-col items-center justify-between min-w-[65px] h-[100px] p-2 rounded-t-[35px] rounded-b-[35px] glass-panel border border-border-light dark:border-border-dark text-text-light dark:text-text-light shrink-0 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft-glow relative overflow-hidden my-auto">
+<span class="text-xs font-medium font-body uppercase tracking-wider mt-2 group-hover:text-primary transition-colors">Fri</span>
+<span class="text-2xl font-display font-bold group-hover:text-text-main dark:group-hover:text-white transition-colors">27</span>
+<div class="w-1.5 h-1.5 rounded-full bg-accent-green/30 group-hover:bg-primary transition-colors mb-2"></div>
+</button>
+<button class="snap-center group flex flex-col items-center justify-between min-w-[65px] h-[100px] p-2 rounded-t-[35px] rounded-b-[35px] glass-panel border border-border-light dark:border-border-dark text-text-light dark:text-text-light shrink-0 transition-all hover:-translate-y-1 hover:border-primary/40 hover:shadow-soft-glow relative overflow-hidden my-auto">
+<span class="text-xs font-medium font-body uppercase tracking-wider mt-2 group-hover:text-primary transition-colors">Sat</span>
+<span class="text-2xl font-display font-bold group-hover:text-text-main dark:group-hover:text-white transition-colors">28</span>
+<div class="w-1.5 h-1.5 rounded-full bg-accent-green/30 group-hover:bg-primary transition-colors mb-2"></div>
+</button>
+</div>
+</div>
+<div class="relative z-10 px-5 py-2">
+<div class="relative flex flex-col gap-3 p-6 rounded-flower-card glass-panel border border-primary/10 shadow-petal overflow-hidden group">
+<div class="absolute -right-6 -bottom-8 w-40 h-40 bg-contain bg-no-repeat bg-center opacity-10 dark:opacity-20 pointer-events-none rotate-12 transition-transform duration-700 group-hover:scale-110 group-hover:rotate-6" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBg9RkbRhHjYird0nAMCnganPETIQYQi2wLJ3aeNQVQqPbWMDIb7BpKHaJCnx5YRmJ_ztlsTqhV8Q0xIrSTxQzfQzlIstc1UeMP6o0anvcKwhFIkhHutzZ5Vzci7dSjLE0_X5I-6Slz41Znpk5UoQvtrm242s9M6KFIaOvZDkpm-E8wKcURI0WDz2OCoM7vAdXn-OH1kqQgBjafeQ6UKdJlXyfk4sEUWaP_S5TxNzar7QwRbuF_esf-bzsVURbtaTzL4m6aIBCyp9U');"></div>
+<div class="flex gap-6 justify-between items-start z-10">
+<div>
+<p class="text-text-main dark:text-white text-xl font-display font-bold leading-normal mb-1">
+                    Garden Growth
+                </p>
+<p class="text-text-light dark:text-[#9dabb9] text-xs font-medium font-body italic flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[14px] text-accent-green">psychiatry</span>
+                    3 of 8 seeds planted today
+                </p>
+</div>
+<div class="flower-check w-12 h-12 bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="text-white font-bold font-display text-sm">37%</span>
+</div>
+</div>
+<div class="relative mt-3">
+<div class="rounded-full bg-[#f0ede6] dark:bg-[#4d4242] h-3 w-full overflow-hidden border border-border-light dark:border-border-dark shadow-inner">
+<div class="h-full rounded-full bg-gradient-to-r from-[#d4b06a] via-[#c05b6a] to-[#9e4250] transition-all duration-1000 ease-out flex items-center relative" style="width: 37%;">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-4 h-4 bg-white rounded-full shadow-sm border-2 border-primary z-20 flex items-center justify-center">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative z-10 flex items-center justify-between px-6 pt-6 pb-3">
+<h2 class="text-text-main dark:text-[#e6ded6] tracking-tight text-2xl font-display font-bold leading-tight flex items-center gap-3">
+<span class="relative flex items-center justify-center w-8 h-8">
+<span class="material-symbols-outlined text-accent-gold text-3xl z-10" style="font-variation-settings: 'FILL' 1;">sunny</span>
+<span class="absolute inset-0 bg-accent-gold/20 blur-md rounded-full"></span>
+</span>
+        Today's Blooms
+    </h2>
+<button class="text-xs font-bold text-primary uppercase tracking-wider border border-primary/20 px-3 py-1 rounded-full hover:bg-primary/5 transition-colors">View All</button>
+</div>
+<div class="relative z-10 flex flex-col px-5 gap-4 mb-24">
+<div class="group relative flex items-center gap-4 p-5 rounded-3xl glass-panel border border-primary/10 shadow-sm transition-all hover:shadow-md hover:border-primary/30 overflow-hidden">
+<div class="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-primary/5 to-transparent"></div>
+<button class="flex-shrink-0 size-12 relative flex items-center justify-center transition-all group/btn">
+<div class="absolute inset-0 bg-gradient-to-tr from-primary to-[#d06c7b] rounded-flower-petal rotate-45 group-hover:rotate-90 transition-transform duration-500 shadow-md"></div>
+<span class="material-symbols-outlined text-white z-10 text-xl" style="font-variation-settings: 'FILL' 1;">check</span>
+</button>
+<div class="flex flex-1 flex-col gap-1.5 z-10">
+<p class="text-text-main dark:text-[#f0e6dd] text-lg font-bold leading-tight font-display group-hover:text-primary transition-colors">Financial Report</p>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-text-light dark:text-[#9dabb9] flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 10:00 AM
+                </span>
+<span class="w-1 h-1 rounded-full bg-border-dark/30"></span>
+<span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#f3e6e8] text-[#9e4250] border border-[#e8d0d4] dark:bg-[#9e4250]/20 dark:text-[#e6b3bb] dark:border-[#9e4250]/30 flex items-center gap-1 uppercase tracking-wide">
+                    Work
+                </span>
+</div>
+</div>
+<div class="opacity-0 group-hover:opacity-100 transition-opacity absolute right-4 top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-primary/40 text-4xl rotate-12">local_florist</span>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-5 rounded-3xl bg-surface-light/40 dark:bg-surface-dark/40 border border-border-light dark:border-border-dark shadow-sm opacity-80 hover:opacity-100 transition-all">
+<button class="flex-shrink-0 size-12 relative flex items-center justify-center transition-all group/btn">
+<div class="absolute inset-0 border-2 border-accent-green/40 rounded-flower-petal rotate-12 group-hover:rotate-45 transition-transform duration-300 bg-surface-light dark:bg-surface-dark"></div>
+<span class="material-symbols-outlined text-accent-green z-10 opacity-0 group-hover:opacity-50 transition-opacity" style="font-variation-settings: 'FILL' 1;">spa</span>
+</button>
+<div class="flex flex-1 flex-col gap-1.5 z-10">
+<p class="text-text-main dark:text-[#f0e6dd] text-lg font-medium leading-tight font-display group-hover:text-accent-green transition-colors decoration-accent-green/30 decoration-2">Grocery Shopping</p>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-text-light dark:text-[#9dabb9] flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5:30 PM
+                </span>
+<span class="w-1 h-1 rounded-full bg-border-dark/30"></span>
+<span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#e8efec] text-[#5c7a6e] border border-[#d1e0da] dark:bg-[#5c7a6e]/20 dark:text-[#a3c2b6] dark:border-[#5c7a6e]/30 flex items-center gap-1 uppercase tracking-wide">
+                    Personal
+                </span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-5 rounded-3xl glass-panel border border-primary/10 shadow-sm transition-all hover:shadow-md hover:border-primary/30 overflow-hidden">
+<button class="flex-shrink-0 size-12 relative flex items-center justify-center transition-all group/btn">
+<div class="absolute inset-0 border-2 border-dashed border-primary/30 rounded-flower-petal rotate-[-10deg] group-hover:rotate-0 transition-transform duration-300 bg-surface-light dark:bg-surface-dark group-hover:border-solid group-hover:border-primary"></div>
+<span class="material-symbols-outlined text-primary z-10 opacity-0 group-hover:opacity-100 transition-opacity transform scale-75 group-hover:scale-100">local_florist</span>
+</button>
+<div class="flex flex-1 flex-col gap-1.5 z-10">
+<p class="text-text-main dark:text-[#f0e6dd] text-lg font-medium leading-tight font-display group-hover:text-primary transition-colors">Gym Workout</p>
+<div class="flex items-center gap-3">
+<span class="text-xs font-medium text-text-light dark:text-[#9dabb9] flex items-center gap-1 font-body">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 7:00 PM
+                </span>
+<span class="w-1 h-1 rounded-full bg-border-dark/30"></span>
+<span class="text-[10px] font-bold px-2.5 py-1 rounded-full bg-[#fdf6e6] text-[#b88c3a] border border-[#f0e0c0] dark:bg-[#b88c3a]/20 dark:text-[#e0cba0] dark:border-[#b88c3a]/30 flex items-center gap-1 uppercase tracking-wide">
+                    Health
+                </span>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-24 right-5 z-30 flex size-16 items-center justify-center rounded-full bg-gradient-to-br from-[#c05b6a] via-[#d06c7b] to-[#9e4250] text-white shadow-xl shadow-primary/40 transition-all active:scale-95 hover:scale-110 duration-300 group ring-4 ring-white/30 dark:ring-surface-dark/30 backdrop-blur-sm">
+<div class="absolute inset-0 rounded-full border border-white/40 animate-pulse"></div>
+<span class="absolute -top-1 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/20 rounded-full blur-[1px]"></span>
+<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-4 h-4 bg-white/20 rounded-full blur-[1px]"></span>
+<span class="absolute top-1/2 -left-1 -translate-y-1/2 w-4 h-4 bg-white/20 rounded-full blur-[1px]"></span>
+<span class="absolute top-1/2 -right-1 -translate-y-1/2 w-4 h-4 bg-white/20 rounded-full blur-[1px]"></span>
+<span class="material-symbols-outlined text-[32px] transition-transform duration-300 group-hover:rotate-90">add</span>
+</button>
+<div class="fixed bottom-0 left-0 w-full z-20">
+<div class="absolute -top-6 left-0 right-0 h-12 bg-surface-light/90 dark:bg-[#2d2828]/95 backdrop-blur-xl rounded-t-[50%] scale-x-110 shadow-[0_-5px_20px_rgba(0,0,0,0.05)] border-t border-white/20 dark:border-white/5"></div>
+<div class="relative flex w-full flex-col bg-surface-light/90 dark:bg-[#2d2828]/95 backdrop-blur-xl pb-6 pt-2">
+<div class="flex justify-around items-end px-6 relative z-10 h-16">
+<a class="flex flex-1 flex-col items-center justify-center gap-1.5 group h-full pb-2" href="#">
+<div class="relative flex items-center justify-center transition-all text-primary transform group-hover:-translate-y-2 duration-300">
+<span class="material-symbols-outlined text-[28px] drop-shadow-sm" style="font-variation-settings: 'FILL' 1;">local_florist</span>
+<span class="absolute -bottom-2 w-1 h-1 bg-primary rounded-full"></span>
+</div>
+<p class="text-[10px] font-bold tracking-widest uppercase text-primary font-display opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Garden</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1.5 group h-full pb-2" href="#">
+<div class="relative flex items-center justify-center transition-all text-text-light group-hover:text-primary transform group-hover:-translate-y-2 duration-300">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 0;">account_balance_wallet</span>
+</div>
+<p class="text-[10px] font-bold tracking-widest uppercase text-primary font-display opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Finance</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1.5 group h-full pb-2" href="#">
+<div class="relative flex items-center justify-center transition-all text-text-light group-hover:text-primary transform group-hover:-translate-y-2 duration-300">
+<span class="material-symbols-outlined text-[26px]" style="font-variation-settings: 'FILL' 0;">settings</span>
+</div>
+<p class="text-[10px] font-bold tracking-widest uppercase text-primary font-display opacity-0 group-hover:opacity-100 transition-opacity absolute bottom-2">Settings</p>
+</a>
+</div>
+<div class="mx-auto mt-2 h-1 w-32 rounded-full bg-text-main/10 dark:bg-white/10"></div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Wild West</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rye&amp;family=Sancreek&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "wild-sand": "#EFE6DD",
+                        "wild-leather": "#8B5A2B",
+                        "wild-dark-leather": "#5D3A1A",
+                        "wild-wood": "#6F4E37",
+                        "wild-paper": "#F4ECD8",
+                        "wild-sepia": "#704214",
+                        "wild-rust": "#A0522D",
+                        "wild-gold": "#DAA520",
+                        "wild-black": "#2C241B",
+                    },
+                    fontFamily: {
+                        "western-title": ["Rye", "cursive"],
+                        "western-display": ["Sancreek", "cursive"],
+                        "western-body": ["Courier Prime", "monospace"],
+                    },
+                    backgroundImage: {
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/natural-paper.png')",
+                        'leather-texture': "url('https://www.transparenttextures.com/patterns/leather.png')",
+                        'wood-texture': "url('https://www.transparenttextures.com/patterns/wood-pattern.png')",
+                    },
+                    boxShadow: {
+                        'western': '2px 2px 0px 0px rgba(93, 58, 26, 0.4)',
+                        'poster': '0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.1), inset 0 0 20px rgba(160, 82, 45, 0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+    display: none
+    }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none
+    }
+body {
+    min-height: max(884px, 100dvh);
+    background-color: #EFE6DD;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDbOEHO1GjxQwr7oydba8Q4n1CJXZfdu2wAblaMB3iifib4VkJyrhtKR7zDxpjtB6vNJIbwTd1VV9vJw2B90-7oAYL81x5vYlxWb8u88L1ITHM8rNS_o2XicIDOalzDmL307UdPX2CLvivzsJ7LrphPRwRZCkxUm8b9_X9NwsACA_2UK2KxjtBeA9gzEy8U0LK8BJt2e2PH1YR8xl9TnNJ6p0hercYY84fS6QYid4y20GG9Otgc_fDJ27nG3syNJV-rwDScXkBiDMw)
+    }
+.wood-panel {
+    background-color: #6F4E37;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuB4AQ7gJzLo9_6kin-fXc88rXONIYMQd9OegBEy1xktCxzG_fm6d18_2sO8eeMF_WMw4iBtPSIoV_Hquo-q_bOhTodFUCsS6OQjMrNEepZxLgZK36HEanID2gG5inv0hkBf-Jr-aRdrVWYm1xKCkLO_EL-eTe0-jWXom4RX5DN8lRqW01X8bV-KujXFDxnymPja_QLK21Qxum02z2Wu28bBekyh4GC4jJX_u1mdaNcW1XuL0t7KRKnIPzpfduDPySsyVod11mhVU_U);
+    border: 2px solid #3E2723;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5)
+    }
+.leather-btn {
+    background-color: #8B5A2B;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCwmX7Wj216ksWSldWN68A6_VuWDf3bgWaTppkPrS3GEuqME3tSToptnu13isMV8lRH85iTuW0V3bn6UxDcEDwo4cZhvJuD0klcLgOlSwUUaPyM3AOfedx11e59Am-f4zllBz8XAEdyb1m2v-4povoJ03JMbwM9sQAcW6dfHqvsLUBVfdm5G2-erBw_vHPaMMoDPgeqjpgPeWLoS_kzKcHNLv9Iegah2rKLY-DLgOS1HL25up_SO41QBJO51kYbEYqrI8KcKp8_Qec);
+    border: 1px solid #5D3A1A;
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.2), 2px 2px 4px rgba(0, 0, 0, 0.4)
+    }
+.poster-bg {
+    background-color: #F4ECD8;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCUD3nC-1QjuKTC_2-qPN6N10-D7qCe_pQRTOUdPGwPfCz5k5B8YnmkIzABmRUQYxN7hNDq2kqO502XHGvThN1t5Qwi6o9FQw7WnAvlCAkVqNF5J_l_N9288ZDM3offlBBnHbJnzMOG7IS53AopHg-WDjjSJ14D0MPZKUVPfXCtG56NWa03EGnhPqaUGmLWq2oaHrDuke4TwTOeJSnx2jUN9k-WPA2y2WTooGSXsdgpW2K6-CZVmT_BI_GoJDZk8MZJZ9Usyw4c554);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    border: 1px dashed #8B5A2B
+    }
+.sepia-filter {
+    filter: sepia(0.6) contrast(1.1) brightness(0.9)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-western-body text-wild-black">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<header class="flex items-center justify-between p-4 pb-2 sticky top-0 z-20 wood-panel border-b-4 border-wild-dark-leather">
+<div class="flex items-center gap-3">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 ring-2 ring-wild-gold sepia-filter shadow-lg" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="absolute -bottom-1 -right-1 bg-wild-gold rounded-full p-0.5 border border-wild-black">
+<span class="material-symbols-outlined text-[12px] text-wild-black">badge</span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="text-xs font-bold text-wild-paper opacity-80 uppercase tracking-widest">Oct 24, 1885</span>
+<h2 class="text-xl font-western-title text-wild-paper drop-shadow-md">Howdy, Alex</h2>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-full size-10 leather-btn text-wild-paper hover:bg-wild-rust transition-colors relative">
+<span class="material-symbols-outlined" style="font-size: 24px;">notifications_active</span>
+<span class="absolute top-0 right-0 size-3 bg-red-800 rounded-full border border-wild-paper"></span>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-4 relative">
+<div class="absolute top-[-16px] left-8 w-1 h-6 bg-wild-rust z-0"></div>
+<div class="absolute top-[-16px] right-8 w-1 h-6 bg-wild-rust z-0"></div>
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2 z-10">
+<button class="flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-sm bg-wild-paper border-2 border-wild-black shadow-western shrink-0 rotate-1 transform">
+<span class="text-[10px] font-bold text-wild-black uppercase border-b border-wild-black w-full text-center">Mon</span>
+<span class="text-2xl font-western-display text-wild-black mt-1">24</span>
+<div class="w-full text-center mt-1">
+<span class="material-symbols-outlined text-wild-rust text-[10px]">star</span>
+</div>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-18 rounded-sm bg-wild-sand/80 border border-wild-wood/50 text-wild-dark-leather shrink-0 opacity-80">
+<span class="text-xs font-bold">Tue</span>
+<span class="text-lg font-bold font-western-display">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-18 rounded-sm bg-wild-sand/80 border border-wild-wood/50 text-wild-dark-leather shrink-0 opacity-80">
+<span class="text-xs font-bold">Wed</span>
+<span class="text-lg font-bold font-western-display">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-18 rounded-sm bg-wild-sand/80 border border-wild-wood/50 text-wild-dark-leather shrink-0 opacity-80">
+<span class="text-xs font-bold">Thu</span>
+<span class="text-lg font-bold font-western-display">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-18 rounded-sm bg-wild-sand/80 border border-wild-wood/50 text-wild-dark-leather shrink-0 opacity-80">
+<span class="text-xs font-bold">Fri</span>
+<span class="text-lg font-bold font-western-display">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-18 rounded-sm bg-wild-sand/80 border border-wild-wood/50 text-wild-dark-leather shrink-0 opacity-80">
+<span class="text-xs font-bold">Sat</span>
+<span class="text-lg font-bold font-western-display">29</span>
+</button>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-2 p-4 rounded bg-wild-leather shadow-inner border border-wild-dark-leather relative overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/leather.png')] opacity-50"></div>
+<div class="relative z-10 flex justify-between items-center mb-1">
+<p class="text-sm font-western-title text-wild-paper tracking-wider shadow-black drop-shadow-sm">Daily Bounty</p>
+<p class="text-sm font-bold text-wild-gold">65%</p>
+</div>
+<div class="relative z-10 h-4 w-full rounded bg-wild-dark-leather/60 shadow-inner flex items-center px-1">
+<div class="h-2 rounded-full bg-gradient-to-r from-wild-rust to-wild-gold shadow-[0_0_5px_rgba(218,165,32,0.5)]" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-8">
+<div class="poster-bg relative p-1 transform rotate-[-1deg]">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-stone-700 shadow-md border border-stone-500 z-20"></div>
+<div class="relative overflow-hidden border-2 border-wild-black p-1">
+<div class="bg-cover bg-center h-48 sepia-filter grayscale-[30%] contrast-125 relative" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute inset-0 bg-gradient-to-t from-wild-black/90 via-wild-black/20 to-transparent"></div>
+</div>
+<div class="absolute top-4 right-4 bg-wild-rust text-wild-paper px-3 py-1 text-xs font-western-title border border-wild-black shadow-sm transform rotate-2">
+                        WANTED DEAD OR ALIVE
+                    </div>
+<div class="absolute bottom-0 left-0 w-full p-4">
+<p class="text-wild-gold text-xs font-bold uppercase tracking-widest mb-1">Main Job</p>
+<p class="text-wild-paper text-2xl font-western-display leading-tight drop-shadow-md">Client Meeting</p>
+<div class="flex items-center justify-between mt-2">
+<div class="flex items-center gap-2 text-wild-paper/90 bg-wild-black/40 px-2 py-1 rounded">
+<span class="material-symbols-outlined text-sm">schedule</span>
+<span class="text-sm font-bold">High Noon (2:00 PM)</span>
+</div>
+<div class="bg-wild-gold rounded-full p-2 text-wild-dark-leather shadow-lg hover:bg-white transition-colors cursor-pointer border border-wild-black">
+<span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-8">
+<div class="flex flex-col gap-0 rounded-sm bg-[#FDFBF7] shadow-lg border border-gray-300 relative">
+<div class="absolute inset-0 pointer-events-none" style="background-image: linear-gradient(#e5e7eb 1px, transparent 1px); background-size: 100% 24px; margin-top: 3.5rem;"></div>
+<div class="absolute left-10 top-14 bottom-4 w-px bg-red-300/50 pointer-events-none"></div>
+<div class="flex justify-between items-start p-4 bg-wild-sand border-b border-double border-gray-400">
+<div>
+<h3 class="text-lg font-western-title text-wild-dark-leather">Town Bank Ledger</h3>
+<p class="text-xs text-wild-wood font-bold uppercase tracking-widest">Oct 1885</p>
+</div>
+<button class="text-wild-rust text-xs font-bold uppercase tracking-wide px-3 py-1 border border-wild-rust rounded hover:bg-wild-rust hover:text-white transition-colors">
+                        Inspect
+                    </button>
+</div>
+<div class="p-4 pt-6 relative z-10">
+<div class="grid grid-cols-2 gap-4 mb-4">
+<div class="flex flex-col gap-1 pl-8">
+<span class="text-xs text-wild-wood font-bold uppercase">Spent Gold</span>
+<span class="text-xl font-western-display text-wild-dark-leather">$1,240</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-wild-wood font-bold uppercase">Credit Limit</span>
+<span class="text-xl font-western-display text-wild-rust decoration-double underline">$2,000</span>
+</div>
+</div>
+<div class="flex items-end gap-2 h-16 mt-2 pb-1 border-b-2 border-wild-black">
+<div class="flex-1 bg-wild-wood/30 border border-wild-wood h-[30%] transform skew-x-[-5deg]"></div>
+<div class="flex-1 bg-wild-wood/30 border border-wild-wood h-[50%] transform skew-x-[-5deg]"></div>
+<div class="flex-1 bg-wild-wood/30 border border-wild-wood h-[40%] transform skew-x-[-5deg]"></div>
+<div class="flex-1 bg-wild-rust/60 border border-wild-rust h-[60%] transform skew-x-[-5deg]"></div>
+<div class="flex-1 bg-wild-rust/80 border border-wild-rust h-[45%] transform skew-x-[-5deg]"></div>
+<div class="flex-1 bg-wild-rust border border-wild-black h-[85%] relative group transform skew-x-[-5deg] shadow-lg">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-wild-paper border border-wild-black text-wild-black text-[9px] px-2 py-1 shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 font-bold">
+                                Today's Loot
+                            </div>
+</div>
+<div class="flex-1 bg-wild-wood/30 border border-wild-wood h-[20%] transform skew-x-[-5deg]"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 mb-4">
+<div class="flex items-center justify-between px-4 pb-2">
+<h3 class="text-xl font-western-title text-wild-black border-b-2 border-wild-rust inline-block pr-4">Bounty Board</h3>
+<span class="text-xs font-bold text-wild-paper bg-wild-rust px-2 py-1 rounded shadow-sm border border-wild-black">3 Left</span>
+</div>
+<div class="flex flex-col gap-3 px-4 mt-2">
+<label class="group flex items-center gap-4 p-3 bg-wild-paper border border-wild-wood shadow-western active:scale-[0.99] transition-transform cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-red-800"></div>
+<div class="relative flex items-center pl-2">
+<input class="peer h-5 w-5 cursor-pointer appearance-none border-2 border-wild-wood bg-wild-sand rounded-sm checked:bg-wild-rust checked:border-wild-black transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-[40%] -translate-y-1/2 text-[16px] text-wild-paper opacity-0 peer-checked:opacity-100 pointer-events-none">close</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-western-body font-bold text-wild-black group-hover:text-wild-rust transition-colors line-through decoration-2 decoration-wild-rust peer-checked:opacity-50">Pay Electricity Bill</span>
+<span class="text-xs text-wild-wood italic">Due by Sundown</span>
+</div>
+<span class="text-wild-rust text-[10px] font-bold px-2 py-1 border border-wild-rust rounded-sm uppercase tracking-wider">Med</span>
+</label>
+<label class="group flex items-center gap-4 p-3 bg-wild-paper border border-wild-wood shadow-western active:scale-[0.99] transition-transform cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-green-700"></div>
+<div class="relative flex items-center pl-2">
+<input class="peer h-5 w-5 cursor-pointer appearance-none border-2 border-wild-wood bg-wild-sand rounded-sm checked:bg-wild-rust checked:border-wild-black transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-[40%] -translate-y-1/2 text-[16px] text-wild-paper opacity-0 peer-checked:opacity-100 pointer-events-none">close</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-western-body font-bold text-wild-black group-hover:text-wild-rust transition-colors">Gym Session</span>
+<span class="text-xs text-wild-wood italic">6:00 PM</span>
+</div>
+<span class="text-green-800 text-[10px] font-bold px-2 py-1 border border-green-800 rounded-sm uppercase tracking-wider">Low</span>
+</label>
+<label class="group flex items-center gap-4 p-3 bg-wild-paper border border-wild-wood shadow-western active:scale-[0.99] transition-transform cursor-pointer relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-blue-800"></div>
+<div class="relative flex items-center pl-2">
+<input class="peer h-5 w-5 cursor-pointer appearance-none border-2 border-wild-wood bg-wild-sand rounded-sm checked:bg-wild-rust checked:border-wild-black transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-[40%] -translate-y-1/2 text-[16px] text-wild-paper opacity-0 peer-checked:opacity-100 pointer-events-none">close</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-western-body font-bold text-wild-black group-hover:text-wild-rust transition-colors">Review Q3 Reports</span>
+<span class="text-xs text-wild-wood italic">Tomorrow, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-12"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full wood-panel pb-safe pt-2 z-50 border-t-4 border-wild-dark-leather shadow-[0_-5px_10px_rgba(0,0,0,0.5)]">
+<div class="flex justify-around items-end pb-6 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-wild-gold group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform drop-shadow-md" style="font-variation-settings: 'FILL' 1, 'wght' 400;">dashboard</span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-wild-paper">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-wild-paper/60 hover:text-wild-gold transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">calendar_month</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Plan</span>
+</button>
+<button class="flex items-center justify-center -mt-10 size-16 bg-wild-gold text-wild-dark-leather shadow-[0_4px_10px_rgba(0,0,0,0.6)] hover:scale-105 transition-transform active:scale-95 border-2 border-wild-paper" style="clip-path: polygon(50% 0%, 83% 12%, 100% 43%, 94% 78%, 68% 100%, 32% 100%, 6% 78%, 0% 43%, 17% 12%);">
+<span class="material-symbols-outlined" style="font-size: 32px;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-wild-paper/60 hover:text-wild-gold transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">account_balance_wallet</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Loot</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-wild-paper/60 hover:text-wild-gold transition-colors group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings</span>
+<span class="text-[10px] font-bold uppercase tracking-wider">Gear</span>
+</button>
+</div>
+</nav>
+
+</body></html>

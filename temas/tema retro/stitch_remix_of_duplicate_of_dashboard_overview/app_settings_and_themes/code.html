@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings and Themes</title>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "retro-bg": "#202028",
+                        "retro-panel": "#2d2d35",
+                        "retro-light": "#e2e2e2",
+                        "retro-border": "#4b4b52",
+                        "arcade-red": "#ff4d4d",
+                        "arcade-green": "#4ade80",
+                        "arcade-yellow": "#facc15",
+                        "arcade-blue": "#3b82f6",
+                        "arcade-purple": "#a855f7",
+                    },
+                    fontFamily: {
+                        "arcade": ['"Press Start 2P"', 'cursive'],
+                        "terminal": ['"VT323"', 'monospace'],
+                    },
+                    boxShadow: {
+                        "hard": "4px 4px 0px 0px #000000",
+                        "hard-sm": "2px 2px 0px 0px #000000",
+                        "inset": "inset 2px 2px 4px rgba(0,0,0,0.3)"
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }body { 
+            background-color: #202028; 
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .pixelated {
+            image-rendering: pixelated;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col font-terminal text-retro-light overflow-x-hidden selection:bg-arcade-yellow selection:text-black">
+<div class="sticky top-0 z-50 flex items-center bg-retro-bg/95 backdrop-blur-sm px-4 py-4 justify-between border-b-4 border-black shadow-hard mb-4">
+<div class="flex size-10 shrink-0 items-center justify-center border-2 border-retro-light bg-retro-panel active:translate-y-1 active:shadow-none shadow-hard-sm cursor-pointer hover:bg-retro-light hover:text-retro-bg transition-all group">
+<span class="material-symbols-outlined font-bold group-hover:scale-110 transition-transform">arrow_back</span>
+</div>
+<h2 class="text-xs font-arcade tracking-widest text-center text-arcade-yellow uppercase pt-1 drop-shadow-[2px_2px_0_rgba(0,0,0,1)]">Settings</h2>
+<div class="size-10"></div> 
+</div>
+<div class="flex flex-col w-full mb-4">
+<div class="flex items-center gap-3 px-6 pb-3 pt-2">
+<div class="p-1 bg-arcade-blue border-2 border-black shadow-hard-sm">
+<span class="material-symbols-outlined text-black block text-sm">palette</span>
+</div>
+<h3 class="text-arcade-blue text-xs font-arcade uppercase tracking-widest leading-none pt-2">Appearance</h3>
+</div>
+<div class="w-full bg-black/30 border-y-4 border-black py-6 relative">
+<div class="absolute top-0 left-4 -translate-y-1/2 bg-arcade-yellow text-black text-[10px] font-arcade px-3 py-1 border-2 border-black shadow-hard-sm z-10 transform -rotate-1">SELECT THEME</div>
+<div class="flex w-full overflow-x-auto px-6 no-scrollbar gap-6 snap-x items-start pt-2 pb-2">
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 border-4 border-arcade-yellow bg-retro-panel shadow-hard transform transition-transform active:scale-95 active:shadow-none hover:-translate-y-1">
+<div class="absolute inset-0 m-1 border-2 border-black/20 overflow-hidden bg-black">
+<div class="w-full h-full bg-cover bg-center opacity-90" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0PdoHgc2GvwbrpfavLxYcDwQfCvSqvR_I-8TaGTCxZkNH5ZN4B6tNmvax_pTJhR1C4MJMU5gsZjev236niqJCwWFDRLg5dgS4cAl9JgHXSjDkSqPPWh1RTibDFrWhb1FPfMBcpH4mHbN_4znca4eYKLIYRXbhsowBn46FURuYzMkMLu0uKvwXm8SNhKZnzTizLjeLds0-N-tRgP3ltatzXnv1DOF_21qMo4f_Dn6UJhKeb2gU0LyV4BrPoDzPBJokcMlFJrN96hE");'>
+<div class="absolute inset-0 bg-arcade-blue/20 mix-blend-overlay"></div>
+</div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDAsIDAsIDAsIDAuMikiLz4KPC9zdmc+')] opacity-30 pointer-events-none"></div>
+</div>
+<div class="absolute -bottom-3 -right-3 bg-arcade-yellow text-black border-2 border-black size-8 flex items-center justify-center shadow-hard-sm z-20">
+<span class="material-symbols-outlined text-lg font-bold">check</span>
+</div>
+</div>
+<div class="text-center bg-retro-panel border-2 border-black py-1 px-2 shadow-hard-sm mt-1">
+<p class="text-xl leading-none text-arcade-yellow uppercase font-bold tracking-tight">Default</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 border-4 border-retro-border hover:border-retro-light bg-retro-panel shadow-hard-sm transform transition-transform active:scale-95 hover:-translate-y-1">
+<div class="absolute inset-0 m-1 border-2 border-black/20 overflow-hidden bg-black">
+<div class="w-full h-full bg-cover bg-center sepia contrast-125" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQ_rmuxqaGDqd90lSmys-KBIL5Lx1Fp1fyYKuvF7lnWkb6CQm2IJGFA9_JNEzg2FXTevvOHvo61W5jd2q-FCyEvwQpOy9BwpQazdVbz4vjoyqWD_-UZuPI3RZ1qz7i5SNk0nFTxEMq1eu3gTC7iJLPfE2ziXRHaiLxW8j2zOVtHBKzTTHs77UunBUr3Dg7aqeT-nuP6SsE8tEA0o9p9r0vfYXNdk021M1U-RKeGVX2K8DTi8PdGZWjtALRHxZ1nEIkoe4GJD2dxo");'></div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDAsIDAsIDAsIDAuMikiLz4KPC9zdmc+')] opacity-30 pointer-events-none"></div>
+</div>
+</div>
+<div class="text-center bg-retro-panel border-2 border-black/50 group-hover:border-retro-light py-1 px-2 shadow-hard-sm mt-1 transition-colors">
+<p class="text-xl leading-none text-gray-400 group-hover:text-white uppercase tracking-tight">Retro</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 border-4 border-retro-border hover:border-arcade-purple bg-retro-panel shadow-hard-sm transform transition-transform active:scale-95 hover:-translate-y-1">
+<div class="absolute inset-0 m-1 border-2 border-black/20 overflow-hidden bg-black">
+<div class="w-full h-full bg-cover bg-center saturate-150 contrast-110" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgOAeXiPZgUBkgvuFejn9cMrIpq1GYUNBPWTEuU_JUYGgn-rmxxzjdkX5G-pN_KCaI1J1TwYoxjp_yRsOsvwz1LfbdUjXI7UGW5EnhFjtuQEQ8RNlr0N5ZjBFZZ65hMz3LK0p-C_qwVAbLPhtoOTjBie3Hr58aAnXh-6GsD7MS7Ln_AP6VmkERbhujV62NmSuqyHb1t6uHKBXN1j3BqdaV7RldRaXAPdVhDXHT9Ygd1qdjbRKsDpNzqmIA3L5t7f_lTl17l3W02gY");'></div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDAsIDAsIDAsIDAuMikiLz4KPC9zdmc+')] opacity-30 pointer-events-none"></div>
+</div>
+</div>
+<div class="text-center bg-retro-panel border-2 border-black/50 group-hover:border-arcade-purple py-1 px-2 shadow-hard-sm mt-1 transition-colors">
+<p class="text-xl leading-none text-gray-400 group-hover:text-arcade-purple uppercase tracking-tight">80s Neon</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 border-4 border-retro-border hover:border-orange-600 bg-retro-panel shadow-hard-sm transform transition-transform active:scale-95 hover:-translate-y-1">
+<div class="absolute inset-0 m-1 border-2 border-black/20 overflow-hidden bg-black">
+<div class="w-full h-full bg-cover bg-center grayscale-[0.3]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARk10TfcNOGHmMY3QBE3EZ2k7tn75iOmFf7TgwoT33Ocg5qd4Ip65oYQM_7mcSKezANEVhtT3p6buMhU9f1idx0iVucvRyVLL8ZzA4buVCmcg9nZXjKAf1MRvd3Hvcr8rInxfWGQwhoAPSdq-2LA1UZ7qUAzf7gqo7vA9slZf26mDrDWGB1qgB0lnWLpqoyNaTMPFj1WK_SVr0p_7TsWEru-QKY9uNVFZuMU6CPGCJ9WYFbSmk0JnIjygdTQpdRG4Q-fY2JWaTY2c");'></div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSIxIiBmaWxsPSJyZ2JhKDAsIDAsIDAsIDAuMikiLz4KPC9zdmc+')] opacity-30 pointer-events-none"></div>
+</div>
+</div>
+<div class="text-center bg-retro-panel border-2 border-black/50 group-hover:border-orange-600 py-1 px-2 shadow-hard-sm mt-1 transition-colors">
+<p class="text-xl leading-none text-gray-400 group-hover:text-orange-400 uppercase tracking-tight">Western</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6 mt-4">
+<div class="flex items-center gap-3 px-6 pb-3">
+<div class="p-1 bg-arcade-red border-2 border-black shadow-hard-sm">
+<span class="material-symbols-outlined text-black block text-sm">person</span>
+</div>
+<h3 class="text-arcade-red text-xs font-arcade uppercase tracking-widest leading-none pt-2">Player 1</h3>
+</div>
+<div class="mx-4 bg-retro-panel border-2 border-black shadow-hard">
+<div class="flex items-center p-3 border-b-2 border-black hover:bg-white/5 active:bg-white/10 cursor-pointer group transition-colors">
+<div class="size-14 border-2 border-retro-light mr-4 p-0.5 bg-black shadow-hard-sm">
+<img alt="Avatar" class="w-full h-full object-cover pixelated" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgi1E-DS_2cZNjdqnwEVS9P6NTa3WgpiIc2C2-o00ypqxzrNvV16T2clbFx28yePUhqOerDhTQhfIknAbhZHPsK20_veHxeTan58K1_Q_D5o4DZEUwxbDoYf8iz-d0jHlS4WX23ZOHUQ76zUSWHT9G3-KekC6uUDQkcZeZUjwYNA5w0Zy_cDNO1rMJtUJZJVc60_xUYf_HeMVJf6JIAhKaNJsSEoc0n4QBYtXhB8nqNNoZ0L8PgsyK5XM1JyC1E5_qUjIHcCTXPDI"/>
+</div>
+<div class="flex-1">
+<h4 class="text-2xl leading-none text-white mb-1 tracking-tight">ALEX JOHNSON</h4>
+<p class="text-lg text-gray-400 font-normal tracking-tight">alex.j@example.com</p>
+</div>
+<span class="material-symbols-outlined text-retro-light group-hover:text-arcade-yellow transition-colors group-hover:translate-x-1">chevron_right</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-white/5 active:bg-white/10 cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-arcade-yellow border-2 border-transparent bg-black/20 group-hover:border-arcade-yellow transition-colors">
+<span class="material-symbols-outlined">stars</span>
+</div>
+<span class="text-2xl leading-none pt-1">SUBSCRIPTION</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-sm font-arcade text-black bg-arcade-yellow px-2 py-1 border-2 border-white/50 shadow-sm">PRO</span>
+<span class="material-symbols-outlined text-retro-light group-hover:text-arcade-yellow transition-colors group-hover:translate-x-1">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<div class="flex items-center gap-3 px-6 pb-3">
+<div class="p-1 bg-arcade-green border-2 border-black shadow-hard-sm">
+<span class="material-symbols-outlined text-black block text-sm">settings</span>
+</div>
+<h3 class="text-arcade-green text-xs font-arcade uppercase tracking-widest leading-none pt-2">System Config</h3>
+</div>
+<div class="mx-4 bg-retro-panel border-2 border-black shadow-hard">
+<div class="flex items-center justify-between p-3 border-b-2 border-black">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-arcade-yellow bg-black/20">
+<span class="material-symbols-outlined">notifications</span>
+</div>
+<span class="text-2xl leading-none pt-1">NOTIFICATIONS</span>
+</div>
+<div class="relative w-14 h-7 bg-arcade-green border-2 border-black cursor-pointer shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none hover:brightness-110">
+<div class="absolute top-0.5 right-0.5 w-5 h-5 bg-white border-2 border-black"></div>
+<span class="absolute left-1.5 top-1 text-[10px] text-black font-arcade font-bold">ON</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 border-b-2 border-black hover:bg-white/5 cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-arcade-green bg-black/20 group-hover:text-arcade-green/80">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<span class="text-2xl leading-none pt-1">CURRENCY</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xl text-gray-400 group-hover:text-white font-mono">USD ($)</span>
+<span class="material-symbols-outlined text-retro-light group-hover:text-arcade-green transition-colors group-hover:translate-x-1">chevron_right</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-white/5 cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-arcade-purple bg-black/20 group-hover:text-arcade-purple/80">
+<span class="material-symbols-outlined">calendar_today</span>
+</div>
+<span class="text-2xl leading-none pt-1">START WEEK</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xl text-gray-400 group-hover:text-white font-mono">MONDAY</span>
+<span class="material-symbols-outlined text-retro-light group-hover:text-arcade-purple transition-colors group-hover:translate-x-1">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-8">
+<div class="flex items-center gap-3 px-6 pb-3">
+<div class="p-1 bg-gray-500 border-2 border-black shadow-hard-sm">
+<span class="material-symbols-outlined text-black block text-sm">shield</span>
+</div>
+<h3 class="text-gray-400 text-xs font-arcade uppercase tracking-widest leading-none pt-2">Security</h3>
+</div>
+<div class="mx-4 bg-retro-panel border-2 border-black shadow-hard">
+<div class="flex items-center justify-between p-3 border-b-2 border-black">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-arcade-blue bg-black/20">
+<span class="material-symbols-outlined">face</span>
+</div>
+<span class="text-2xl leading-none pt-1">FACE ID LOCK</span>
+</div>
+<div class="relative w-14 h-7 bg-gray-700 border-2 border-black cursor-pointer shadow-hard-sm transition-all active:translate-y-0.5 active:shadow-none hover:brightness-110">
+<div class="absolute top-0.5 left-0.5 w-5 h-5 bg-gray-500 border-2 border-black"></div>
+<span class="absolute right-1 top-1 text-[10px] text-black font-arcade font-bold opacity-50">OFF</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 border-b-2 border-black hover:bg-white/5 cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-gray-400 bg-black/20 group-hover:text-white">
+<span class="material-symbols-outlined">download</span>
+</div>
+<span class="text-2xl leading-none pt-1">EXPORT DATA</span>
+</div>
+<span class="material-symbols-outlined text-retro-light group-hover:text-white transition-colors group-hover:translate-x-1">chevron_right</span>
+</div>
+<div class="flex items-center justify-center p-3 hover:bg-arcade-red/10 active:bg-arcade-red/20 cursor-pointer border-t-4 border-black/50 transition-colors">
+<span class="text-xl font-bold text-arcade-red uppercase tracking-wide hover:scale-105 transition-transform font-arcade text-xs">Log Out</span>
+</div>
+</div>
+<div class="text-center mt-8 pb-8 opacity-40 hover:opacity-100 transition-opacity cursor-default">
+<p class="text-[10px] font-arcade text-gray-500">v2.4.0 <span class="text-gray-600">[BUILD 302]</span></p>
+</div>
+</div>
+
+</body></html>

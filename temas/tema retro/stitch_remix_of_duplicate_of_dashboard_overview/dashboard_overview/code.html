@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Retro Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4f46e5", // Retro Indigo
+                        "secondary": "#ef4444", // 8-bit Red
+                        "retro-bg": "#d4d4d4", // Windows 95 Grey / Gameboy Light
+                        "retro-surface": "#ffffff",
+                        "retro-dark": "#1a1a1a",
+                        "retro-accent": "#fbbf24", // Coin Gold
+                    },
+                    fontFamily: {
+                        "display": ['"Press Start 2P"', "cursive"],
+                        "body": ['"VT323"', "monospace"],
+                    },
+                    boxShadow: {
+                        "hard": "4px 4px 0px 0px #000000",
+                        "hard-sm": "2px 2px 0px 0px #000000",
+                        "hard-active": "0px 0px 0px 0px #000000",
+                    },
+                    borderWidth: {
+                        "3": "3px",
+                    }
+                },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+        body {
+            min-height: max(884px, 100dvh);
+            image-rendering: pixelated;}input[type="checkbox"] {
+            border-radius: 0 !important;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-retro-bg dark:bg-retro-dark font-body text-black dark:text-retro-surface selection:bg-primary selection:text-white">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-28">
+<header class="flex items-center justify-between p-4 pb-2 sticky top-0 z-30 bg-retro-bg/95 dark:bg-retro-dark/95 border-b-4 border-black dark:border-white backdrop-blur-sm">
+<div class="flex items-center gap-4">
+<div class="bg-center bg-no-repeat aspect-square bg-cover size-12 border-2 border-black dark:border-white shadow-hard-sm" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="flex flex-col">
+<span class="text-sm font-body uppercase tracking-widest text-gray-600 dark:text-gray-400">Oct 24, Mon</span>
+<h2 class="text-xs font-display leading-tight mt-1 text-primary dark:text-retro-accent">Hi, Alex</h2>
+</div>
+</div>
+<button class="flex items-center justify-center size-10 bg-white dark:bg-gray-800 border-2 border-black dark:border-white text-black dark:text-white hover:bg-primary hover:text-white hover:border-black transition-none shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none">
+<span class="material-symbols-outlined" style="font-size: 20px;">notifications</span>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-4">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2">
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-primary text-white border-2 border-black dark:border-white shadow-hard active:translate-x-[4px] active:translate-y-[4px] active:shadow-none shrink-0 transition-none">
+<span class="text-sm font-body uppercase">Mon</span>
+<span class="text-sm font-display mt-1">24</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-white dark:bg-gray-800 text-black dark:text-white border-2 border-black dark:border-gray-500 shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none shrink-0 transition-none group hover:bg-gray-100">
+<span class="text-sm font-body uppercase text-gray-500 group-hover:text-black">Tue</span>
+<span class="text-sm font-display mt-1">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-white dark:bg-gray-800 text-black dark:text-white border-2 border-black dark:border-gray-500 shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none shrink-0 transition-none group hover:bg-gray-100">
+<span class="text-sm font-body uppercase text-gray-500 group-hover:text-black">Wed</span>
+<span class="text-sm font-display mt-1">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-white dark:bg-gray-800 text-black dark:text-white border-2 border-black dark:border-gray-500 shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none shrink-0 transition-none group hover:bg-gray-100">
+<span class="text-sm font-body uppercase text-gray-500 group-hover:text-black">Thu</span>
+<span class="text-sm font-display mt-1">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 bg-white dark:bg-gray-800 text-black dark:text-white border-2 border-black dark:border-gray-500 shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none shrink-0 transition-none group hover:bg-gray-100">
+<span class="text-sm font-body uppercase text-gray-500 group-hover:text-black">Fri</span>
+<span class="text-sm font-display mt-1">28</span>
+</button>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-3 p-4 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-hard">
+<div class="flex justify-between items-center">
+<p class="text-xs font-display text-black dark:text-white uppercase tracking-tighter">LVL. Progress</p>
+<p class="text-xl font-body font-bold text-primary dark:text-retro-accent">65%</p>
+</div>
+<div class="h-4 w-full border-2 border-black dark:border-white bg-gray-200 dark:bg-gray-700 p-0.5">
+<div class="h-full bg-secondary dark:bg-retro-accent relative" style="width: 65%;">
+<div class="absolute top-0 left-0 w-full h-[2px] bg-white opacity-30"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-8">
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end pt-24 border-2 border-black dark:border-white shadow-hard relative group cursor-pointer transition-none active:translate-x-[4px] active:translate-y-[4px] active:shadow-none" data-alt="Abstract dark blue geometric gradient background" style='background-image: linear-gradient(180deg, rgba(79, 70, 229, 0) 0%, rgba(0, 0, 0, 1) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute top-0 right-0 bg-secondary text-white border-b-2 border-l-2 border-black px-2 py-2">
+<span class="text-[10px] font-display uppercase leading-none">!!! PRIORITY</span>
+</div>
+<div class="flex w-full items-end justify-between gap-4 p-4 z-10">
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-retro-accent text-sm font-body uppercase tracking-wider mb-1">&gt; Current Quest</p>
+<p class="text-white text-lg font-display leading-snug">Client Meeting</p>
+<div class="flex items-center gap-2 mt-2 bg-black/50 p-1 w-fit border border-white/20">
+<span class="material-symbols-outlined text-white" style="font-size: 16px;">schedule</span>
+<span class="text-white text-base font-body">14:00 - 15:30</span>
+</div>
+</div>
+<div class="bg-primary border-2 border-white p-2 text-white hover:bg-white hover:text-primary hover:border-primary transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-8">
+<div class="flex flex-col gap-4 p-5 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-hard">
+<div class="flex justify-between items-start border-b-2 border-dashed border-gray-300 dark:border-gray-600 pb-3">
+<div>
+<h3 class="text-xs font-display text-black dark:text-white uppercase">Budget_Stats</h3>
+<p class="text-lg font-body text-gray-500 dark:text-gray-400 mt-1">Oct_2023.dat</p>
+</div>
+<button class="text-black dark:text-white text-xs font-display uppercase px-2 py-1 border-2 border-black dark:border-white hover:bg-black hover:text-white transition-colors">
+                        [View]
+                    </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1 border-r-2 border-gray-200 dark:border-gray-700">
+<span class="text-base font-body text-gray-500 dark:text-gray-400 uppercase">Spent</span>
+<span class="text-2xl font-display text-secondary dark:text-secondary">$1,240</span>
+</div>
+<div class="flex flex-col gap-1 pl-2">
+<span class="text-base font-body text-gray-500 dark:text-gray-400 uppercase">Limit</span>
+<span class="text-2xl font-display text-black dark:text-white">$2,000</span>
+</div>
+</div>
+<div class="flex items-end gap-2 h-16 mt-2 border-b-2 border-black dark:border-white pb-0">
+<div class="flex-1 bg-gray-300 dark:bg-gray-700 border-x-2 border-t-2 border-black/10 dark:border-white/10 h-[30%]"></div>
+<div class="flex-1 bg-gray-300 dark:bg-gray-700 border-x-2 border-t-2 border-black/10 dark:border-white/10 h-[50%]"></div>
+<div class="flex-1 bg-gray-300 dark:bg-gray-700 border-x-2 border-t-2 border-black/10 dark:border-white/10 h-[40%]"></div>
+<div class="flex-1 bg-primary/40 border-x-2 border-t-2 border-black dark:border-white h-[60%]"></div>
+<div class="flex-1 bg-primary/60 border-x-2 border-t-2 border-black dark:border-white h-[45%]"></div>
+<div class="flex-1 bg-primary border-x-2 border-t-2 border-black dark:border-white h-[85%] relative group">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-black text-white border border-white text-[10px] font-body px-2 py-1 opacity-0 group-hover:opacity-100 transition-none z-10 whitespace-nowrap">
+                            &gt;&gt; TODAY
+                        </div>
+</div>
+<div class="flex-1 bg-gray-300 dark:bg-gray-700 border-x-2 border-t-2 border-black/10 dark:border-white/10 h-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<div class="flex items-center justify-between px-4 pb-2">
+<h3 class="text-xs font-display uppercase leading-tight">Pending_Tasks</h3>
+<span class="text-sm font-body text-black bg-retro-accent px-2 py-0.5 border-2 border-black shadow-hard-sm">3 LEFT</span>
+</div>
+<div class="flex flex-col gap-3 px-4 mt-2">
+<label class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-none cursor-pointer group hover:bg-gray-50 dark:hover:bg-gray-700">
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-black dark:border-white bg-white dark:bg-black checked:bg-primary checked:border-black transition-none rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-xl font-body text-black dark:text-white line-through decoration-2 decoration-black peer-checked:text-gray-400">Pay Electricity Bill</span>
+<span class="text-sm font-body text-secondary uppercase">&gt;&gt; Due Today</span>
+</div>
+<span class="bg-white border-2 border-black text-black text-[10px] font-display px-1 py-1 uppercase">Med</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-none cursor-pointer group hover:bg-gray-50 dark:hover:bg-gray-700">
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-black dark:border-white bg-white dark:bg-black checked:bg-primary checked:border-black transition-none rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-xl font-body text-black dark:text-white">Gym Session</span>
+<span class="text-sm font-body text-gray-500">@ 6:00 PM</span>
+</div>
+<span class="bg-white border-2 border-black text-black text-[10px] font-display px-1 py-1 uppercase">Low</span>
+</label>
+<label class="flex items-center gap-4 p-3 bg-white dark:bg-gray-800 border-2 border-black dark:border-white shadow-hard-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-none cursor-pointer group hover:bg-gray-50 dark:hover:bg-gray-700">
+<div class="relative flex items-center">
+<input class="peer h-6 w-6 cursor-pointer appearance-none border-2 border-black dark:border-white bg-white dark:bg-black checked:bg-primary checked:border-black transition-none rounded-none" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-xl font-body text-black dark:text-white">Review Q3 Reports</span>
+<span class="text-sm font-body text-gray-500">Tmrw, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-12"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-retro-bg dark:bg-retro-dark border-t-4 border-black dark:border-white pb-safe pt-2 z-50">
+<div class="flex justify-around items-end pb-6 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-primary hover:text-secondary transition-colors">
+<span class="material-symbols-outlined border-2 border-transparent p-1" style="font-variation-settings: 'FILL' 1, 'wght' 400;">dashboard</span>
+<span class="text-[10px] font-display uppercase mt-1">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined border-2 border-transparent p-1">calendar_month</span>
+<span class="text-[10px] font-display uppercase mt-1">Plan</span>
+</button>
+<button class="flex items-center justify-center -mt-10 size-14 bg-retro-accent border-4 border-black text-black shadow-hard hover:translate-y-[-4px] active:translate-y-[0px] active:shadow-none transition-all rounded-none">
+<span class="material-symbols-outlined" style="font-size: 32px; font-weight: 700;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined border-2 border-transparent p-1">account_balance_wallet</span>
+<span class="text-[10px] font-display uppercase mt-1">$$$</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors">
+<span class="material-symbols-outlined border-2 border-transparent p-1">settings</span>
+<span class="text-[10px] font-display uppercase mt-1">Cfg</span>
+</button>
+</div>
+</nav>
+
+</body></html>

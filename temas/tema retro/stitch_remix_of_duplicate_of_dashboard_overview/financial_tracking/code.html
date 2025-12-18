@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Tracking - Dark Retro</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "retro-bg": "#121212",
+                        "retro-card": "#1E1E1E",
+                        "retro-border": "#525252",
+                        "retro-primary": "#6366F1", // Retro Indigo/Blue
+                        "retro-accent": "#EF4444", // Retro Red
+                        "retro-success": "#10B981", // Retro Green
+                        "retro-text": "#E5E5E5",
+                        "retro-text-dim": "#A3A3A3",
+                    },
+                    fontFamily: {
+                        "retro": ['"VT323"', "monospace"],
+                        "display": ['"VT323"', "monospace"]
+                    },
+                    boxShadow: {
+                        "retro": "4px 4px 0px 0px #000000",
+                        "retro-sm": "2px 2px 0px 0px #000000",
+                        "retro-hover": "6px 6px 0px 0px #000000",
+                    },
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .pixel-pattern-dark {
+            background-image: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 50%);
+            background-size: 100% 4px;
+        }
+        .dither-pattern {
+            background-image: radial-gradient(#000000 1px, transparent 1px);
+            background-size: 3px 3px;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-retro-bg font-retro text-retro-text antialiased selection:bg-retro-primary selection:text-white">
+<div class="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-retro-bg border-x-2 border-retro-border">
+<div class="flex items-center justify-between p-4 sticky top-0 z-20 bg-retro-bg border-b-2 border-retro-border">
+<div class="flex items-center gap-2">
+<div class="w-8 h-8 bg-retro-text text-retro-bg flex items-center justify-center border border-retro-border">
+<span class="material-symbols-outlined text-lg">terminal</span>
+</div>
+<h2 class="text-2xl font-bold uppercase tracking-widest mt-1">Finance<span class="text-retro-primary">OS</span></h2>
+</div>
+<button class="flex items-center justify-center w-10 h-10 border-2 border-retro-border bg-retro-card shadow-retro-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all hover:bg-retro-border hover:text-retro-bg group">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+<div class="flex gap-3 px-4 py-4 overflow-x-auto no-scrollbar w-full flex-nowrap border-b-2 border-retro-border bg-retro-card/50">
+<button class="flex-shrink-0 h-10 px-4 bg-retro-primary text-white text-xl leading-none border-2 border-retro-border shadow-retro-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all uppercase">
+                Current
+            </button>
+<button class="flex-shrink-0 h-10 px-4 bg-retro-card text-retro-text text-xl leading-none border-2 border-retro-border shadow-retro-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all hover:bg-retro-border hover:text-retro-bg uppercase">
+                October
+            </button>
+<button class="flex-shrink-0 h-10 px-4 bg-retro-card text-retro-text text-xl leading-none border-2 border-retro-border shadow-retro-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all hover:bg-retro-border hover:text-retro-bg uppercase">
+                September
+            </button>
+<button class="flex-shrink-0 h-10 px-4 bg-retro-card text-retro-text text-xl leading-none border-2 border-retro-border shadow-retro-sm active:shadow-none active:translate-x-[2px] active:translate-y-[2px] transition-all hover:bg-retro-border hover:text-retro-bg uppercase">
+                2023
+            </button>
+</div>
+<div class="flex flex-col items-center pt-8 pb-6 px-4">
+<div class="border-2 border-retro-border bg-retro-card p-6 shadow-retro w-full text-center relative">
+<div class="absolute top-1 left-1 w-1.5 h-1.5 border border-retro-border bg-retro-bg"></div>
+<div class="absolute top-1 right-1 w-1.5 h-1.5 border border-retro-border bg-retro-bg"></div>
+<div class="absolute bottom-1 left-1 w-1.5 h-1.5 border border-retro-border bg-retro-bg"></div>
+<div class="absolute bottom-1 right-1 w-1.5 h-1.5 border border-retro-border bg-retro-bg"></div>
+<p class="text-retro-text-dim text-xl uppercase mb-2 font-bold tracking-widest border-b border-retro-border/50 pb-2 mx-8">Total Balance</p>
+<h1 class="text-5xl font-bold tracking-tight text-retro-text mt-2">$4,250.00</h1>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 px-4 mb-8">
+<div class="bg-retro-card p-3 border-2 border-retro-border shadow-retro relative group active:translate-y-1 active:shadow-none transition-all cursor-default hover:bg-retro-border hover:text-retro-bg">
+<div class="flex flex-col h-full justify-between">
+<div class="flex items-start justify-between mb-2">
+<span class="text-xl uppercase font-bold">In</span>
+<div class="w-6 h-6 border border-retro-success flex items-center justify-center bg-retro-success/10 group-hover:bg-retro-bg/10">
+<span class="material-symbols-outlined text-retro-success text-sm font-bold">add</span>
+</div>
+</div>
+<p class="text-3xl font-bold text-retro-success tracking-tighter">+$2,500</p>
+</div>
+</div>
+<div class="bg-retro-card p-3 border-2 border-retro-border shadow-retro relative group active:translate-y-1 active:shadow-none transition-all cursor-default hover:bg-retro-border hover:text-retro-bg">
+<div class="flex flex-col h-full justify-between">
+<div class="flex items-start justify-between mb-2">
+<span class="text-xl uppercase font-bold">Out</span>
+<div class="w-6 h-6 border border-retro-accent flex items-center justify-center bg-retro-accent/10 group-hover:bg-retro-bg/10">
+<span class="material-symbols-outlined text-retro-accent text-sm font-bold">remove</span>
+</div>
+</div>
+<p class="text-3xl font-bold text-retro-accent tracking-tighter">-$1,150</p>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="bg-retro-card border-2 border-retro-border shadow-retro p-4">
+<div class="flex items-center justify-between mb-6 border-b-2 border-retro-border/30 pb-2">
+<div>
+<h3 class="text-2xl font-bold text-retro-text uppercase leading-none">Analysis</h3>
+<p class="text-lg text-retro-text-dim mt-1">Oct 01 - 31</p>
+</div>
+<div class="flex items-center gap-1 bg-retro-success/10 px-2 py-1 border border-retro-success border-dashed">
+<span class="material-symbols-outlined text-retro-success text-base">arrow_upward</span>
+<span class="text-lg font-bold text-retro-success leading-none">12%</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-40 gap-3 px-2 bg-retro-bg border-2 border-retro-border p-2 relative">
+<div class="absolute inset-0 w-full h-full pointer-events-none opacity-20" style="background-image: linear-gradient(#525252 1px, transparent 1px), linear-gradient(90deg, #525252 1px, transparent 1px); background-size: 20px 20px;"></div>
+<div class="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
+<div class="w-full bg-retro-text/20 border-2 border-retro-border relative hover:bg-retro-text/40 transition-colors" style="height: 40%">
+<div class="w-full h-full opacity-40 pixel-pattern-dark"></div>
+</div>
+<span class="text-lg leading-none mt-1 text-retro-text-dim">W1</span>
+</div>
+<div class="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
+<div class="w-full bg-retro-text/40 border-2 border-retro-border relative hover:bg-retro-text/60 transition-colors" style="height: 65%">
+<div class="w-full h-full opacity-40 pixel-pattern-dark"></div>
+</div>
+<span class="text-lg leading-none mt-1 text-retro-text-dim">W2</span>
+</div>
+<div class="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
+<div class="w-full bg-retro-primary border-2 border-retro-border relative shadow-[-4px_0px_0px_0px_rgba(0,0,0,0.4)_inset]" style="height: 85%">
+<div class="w-full h-full opacity-30 pixel-pattern-dark"></div>
+</div>
+<span class="text-lg font-bold text-retro-primary leading-none mt-1">W3</span>
+</div>
+<div class="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
+<div class="w-full bg-retro-text/20 border-2 border-retro-border relative hover:bg-retro-text/40 transition-colors" style="height: 30%">
+<div class="w-full h-full opacity-40 pixel-pattern-dark"></div>
+</div>
+<span class="text-lg leading-none mt-1 text-retro-text-dim">W4</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="flex items-center justify-between mb-4 border-b-2 border-retro-border pb-1">
+<h3 class="text-2xl font-bold uppercase">Budgets</h3>
+<button class="text-retro-primary text-xl underline hover:no-underline hover:text-retro-text">EDIT</button>
+</div>
+<div class="space-y-4">
+<div class="bg-retro-card p-4 border-2 border-retro-border shadow-retro-sm">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center text-retro-text">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+</div>
+<div>
+<p class="text-xl font-bold leading-none">Groceries</p>
+<p class="text-lg text-retro-text-dim leading-none mt-1">$320 rem.</p>
+</div>
+</div>
+<p class="text-xl font-bold">$180<span class="text-retro-text-dim/50">/500</span></p>
+</div>
+<div class="w-full h-6 border-2 border-retro-border bg-retro-bg p-0.5 relative">
+<div class="absolute inset-0 flex justify-between px-1 pointer-events-none z-10">
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+</div>
+<div class="h-full bg-retro-accent border-r-2 border-retro-border relative" style="width: 36%">
+<div class="absolute inset-0 dither-pattern opacity-30"></div>
+</div>
+</div>
+</div>
+<div class="bg-retro-card p-4 border-2 border-retro-border shadow-retro-sm">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center text-retro-text">
+<span class="material-symbols-outlined text-lg">directions_car</span>
+</div>
+<div>
+<p class="text-xl font-bold leading-none">Transport</p>
+<p class="text-lg text-retro-text-dim leading-none mt-1">$50 rem.</p>
+</div>
+</div>
+<p class="text-xl font-bold">$150<span class="text-retro-text-dim/50">/200</span></p>
+</div>
+<div class="w-full h-6 border-2 border-retro-border bg-retro-bg p-0.5 relative">
+<div class="absolute inset-0 flex justify-between px-1 pointer-events-none z-10">
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+<div class="w-px h-full bg-retro-border/30"></div>
+</div>
+<div class="h-full bg-retro-primary border-r-2 border-retro-border relative" style="width: 75%">
+<div class="absolute inset-0 dither-pattern opacity-30"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 flex-1">
+<div class="flex items-center justify-between mb-4 border-b-2 border-retro-border pb-1">
+<h3 class="text-2xl font-bold uppercase">Transactions</h3>
+<button class="text-retro-primary text-xl underline hover:no-underline hover:text-retro-text">ALL</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-2 border-b-2 border-dashed border-retro-border/30 hover:bg-retro-border hover:text-retro-bg cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center group-hover:bg-retro-bg group-hover:text-retro-text transition-colors text-retro-text-dim">
+<span class="material-symbols-outlined text-lg">storefront</span>
+</div>
+<div class="flex flex-col">
+<p class="text-xl font-bold leading-none uppercase">Apple Store</p>
+<p class="text-lg text-retro-text-dim group-hover:text-retro-bg/70 leading-none mt-1">10:42 AM</p>
+</div>
+</div>
+<p class="text-xl font-bold">-$1,150.00</p>
+</div>
+<div class="flex items-center justify-between p-2 border-b-2 border-dashed border-retro-border/30 hover:bg-retro-border hover:text-retro-bg cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center group-hover:bg-retro-bg group-hover:text-retro-text transition-colors text-retro-text-dim">
+<span class="material-symbols-outlined text-lg">payments</span>
+</div>
+<div class="flex flex-col">
+<p class="text-xl font-bold leading-none uppercase">Salary</p>
+<p class="text-lg text-retro-text-dim group-hover:text-retro-bg/70 leading-none mt-1">Yesterday</p>
+</div>
+</div>
+<p class="text-xl font-bold text-retro-success group-hover:text-retro-bg">+$2,500.00</p>
+</div>
+<div class="flex items-center justify-between p-2 border-b-2 border-dashed border-retro-border/30 hover:bg-retro-border hover:text-retro-bg cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center group-hover:bg-retro-bg group-hover:text-retro-text transition-colors text-retro-text-dim">
+<span class="material-symbols-outlined text-lg">movie</span>
+</div>
+<div class="flex flex-col">
+<p class="text-xl font-bold leading-none uppercase">Netflix</p>
+<p class="text-lg text-retro-text-dim group-hover:text-retro-bg/70 leading-none mt-1">Oct 21</p>
+</div>
+</div>
+<p class="text-xl font-bold">-$15.00</p>
+</div>
+<div class="flex items-center justify-between p-2 border-b-2 border-dashed border-retro-border/30 hover:bg-retro-border hover:text-retro-bg cursor-pointer group transition-colors">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 border-2 border-retro-border bg-retro-bg flex items-center justify-center group-hover:bg-retro-bg group-hover:text-retro-text transition-colors text-retro-text-dim">
+<span class="material-symbols-outlined text-lg">local_dining</span>
+</div>
+<div class="flex flex-col">
+<p class="text-xl font-bold leading-none uppercase">Starbucks</p>
+<p class="text-lg text-retro-text-dim group-hover:text-retro-bg/70 leading-none mt-1">Oct 20</p>
+</div>
+</div>
+<p class="text-xl font-bold">-$5.40</p>
+</div>
+</div>
+</div>
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-retro-primary text-white border-2 border-retro-border shadow-retro flex items-center justify-center active:shadow-none active:translate-x-1 active:translate-y-1 transition-all z-30 group">
+<span class="material-symbols-outlined text-3xl group-hover:rotate-90 transition-transform">add</span>
+</button>
+<div class="h-6"></div>
+</div>
+
+</body></html>

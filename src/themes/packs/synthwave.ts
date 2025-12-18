@@ -1,0 +1,67 @@
+import { ThemePack } from '../types';
+
+export const synthwaveTheme: ThemePack = {
+  id: 'synthwave',
+  name: 'Synthwave 80s',
+  description: 'Retro-futuristic vibes with sunset gradients and chrome aesthetics',
+  tokens: {
+    background: 'oklch(0.15 0.05 280)',
+    foreground: 'oklch(0.95 0.02 320)',
+    card: 'oklch(0.20 0.06 285 / 80%)',
+    cardForeground: 'oklch(0.95 0.02 320)',
+    primary: 'oklch(0.70 0.25 330)',
+    primaryForeground: 'oklch(0.15 0.05 280)',
+    secondary: 'oklch(0.65 0.20 200)',
+    secondaryForeground: 'oklch(0.15 0.05 280)',
+    muted: 'oklch(0.25 0.05 280)',
+    mutedForeground: 'oklch(0.70 0.04 320)',
+    accent: 'oklch(0.80 0.18 60)',
+    accentForeground: 'oklch(0.15 0.05 280)',
+    destructive: 'oklch(0.60 0.22 20)',
+    border: 'oklch(0.50 0.20 330 / 40%)',
+    input: 'oklch(0.18 0.05 280)',
+    ring: 'oklch(0.70 0.25 330)',
+    chart1: 'oklch(0.70 0.25 330)',
+    chart2: 'oklch(0.65 0.20 200)',
+    chart3: 'oklch(0.80 0.18 60)',
+    chart4: 'oklch(0.60 0.22 280)',
+    chart5: 'oklch(0.75 0.15 30)',
+    glow: 'oklch(0.70 0.25 330 / 50%)',
+    gradientStart: 'oklch(0.70 0.25 330)',
+    gradientEnd: 'oklch(0.80 0.18 60)',
+    radius: '0rem',
+  },
+  motion: {
+    pageTransition: {
+      initial: { opacity: 0, x: 30, rotateY: 5 },
+      animate: { opacity: 1, x: 0, rotateY: 0 },
+      exit: { opacity: 0, x: -30, rotateY: -5 },
+      transition: { duration: 0.35 },
+    },
+    cardHover: {
+      scale: 1.03,
+      y: -3,
+      transition: { duration: 0.2, ease: 'easeOut' },
+    },
+    stagger: 0.06,
+    duration: { fast: 0.15, normal: 0.35, slow: 0.5 },
+    easing: [0.6, 0.05, 0.01, 0.9],
+  },
+  fonts: {
+    heading: '"Audiowide", "Geist Sans", sans-serif',
+    body: '"Exo 2", "Geist Sans", sans-serif',
+    mono: '"Share Tech Mono", "Geist Mono", monospace',
+  },
+  background: {
+    type: 'animated',
+    config: {
+      gradient: 'linear-gradient(180deg, oklch(0.15 0.05 280) 0%, oklch(0.25 0.15 330) 50%, oklch(0.40 0.20 60) 100%)',
+      grid: { enabled: true, perspective: true, color: 'oklch(0.70 0.25 330 / 30%)' },
+      sun: { enabled: true, position: 'bottom' },
+      stars: { enabled: true, count: 100 },
+    },
+  },
+  preview: {
+    accent: '#FF6EC7',
+  },
+};

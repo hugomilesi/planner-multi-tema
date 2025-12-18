@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings - Kids Theme</title>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&amp;family=Nunito:wght@400..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4DACFF",      // Bright Blue
+                        "primary-dark": "#0077E6",
+                        "secondary": "#FF6B6B",    // Playful Red
+                        "accent": "#FFD93D",       // Sunny Yellow
+                        "success": "#6BCB77",      // Grass Green
+                        "background-light": "#F0F4F8", // Cloud Blueish White
+                        "background-dark": "#1a1b26",  // Deep Space Blue
+                        "card-light": "#FFFFFF",
+                        "card-dark": "#24283b",
+                    },
+                    fontFamily: {
+                        "display": ["Fredoka", "cursive"],
+                        "body": ["Nunito", "sans-serif"]
+                    },
+                    boxShadow: {
+                        'comic': '4px 4px 0px 0px rgba(0,0,0,0.1)',
+                        'comic-hover': '6px 6px 0px 0px rgba(0,0,0,0.15)',
+                        'comic-active': '0px 0px 0px 0px rgba(0,0,0,0.1)',
+                        'comic-sm': '2px 2px 0px 0px rgba(0,0,0,0.1)',
+                    },
+                    borderRadius: {
+                        '3xl': '1.5rem',
+                        '4xl': '2rem',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body { min-height: max(884px, 100dvh); }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col font-body text-gray-800 dark:text-gray-100 overflow-x-hidden transition-colors duration-300 selection:bg-accent selection:text-black">
+<div class="sticky top-0 z-50 flex items-center bg-card-light/95 dark:bg-card-dark/95 backdrop-blur-md px-5 py-4 justify-between border-b-4 border-gray-100 dark:border-gray-800 shadow-sm">
+<div class="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white dark:bg-gray-800 border-2 border-gray-100 dark:border-gray-700 shadow-comic-sm hover:shadow-comic-hover active:shadow-comic-active active:translate-y-0.5 cursor-pointer text-primary transition-all group">
+<span class="material-symbols-outlined font-black text-2xl group-hover:scale-110 transition-transform">arrow_back_ios_new</span>
+</div>
+<h2 class="text-2xl font-display font-bold leading-tight tracking-wide flex-1 text-center pr-12 text-gray-800 dark:text-white">Settings</h2>
+</div>
+<div class="flex flex-col w-full p-2 max-w-md mx-auto">
+<div class="flex flex-col w-full mt-4">
+<div class="flex items-center gap-2 px-6 pb-3 pt-2">
+<span class="material-symbols-outlined text-secondary text-2xl">palette</span>
+<h3 class="text-gray-500 dark:text-gray-400 text-sm font-display font-bold uppercase tracking-wider">Pick Your Theme</h3>
+</div>
+<div class="flex w-full overflow-x-auto px-4 pb-6 no-scrollbar gap-5 snap-x py-2">
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 rounded-3xl border-4 border-primary bg-primary p-1 shadow-comic hover:shadow-comic-hover transition-all transform hover:-translate-y-1">
+<div class="w-full h-full rounded-2xl overflow-hidden relative bg-white">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0PdoHgc2GvwbrpfavLxYcDwQfCvSqvR_I-8TaGTCxZkNH5ZN4B6tNmvax_pTJhR1C4MJMU5gsZjev236niqJCwWFDRLg5dgS4cAl9JgHXSjDkSqPPWh1RTibDFrWhb1FPfMBcpH4mHbN_4znca4eYKLIYRXbhsowBn46FURuYzMkMLu0uKvwXm8SNhKZnzTizLjeLds0-N-tRgP3ltatzXnv1DOF_21qMo4f_Dn6UJhKeb2gU0LyV4BrPoDzPBJokcMlFJrN96hE");'>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+</div>
+</div>
+<div class="absolute -bottom-3 -right-3 size-10 bg-success text-white rounded-full border-4 border-white dark:border-background-dark shadow-sm flex items-center justify-center z-10">
+<span class="material-symbols-outlined text-xl font-black">check</span>
+</div>
+</div>
+<p class="text-center font-display text-base font-bold text-primary">Default Blue</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 rounded-3xl border-4 border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-comic hover:shadow-comic-hover transition-all transform hover:-translate-y-1">
+<div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-100">
+<div class="absolute inset-0 bg-cover bg-center sepia" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQ_rmuxqaGDqd90lSmys-KBIL5Lx1Fp1fyYKuvF7lnWkb6CQm2IJGFA9_JNEzg2FXTevvOHvo61W5jd2q-FCyEvwQpOy9BwpQazdVbz4vjoyqWD_-UZuPI3RZ1qz7i5SNk0nFTxEMq1eu3gTC7iJLPfE2ziXRHaiLxW8j2zOVtHBKzTTHs77UunBUr3Dg7aqeT-nuP6SsE8tEA0o9p9r0vfYXNdk021M1U-RKeGVX2K8DTi8PdGZWjtALRHxZ1nEIkoe4GJD2dxo");'></div>
+</div>
+</div>
+<p class="text-center font-display text-base font-bold text-gray-500 group-hover:text-gray-800 dark:group-hover:text-white transition-colors">Retro</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 rounded-3xl border-4 border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-comic hover:shadow-comic-hover transition-all transform hover:-translate-y-1">
+<div class="w-full h-full rounded-2xl overflow-hidden relative bg-gray-900">
+<div class="absolute inset-0 bg-cover bg-center contrast-125 saturate-150" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgOAeXiPZgUBkgvuFejn9cMrIpq1GYUNBPWTEuU_JUYGgn-rmxxzjdkX5G-pN_KCaI1J1TwYoxjp_yRsOsvwz1LfbdUjXI7UGW5EnhFjtuQEQ8RNlr0N5ZjBFZZ65hMz3LK0p-C_qwVAbLPhtoOTjBie3Hr58aAnXh-6GsD7MS7Ln_AP6VmkERbhujV62NmSuqyHb1t6uHKBXN1j3BqdaV7RldRaXAPdVhDXHT9Ygd1qdjbRKsDpNzqmIA3L5t7f_lTl17l3W02gY");'></div>
+</div>
+</div>
+<p class="text-center font-display text-base font-bold text-gray-500 group-hover:text-gray-800 dark:group-hover:text-white transition-colors">80s Neon</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 rounded-3xl border-4 border-white dark:border-gray-700 bg-white dark:bg-gray-800 p-1 shadow-comic hover:shadow-comic-hover transition-all transform hover:-translate-y-1">
+<div class="w-full h-full rounded-2xl overflow-hidden relative bg-[#5D4037]">
+<div class="absolute inset-0 bg-cover bg-center" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARk10TfcNOGHmMY3QBE3EZ2k7tn75iOmFf7TgwoT33Ocg5qd4Ip65oYQM_7mcSKezANEVhtT3p6buMhU9f1idx0iVucvRyVLL8ZzA4buVCmcg9nZXjKAf1MRvd3Hvcr8rInxfWGQwhoAPSdq-2LA1UZ7qUAzf7gqo7vA9slZf26mDrDWGB1qgB0lnWLpqoyNaTMPFj1WK_SVr0p_7TsWEru-QKY9uNVFZuMU6CPGCJ9WYFbSmk0JnIjygdTQpdRG4Q-fY2JWaTY2c");'></div>
+</div>
+</div>
+<p class="text-center font-display text-base font-bold text-gray-500 group-hover:text-gray-800 dark:group-hover:text-white transition-colors">Wild West</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<div class="flex items-center gap-2 px-6 pb-2">
+<span class="material-symbols-outlined text-accent text-2xl">badge</span>
+<h3 class="text-gray-500 dark:text-gray-400 text-sm font-display font-bold uppercase tracking-wider">My Profile</h3>
+</div>
+<div class="mx-4 bg-card-light dark:bg-card-dark rounded-3xl overflow-hidden shadow-comic border-2 border-gray-100 dark:border-gray-700">
+<div class="flex items-center p-4 border-b-2 border-gray-100 dark:border-gray-800 active:bg-gray-50 dark:active:bg-gray-700/50 transition-colors cursor-pointer group">
+<div class="size-16 rounded-2xl bg-accent p-1 shadow-inner rotate-3 transform transition-transform group-hover:rotate-0">
+<img class="w-full h-full object-cover rounded-xl bg-white" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgi1E-DS_2cZNjdqnwEVS9P6NTa3WgpiIc2C2-o00ypqxzrNvV16T2clbFx28yePUhqOerDhTQhfIknAbhZHPsK20_veHxeTan58K1_Q_D5o4DZEUwxbDoYf8iz-d0jHlS4WX23ZOHUQ76zUSWHT9G3-KekC6uUDQkcZeZUjwYNA5w0Zy_cDNO1rMJtUJZJVc60_xUYf_HeMVJf6JIAhKaNJsSEoc0n4QBYtXhB8nqNNoZ0L8PgsyK5XM1JyC1E5_qUjIHcCTXPDI"/>
+</div>
+<div class="flex-1 ml-4">
+<h4 class="text-lg font-display font-bold text-gray-900 dark:text-white">Alex Johnson</h4>
+<span class="inline-block mt-1 px-2 py-0.5 bg-primary/20 text-primary text-xs font-bold rounded-lg">Super Planner</span>
+</div>
+<div class="size-10 bg-gray-100 dark:bg-gray-700 rounded-xl flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+<span class="material-symbols-outlined font-bold">arrow_forward</span>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 active:bg-gray-50 dark:active:bg-gray-700/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary border-2 border-secondary/20">
+<span class="material-symbols-outlined text-2xl">star</span>
+</div>
+<span class="text-base font-bold font-display">Subscription</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="text-xs font-black text-white bg-secondary px-3 py-1.5 rounded-xl uppercase tracking-wide shadow-sm transform -rotate-2">Pro</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<div class="flex items-center gap-2 px-6 pb-2">
+<span class="material-symbols-outlined text-primary text-2xl">tune</span>
+<h3 class="text-gray-500 dark:text-gray-400 text-sm font-display font-bold uppercase tracking-wider">Fun Tweaks</h3>
+</div>
+<div class="mx-4 flex flex-col gap-3">
+<div class="bg-card-light dark:bg-card-dark rounded-3xl p-4 flex items-center justify-between shadow-comic border-2 border-gray-100 dark:border-gray-700 hover:shadow-comic-hover transition-all">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-2xl bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center text-orange-500 border-2 border-orange-200 dark:border-orange-800">
+<span class="material-symbols-outlined text-2xl">notifications_active</span>
+</div>
+<span class="text-lg font-bold font-display">Alerts</span>
+</div>
+<div class="cursor-pointer relative w-16 h-9 bg-success rounded-full border-4 border-success/30 shadow-inner transition-colors">
+<div class="absolute right-1 top-1 w-6 h-6 bg-white rounded-full shadow-md border-2 border-gray-100 transition-transform"></div>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-3xl p-4 flex items-center justify-between shadow-comic border-2 border-gray-100 dark:border-gray-700 hover:shadow-comic-hover transition-all cursor-pointer group active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-2xl bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 border-2 border-green-200 dark:border-green-800">
+<span class="material-symbols-outlined text-2xl">savings</span>
+</div>
+<span class="text-lg font-bold font-display">Currency</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-base font-bold text-gray-500">USD ($)</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+<div class="bg-card-light dark:bg-card-dark rounded-3xl p-4 flex items-center justify-between shadow-comic border-2 border-gray-100 dark:border-gray-700 hover:shadow-comic-hover transition-all cursor-pointer group active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="size-12 rounded-2xl bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center text-purple-500 border-2 border-purple-200 dark:border-purple-800">
+<span class="material-symbols-outlined text-2xl">calendar_month</span>
+</div>
+<span class="text-lg font-bold font-display">First Day</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-base font-bold text-gray-500">Monday</span>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-8">
+<div class="flex items-center gap-2 px-6 pb-2">
+<span class="material-symbols-outlined text-gray-400 text-2xl">lock</span>
+<h3 class="text-gray-500 dark:text-gray-400 text-sm font-display font-bold uppercase tracking-wider">Security</h3>
+</div>
+<div class="mx-4 bg-card-light dark:bg-card-dark rounded-3xl overflow-hidden shadow-comic border-2 border-gray-100 dark:border-gray-700">
+<div class="flex items-center justify-between p-4 border-b-2 border-gray-100 dark:border-gray-800">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center text-blue-500">
+<span class="material-symbols-outlined text-2xl">face</span>
+</div>
+<span class="text-base font-bold font-display">Face ID Lock</span>
+</div>
+<div class="cursor-pointer relative w-16 h-9 bg-gray-200 dark:bg-gray-700 rounded-full border-4 border-transparent shadow-inner transition-colors">
+<div class="absolute left-1 top-1 w-6 h-6 bg-white rounded-full shadow-md border-2 border-gray-100 transition-transform"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-4 border-b-2 border-gray-100 dark:border-gray-800 active:bg-gray-50 dark:active:bg-gray-700/50 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="size-10 rounded-xl bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-gray-500">
+<span class="material-symbols-outlined text-2xl">download</span>
+</div>
+<span class="text-base font-bold font-display">Get Data (CSV)</span>
+</div>
+<span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">chevron_right</span>
+</div>
+<div class="flex items-center justify-center p-4 active:bg-red-50 dark:active:bg-red-900/20 transition-colors cursor-pointer bg-red-50/50 dark:bg-red-900/10">
+<span class="text-base font-bold font-display text-red-500">Log Out</span>
+</div>
+</div>
+<div class="flex flex-col items-center mt-8 pb-8 opacity-60">
+<div class="size-8 bg-gray-200 rounded-full mb-2 flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-500 text-sm">rocket_launch</span>
+</div>
+<p class="text-center text-xs font-bold text-gray-400">Version 2.4.0 (Build 302)</p>
+</div>
+</div>
+</div>
+
+</body></html>

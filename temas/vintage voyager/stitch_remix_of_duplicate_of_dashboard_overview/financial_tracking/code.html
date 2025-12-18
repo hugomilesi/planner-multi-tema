@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Travel Expenses</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#b91c1c","secondary": "#1e3a8a","background-paper": "#e8dac0","surface-paper": "#f4e9d6","surface-dark": "#2a2420",
+                        "accent-stamp": "#2e5d4b",},
+                    fontFamily: {
+                        "display": ["Courier Prime", "monospace"],"hand": ["Kalam", "cursive"],"sans": ["Inter", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/cardboard.png')",
+                        'airmail-border': "repeating-linear-gradient(45deg, #b91c1c, #b91c1c 10px, #f4e9d6 10px, #f4e9d6 20px, #1e3a8a 20px, #1e3a8a 30px, #f4e9d6 30px, #f4e9d6 40px)"
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&amp;family=Inter:wght@400;500;600;700&amp;family=Kalam:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.no-scrollbar::-webkit-scrollbar {
+    display: none
+    }
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none
+    }
+.dashed-border {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAYoMPq7b8vsCtMhztlBnTO_qMCmLXpS23_9ojHyx1Lj-dkQ3wPXuo-9ORigcIy85MyP1bEjca-s_6g6Lwnt3vm4uT75S5P3P28fUjjJwt0X_h9wdeVaTuqaR11_zgSIIy7GbmrVnsUVXEUY6WkLu1lya-KyEkh4tkp1lvOnCq9u3_lvRl-JtKmxFJ-nYp4RsHVSRcNnOamTEeR5xMvwduy72nG0jE1e_FaBkkC50O-8vZ0cfukcCNysPBtaC62cu9YHx09v4QksHk)
+    }
+.stamp-effect {
+    mask-image: url(https://www.transparenttextures.com/patterns/grunge-wall.png);
+    -webkit-mask-image: url(https://www.transparenttextures.com/patterns/grunge-wall.png);
+    transform: rotate(-2deg)
+    }</style>
+<style>
+        body { min-height: max(884px, 100dvh); }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-paper text-slate-800 font-display antialiased">
+<div class="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-background-paper border-x-4 border-black/5" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAIe8bWY2CJNYqyW_kCIdaOjEdc0aTF3c3amCjGRFUrL32ZoY5lFFZ3JuT-rW1hpH67-I_-my71M1bYbLUAMDNSnhJcp3l6tmL2aNrfRZOWo15PZvvU7rCM6NGd6BaemLhOJNohGzvE2fqbzqaWA_94k2_UnVT0LkiU7v12cxpE33_jHbAhKd_XiKQRnbx9UYBYgbvwlmlkWHJOefCi7cweBPnQtxfztJpvTnRd4bdJJFICzJbI1I3Ux2glFVx9F9LKXWhGOX87ZXI');">
+<div class="h-2 w-full bg-[image:repeating-linear-gradient(45deg,#b91c1c,#b91c1c_10px,#f4e9d6_10px,#f4e9d6_20px,#1e3a8a_20px,#1e3a8a_30px,#f4e9d6_30px,#f4e9d6_40px)]"></div>
+<div class="flex items-center justify-between p-4 sticky top-0 z-20 bg-background-paper/90 backdrop-blur-sm transition-colors duration-200 border-b border-stone-400/30">
+<h2 class="text-xl font-bold tracking-widest uppercase text-stone-800 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">flight_takeoff</span>
+<span>Travel Log</span>
+</h2>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-stone-300/50 transition-colors text-stone-600">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+<div class="flex gap-3 px-4 py-3 overflow-x-auto no-scrollbar w-full flex-nowrap">
+<button class="flex-shrink-0 px-4 py-2 rounded-lg bg-primary text-surface-paper text-sm font-bold uppercase tracking-widest border-2 border-primary shadow-md transform rotate-1">
+                Current
+            </button>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg bg-surface-paper text-stone-600 text-sm font-bold uppercase tracking-widest border-2 border-stone-300 hover:border-primary/50 dashed-border transform -rotate-1">
+                Oct '23
+            </button>
+<button class="flex-shrink-0 px-4 py-2 rounded-lg bg-surface-paper text-stone-600 text-sm font-bold uppercase tracking-widest border-2 border-stone-300 hover:border-primary/50 dashed-border">
+                Sep '23
+            </button>
+</div>
+<div class="px-4 py-4">
+<div class="relative bg-surface-paper p-6 rounded-sm shadow-md border border-stone-300 flex flex-col items-center overflow-hidden">
+<div class="absolute -left-2 top-1/2 w-4 h-4 bg-background-paper rounded-full"></div>
+<div class="absolute -right-2 top-1/2 w-4 h-4 bg-background-paper rounded-full"></div>
+<span class="material-symbols-outlined absolute top-[-20px] right-[-20px] text-[180px] text-stone-200/50 -rotate-12 pointer-events-none">public</span>
+<p class="text-stone-500 text-xs font-bold tracking-[0.2em] uppercase mb-2">Trip Balance</p>
+<div class="relative">
+<h1 class="text-4xl md:text-[42px] font-bold tracking-tighter text-stone-900 font-sans">$4,250.00</h1>
+<div class="absolute -top-4 -right-12 border-2 border-primary text-primary px-2 py-0.5 text-[10px] font-bold uppercase rotate-12 opacity-80 rounded-sm">Verified</div>
+</div>
+<div class="mt-4 pt-4 border-t-2 border-dashed border-stone-300 w-full flex justify-between text-xs text-stone-500 font-display">
+<span>FROM: HOME</span>
+<span class="material-symbols-outlined text-sm">flight</span>
+<span>TO: WORLD</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 px-4 mb-6">
+<div class="bg-[#e0ece4] p-4 rounded-tl-xl rounded-br-xl rounded-tr-sm rounded-bl-sm border border-stone-300 shadow-sm relative group transform rotate-[-1deg]">
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full border border-stone-400 bg-background-paper"></div> 
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-green-700 text-xl">payments</span>
+<span class="text-xs font-bold uppercase tracking-wide text-stone-600">Inbound</span>
+</div>
+<p class="text-lg font-bold text-stone-800 font-sans">+$2,500.00</p>
+<div class="absolute bottom-2 right-2 opacity-10">
+<span class="material-symbols-outlined text-4xl">sticker</span>
+</div>
+</div>
+<div class="bg-[#f2d7d5] p-4 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm border border-stone-300 shadow-sm relative group transform rotate-[1deg]">
+<div class="absolute top-2 left-2 w-3 h-3 rounded-full border border-stone-400 bg-background-paper"></div> 
+<div class="flex items-center gap-2 mb-2 justify-end">
+<span class="text-xs font-bold uppercase tracking-wide text-stone-600">Outbound</span>
+<span class="material-symbols-outlined text-red-700 text-xl">shopping_bag</span>
+</div>
+<p class="text-lg font-bold text-stone-800 font-sans text-right">-$1,150.00</p>
+<div class="absolute bottom-2 left-2 opacity-10">
+<span class="material-symbols-outlined text-4xl">local_shipping</span>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="bg-surface-paper rounded-sm p-5 border border-stone-300 shadow-[2px_2px_0px_rgba(0,0,0,0.1)] relative">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-6 bg-yellow-100/60 rotate-[-2deg] shadow-sm"></div>
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-base font-bold text-stone-800 uppercase tracking-wider font-hand text-xl">Spending Map</h3>
+<p class="text-xs text-stone-500 font-display">Oct 1 - Oct 31 • <span class="text-green-700 font-bold">+12% vs last trip</span></p>
+</div>
+</div>
+<div class="flex items-end justify-between h-40 gap-2 sm:gap-4 px-2 border-b-2 border-stone-800/20 pb-2">
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-2/3 bg-stone-400/40 rounded-sm" style="height: 40%; background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);"></div>
+</div>
+<span class="text-[10px] font-bold text-stone-500 font-display">WK 1</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-2/3 bg-stone-400/60 rounded-sm" style="height: 65%; background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);"></div>
+</div>
+<span class="text-[10px] font-bold text-stone-500 font-display">WK 2</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-full bg-secondary text-white rounded-sm border-2 border-stone-800 relative shadow-lg transform -translate-y-1" style="height: 85%">
+<div class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/notebook.png')]"></div>
+</div>
+</div>
+<span class="text-[12px] font-bold text-secondary font-hand">WK 3</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-2/3 bg-stone-400/40 rounded-sm" style="height: 30%; background-image: repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);"></div>
+</div>
+<span class="text-[10px] font-bold text-stone-500 font-display">WK 4</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-stone-800 uppercase tracking-widest border-b-2 border-primary inline-block pb-1">Budgets</h3>
+<button class="text-primary text-sm font-bold uppercase hover:underline">Adjust</button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-paper p-3 rounded-sm border border-stone-300 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-orange-500/10 rounded-bl-full z-0"></div>
+<div class="flex justify-between items-center mb-2 relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white text-stone-800 shadow-[2px_2px_0px_#000]">
+<span class="material-symbols-outlined text-lg">restaurant</span>
+</div>
+<div>
+<p class="text-sm font-bold text-stone-800 font-display uppercase">Food &amp; Dining</p>
+<p class="text-xs text-stone-500 font-hand">$320 remaining</p>
+</div>
+</div>
+<p class="text-sm font-bold text-stone-700 font-display">$180 / $500</p>
+</div>
+<div class="w-full h-3 border border-stone-400 p-[2px] rounded-full bg-white relative z-10">
+<div class="h-full bg-[url('https://www.transparenttextures.com/patterns/scribble-light.png')] bg-orange-500 rounded-full" style="width: 36%"></div>
+</div>
+</div>
+<div class="bg-surface-paper p-3 rounded-sm border border-stone-300 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-purple-500/10 rounded-bl-full z-0"></div>
+<div class="flex justify-between items-center mb-2 relative z-10">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 border-2 border-stone-800 rounded-full flex items-center justify-center bg-white text-stone-800 shadow-[2px_2px_0px_#000]">
+<span class="material-symbols-outlined text-lg">train</span>
+</div>
+<div>
+<p class="text-sm font-bold text-stone-800 font-display uppercase">Transit</p>
+<p class="text-xs text-stone-500 font-hand">$50 remaining</p>
+</div>
+</div>
+<p class="text-sm font-bold text-stone-700 font-display">$150 / $200</p>
+</div>
+<div class="w-full h-3 border border-stone-400 p-[2px] rounded-full bg-white relative z-10">
+<div class="h-full bg-[url('https://www.transparenttextures.com/patterns/scribble-light.png')] bg-purple-600 rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 flex-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-stone-800 uppercase tracking-widest border-b-2 border-primary inline-block pb-1">Activity Log</h3>
+<button class="text-primary text-sm font-bold uppercase hover:underline">View All</button>
+</div>
+<div class="bg-white p-4 shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] relative mx-1 rotate-[0.5deg]">
+<div class="absolute -top-1 left-0 right-0 h-2 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMiA0IiBwcmVzZXJ2ZUFzcGVjdHJhdGlvPSJub25lIiBmaWxsPSIjZmZmZmZmIj48cGF0aCBkPSJNMCA0VjBsNiA0IDYtNFY0SDB6Ii8+PC9zdmc+')]"></div>
+<div class="space-y-4 font-display text-sm">
+<div class="flex items-center justify-between border-b border-dashed border-stone-300 pb-2">
+<div class="flex items-center gap-3">
+<div class="text-stone-400">
+<span class="material-symbols-outlined text-[20px]">storefront</span>
+</div>
+<div class="flex flex-col">
+<p class="font-bold text-stone-900 uppercase">Apple Store</p>
+<p class="text-[10px] text-stone-500">TOK • Today, 10:42 AM</p>
+</div>
+</div>
+<p class="font-bold text-stone-900">-$1,150.00</p>
+</div>
+<div class="flex items-center justify-between border-b border-dashed border-stone-300 pb-2">
+<div class="flex items-center gap-3">
+<div class="text-stone-400">
+<span class="material-symbols-outlined text-[20px]">account_balance</span>
+</div>
+<div class="flex flex-col">
+<p class="font-bold text-stone-900 uppercase">Transfer In</p>
+<p class="text-[10px] text-stone-500">NYC • Yesterday</p>
+</div>
+</div>
+<p class="font-bold text-green-700">+$2,500.00</p>
+</div>
+<div class="flex items-center justify-between border-b border-dashed border-stone-300 pb-2">
+<div class="flex items-center gap-3">
+<div class="text-stone-400">
+<span class="material-symbols-outlined text-[20px]">movie</span>
+</div>
+<div class="flex flex-col">
+<p class="font-bold text-stone-900 uppercase">Entertainment</p>
+<p class="text-[10px] text-stone-500">LON • Oct 21</p>
+</div>
+</div>
+<p class="font-bold text-stone-900">-$15.00</p>
+</div>
+<div class="flex items-center justify-between pb-1">
+<div class="flex items-center gap-3">
+<div class="text-stone-400">
+<span class="material-symbols-outlined text-[20px]">coffee</span>
+</div>
+<div class="flex flex-col">
+<p class="font-bold text-stone-900 uppercase">Starbucks</p>
+<p class="text-[10px] text-stone-500">PAR • Oct 20</p>
+</div>
+</div>
+<p class="font-bold text-stone-900">-$5.40</p>
+</div>
+</div>
+<div class="absolute -bottom-1 left-0 right-0 h-2 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMiA0IiBwcmVzZXJ2ZUFzcGVjdHJhdGlvPSJub25lIiBmaWxsPSIjZmZmZmZmIj48cGF0aCBkPSJNMCAwVjRsNi00IDYgNFYwSDB6Ii8+PC9zdmc+')]"></div>
+</div>
+</div>
+<button class="fixed bottom-6 right-6 w-16 h-16 bg-primary text-surface-paper rounded-full shadow-lg shadow-primary/40 flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-30 border-4 border-primary/50">
+<div class="absolute inset-0 rounded-full border-2 border-white/30"></div>
+<span class="material-symbols-outlined text-3xl">edit_square</span>
+</button>
+<div class="absolute bottom-0 h-2 w-full bg-[image:repeating-linear-gradient(45deg,#b91c1c,#b91c1c_10px,#f4e9d6_10px,#f4e9d6_20px,#1e3a8a_20px,#1e3a8a_30px,#f4e9d6_30px,#f4e9d6_40px)]"></div>
+</div>
+
+</body></html>

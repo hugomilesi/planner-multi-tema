@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Kids Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&amp;family=Quicksand:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "kid-blue": "#4FACFE",
+                        "kid-yellow": "#FFD200",
+                        "kid-orange": "#FF9A3C",
+                        "kid-green": "#2ECC71",
+                        "kid-red": "#FF6B6B",
+                        "kid-purple": "#A29BFE",
+                        "kid-bg": "#FFF9E6", // warm cream background
+                        "kid-surface": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "display": ["Fredoka", "sans-serif"],
+                        "body": ["Quicksand", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1rem", "2xl": "1.5rem", "3xl": "2rem", "full": "9999px" },
+                    boxShadow: {
+                        'comic': '4px 4px 0px 0px rgba(0,0,0,0.1)',
+                        'comic-hover': '2px 2px 0px 0px rgba(0,0,0,0.1)',
+                        'comic-active': '0px 0px 0px 0px rgba(0,0,0,0.1)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        body {
+            min-height: max(884px, 100dvh);
+            background-image: radial-gradient(#FFD200 1.5px, transparent 1.5px), radial-gradient(#FFD200 1.5px, transparent 1.5px);
+            background-size: 30px 30px;
+            background-position: 0 0, 15px 15px;
+            background-color: #FFF9E6;
+        }.bubble-shape {
+            border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-display text-slate-800">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-32">
+<header class="flex items-center justify-between p-5 pb-2 sticky top-0 z-20 bg-kid-bg/90 backdrop-blur-sm">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-14 ring-4 ring-kid-yellow shadow-comic" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="absolute -bottom-1 -right-1 bg-kid-green text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full border-2 border-white">lvl 5</div>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-kid-purple font-body tracking-wide">Mon, Oct 24</span>
+<h2 class="text-2xl font-bold leading-tight text-slate-800">Hi, Alex! 👋</h2>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-2xl size-12 bg-white text-kid-orange hover:bg-kid-orange hover:text-white transition-all shadow-comic hover:shadow-comic-hover active:translate-y-1 active:shadow-comic-active border-2 border-kid-orange/20">
+<span class="material-symbols-outlined" style="font-size: 28px;">notifications</span>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-4 relative z-10">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-5 py-2 pb-4">
+<button class="flex flex-col items-center justify-center min-w-[4rem] h-20 rounded-3xl bg-kid-blue text-white shadow-comic hover:shadow-comic-hover transform active:scale-95 transition-all shrink-0 border-b-4 border-blue-600">
+<span class="text-sm font-semibold opacity-90 font-body">Mon</span>
+<span class="text-2xl font-black">24</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[4rem] h-20 rounded-3xl bg-white text-slate-600 shadow-sm border-2 border-slate-100 shrink-0 hover:border-kid-blue/50 transition-colors">
+<span class="text-sm font-medium text-slate-400 font-body">Tue</span>
+<span class="text-xl font-bold">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[4rem] h-20 rounded-3xl bg-white text-slate-600 shadow-sm border-2 border-slate-100 shrink-0 hover:border-kid-blue/50 transition-colors">
+<span class="text-sm font-medium text-slate-400 font-body">Wed</span>
+<span class="text-xl font-bold">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[4rem] h-20 rounded-3xl bg-white text-slate-600 shadow-sm border-2 border-slate-100 shrink-0 hover:border-kid-blue/50 transition-colors">
+<span class="text-sm font-medium text-slate-400 font-body">Thu</span>
+<span class="text-xl font-bold">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[4rem] h-20 rounded-3xl bg-white text-slate-600 shadow-sm border-2 border-slate-100 shrink-0 hover:border-kid-blue/50 transition-colors">
+<span class="text-sm font-medium text-slate-400 font-body">Fri</span>
+<span class="text-xl font-bold">28</span>
+</button>
+</div>
+</div>
+<div class="px-5 mt-2">
+<div class="flex flex-col gap-3 p-5 rounded-3xl bg-white shadow-comic border-2 border-kid-yellow/30 relative overflow-hidden">
+<div class="absolute -right-6 -top-6 size-24 bg-kid-yellow/20 rounded-full blur-xl"></div>
+<div class="flex justify-between items-center relative z-10">
+<div class="flex items-center gap-2">
+<span class="text-xl">🚀</span>
+<p class="text-base font-bold text-slate-800">Daily Mission</p>
+</div>
+<div class="px-3 py-1 bg-kid-green/20 text-kid-green rounded-full font-bold text-sm">
+                    65% Done!
+                </div>
+</div>
+<div class="h-4 w-full rounded-full bg-slate-100 overflow-hidden border border-slate-200 relative z-10">
+<div class="h-full rounded-full bg-gradient-to-r from-kid-yellow to-kid-orange animate-pulse" style="width: 65%;">
+<div class="w-full h-full opacity-30 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4IiBoZWlnaHQ9IjgiPgo8cmVjdCB3aWR0aD0iOCIgaGVpZ2h0PSI4IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMiIvPgo8cGF0aCBkPSJNMCAwTDggOFpNOCAwTDAgOFoiIHN0cm9rZT0ibm9uZSIgZmlsbD0iI2ZmZiIvPjwvc3ZnPg==')]"></div>
+</div>
+</div>
+<p class="text-xs text-slate-500 font-body text-center font-medium">Almost there! Keep going superstar!</p>
+</div>
+</div>
+<div class="px-5 mt-6">
+<div class="group cursor-pointer relative transform transition-all hover:scale-[1.02]">
+<div class="absolute inset-0 bg-kid-blue rounded-3xl rotate-1 opacity-50 group-hover:rotate-2 transition-transform"></div>
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-3xl pt-24 shadow-comic overflow-hidden relative border-4 border-white" data-alt="Abstract colorful geometric background" style='background-image: linear-gradient(180deg, rgba(79, 172, 254, 0) 0%, rgba(79, 172, 254, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute top-4 right-4 bg-kid-red text-white px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider shadow-sm transform -rotate-2 border-2 border-white border-dashed">
+                    Big Task!
+                </div>
+<div class="flex w-full items-end justify-between gap-4 p-5 z-10">
+<div class="flex flex-1 flex-col gap-1">
+<div class="flex items-center gap-1.5">
+<span class="text-white/90 text-xs font-bold uppercase tracking-wider bg-black/10 px-2 py-0.5 rounded-lg backdrop-blur-sm">Focus Time</span>
+</div>
+<p class="text-white text-2xl font-black leading-tight drop-shadow-md">Client Meeting Preso</p>
+<div class="flex items-center gap-2 mt-2 bg-white/20 p-2 rounded-xl backdrop-blur-sm w-fit">
+<span class="material-symbols-outlined text-white" style="font-size: 18px;">schedule</span>
+<p class="text-white text-sm font-bold font-body">2:00 PM - 3:30 PM</p>
+</div>
+</div>
+<div class="bg-white rounded-2xl p-3 text-kid-blue shadow-lg group-hover:bg-kid-yellow group-hover:text-white transition-colors">
+<span class="material-symbols-outlined font-bold" style="font-size: 24px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 mt-6">
+<div class="flex flex-col gap-4 p-5 rounded-3xl bg-white border-2 border-kid-green/20 shadow-comic relative overflow-hidden">
+<div class="absolute -left-4 -bottom-4 w-24 h-24 bg-kid-green/10 rounded-full"></div>
+<div class="absolute right-10 top-2 text-6xl opacity-10 rotate-12">🐷</div>
+<div class="flex justify-between items-start relative z-10">
+<div class="flex items-center gap-3">
+<div class="bg-kid-green/20 p-2.5 rounded-2xl text-kid-green">
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div>
+<h3 class="text-lg font-bold text-slate-800">My Piggy Bank</h3>
+<p class="text-xs text-slate-500 font-bold font-body">October</p>
+</div>
+</div>
+<button class="text-white text-xs font-bold uppercase tracking-wide px-4 py-2 bg-kid-green rounded-xl shadow-[0_4px_0_rgb(34,197,94)] active:shadow-none active:translate-y-[4px] transition-all">
+                    See All
+                </button>
+</div>
+<div class="flex items-center justify-between bg-kid-bg rounded-2xl p-4 border border-kid-yellow/30">
+<div class="flex flex-col">
+<span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Spent</span>
+<span class="text-2xl font-black text-slate-800">$1,240</span>
+</div>
+<div class="h-8 w-[2px] bg-slate-200 rounded-full"></div>
+<div class="flex flex-col text-right">
+<span class="text-xs text-slate-400 font-bold uppercase tracking-wider">Limit</span>
+<span class="text-2xl font-black text-slate-400">$2,000</span>
+</div>
+</div>
+<div class="flex items-end gap-2 h-16 mt-2 pb-1 px-2">
+<div class="flex-1 bg-slate-100 rounded-t-xl h-[30%] border-t-2 border-x-2 border-slate-50"></div>
+<div class="flex-1 bg-slate-100 rounded-t-xl h-[50%] border-t-2 border-x-2 border-slate-50"></div>
+<div class="flex-1 bg-slate-100 rounded-t-xl h-[40%] border-t-2 border-x-2 border-slate-50"></div>
+<div class="flex-1 bg-kid-green/40 rounded-t-xl h-[60%] border-t-2 border-x-2 border-white/50"></div>
+<div class="flex-1 bg-kid-green/70 rounded-t-xl h-[45%] border-t-2 border-x-2 border-white/50"></div>
+<div class="flex-1 bg-kid-green rounded-t-xl h-[85%] relative group shadow-lg shadow-kid-green/20 border-t-2 border-x-2 border-white/50">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[10px] font-bold px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20">
+                        Today
+                        <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-slate-800 rotate-45"></div>
+</div>
+</div>
+<div class="flex-1 bg-slate-100 rounded-t-xl h-[20%] border-t-2 border-x-2 border-slate-50"></div>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<div class="flex items-center justify-between px-5 pb-2">
+<h3 class="text-xl font-bold leading-tight text-slate-800 flex items-center gap-2">
+<span class="text-2xl">📝</span> To-Do List
+            </h3>
+<span class="text-xs font-bold text-kid-blue bg-blue-50 px-3 py-1.5 rounded-xl border border-blue-100 shadow-sm">3 Left</span>
+</div>
+<div class="flex flex-col gap-3 px-5 mt-2">
+<label class="group flex items-center gap-4 p-4 rounded-3xl bg-white border-2 border-slate-100 shadow-sm hover:shadow-md hover:border-kid-orange transition-all cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-7 w-7 cursor-pointer appearance-none rounded-xl border-2 border-slate-300 checked:border-kid-orange checked:bg-kid-orange transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-slate-800 group-hover:text-kid-orange transition-colors peer-checked:text-slate-400 peer-checked:line-through">Pay Electricity Bill</span>
+<span class="text-xs text-slate-500 font-bold font-body">Due Today</span>
+</div>
+<span class="bg-kid-orange text-white text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm rotate-3 group-hover:rotate-0 transition-transform">Med</span>
+</label>
+<label class="group flex items-center gap-4 p-4 rounded-3xl bg-white border-2 border-slate-100 shadow-sm hover:shadow-md hover:border-kid-green transition-all cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-7 w-7 cursor-pointer appearance-none rounded-xl border-2 border-slate-300 checked:border-kid-green checked:bg-kid-green transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-slate-800 group-hover:text-kid-green transition-colors">Gym Session</span>
+<span class="text-xs text-slate-500 font-bold font-body">6:00 PM</span>
+</div>
+<span class="bg-kid-green text-white text-[10px] font-black px-2 py-1 rounded-lg uppercase shadow-sm -rotate-2 group-hover:rotate-0 transition-transform">Fun</span>
+</label>
+<label class="group flex items-center gap-4 p-4 rounded-3xl bg-white border-2 border-slate-100 shadow-sm hover:shadow-md hover:border-kid-purple transition-all cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-7 w-7 cursor-pointer appearance-none rounded-xl border-2 border-slate-300 checked:border-kid-purple checked:bg-kid-purple transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[18px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-base font-bold text-slate-800 group-hover:text-kid-purple transition-colors">Review Q3 Reports</span>
+<span class="text-xs text-slate-500 font-bold font-body">Tomorrow, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-white/90 backdrop-blur-xl border-t-2 border-slate-100 pb-safe z-50 rounded-t-3xl shadow-[0_-5px_20px_rgba(0,0,0,0.05)]">
+<div class="flex justify-around items-end pb-4 pt-3 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-kid-blue group">
+<div class="bg-blue-50 p-1.5 rounded-xl group-hover:bg-blue-100 transition-colors">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1, 'wght' 600; font-size: 26px;">dashboard</span>
+</div>
+<span class="text-[11px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-kid-purple transition-colors group">
+<div class="group-hover:bg-purple-50 p-1.5 rounded-xl transition-colors">
+<span class="material-symbols-outlined" style="font-weight: 600; font-size: 26px;">calendar_month</span>
+</div>
+<span class="text-[11px] font-bold">Plan</span>
+</button>
+<div class="relative -top-6">
+<button class="flex items-center justify-center size-16 rounded-full bg-kid-yellow text-slate-900 shadow-comic hover:shadow-comic-hover active:shadow-comic-active hover:scale-105 transition-all border-4 border-white">
+<span class="material-symbols-outlined" style="font-size: 32px; font-weight: 800;">add</span>
+</button>
+</div>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-kid-green transition-colors group">
+<div class="group-hover:bg-green-50 p-1.5 rounded-xl transition-colors">
+<span class="material-symbols-outlined" style="font-weight: 600; font-size: 26px;">savings</span>
+</div>
+<span class="text-[11px] font-bold">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-kid-orange transition-colors group">
+<div class="group-hover:bg-orange-50 p-1.5 rounded-xl transition-colors">
+<span class="material-symbols-outlined" style="font-weight: 600; font-size: 26px;">settings</span>
+</div>
+<span class="text-[11px] font-bold">Config</span>
+</button>
+</div>
+</nav>
+
+</body></html>

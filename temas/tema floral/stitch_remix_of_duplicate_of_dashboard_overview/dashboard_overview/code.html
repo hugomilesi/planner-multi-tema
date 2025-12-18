@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Flowers Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;500;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#d47a96", // Dusty Pink
+                    "primary-dark": "#b85c78",
+                    "secondary": "#a3c9a8", // Sage Green
+                    "secondary-dark": "#7a9e80",
+                    "background-light": "#fff9fa", // Even lighter pink
+                    "background-dark": "#2d1f24",
+                    "surface-light": "#ffffff",
+                    "surface-dark": "#3d2a32",
+                    "text-main": "#5c3a45",
+                    "text-muted": "#9e7f8a",
+                    "accent-leaf": "#8FB394", // Leaf green
+                },
+                fontFamily: {
+                    "sans": ["DM Sans", "sans-serif"],
+                    "serif": ["Playfair Display", "serif"],
+                },
+                boxShadow: {
+                    'soft-glow': '0 4px 20px -2px rgba(212, 122, 150, 0.25)',
+                    'inner-petal': 'inset 0 2px 4px 0 rgba(255, 255, 255, 0.3)'
+                },
+                backgroundImage: {
+                   'floral-gradient': "linear-gradient(135deg, rgba(255,245,247,0.8) 0%, rgba(255,255,255,0.4) 100%)",
+                }
+            },
+        },
+    }
+</script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }.bg-botanical-pattern {
+        background-color: #fff9fa;
+        background-image: 
+            radial-gradient(#d47a96 0.5px, transparent 0.5px), 
+            radial-gradient(#d47a96 0.5px, #fff9fa 0.5px);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+        opacity: 0.5;
+    }
+    .dark .bg-botanical-pattern {
+        background-color: #2d1f24;
+        background-image: 
+            radial-gradient(#5c3a45 1px, transparent 1px), 
+            radial-gradient(#5c3a45 1px, #2d1f24 1px);
+        opacity: 0.2;
+    }.checkbox-leaf {
+        border-radius: 2px 12px 2px 12px;
+    }.shape-petal {
+        border-radius: 16px 16px 2px 16px;
+    }
+    body {
+        min-height: max(884px, 100dvh);
+    }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-text-main dark:text-rose-100">
+<div class="fixed inset-0 z-0 pointer-events-none opacity-[0.03] dark:opacity-[0.05]" style="background-image: url('data:image/svg+xml;utf8,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23d47a96\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');">
+</div>
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24 z-10">
+<header class="flex items-center justify-between p-6 pb-2 sticky top-0 z-20 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-xl transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="relative">
+<div class="absolute -inset-1 rounded-full bg-gradient-to-br from-primary to-secondary opacity-50 blur-sm"></div>
+<div class="relative bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 ring-2 ring-white dark:ring-surface-dark p-0.5" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'>
+<div class="absolute -bottom-1 -right-1 bg-white dark:bg-surface-dark rounded-full p-0.5">
+<span class="material-symbols-outlined text-primary text-[16px] fill-1">local_florist</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5 text-primary text-xs font-bold uppercase tracking-widest">
+<span class="material-symbols-outlined text-[14px]">calendar_today</span>
+<span>Monday, Oct 24</span>
+</div>
+<h2 class="text-2xl font-serif font-bold text-text-main dark:text-white leading-tight flex items-center gap-2">
+                Hello, Alex <span class="text-xl animate-pulse">🌺</span>
+</h2>
+</div>
+</div>
+<button class="relative flex items-center justify-center rounded-full size-11 bg-white dark:bg-surface-dark text-text-main dark:text-rose-100 shadow-soft-glow border border-rose-100 dark:border-rose-900/30 hover:bg-primary/10 transition-colors group overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300"></div>
+<span class="material-symbols-outlined group-hover:animate-swing z-10" style="font-size: 24px;">notifications</span>
+<div class="absolute top-2.5 right-3 size-2 bg-red-400 rounded-full border border-white dark:border-surface-dark"></div>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-6 py-4">
+<button class="relative flex flex-col items-center justify-center min-w-[3.8rem] h-20 bg-gradient-to-br from-primary to-primary-dark text-white shadow-lg shadow-primary/30 shrink-0 transform scale-105 group overflow-hidden rounded-[1.5rem] rounded-tl-sm rounded-br-sm">
+<div class="absolute -top-4 -right-4 size-10 bg-white/10 rounded-full blur-xl"></div>
+<div class="absolute -bottom-4 -left-4 size-10 bg-black/5 rounded-full blur-xl"></div>
+<span class="text-xs font-medium opacity-90 mb-1 z-10">Mon</span>
+<span class="text-2xl font-serif font-bold z-10">24</span>
+<span class="material-symbols-outlined text-[10px] mt-1 z-10">spa</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-2xl bg-white dark:bg-surface-dark text-text-muted dark:text-rose-200/50 border border-rose-100 dark:border-rose-900/30 shrink-0 hover:border-primary/50 transition-colors hover:shadow-md hover:-translate-y-0.5">
+<span class="text-xs font-medium">Tue</span>
+<span class="text-lg font-bold">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-2xl bg-white dark:bg-surface-dark text-text-muted dark:text-rose-200/50 border border-rose-100 dark:border-rose-900/30 shrink-0 hover:border-primary/50 transition-colors hover:shadow-md hover:-translate-y-0.5">
+<span class="text-xs font-medium">Wed</span>
+<span class="text-lg font-bold">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-2xl bg-white dark:bg-surface-dark text-text-muted dark:text-rose-200/50 border border-rose-100 dark:border-rose-900/30 shrink-0 hover:border-primary/50 transition-colors hover:shadow-md hover:-translate-y-0.5">
+<span class="text-xs font-medium">Thu</span>
+<span class="text-lg font-bold">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-2xl bg-white dark:bg-surface-dark text-text-muted dark:text-rose-200/50 border border-rose-100 dark:border-rose-900/30 shrink-0 hover:border-primary/50 transition-colors hover:shadow-md hover:-translate-y-0.5">
+<span class="text-xs font-medium">Fri</span>
+<span class="text-lg font-bold">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-2xl bg-white dark:bg-surface-dark text-text-muted dark:text-rose-200/50 border border-rose-100 dark:border-rose-900/30 shrink-0 hover:border-primary/50 transition-colors hover:shadow-md hover:-translate-y-0.5">
+<span class="text-xs font-medium">Sat</span>
+<span class="text-lg font-bold">29</span>
+</button>
+</div>
+</div>
+<div class="px-6 mt-2">
+<div class="group flex flex-col gap-3 p-5 rounded-[2rem] bg-white dark:bg-surface-dark border border-rose-100 dark:border-rose-900/30 shadow-soft-glow relative overflow-hidden">
+<div class="absolute top-0 right-0 p-4 opacity-10">
+<span class="material-symbols-outlined text-[120px] text-primary rotate-12">local_florist</span>
+</div>
+<div class="absolute -bottom-4 -left-4 size-24 bg-secondary/10 rounded-full blur-2xl"></div>
+<div class="flex justify-between items-center relative z-10">
+<div class="flex items-center gap-2">
+<div class="bg-primary/10 p-2 rounded-full">
+<span class="material-symbols-outlined text-primary">spa</span>
+</div>
+<div>
+<p class="text-sm font-bold text-text-main dark:text-white">Daily Growth</p>
+<p class="text-[10px] text-text-muted font-medium">Your progress is blooming</p>
+</div>
+</div>
+<p class="text-xs font-bold text-white bg-primary px-3 py-1 rounded-full shadow-lg shadow-primary/20">65%</p>
+</div>
+<div class="h-4 w-full rounded-full bg-rose-50 dark:bg-slate-700/50 overflow-hidden relative z-10 mt-2 p-0.5 border border-rose-100 dark:border-white/5">
+<div class="h-full rounded-full bg-gradient-to-r from-secondary to-primary shadow-[0_0_10px_rgba(212,122,150,0.5)] relative" style="width: 65%;">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 size-4 bg-white rounded-full border-2 border-primary shadow-sm flex items-center justify-center">
+<div class="size-1.5 bg-primary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-6 mt-6">
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-[2.5rem] pt-32 shadow-xl shadow-primary/20 overflow-hidden relative group cursor-pointer transition-transform hover:scale-[1.02]" data-alt="Abstract dark geometric gradient background" style='background-image: linear-gradient(180deg, rgba(212, 122, 150, 0) 0%, rgba(45, 31, 36, 0.8) 50%, rgba(45, 31, 36, 0.98) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute inset-0 border-[6px] border-white/10 rounded-[2.5rem] pointer-events-none"></div>
+<div class="absolute top-5 right-5 bg-white/20 backdrop-blur-md pl-3 pr-4 py-1.5 rounded-full flex items-center gap-2 border border-white/30 shadow-lg">
+<span class="material-symbols-outlined text-white text-[16px]">filter_vintage</span>
+<span class="text-[10px] font-bold text-white uppercase tracking-wider">Priority Bloom</span>
+</div>
+<div class="flex w-full items-end justify-between gap-4 p-6 z-10 pb-8">
+<div class="flex flex-1 flex-col gap-2">
+<p class="text-rose-200 text-xs font-bold uppercase tracking-widest flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-rose-400"></span> Today's Focus
+                </p>
+<p class="text-white text-2xl font-serif font-bold leading-tight drop-shadow-md">Client Meeting Presentation</p>
+<div class="flex items-center gap-2 mt-2 bg-white/10 w-fit px-3 py-1.5 rounded-xl backdrop-blur-md border border-white/10">
+<span class="material-symbols-outlined text-rose-100" style="font-size: 16px;">schedule</span>
+<p class="text-rose-50 text-sm font-medium">2:00 PM - 3:30 PM</p>
+</div>
+</div>
+<div class="bg-white/90 backdrop-blur text-primary rounded-full p-3.5 shadow-lg shadow-black/20 hover:bg-primary hover:text-white transition-all transform group-hover:rotate-45">
+<span class="material-symbols-outlined" style="font-size: 24px;">arrow_forward</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-secondary via-primary to-secondary"></div>
+</div>
+</div>
+<div class="px-6 mt-6">
+<div class="flex flex-col gap-5 p-6 rounded-[2rem] bg-white dark:bg-surface-dark border border-rose-100 dark:border-rose-900/30 shadow-soft-glow relative">
+<div class="absolute top-0 right-0 p-4 opacity-30">
+<span class="material-symbols-outlined text-primary text-3xl">emoji_nature</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-serif font-bold text-text-main dark:text-white flex items-center gap-2">
+                    Monthly Nectar <span class="material-symbols-outlined text-primary text-lg">water_drop</span>
+</h3>
+<p class="text-xs text-text-muted mt-1 font-medium pl-0.5">October 2023</p>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wide px-4 py-2 bg-primary/5 border border-primary/20 rounded-full hover:bg-primary hover:text-white transition-all">
+                Details
+            </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1 p-3.5 rounded-2xl bg-gradient-to-br from-background-light to-white dark:from-surface-dark dark:to-background-dark border border-rose-50 dark:border-white/5">
+<div class="flex items-center gap-1.5 mb-1">
+<div class="size-2 rounded-full bg-primary"></div>
+<span class="text-[10px] text-text-muted font-bold uppercase tracking-wider">Spent</span>
+</div>
+<span class="text-2xl font-bold text-primary-dark dark:text-rose-300 font-serif">$1,240</span>
+</div>
+<div class="flex flex-col gap-1 p-3.5 rounded-2xl bg-gradient-to-br from-background-light to-white dark:from-surface-dark dark:to-background-dark border border-rose-50 dark:border-white/5">
+<div class="flex items-center gap-1.5 mb-1">
+<div class="size-2 rounded-full bg-secondary"></div>
+<span class="text-[10px] text-text-muted font-bold uppercase tracking-wider">Limit</span>
+</div>
+<span class="text-2xl font-bold text-text-muted font-serif">$2,000</span>
+</div>
+</div>
+<div class="flex items-end gap-3 h-24 mt-4 border-b border-rose-100 dark:border-rose-900/30 pb-1 px-2">
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<div class="w-full bg-rose-100 dark:bg-rose-900/20 rounded-t-lg h-[30%] relative transition-all group-hover:bg-primary/30"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<div class="w-full bg-rose-100 dark:bg-rose-900/20 rounded-t-lg h-[50%] relative transition-all group-hover:bg-primary/30"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<div class="w-full bg-rose-200 dark:bg-rose-800/30 rounded-t-lg h-[40%] relative transition-all group-hover:bg-primary/40"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<span class="material-symbols-outlined text-[10px] text-secondary mb-1 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">local_florist</span>
+<div class="w-full bg-secondary/60 rounded-t-lg h-[60%] relative transition-all"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<span class="material-symbols-outlined text-[10px] text-primary/50 mb-1 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">local_florist</span>
+<div class="w-full bg-primary/50 rounded-t-lg h-[45%] relative transition-all"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group relative">
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface-dark text-white text-[10px] px-2 py-1 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity shadow-lg z-20 pointer-events-none whitespace-nowrap">
+                    Today: $120
+                </div>
+<span class="material-symbols-outlined text-[16px] text-primary mb-0.5 animate-bounce" style="animation-duration: 2s;">filter_vintage</span>
+<div class="w-full bg-gradient-to-t from-primary to-primary-dark rounded-t-lg h-[85%] relative shadow-[0_0_15px_rgba(212,122,150,0.4)]"></div>
+</div>
+<div class="flex-1 flex flex-col justify-end items-center h-full group">
+<div class="w-full bg-rose-50 dark:bg-rose-900/10 rounded-t-lg h-[20%] relative transition-all group-hover:bg-primary/20"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 relative">
+<div class="flex items-center justify-between px-6 pb-4">
+<h3 class="text-xl font-serif font-bold text-text-main dark:text-white flex items-center gap-2">
+            Garden Tasks <span class="material-symbols-outlined text-secondary">eco</span>
+</h3>
+<span class="text-xs font-bold text-primary bg-primary/10 px-3 py-1.5 rounded-full flex items-center gap-1">
+            3 Seeds <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+</span>
+</div>
+<div class="flex flex-col gap-3 px-6 mt-1">
+<label class="relative flex items-center gap-4 p-4 rounded-[1.2rem] bg-white dark:bg-surface-dark border border-rose-100 dark:border-rose-900/30 shadow-sm active:scale-[0.99] transition-all cursor-pointer group hover:shadow-soft-glow hover:border-primary/30 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative flex items-center justify-center z-10">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-6 w-6 border-2 border-rose-200 dark:border-rose-700 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 z-10">
+<span class="text-sm font-bold text-text-main dark:text-white line-through peer-checked:text-text-muted dark:peer-checked:text-rose-300/50 decoration-primary decoration-2 transition-colors">Pay Electricity Bill</span>
+<span class="text-xs text-primary font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">event</span> Due Today
+                </span>
+</div>
+<span class="bg-orange-50 text-orange-600 dark:bg-orange-900/30 dark:text-orange-300 text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider z-10 border border-orange-100 dark:border-transparent">Med</span>
+</label>
+<label class="relative flex items-center gap-4 p-4 rounded-[1.2rem] bg-white dark:bg-surface-dark border border-rose-100 dark:border-rose-900/30 shadow-sm active:scale-[0.99] transition-all cursor-pointer group hover:shadow-soft-glow hover:border-primary/30 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative flex items-center justify-center z-10">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-6 w-6 border-2 border-rose-200 dark:border-rose-700 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 z-10">
+<span class="text-sm font-bold text-text-main dark:text-white peer-checked:line-through peer-checked:text-text-muted transition-colors">Gym Session</span>
+<span class="text-xs text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">schedule</span> 6:00 PM
+                </span>
+</div>
+<span class="bg-secondary/20 text-green-700 dark:text-green-300 text-[10px] font-bold px-2 py-1 rounded-lg uppercase tracking-wider z-10 border border-secondary/30 dark:border-transparent">Low</span>
+</label>
+<label class="relative flex items-center gap-4 p-4 rounded-[1.2rem] bg-white dark:bg-surface-dark border border-rose-100 dark:border-rose-900/30 shadow-sm active:scale-[0.99] transition-all cursor-pointer group hover:shadow-soft-glow hover:border-primary/30 overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="relative flex items-center justify-center z-10">
+<input class="peer sr-only" type="checkbox"/>
+<div class="h-6 w-6 border-2 border-rose-200 dark:border-rose-700 rounded-tr-xl rounded-bl-xl rounded-tl-sm rounded-br-sm peer-checked:bg-primary peer-checked:border-primary transition-all flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px] text-white opacity-0 peer-checked:opacity-100 transition-opacity">check</span>
+</div>
+</div>
+<div class="flex flex-col flex-1 z-10">
+<span class="text-sm font-bold text-text-main dark:text-white peer-checked:line-through peer-checked:text-text-muted transition-colors">Review Q3 Reports</span>
+<span class="text-xs text-text-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">event_upcoming</span> Tomorrow, 9:00 AM
+                </span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-28"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-surface-light/90 dark:bg-background-dark/95 backdrop-blur-xl border-t border-rose-100 dark:border-rose-900/30 pb-safe pt-2 z-50 rounded-t-[2rem] shadow-[0_-5px_30px_rgba(212,122,150,0.15)]">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
+<div class="flex justify-around items-end pb-6 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-primary group relative">
+<div class="absolute -top-1 w-8 h-1 bg-primary rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="p-1 rounded-full group-hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1, 'wght' 400;">grid_view</span>
+</div>
+<span class="text-[10px] font-bold">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-text-muted hover:text-primary dark:hover:text-rose-200 transition-colors group">
+<div class="p-1 rounded-full group-hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+<span class="text-[10px] font-medium">Calendar</span>
+</button>
+<button class="relative flex items-center justify-center -mt-10 size-18 rounded-full group">
+<div class="absolute inset-0 bg-primary/30 rounded-full animate-ping opacity-20"></div>
+<div class="relative size-16 rounded-full bg-gradient-to-br from-primary to-primary-dark text-white shadow-xl shadow-primary/40 hover:scale-110 transition-transform active:scale-95 border-[4px] border-background-light dark:border-background-dark flex items-center justify-center">
+<span class="material-symbols-outlined transition-transform duration-300 group-hover:rotate-90" style="font-size: 32px;">add</span>
+</div>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-text-muted hover:text-primary dark:hover:text-rose-200 transition-colors group">
+<div class="p-1 rounded-full group-hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</div>
+<span class="text-[10px] font-medium">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-text-muted hover:text-primary dark:hover:text-rose-200 transition-colors group">
+<div class="p-1 rounded-full group-hover:bg-primary/5 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</div>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</nav>
+
+</body></html>

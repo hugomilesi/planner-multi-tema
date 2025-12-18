@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management - Travel Theme</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&amp;family=Jost:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "travel-paper": "#f0e6d2",
+                "travel-paper-dark": "#e6dcc5",
+                "travel-ink": "#2c3e50",
+                "travel-accent": "#c0392b", 
+                "travel-blue": "#3498db",
+                "travel-green": "#27ae60",
+                "stamp-border": "#8e7f70",
+                "primary": "#c0392b", // Red stamp color
+                "background-light": "#fdfbf7",
+                "background-dark": "#2c3e50", // Dark mode fallback if needed, but theme is mostly paper
+                "surface-light": "#ffffff",
+                "surface-paper": "#f4efe4",
+              },
+              fontFamily: {
+                "display": ["Jost", "sans-serif"],
+                "mono": ["Courier Prime", "monospace"],
+              },
+              backgroundImage: {
+                'paper-texture': "url('https://www.transparenttextures.com/patterns/natural-paper.png')",
+              },
+              boxShadow: {
+                'card': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                'stamp': '0 2px 4px rgba(0,0,0,0.15)',
+              }
+            },
+          },
+        }
+    </script>
+<style type="text/tailwindcss">
+        :root {
+            --paper-bg: #fdfbf7;
+        }
+        .dotted-line {
+            background-image: linear-gradient(to right, #8e7f70 33%, rgba(255,255,255,0) 0%);
+            background-position: bottom;
+            background-size: 8px 1px;
+            background-repeat: repeat-x;
+        }
+        .stamp-edge {
+            mask-image: radial-gradient(circle, transparent 3px, black 3.5px);
+            mask-size: 10px 10px;
+            mask-repeat: repeat;
+            mask-position: -5px -5px;
+            -webkit-mask-image: radial-gradient(circle, transparent 3px, black 3.5px);
+            -webkit-mask-size: 10px 10px;
+            -webkit-mask-repeat: repeat;
+            -webkit-mask-position: -5px -5px;
+        }
+        .itinerary-line {
+            border-left: 2px dashed #bbaaa0;
+        }
+    </style>
+<style>.no-scrollbar::-webkit-scrollbar {
+    display: none
+    }.no-scrollbar {
+    -ms-overflow-style: none;scrollbar-width: none;}
+body {
+    min-height: max(884px, 100dvh);
+    background-color: #fdfbf7;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuAjlzo3EJ0CTJBs5iCNNuC5AXciRi28gA28bI8vutpUk1m6b3i3yORIyNF2-T8K_0HNrx8IXJ26wlfMkGamzJFJd4h2_r7n8ujm5scR3D3PfIlfH_SdJs7Dz6tab1ZloAxgBdDT5zaSF7l9QJJf3MeP-tPjJGIA9stuhTbpTMu0QC9Tlk-1lFrmQAgrWOrGWp4x-RPSxBpz69VWwLqSmsWzsDfA5vK9K5Qy6SSlASAOv9jqP13dLn8-ANT4Iolz4JHwOKxvBPWLbxE)
+    }</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="text-travel-ink font-display overflow-x-hidden min-h-screen relative pb-28">
+<div class="absolute top-0 right-0 w-32 h-32 opacity-10 pointer-events-none overflow-hidden">
+<span class="material-symbols-outlined text-9xl transform rotate-12 text-travel-ink">public</span>
+</div>
+<div class="flex flex-col gap-2 p-4 pb-2 pt-6 relative z-10">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 border-2 border-white shadow-md sepia-[0.3]" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center rounded-full size-10 bg-surface-paper text-travel-ink shadow-sm border border-[#dcd0c0]">
+<span class="material-symbols-outlined">map</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div>
+<div class="flex items-center gap-2 mb-1">
+<span class="bg-travel-accent/10 text-travel-accent text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm border border-travel-accent/20">Itinerary</span>
+<p class="text-[#637588] font-mono text-xs font-bold uppercase tracking-wider">OCT 24, 2025</p>
+</div>
+<h1 class="text-travel-ink tracking-tight text-[32px] font-bold leading-tight font-display">Bon Voyage, Alex</h1>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2">
+<button class="flex flex-col items-center justify-center min-w-[64px] h-[84px] bg-white border-2 border-travel-accent text-travel-accent shadow-stamp relative shrink-0 transform rotate-[-2deg]">
+<div class="absolute -top-1 -left-1 w-2 h-2 border-t-2 border-l-2 border-travel-accent"></div>
+<div class="absolute -top-1 -right-1 w-2 h-2 border-t-2 border-r-2 border-travel-accent"></div>
+<div class="absolute -bottom-1 -left-1 w-2 h-2 border-b-2 border-l-2 border-travel-accent"></div>
+<div class="absolute -bottom-1 -right-1 w-2 h-2 border-b-2 border-r-2 border-travel-accent"></div>
+<span class="text-[10px] font-bold uppercase tracking-widest">TUE</span>
+<span class="text-3xl font-display font-bold mt-1">24</span>
+<span class="text-[10px] opacity-60 font-mono mt-1">ARRIVED</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[60px] h-[80px] bg-surface-paper/50 border border-dashed border-travel-ink/30 text-travel-ink/60 shrink-0 transform hover:-translate-y-1 transition-transform">
+<span class="text-[10px] font-bold uppercase">Wed</span>
+<span class="text-xl font-display font-bold mt-1">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[60px] h-[80px] bg-surface-paper/50 border border-dashed border-travel-ink/30 text-travel-ink/60 shrink-0 transform hover:-translate-y-1 transition-transform">
+<span class="text-[10px] font-bold uppercase">Thu</span>
+<span class="text-xl font-display font-bold mt-1">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[60px] h-[80px] bg-surface-paper/50 border border-dashed border-travel-ink/30 text-travel-ink/60 shrink-0 transform hover:-translate-y-1 transition-transform">
+<span class="text-[10px] font-bold uppercase">Fri</span>
+<span class="text-xl font-display font-bold mt-1">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[60px] h-[80px] bg-surface-paper/50 border border-dashed border-travel-ink/30 text-travel-ink/60 shrink-0 transform hover:-translate-y-1 transition-transform">
+<span class="text-[10px] font-bold uppercase">Sat</span>
+<span class="text-xl font-display font-bold mt-1">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[60px] h-[80px] bg-surface-paper/50 border border-dashed border-travel-ink/30 text-travel-ink/60 shrink-0 transform hover:-translate-y-1 transition-transform">
+<span class="text-[10px] font-bold uppercase">Sun</span>
+<span class="text-xl font-display font-bold mt-1">29</span>
+</button>
+</div>
+</div>
+<div class="px-4 py-2">
+<div class="flex flex-col relative bg-white border border-[#dcd0c0] shadow-sm overflow-hidden">
+<div class="absolute top-1/2 -left-2 w-4 h-4 bg-[#fdfbf7] rounded-full border-r border-[#dcd0c0]"></div>
+<div class="absolute top-1/2 -right-2 w-4 h-4 bg-[#fdfbf7] rounded-full border-l border-[#dcd0c0]"></div>
+<div class="flex flex-col p-5 border-b border-dashed border-[#dcd0c0]">
+<div class="flex justify-between items-start mb-3">
+<div>
+<p class="text-[#8e7f70] text-[10px] font-bold uppercase tracking-widest mb-1">JOURNEY STATUS</p>
+<p class="text-travel-ink text-lg font-bold font-display uppercase">Daily Progress</p>
+</div>
+<div class="border-2 border-travel-blue text-travel-blue px-2 py-1 rotate-[-6deg] rounded-sm opacity-80">
+<span class="text-sm font-bold font-mono">37%</span>
+</div>
+</div>
+<div class="relative w-full h-2 bg-[#ece6da] rounded-full overflow-hidden mb-2">
+<div class="absolute top-0 left-0 h-full bg-repeating-linear-gradient(45deg, #3498db, #3498db 5px, #2980b9 5px, #2980b9 10px) w-[37%] rounded-full"></div>
+</div>
+<div class="flex justify-between items-center">
+<p class="text-[#637588] text-xs font-mono">3/8 CHECKPOINTS</p>
+<span class="material-symbols-outlined text-[#dcd0c0] text-lg">flight_takeoff</span>
+</div>
+</div>
+<div class="h-2 w-full bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAACCAYAAAB/qH1jAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH5gMWEw0sF8y9MwAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAAVSURBVAjXY/j//z8DAwMTAwMDw38GACX7A/0r2T5dAAAAAElFTkSuQmCC')] opacity-20"></div>
+</div>
+</div>
+<div class="flex items-center gap-3 px-4 pt-6 pb-2">
+<h2 class="text-travel-ink tracking-tight text-xl font-bold leading-tight font-display">Today's Destinations</h2>
+<div class="flex-1 h-px bg-[#dcd0c0]"></div>
+<span class="material-symbols-outlined text-[#dcd0c0] text-sm">location_on</span>
+</div>
+<div class="flex flex-col px-4 gap-4 relative">
+<div class="absolute left-[38px] top-6 bottom-6 w-px border-l-2 border-dashed border-[#dcd0c0] z-0"></div>
+<div class="group relative flex items-start gap-4 z-10">
+<div class="flex-shrink-0 mt-1">
+<button class="size-6 rounded-full bg-[#fdfbf7] border-2 border-[#dcd0c0] group-hover:border-travel-accent flex items-center justify-center transition-colors shadow-sm">
+</button>
+</div>
+<div class="flex-1 bg-white p-4 rounded-sm border border-[#dcd0c0] shadow-card relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-[#8e44ad]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-travel-ink text-base font-semibold leading-tight">Review Financial Report</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-mono text-[#637588] flex items-center gap-1 bg-[#f4efe4] px-1.5 py-0.5 rounded-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 10:00 AM
+                            </span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#8e44ad]">Work Trip</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#dcd0c0] group-hover:text-[#8e44ad] transition-colors">business_center</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 z-10">
+<div class="flex-shrink-0 mt-1">
+<button class="size-6 rounded-full bg-travel-green border-2 border-travel-green flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-white text-sm font-bold">check</span>
+</button>
+</div>
+<div class="flex-1 bg-[#f4efe4] p-4 rounded-sm border border-[#dcd0c0] opacity-80 relative">
+<div class="absolute right-2 bottom-2 border-2 border-travel-green/40 text-travel-green/40 px-2 py-1 -rotate-12 rounded-sm pointer-events-none">
+<span class="text-[10px] font-bold font-mono uppercase">DONE</span>
+</div>
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-travel-ink text-base font-semibold leading-tight line-through opacity-60">Grocery Shopping</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-mono text-[#637588] flex items-center gap-1 opacity-60">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5:30 PM
+                            </span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#27ae60] opacity-60">Personal</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#dcd0c0] opacity-60">shopping_bag</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 z-10">
+<div class="flex-shrink-0 mt-1">
+<button class="size-6 rounded-full bg-[#fdfbf7] border-2 border-[#dcd0c0] group-hover:border-travel-accent flex items-center justify-center transition-colors shadow-sm">
+</button>
+</div>
+<div class="flex-1 bg-white p-4 rounded-sm border border-[#dcd0c0] shadow-card relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-[#e67e22]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-travel-ink text-base font-semibold leading-tight">Gym Workout</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-mono text-[#637588] flex items-center gap-1 bg-[#f4efe4] px-1.5 py-0.5 rounded-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 7:00 PM
+                            </span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#e67e22]">Health</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#dcd0c0] group-hover:text-[#e67e22] transition-colors">fitness_center</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 z-10">
+<div class="flex-shrink-0 mt-1">
+<button class="size-6 rounded-full bg-[#fdfbf7] border-2 border-[#dcd0c0] group-hover:border-travel-accent flex items-center justify-center transition-colors shadow-sm">
+</button>
+</div>
+<div class="flex-1 bg-white p-4 rounded-sm border border-[#dcd0c0] shadow-card relative before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-1 before:bg-[#3498db]">
+<div class="flex justify-between items-start">
+<div class="flex flex-col gap-1">
+<p class="text-travel-ink text-base font-semibold leading-tight">Read 20 pages</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-mono text-[#637588] flex items-center gap-1 bg-[#f4efe4] px-1.5 py-0.5 rounded-sm">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 9:30 PM
+                            </span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-[#3498db]">Education</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-[#dcd0c0] group-hover:text-[#3498db] transition-colors">school</span>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-24 right-5 z-20 flex size-14 items-center justify-center rounded-full bg-travel-accent text-white shadow-xl shadow-orange-900/20 transition-transform active:scale-90 hover:scale-105 border-2 border-white">
+<span class="material-symbols-outlined text-[32px]">add_location_alt</span>
+</button>
+<div class="fixed bottom-0 left-0 w-full z-10">
+<div class="relative flex w-full flex-col bg-[#fdfbf7]/95 backdrop-blur-sm border-t border-[#dcd0c0] pb-5 pt-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+<div class="flex justify-around items-center px-4">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-travel-accent">
+<span class="material-symbols-outlined fill-current text-[28px]">explore</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-travel-accent">Tasks</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#9dabb9] group-hover:text-travel-accent">
+<span class="material-symbols-outlined text-[26px]">currency_exchange</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-[#9dabb9] group-hover:text-travel-accent">Finance</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-lg py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-[#9dabb9] group-hover:text-travel-accent">
+<span class="material-symbols-outlined text-[26px]">settings_suggest</span>
+</div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-[#9dabb9] group-hover:text-travel-accent">Settings</p>
+</a>
+</div>
+<div class="mx-auto mt-4 h-1 w-32 rounded-full bg-travel-ink/10"></div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                        "surface-dark": "#1c2630",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<!-- Header -->
+<header class="flex items-center justify-between p-4 pb-2 sticky top-0 z-10 bg-background-light/95 dark:bg-background-dark/95 backdrop-blur-md">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 ring-2 ring-primary/20" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="flex flex-col">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Monday, Oct 24</span>
+<h2 class="text-lg font-bold leading-tight">Good Morning, Alex</h2>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-full size-10 bg-surface-dark/10 dark:bg-surface-dark text-slate-900 dark:text-white hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 24px;">notifications</span>
+</button>
+</header>
+<!-- Horizontal Calendar Strip -->
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2">
+<!-- Active Day -->
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-primary text-white shadow-lg shadow-primary/20 shrink-0">
+<span class="text-xs font-medium opacity-80">Mon</span>
+<span class="text-lg font-bold">24</span>
+</button>
+<!-- Inactive Days -->
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shrink-0">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Tue</span>
+<span class="text-lg font-bold">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shrink-0">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Wed</span>
+<span class="text-lg font-bold">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shrink-0">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Thu</span>
+<span class="text-lg font-bold">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shrink-0">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Fri</span>
+<span class="text-lg font-bold">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-dark text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 shrink-0">
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400">Sat</span>
+<span class="text-lg font-bold">29</span>
+</button>
+</div>
+</div>
+<!-- Progress Pill -->
+<div class="px-4 mt-4">
+<div class="flex flex-col gap-2 p-4 rounded-xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800">
+<div class="flex justify-between items-center">
+<p class="text-sm font-semibold text-slate-900 dark:text-white">Daily Goal Progress</p>
+<p class="text-xs font-medium text-primary">65%</p>
+</div>
+<div class="h-2 w-full rounded-full bg-slate-100 dark:bg-slate-700 overflow-hidden">
+<div class="h-full rounded-full bg-primary" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<!-- Today's Focus Card -->
+<div class="px-4 mt-6">
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl pt-24 shadow-md overflow-hidden relative group cursor-pointer" data-alt="Abstract dark blue geometric gradient background" style='background-image: linear-gradient(180deg, rgba(19, 127, 236, 0) 0%, rgba(16, 25, 34, 0.9) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute top-3 right-3 bg-white/20 backdrop-blur-md px-2 py-1 rounded text-[10px] font-bold text-white uppercase tracking-wider border border-white/10">
+                    Top Priority
+                </div>
+<div class="flex w-full items-end justify-between gap-4 p-4 z-10">
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-white/80 text-xs font-medium uppercase tracking-wider">Today's Focus</p>
+<p class="text-white text-xl font-bold leading-tight">Client Meeting Presentation</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-white/80" style="font-size: 16px;">schedule</span>
+<p class="text-white/90 text-sm font-medium">2:00 PM - 3:30 PM</p>
+</div>
+</div>
+<div class="bg-primary rounded-full p-2 text-white shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Financial Glance -->
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-4 p-5 rounded-xl bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-base font-bold text-slate-900 dark:text-white">Monthly Budget</h3>
+<p class="text-xs text-slate-500 dark:text-slate-400 mt-1">October 2023</p>
+</div>
+<button class="text-primary text-xs font-bold uppercase tracking-wide px-3 py-1 bg-primary/10 rounded-full hover:bg-primary/20 transition-colors">
+                        Details
+                    </button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Spent</span>
+<span class="text-xl font-bold text-slate-900 dark:text-white">$1,240</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Limit</span>
+<span class="text-xl font-bold text-slate-500 dark:text-slate-500">$2,000</span>
+</div>
+</div>
+<!-- Mini Chart Visualization -->
+<div class="flex items-end gap-1.5 h-12 mt-1 border-b border-slate-100 dark:border-slate-700/50 pb-1">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700/50 rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-slate-100 dark:bg-slate-700/50 rounded-t-sm h-[50%]"></div>
+<div class="flex-1 bg-slate-100 dark:bg-slate-700/50 rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary/40 rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-primary/60 rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-primary rounded-t-sm h-[85%] relative group">
+<!-- Tooltip-ish indicator -->
+<div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-[9px] px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity">
+                            Today
+                        </div>
+</div>
+<div class="flex-1 bg-slate-100 dark:bg-slate-700/30 rounded-t-sm h-[20%]"></div>
+</div>
+</div>
+</div>
+<!-- Pending Tasks Section -->
+<div class="mt-6">
+<div class="flex items-center justify-between px-4 pb-2">
+<h3 class="text-lg font-bold leading-tight">Pending Tasks</h3>
+<span class="text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-surface-dark px-2 py-1 rounded-full border border-slate-200 dark:border-slate-700">3 Remaining</span>
+</div>
+<div class="flex flex-col gap-2 px-4 mt-2">
+<!-- Task Item 1 -->
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800 active:scale-[0.99] transition-transform cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-slate-300 dark:border-slate-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-slate-900 dark:text-white line-through peer-checked:text-slate-400 dark:peer-checked:text-slate-500">Pay Electricity Bill</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Due Today</span>
+</div>
+<span class="bg-orange-500/10 text-orange-500 text-[10px] font-bold px-2 py-1 rounded uppercase">Med</span>
+</label>
+<!-- Task Item 2 -->
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800 active:scale-[0.99] transition-transform cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-slate-300 dark:border-slate-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Gym Session</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">6:00 PM</span>
+</div>
+<span class="bg-green-500/10 text-green-500 text-[10px] font-bold px-2 py-1 rounded uppercase">Low</span>
+</label>
+<!-- Task Item 3 -->
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-dark border border-slate-200 dark:border-slate-800 active:scale-[0.99] transition-transform cursor-pointer">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-slate-300 dark:border-slate-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-slate-900 dark:text-white">Review Q3 Reports</span>
+<span class="text-xs text-slate-500 dark:text-slate-400">Tomorrow, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-8"></div>
+</div>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full bg-white/90 dark:bg-background-dark/90 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 pb-safe pt-2 z-50">
+<div class="flex justify-around items-end pb-6 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-primary">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1, 'wght' 400;">dashboard</span>
+<span class="text-[10px] font-medium">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-[10px] font-medium">Calendar</span>
+</button>
+<!-- Floating Add Button -->
+<button class="flex items-center justify-center -mt-8 size-14 rounded-full bg-primary text-white shadow-lg shadow-primary/40 hover:scale-105 transition-transform active:scale-95">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-medium">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium">Settings</span>
+</button>
+</div>
+</nav>
+</body></html>

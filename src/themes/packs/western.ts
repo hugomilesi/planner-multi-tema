@@ -1,0 +1,65 @@
+import { ThemePack } from '../types';
+
+export const westernTheme: ThemePack = {
+  id: 'western',
+  name: 'Wild West',
+  description: 'Rustic paper textures, leather accents, and dusty desert vibes',
+  tokens: {
+    background: 'oklch(0.92 0.03 75)',
+    foreground: 'oklch(0.25 0.05 50)',
+    card: 'oklch(0.95 0.02 80)',
+    cardForeground: 'oklch(0.25 0.05 50)',
+    primary: 'oklch(0.50 0.15 50)',
+    primaryForeground: 'oklch(0.95 0.02 80)',
+    secondary: 'oklch(0.45 0.10 75)',
+    secondaryForeground: 'oklch(0.95 0.02 80)',
+    muted: 'oklch(0.85 0.03 75)',
+    mutedForeground: 'oklch(0.45 0.05 50)',
+    accent: 'oklch(0.55 0.18 30)',
+    accentForeground: 'oklch(0.95 0.02 80)',
+    destructive: 'oklch(0.50 0.20 25)',
+    border: 'oklch(0.60 0.10 60 / 40%)',
+    input: 'oklch(0.90 0.02 75)',
+    ring: 'oklch(0.50 0.15 50)',
+    chart1: 'oklch(0.50 0.15 50)',
+    chart2: 'oklch(0.55 0.18 30)',
+    chart3: 'oklch(0.45 0.10 75)',
+    chart4: 'oklch(0.60 0.12 90)',
+    chart5: 'oklch(0.40 0.08 40)',
+    gradientStart: 'oklch(0.92 0.03 75)',
+    gradientEnd: 'oklch(0.85 0.05 60)',
+    radius: '0.25rem',
+  },
+  motion: {
+    pageTransition: {
+      initial: { opacity: 0, y: 10, scale: 0.98 },
+      animate: { opacity: 1, y: 0, scale: 1 },
+      exit: { opacity: 0, y: -10, scale: 0.98 },
+      transition: { duration: 0.4 },
+    },
+    cardHover: {
+      y: -2,
+      transition: { duration: 0.3, ease: 'easeOut' },
+    },
+    stagger: 0.08,
+    duration: { fast: 0.2, normal: 0.4, slow: 0.6 },
+    easing: [0.4, 0, 0.2, 1],
+  },
+  fonts: {
+    heading: '"Rye", "Georgia", serif',
+    body: '"Lora", "Georgia", serif',
+    mono: '"Courier Prime", monospace',
+  },
+  background: {
+    type: 'texture',
+    config: {
+      texture: 'paper',
+      overlay: 'vignette',
+      dust: { enabled: true, count: 30, speed: 0.2 },
+      sepia: 0.1,
+    },
+  },
+  preview: {
+    accent: '#8B4513',
+  },
+};

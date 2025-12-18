@@ -1,0 +1,67 @@
+import { ThemePack } from '../types';
+
+export const oceanTheme: ThemePack = {
+  id: 'ocean',
+  name: 'Deep Ocean',
+  description: 'Serene underwater aesthetics with flowing waves and bioluminescence',
+  tokens: {
+    background: 'oklch(0.18 0.04 230)',
+    foreground: 'oklch(0.95 0.02 200)',
+    card: 'oklch(0.22 0.05 225 / 85%)',
+    cardForeground: 'oklch(0.95 0.02 200)',
+    primary: 'oklch(0.70 0.15 200)',
+    primaryForeground: 'oklch(0.15 0.04 230)',
+    secondary: 'oklch(0.65 0.12 175)',
+    secondaryForeground: 'oklch(0.15 0.04 230)',
+    muted: 'oklch(0.25 0.04 230)',
+    mutedForeground: 'oklch(0.70 0.03 200)',
+    accent: 'oklch(0.75 0.18 165)',
+    accentForeground: 'oklch(0.15 0.04 230)',
+    destructive: 'oklch(0.60 0.20 15)',
+    border: 'oklch(0.45 0.10 200 / 40%)',
+    input: 'oklch(0.20 0.04 230)',
+    ring: 'oklch(0.70 0.15 200)',
+    chart1: 'oklch(0.70 0.15 200)',
+    chart2: 'oklch(0.65 0.12 175)',
+    chart3: 'oklch(0.75 0.18 165)',
+    chart4: 'oklch(0.60 0.10 250)',
+    chart5: 'oklch(0.55 0.15 280)',
+    glow: 'oklch(0.75 0.18 165 / 50%)',
+    gradientStart: 'oklch(0.18 0.04 230)',
+    gradientEnd: 'oklch(0.12 0.06 250)',
+    radius: '1rem',
+  },
+  motion: {
+    pageTransition: {
+      initial: { opacity: 0, y: 20, scale: 0.98 },
+      animate: { opacity: 1, y: 0, scale: 1 },
+      exit: { opacity: 0, y: -20, scale: 0.98 },
+      transition: { duration: 0.5 },
+    },
+    cardHover: {
+      y: -4,
+      scale: 1.01,
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    },
+    stagger: 0.1,
+    duration: { fast: 0.25, normal: 0.5, slow: 0.8 },
+    easing: [0.22, 1, 0.36, 1],
+  },
+  fonts: {
+    heading: '"Quicksand", "Geist Sans", sans-serif',
+    body: '"Nunito", "Geist Sans", sans-serif',
+    mono: '"Fira Code", "Geist Mono", monospace',
+  },
+  background: {
+    type: 'animated',
+    config: {
+      gradient: 'linear-gradient(180deg, oklch(0.18 0.04 230) 0%, oklch(0.12 0.06 250) 100%)',
+      waves: { enabled: true, layers: 3, speed: 0.3 },
+      caustics: { enabled: true, opacity: 0.1 },
+      bubbles: { enabled: true, count: 20, speed: 0.4 },
+    },
+  },
+  preview: {
+    accent: '#00CED1',
+  },
+};

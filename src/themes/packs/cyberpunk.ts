@@ -1,0 +1,66 @@
+import { ThemePack } from '../types';
+
+export const cyberpunkTheme: ThemePack = {
+  id: 'cyberpunk',
+  name: 'Cyberpunk Neon',
+  description: 'Futuristic neon aesthetics with glitch effects and holographic elements',
+  tokens: {
+    background: 'oklch(0.13 0.02 280)',
+    foreground: 'oklch(0.95 0.02 200)',
+    card: 'oklch(0.18 0.03 280 / 80%)',
+    cardForeground: 'oklch(0.95 0.02 200)',
+    primary: 'oklch(0.75 0.25 320)',
+    primaryForeground: 'oklch(0.13 0.02 280)',
+    secondary: 'oklch(0.65 0.22 195)',
+    secondaryForeground: 'oklch(0.13 0.02 280)',
+    muted: 'oklch(0.25 0.03 280)',
+    mutedForeground: 'oklch(0.65 0.05 200)',
+    accent: 'oklch(0.80 0.20 85)',
+    accentForeground: 'oklch(0.13 0.02 280)',
+    destructive: 'oklch(0.65 0.25 25)',
+    border: 'oklch(0.40 0.15 320 / 50%)',
+    input: 'oklch(0.20 0.03 280)',
+    ring: 'oklch(0.75 0.25 320)',
+    chart1: 'oklch(0.75 0.25 320)',
+    chart2: 'oklch(0.65 0.22 195)',
+    chart3: 'oklch(0.80 0.20 85)',
+    chart4: 'oklch(0.70 0.20 145)',
+    chart5: 'oklch(0.65 0.25 25)',
+    glow: 'oklch(0.75 0.25 320 / 60%)',
+    gradientStart: 'oklch(0.75 0.25 320)',
+    gradientEnd: 'oklch(0.65 0.22 195)',
+    radius: '0.5rem',
+  },
+  motion: {
+    pageTransition: {
+      initial: { opacity: 0, x: 20, filter: 'blur(10px)' },
+      animate: { opacity: 1, x: 0, filter: 'blur(0px)' },
+      exit: { opacity: 0, x: -20, filter: 'blur(10px)' },
+      transition: { duration: 0.3 },
+    },
+    cardHover: {
+      scale: 1.02,
+      transition: { duration: 0.2, ease: 'easeOut' },
+    },
+    stagger: 0.05,
+    duration: { fast: 0.15, normal: 0.3, slow: 0.5 },
+    easing: [0.25, 0.46, 0.45, 0.94],
+  },
+  fonts: {
+    heading: '"Orbitron", "Geist Sans", sans-serif',
+    body: '"Rajdhani", "Geist Sans", sans-serif',
+    mono: '"Fira Code", "Geist Mono", monospace',
+  },
+  background: {
+    type: 'animated',
+    config: {
+      gradient: 'linear-gradient(135deg, oklch(0.13 0.02 280) 0%, oklch(0.10 0.04 300) 100%)',
+      particles: { count: 50, color: 'oklch(0.75 0.25 320 / 40%)', speed: 0.5 },
+      scanlines: true,
+      glowOrbs: true,
+    },
+  },
+  preview: {
+    accent: '#ff00ff',
+  },
+};

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Tracking - Wild West</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "wild-paper": "#f3e5ab",
+                        "wild-paper-dark": "#d4c596",
+                        "wild-wood": "#5c4033",
+                        "wild-wood-dark": "#3e2723",
+                        "wild-ink": "#2c1810",
+                        "wild-gold": "#d4af37",
+                        "wild-red": "#8b0000",
+                        "wild-green": "#2e4a2e",
+                        "surface-paper": "#fffdf0",
+                    },
+                    fontFamily: {
+                        "display": ["Rye", "serif"],
+                        "body": ["Courier Prime", "monospace"]
+                    },
+                    backgroundImage: {
+                        'paper-texture': "url('https://www.transparenttextures.com/patterns/old-map.png')",
+                        'wood-pattern': "url('https://www.transparenttextures.com/patterns/wood-pattern.png')",
+                    },
+                    boxShadow: {
+                        'wood': 'inset 0 0 20px rgba(0,0,0,0.5), 0 4px 6px rgba(0,0,0,0.3)',
+                        'paper': '2px 2px 5px rgba(0,0,0,0.2), inset 0 0 30px rgba(160, 140, 100, 0.1)'
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rye&amp;family=Courier+Prime:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .wood-border {
+            border: 4px solid #5c4033;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.4);
+        }
+        .ledger-lines {
+            background-image: repeating-linear-gradient(transparent, transparent 29px, #a89f91 30px);
+            background-attachment: local;
+        }
+        .rough-border {
+            border: 2px solid #2c1810;
+            border-radius: 2px;
+            border-top-left-radius: 255px 15px;
+            border-top-right-radius: 15px 225px;
+            border-bottom-right-radius: 225px 15px;
+            border-bottom-left-radius: 15px 255px;
+        }
+        .hand-drawn-bar {
+            border: 2px solid #2c1810;
+            background: repeating-linear-gradient(
+                45deg,
+                #2c1810,
+                #2c1810 2px,
+                transparent 2px,
+                transparent 6px
+            );
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-wild-wood font-body text-wild-ink antialiased selection:bg-wild-gold selection:text-wild-ink bg-wood-pattern">
+<div class="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-wild-paper bg-paper-texture border-x-8 border-wild-wood">
+<div class="absolute top-2 left-2 w-3 h-3 rounded-full bg-neutral-800 shadow-inner z-50 border border-black opacity-60"></div>
+<div class="absolute top-2 right-2 w-3 h-3 rounded-full bg-neutral-800 shadow-inner z-50 border border-black opacity-60"></div>
+<div class="flex items-center justify-between p-4 pt-8 sticky top-0 z-20 bg-wild-paper/95 backdrop-blur-sm border-b-2 border-wild-ink border-dashed">
+<h2 class="text-2xl font-display text-wild-ink tracking-wide">The Ledger</h2>
+<button class="flex items-center justify-center w-10 h-10 rounded-full hover:bg-wild-gold/20 transition-colors text-wild-ink">
+<span class="material-symbols-outlined">visibility_off</span>
+</button>
+</div>
+<div class="flex gap-3 px-4 py-4 overflow-x-auto no-scrollbar w-full flex-nowrap bg-wild-wood/10">
+<button class="flex-shrink-0 h-9 px-5 rough-border bg-wild-ink text-wild-paper text-sm font-bold transition-transform active:scale-95 shadow-lg font-display tracking-widest">
+                THIS MONTH
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rough-border bg-surface-paper text-wild-ink text-sm font-bold transition-colors hover:bg-wild-paper-dark font-display">
+                OCTOBER
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rough-border bg-surface-paper text-wild-ink text-sm font-bold transition-colors hover:bg-wild-paper-dark font-display">
+                SEPTEMBER
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rough-border bg-surface-paper text-wild-ink text-sm font-bold transition-colors hover:bg-wild-paper-dark font-display">
+                2023
+            </button>
+</div>
+<div class="flex flex-col items-center pt-8 pb-6 px-4 bg-[url('https://www.transparenttextures.com/patterns/gplay.png')]">
+<div class="relative border-4 border-double border-wild-ink p-6 rounded-lg bg-surface-paper shadow-paper rotate-1">
+<div class="absolute -top-1 -left-1 w-4 h-4 border-t-4 border-l-4 border-wild-ink"></div>
+<div class="absolute -top-1 -right-1 w-4 h-4 border-t-4 border-r-4 border-wild-ink"></div>
+<div class="absolute -bottom-1 -left-1 w-4 h-4 border-b-4 border-l-4 border-wild-ink"></div>
+<div class="absolute -bottom-1 -right-1 w-4 h-4 border-b-4 border-r-4 border-wild-ink"></div>
+<p class="text-wild-ink/70 text-sm font-bold tracking-widest mb-2 text-center font-display uppercase border-b border-wild-ink pb-1">Current Bounty</p>
+<h1 class="text-4xl font-bold tracking-tight text-wild-ink font-display flex items-center gap-2">
+<span class="text-3xl opacity-80">$</span>4,250.00
+                </h1>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 px-4 mb-8">
+<div class="bg-surface-paper p-4 rough-border shadow-paper relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-gradient-to-br from-wild-green/20 to-transparent rounded-bl-3xl"></div>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-full border-2 border-wild-green flex items-center justify-center text-wild-green bg-wild-green/10">
+<span class="material-symbols-outlined text-[18px]">add</span>
+</div>
+<span class="text-sm font-bold text-wild-ink uppercase font-display">Loot</span>
+</div>
+<p class="text-xl font-bold text-wild-green font-body border-b-2 border-wild-green inline-block">+$2,500.00</p>
+</div>
+<div class="bg-surface-paper p-4 rough-border shadow-paper relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-gradient-to-br from-wild-red/20 to-transparent rounded-bl-3xl"></div>
+<div class="flex items-center gap-2 mb-3">
+<div class="w-8 h-8 rounded-full border-2 border-wild-red flex items-center justify-center text-wild-red bg-wild-red/10">
+<span class="material-symbols-outlined text-[18px]">remove</span>
+</div>
+<span class="text-sm font-bold text-wild-ink uppercase font-display">Losses</span>
+</div>
+<p class="text-xl font-bold text-wild-red font-body border-b-2 border-wild-red inline-block">-$1,150.00</p>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="bg-surface-paper rounded-sm p-5 rough-border shadow-paper relative">
+<div class="absolute -top-2 -right-2 bg-neutral-400 w-4 h-4 rounded-full shadow border border-black z-10"></div>
+<div class="flex items-center justify-between mb-6">
+<div>
+<h3 class="text-base font-bold text-wild-ink font-display uppercase tracking-wider">Spending Trail</h3>
+<p class="text-xs text-wild-ink/60 mt-1 font-body">Oct 1 - Oct 31</p>
+</div>
+<div class="flex items-center gap-1 border border-wild-green px-2 py-1 rounded-sm bg-wild-green/5">
+<span class="material-symbols-outlined text-wild-green text-sm">trending_up</span>
+<span class="text-xs font-bold text-wild-green">+12%</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-40 gap-2 sm:gap-4 px-2 ledger-lines border-l-2 border-b-2 border-wild-ink">
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end overflow-hidden px-1">
+<div class="w-full border-2 border-wild-ink bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] bg-wild-ink/20 group-hover:bg-wild-ink/40 transition-all duration-300" style="height: 40%"></div>
+</div>
+<span class="text-[11px] font-bold text-wild-ink/60 font-body">W1</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end overflow-hidden px-1">
+<div class="w-full border-2 border-wild-ink bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] bg-wild-ink/30 group-hover:bg-wild-ink/50 transition-all duration-300" style="height: 65%"></div>
+</div>
+<span class="text-[11px] font-bold text-wild-ink/60 font-body">W2</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end overflow-hidden px-1">
+<div class="w-full hand-drawn-bar transition-all duration-300 relative" style="height: 85%">
+<div class="absolute inset-0 bg-wild-gold/20"></div>
+</div>
+</div>
+<span class="text-[11px] font-bold text-wild-ink font-display underline decoration-wavy decoration-wild-gold">W3</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end overflow-hidden px-1">
+<div class="w-full border-2 border-wild-ink bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] bg-wild-ink/20 group-hover:bg-wild-ink/40 transition-all duration-300" style="height: 30%"></div>
+</div>
+<span class="text-[11px] font-bold text-wild-ink/60 font-body">W4</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="flex items-center justify-between mb-4 border-b border-wild-ink pb-2 border-dashed">
+<h3 class="text-lg font-bold text-wild-ink font-display uppercase">Monthly Rations</h3>
+<button class="text-wild-ink text-sm font-bold uppercase hover:text-wild-gold transition-colors font-display">Modify</button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-paper/50 p-4 border-b border-wild-ink/30 relative">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-wild-wood bg-wild-wood text-wild-paper flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-lg">local_mall</span>
+</div>
+<div>
+<p class="text-sm font-bold text-wild-ink font-display uppercase tracking-wide">Supplies</p>
+<p class="text-xs text-wild-ink/70">$320 left in sack</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-ink font-body">$180 / $500</p>
+</div>
+<div class="w-full h-3 border-2 border-wild-ink bg-transparent rounded-full overflow-hidden p-[1px]">
+<div class="h-full bg-wild-wood rounded-full" style="width: 36%"></div>
+</div>
+</div>
+<div class="bg-surface-paper/50 p-4 border-b border-wild-ink/30 relative">
+<div class="flex justify-between items-center mb-2">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full border-2 border-wild-wood bg-wild-wood text-wild-paper flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-lg">explore</span>
+</div>
+<div>
+<p class="text-sm font-bold text-wild-ink font-display uppercase tracking-wide">Travel</p>
+<p class="text-xs text-wild-ink/70">$50 left in sack</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-ink font-body">$150 / $200</p>
+</div>
+<div class="w-full h-3 border-2 border-wild-ink bg-transparent rounded-full overflow-hidden p-[1px]">
+<div class="h-full bg-wild-wood rounded-full" style="width: 75%"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 flex-1 bg-[url('https://www.transparenttextures.com/patterns/lined-paper-2.png')] border-t-4 border-double border-wild-ink pt-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-wild-ink font-display uppercase">Recent Dealings</h3>
+<button class="text-wild-ink text-sm font-bold hover:underline font-display uppercase">See All</button>
+</div>
+<div class="space-y-1">
+<div class="flex items-center justify-between p-3 border-b border-wild-ink/20 hover:bg-wild-wood/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-wild-gold flex items-center justify-center text-wild-ink border-2 border-yellow-600 shadow-sm relative group-hover:scale-110 transition-transform">
+<div class="absolute top-1 right-2 w-2 h-2 bg-white rounded-full opacity-50"></div>
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-wild-ink font-display">General Store</p>
+<p class="text-xs text-wild-ink/60 font-body">Today, High Noon</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-red font-body">-$1,150.00</p>
+</div>
+<div class="flex items-center justify-between p-3 border-b border-wild-ink/20 hover:bg-wild-wood/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-wild-gold flex items-center justify-center text-wild-ink border-2 border-yellow-600 shadow-sm relative group-hover:scale-110 transition-transform">
+<div class="absolute top-1 right-2 w-2 h-2 bg-white rounded-full opacity-50"></div>
+<span class="material-symbols-outlined">savings</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-wild-ink font-display">Bounty Reward</p>
+<p class="text-xs text-wild-ink/60 font-body">Yesterday, 9:00 AM</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-green font-body">+$2,500.00</p>
+</div>
+<div class="flex items-center justify-between p-3 border-b border-wild-ink/20 hover:bg-wild-wood/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-wild-gold flex items-center justify-center text-wild-ink border-2 border-yellow-600 shadow-sm relative group-hover:scale-110 transition-transform">
+<div class="absolute top-1 right-2 w-2 h-2 bg-white rounded-full opacity-50"></div>
+<span class="material-symbols-outlined">local_activity</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-wild-ink font-display">Saloon Show</p>
+<p class="text-xs text-wild-ink/60 font-body">Oct 21, 2023</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-red font-body">-$15.00</p>
+</div>
+<div class="flex items-center justify-between p-3 border-b border-wild-ink/20 hover:bg-wild-wood/5 transition-colors cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-wild-gold flex items-center justify-center text-wild-ink border-2 border-yellow-600 shadow-sm relative group-hover:scale-110 transition-transform">
+<div class="absolute top-1 right-2 w-2 h-2 bg-white rounded-full opacity-50"></div>
+<span class="material-symbols-outlined">liquor</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-wild-ink font-display">Coffee &amp; Grits</p>
+<p class="text-xs text-wild-ink/60 font-body">Oct 20, 2023</p>
+</div>
+</div>
+<p class="text-sm font-bold text-wild-red font-body">-$5.40</p>
+</div>
+</div>
+</div>
+<button class="fixed bottom-6 right-6 w-16 h-16 bg-wild-ink text-wild-gold rounded-full shadow-[0_4px_0_#000] border-2 border-wild-gold flex items-center justify-center transition-transform hover:scale-105 active:scale-95 active:shadow-none active:translate-y-1 z-30 group overflow-hidden">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')] opacity-20"></div>
+<span class="material-symbols-outlined text-3xl font-bold relative z-10 group-hover:rotate-90 transition-transform duration-300">add</span>
+</button>
+<div class="h-6"></div>
+</div>
+
+</body></html>

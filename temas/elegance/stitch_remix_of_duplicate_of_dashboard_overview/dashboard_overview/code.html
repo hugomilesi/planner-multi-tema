@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Classy Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#C5A065", // Muted Gold / Bronze
+                        "primary-dark": "#A6854F",
+                        "background-light": "#F9F8F6", // Warm paper white
+                        "background-dark": "#141414", // Near black
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#1E1E1E",
+                        "border-light": "#E5E0D8",
+                        "border-dark": "#333333",
+                        "text-main": "#262626",
+                        "text-light": "#FFFFFF",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"],
+                        "serif": ["Playfair Display", "serif"]
+                    },
+                    backgroundImage: {
+                        'gradient-classy': 'linear-gradient(to bottom right, #F9F8F6, #F0EBE5)',
+                        'gradient-classy-dark': 'linear-gradient(to bottom right, #141414, #0A0A0A)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none; 
+            scrollbar-width: none; 
+        }
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark text-text-main dark:text-text-light font-sans antialiased selection:bg-primary/30">
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24">
+<div class="fixed inset-0 bg-gradient-classy dark:bg-gradient-classy-dark -z-10"></div>
+<header class="flex items-center justify-between p-6 pb-2 sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
+<div class="flex items-center gap-4">
+<div class="relative group">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 ring-2 ring-primary/30 group-hover:ring-primary/60 transition-all shadow-md" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="absolute -bottom-0.5 -right-0.5 size-3 bg-green-500 rounded-full border-2 border-background-light dark:border-background-dark"></div>
+</div>
+<div class="flex flex-col">
+<span class="text-[10px] font-semibold tracking-[0.2em] uppercase text-stone-500 dark:text-stone-400 mb-0.5">Monday, Oct 24</span>
+<h2 class="text-2xl font-serif font-semibold text-stone-900 dark:text-stone-100 leading-none">Hello, Alex</h2>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-full size-11 bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark text-stone-800 dark:text-stone-200 hover:text-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined" style="font-size: 22px;">notifications</span>
+</button>
+</header>
+<div class="flex flex-col gap-2 mt-4">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-6 py-2">
+<button class="flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-stone-900 dark:bg-primary text-primary dark:text-stone-900 shadow-xl shadow-stone-900/10 dark:shadow-primary/10 shrink-0 transform scale-105 border border-stone-800 dark:border-primary">
+<span class="text-[10px] font-bold uppercase tracking-wider mb-1 opacity-80">Mon</span>
+<span class="text-2xl font-serif font-bold">24</span>
+<div class="w-1 h-1 bg-primary dark:bg-stone-900 rounded-full mt-1"></div>
+</button>
+<button class="group flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-surface-light dark:bg-surface-dark text-stone-600 dark:text-stone-400 border border-border-light dark:border-border-dark shrink-0 hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-medium uppercase tracking-wider mb-1">Tue</span>
+<span class="text-xl font-serif font-medium group-hover:text-stone-900 dark:group-hover:text-white transition-colors">25</span>
+</button>
+<button class="group flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-surface-light dark:bg-surface-dark text-stone-600 dark:text-stone-400 border border-border-light dark:border-border-dark shrink-0 hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-medium uppercase tracking-wider mb-1">Wed</span>
+<span class="text-xl font-serif font-medium group-hover:text-stone-900 dark:group-hover:text-white transition-colors">26</span>
+<div class="w-1 h-1 bg-stone-300 dark:bg-stone-600 rounded-full mt-1"></div>
+</button>
+<button class="group flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-surface-light dark:bg-surface-dark text-stone-600 dark:text-stone-400 border border-border-light dark:border-border-dark shrink-0 hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-medium uppercase tracking-wider mb-1">Thu</span>
+<span class="text-xl font-serif font-medium group-hover:text-stone-900 dark:group-hover:text-white transition-colors">27</span>
+</button>
+<button class="group flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-surface-light dark:bg-surface-dark text-stone-600 dark:text-stone-400 border border-border-light dark:border-border-dark shrink-0 hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-medium uppercase tracking-wider mb-1">Fri</span>
+<span class="text-xl font-serif font-medium group-hover:text-stone-900 dark:group-hover:text-white transition-colors">28</span>
+</button>
+<button class="group flex flex-col items-center justify-center min-w-[3.8rem] h-20 rounded-2xl bg-surface-light dark:bg-surface-dark text-stone-600 dark:text-stone-400 border border-border-light dark:border-border-dark shrink-0 hover:border-primary/50 transition-colors">
+<span class="text-[10px] font-medium uppercase tracking-wider mb-1">Sat</span>
+<span class="text-xl font-serif font-medium group-hover:text-stone-900 dark:group-hover:text-white transition-colors">29</span>
+</button>
+</div>
+</div>
+<div class="px-6 mt-6">
+<div class="flex flex-col gap-3 p-5 rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm">
+<div class="flex justify-between items-end">
+<div>
+<p class="text-[10px] font-bold uppercase tracking-widest text-stone-400 mb-1">Daily Progress</p>
+<p class="text-lg font-serif font-bold text-stone-900 dark:text-white">Goal Tracker</p>
+</div>
+<div class="flex items-baseline gap-1">
+<span class="text-2xl font-serif font-bold text-primary">65</span>
+<span class="text-xs font-medium text-primary">%</span>
+</div>
+</div>
+<div class="h-1.5 w-full rounded-full bg-stone-100 dark:bg-stone-800 overflow-hidden">
+<div class="h-full rounded-full bg-primary shadow-[0_0_10px_rgba(197,160,101,0.5)]" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<div class="px-6 mt-6">
+<div class="bg-cover bg-center flex flex-col items-stretch justify-end rounded-xl pt-32 shadow-xl shadow-stone-900/10 dark:shadow-black/30 overflow-hidden relative group cursor-pointer border border-white/5" data-alt="Abstract dark blue geometric gradient background" style='background-image: linear-gradient(180deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.95) 100%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'>
+<div class="absolute top-4 right-4 bg-white/10 backdrop-blur-md pl-2 pr-3 py-1 rounded-full flex items-center gap-1.5 border border-white/10">
+<div class="size-1.5 rounded-full bg-primary animate-pulse"></div>
+<span class="text-[10px] font-bold text-white uppercase tracking-wider">Priority</span>
+</div>
+<div class="flex w-full items-end justify-between gap-4 p-6 z-10">
+<div class="flex flex-1 flex-col">
+<p class="text-primary/90 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Today's Focus</p>
+<p class="text-white text-2xl font-serif font-medium leading-tight mb-3">Client Meeting Presentation</p>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-stone-400" style="font-size: 16px;">schedule</span>
+<p class="text-stone-300 text-sm font-sans tracking-wide">2:00 PM — 3:30 PM</p>
+</div>
+</div>
+<div class="bg-white/10 backdrop-blur-sm rounded-full p-3 text-white border border-white/10 hover:bg-white/20 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-6 mt-8">
+<div class="flex flex-col p-6 rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark shadow-sm relative overflow-hidden">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/20 via-primary to-primary/20"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<h3 class="text-lg font-serif font-bold text-stone-900 dark:text-white">Monthly Budget</h3>
+<p class="text-xs text-stone-500 mt-1 font-medium">October 2023</p>
+</div>
+<button class="text-primary hover:text-primary-dark transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">more_horiz</span>
+</button>
+</div>
+<div class="grid grid-cols-2 gap-8 mb-6 border-b border-stone-100 dark:border-stone-800 pb-6">
+<div class="flex flex-col gap-1">
+<span class="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Spent</span>
+<span class="text-2xl font-serif font-medium text-stone-900 dark:text-white">$1,240</span>
+</div>
+<div class="flex flex-col gap-1 border-l border-stone-100 dark:border-stone-800 pl-8">
+<span class="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Limit</span>
+<span class="text-2xl font-serif font-medium text-stone-500">$2,000</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-16 gap-2">
+<div class="w-full bg-stone-100 dark:bg-stone-800 rounded-sm h-[30%]"></div>
+<div class="w-full bg-stone-100 dark:bg-stone-800 rounded-sm h-[50%]"></div>
+<div class="w-full bg-stone-100 dark:bg-stone-800 rounded-sm h-[40%]"></div>
+<div class="w-full bg-primary/30 rounded-sm h-[60%]"></div>
+<div class="w-full bg-primary/60 rounded-sm h-[45%]"></div>
+<div class="w-full bg-primary rounded-sm h-[85%] relative group shadow-[0_0_15px_-3px_rgba(197,160,101,0.6)]">
+<div class="absolute -top-8 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+                        Today
+                    </div>
+</div>
+<div class="w-full bg-stone-100 dark:bg-stone-800 rounded-sm h-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-8 mb-4">
+<div class="flex items-center justify-between px-6 pb-4">
+<h3 class="text-xl font-serif font-bold text-stone-900 dark:text-white">Pending Tasks</h3>
+<span class="text-[10px] font-bold text-stone-500 bg-stone-100 dark:bg-stone-800 px-3 py-1.5 rounded-full uppercase tracking-wider border border-stone-200 dark:border-stone-700">3 Remaining</span>
+</div>
+<div class="flex flex-col gap-3 px-6">
+<label class="group flex items-center gap-4 p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark active:scale-[0.99] transition-all cursor-pointer hover:shadow-md hover:border-primary/30">
+<div class="relative flex items-center justify-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-stone-300 dark:border-stone-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium font-serif text-stone-900 dark:text-white line-through peer-checked:text-stone-400 dark:peer-checked:text-stone-600 transition-colors">Pay Electricity Bill</span>
+<span class="text-xs text-stone-500 mt-0.5">Due Today</span>
+</div>
+<span class="text-xs font-serif italic text-primary">Medium</span>
+</label>
+<label class="group flex items-center gap-4 p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark active:scale-[0.99] transition-all cursor-pointer hover:shadow-md hover:border-primary/30">
+<div class="relative flex items-center justify-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-stone-300 dark:border-stone-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium font-serif text-stone-900 dark:text-white">Gym Session</span>
+<span class="text-xs text-stone-500 mt-0.5">6:00 PM</span>
+</div>
+<span class="text-xs font-serif italic text-stone-400">Low</span>
+</label>
+<label class="group flex items-center gap-4 p-4 rounded-xl bg-surface-light dark:bg-surface-dark border border-border-light dark:border-border-dark active:scale-[0.99] transition-all cursor-pointer hover:shadow-md hover:border-primary/30">
+<div class="relative flex items-center justify-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded border border-stone-300 dark:border-stone-600 checked:border-primary checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute text-[14px] text-white opacity-0 peer-checked:opacity-100 pointer-events-none">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium font-serif text-stone-900 dark:text-white">Review Q3 Reports</span>
+<span class="text-xs text-stone-500 mt-0.5">Tomorrow, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-8"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-surface-light/95 dark:bg-background-dark/95 backdrop-blur-xl border-t border-border-light dark:border-border-dark pb-safe pt-2 z-50">
+<div class="flex justify-around items-end pb-6 px-4">
+<button class="flex flex-col items-center gap-1.5 w-16 text-primary group">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-y-1">dashboard</span>
+<span class="text-[10px] font-medium tracking-wide uppercase">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 w-16 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors group">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-y-1">calendar_month</span>
+<span class="text-[10px] font-medium tracking-wide uppercase">Plan</span>
+</button>
+<button class="flex items-center justify-center -mt-10 size-16 rounded-full bg-stone-900 dark:bg-primary text-primary dark:text-stone-900 shadow-xl shadow-stone-900/20 dark:shadow-primary/20 hover:scale-105 transition-all active:scale-95 border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined" style="font-size: 32px;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 w-16 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors group">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-y-1">account_balance_wallet</span>
+<span class="text-[10px] font-medium tracking-wide uppercase">Wallet</span>
+</button>
+<button class="flex flex-col items-center gap-1.5 w-16 text-stone-400 hover:text-stone-600 dark:hover:text-stone-200 transition-colors group">
+<span class="material-symbols-outlined transition-transform group-hover:-translate-y-1">settings</span>
+<span class="text-[10px] font-medium tracking-wide uppercase">Menu</span>
+</button>
+</div>
+</nav>
+
+</body></html>

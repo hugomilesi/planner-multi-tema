@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management - Retro Theme</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&amp;family=VT323&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "retro-bg": "#2b2b2b",
+                "retro-surface": "#404040",
+                "retro-primary": "#f2a900","retro-accent": "#e63946","retro-success": "#70c655","retro-blue": "#457b9d",
+                "retro-light": "#dcdcdc",
+                "retro-dark": "#1a1a1a",
+                "retro-border": "#000000",
+              },
+              fontFamily: {
+                "pixel": ['"Press Start 2P"', 'cursive'],
+                "terminal": ['"VT323"', 'monospace'],
+              },
+              boxShadow: {
+                "pixel": "4px 4px 0px 0px #000000",
+                "pixel-sm": "2px 2px 0px 0px #000000",
+                "pixel-pressed": "inset 2px 2px 0px 0px #000000",
+              },
+              backgroundImage: {
+                'check-pixel': "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231a1a1a'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E\")"
+              }
+            },
+          },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+        body {
+            image-rendering: pixelated;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-retro-bg text-retro-light font-terminal overflow-x-hidden min-h-screen relative pb-24">
+<div class="flex flex-col gap-2 p-4 pb-2 pt-6">
+<div class="flex items-center h-12 justify-between">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover size-10 border-4 border-retro-border shadow-pixel-sm" data-alt="User profile picture" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<div class="flex w-12 items-center justify-end">
+<button class="flex items-center justify-center size-10 bg-retro-surface text-retro-light shadow-pixel-sm border-2 border-retro-border active:translate-y-1 active:shadow-none transition-all">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-end mt-4">
+<div>
+<p class="text-retro-primary text-lg font-pixel mb-2 tracking-tighter">Tue, Oct 24</p>
+<h1 class="text-white tracking-tight text-3xl font-pixel leading-snug drop-shadow-md" style="text-shadow: 2px 2px 0 #000;">HI ALEX!</h1>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 pb-2">
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-primary text-retro-dark shadow-pixel border-2 border-retro-border shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2">TUE</span>
+<span class="text-3xl font-pixel mt-1">24</span>
+<div class="w-2 h-2 bg-retro-dark mt-2"></div>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-surface border-2 border-retro-border text-retro-light shadow-pixel-sm shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2 opacity-70">WED</span>
+<span class="text-3xl font-pixel mt-1">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-surface border-2 border-retro-border text-retro-light shadow-pixel-sm shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2 opacity-70">THU</span>
+<span class="text-3xl font-pixel mt-1">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-surface border-2 border-retro-border text-retro-light shadow-pixel-sm shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2 opacity-70">FRI</span>
+<span class="text-3xl font-pixel mt-1">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-surface border-2 border-retro-border text-retro-light shadow-pixel-sm shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2 opacity-70">SAT</span>
+<span class="text-3xl font-pixel mt-1">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[90px] bg-retro-surface border-2 border-retro-border text-retro-light shadow-pixel-sm shrink-0 transform transition-transform active:translate-y-1 active:shadow-none">
+<span class="text-xs font-pixel mt-2 opacity-70">SUN</span>
+<span class="text-3xl font-pixel mt-1">29</span>
+</button>
+</div>
+</div>
+<div class="px-4 py-2">
+<div class="flex flex-col gap-3 p-5 bg-retro-surface border-2 border-retro-border shadow-pixel relative">
+<div class="absolute top-1 left-1 w-1 h-1 bg-retro-light opacity-20"></div>
+<div class="absolute bottom-1 right-1 w-1 h-1 bg-retro-light opacity-20"></div>
+<div class="flex gap-6 justify-between items-center">
+<p class="text-retro-light text-sm font-pixel leading-normal uppercase">Daily EXP</p>
+<span class="text-retro-dark text-xs font-pixel bg-retro-primary px-2 py-1 border border-retro-border shadow-pixel-sm">37%</span>
+</div>
+<div class="bg-retro-dark h-6 w-full border-2 border-retro-border relative p-0.5">
+<div class="h-full bg-retro-success transition-all duration-500 ease-steps(4)" style="width: 37%;">
+<div class="w-full h-1 bg-white opacity-30 mt-0.5"></div>
+</div>
+<div class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSJub25lIi8+CjxwYXRoIGQ9Ik0wIDBoNHY0SDB6IiBmaWxsPSJub25lIiBzdHJva2U9InJnYmEoMCwwLDAsMC4yKSIgc3Ryb2tlLXdpZHRoPSIxIi8+Cjwvc3ZnPg==')] opacity-20 pointer-events-none"></div>
+</div>
+<p class="text-retro-primary text-sm font-pixel leading-normal text-right">3/8 CLEARED</p>
+</div>
+</div>
+<h2 class="text-white tracking-wide text-lg font-pixel leading-tight px-4 text-left pt-6 pb-4 uppercase" style="text-shadow: 2px 2px 0 #000;">Current Quests</h2>
+<div class="flex flex-col px-4 gap-4">
+<div class="group relative flex items-start gap-4 p-4 bg-retro-surface border-2 border-retro-border shadow-pixel transition-all hover:translate-x-1">
+<button class="flex-shrink-0 size-8 border-2 border-retro-border bg-retro-dark group-hover:bg-retro-primary group-hover:border-retro-dark transition-colors mt-1 relative">
+<div class="absolute inset-1 bg-retro-surface opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</button>
+<div class="flex flex-1 flex-col gap-2">
+<p class="text-retro-light text-xl font-terminal font-bold leading-none pt-1">Review Financial Report</p>
+<div class="flex items-center gap-3 flex-wrap">
+<span class="text-sm font-terminal text-retro-light/70 flex items-center gap-1 bg-retro-dark px-2 py-0.5 border border-retro-border">
+                    10:00 AM
+                </span>
+<span class="text-xs font-pixel px-2 py-1 bg-purple-600 text-white border border-retro-border shadow-pixel-sm">WORK</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 p-4 bg-retro-dark border-2 border-retro-border shadow-none opacity-60">
+<button class="flex-shrink-0 size-8 border-2 border-retro-border bg-retro-success flex items-center justify-center transition-colors mt-1">
+<span class="material-symbols-outlined text-retro-dark text-lg font-bold">check</span>
+</button>
+<div class="flex flex-1 flex-col gap-2">
+<p class="text-retro-light text-xl font-terminal font-bold leading-none pt-1 line-through decoration-2 decoration-retro-accent">Grocery Shopping</p>
+<div class="flex items-center gap-3 flex-wrap">
+<span class="text-sm font-terminal text-retro-light/50 flex items-center gap-1 bg-retro-dark px-2 py-0.5 border border-retro-border">
+                   5:30 PM
+                </span>
+<span class="text-xs font-pixel px-2 py-1 bg-green-700 text-white border border-retro-border shadow-pixel-sm">PERSONAL</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 p-4 bg-retro-surface border-2 border-retro-border shadow-pixel transition-all hover:translate-x-1">
+<button class="flex-shrink-0 size-8 border-2 border-retro-border bg-retro-dark group-hover:bg-retro-primary transition-colors mt-1"></button>
+<div class="flex flex-1 flex-col gap-2">
+<p class="text-retro-light text-xl font-terminal font-bold leading-none pt-1">Gym Workout</p>
+<div class="flex items-center gap-3 flex-wrap">
+<span class="text-sm font-terminal text-retro-light/70 flex items-center gap-1 bg-retro-dark px-2 py-0.5 border border-retro-border">
+                   7:00 PM
+                </span>
+<span class="text-xs font-pixel px-2 py-1 bg-orange-600 text-white border border-retro-border shadow-pixel-sm">HEALTH</span>
+</div>
+</div>
+</div>
+<div class="group relative flex items-start gap-4 p-4 bg-retro-surface border-2 border-retro-border shadow-pixel transition-all hover:translate-x-1">
+<button class="flex-shrink-0 size-8 border-2 border-retro-border bg-retro-dark group-hover:bg-retro-primary transition-colors mt-1"></button>
+<div class="flex flex-1 flex-col gap-2">
+<p class="text-retro-light text-xl font-terminal font-bold leading-none pt-1">Read 20 pages</p>
+<div class="flex items-center gap-3 flex-wrap">
+<span class="text-sm font-terminal text-retro-light/70 flex items-center gap-1 bg-retro-dark px-2 py-0.5 border border-retro-border">
+                   9:30 PM
+                </span>
+<span class="text-xs font-pixel px-2 py-1 bg-blue-600 text-white border border-retro-border shadow-pixel-sm">EDUCATION</span>
+</div>
+</div>
+</div>
+</div>
+<button class="fixed bottom-24 right-5 z-20 flex size-14 items-center justify-center bg-retro-accent text-white border-2 border-white shadow-pixel transition-transform active:translate-y-1 active:shadow-none hover:brightness-110">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</button>
+<div class="fixed bottom-0 left-0 w-full z-10">
+<div class="relative flex w-full flex-col bg-retro-bg border-t-4 border-retro-border pb-6 pt-3 shadow-[0_-4px_0_rgba(0,0,0,0.2)]">
+<div class="flex justify-around items-center px-4">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-retro-primary group-hover:scale-110">
+<span class="material-symbols-outlined text-3xl">check_box</span>
+</div>
+<p class="text-[10px] font-pixel leading-tight text-retro-primary mt-1">QUESTS</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-retro-light group-hover:text-retro-primary">
+<span class="material-symbols-outlined text-3xl">account_balance_wallet</span>
+</div>
+<p class="text-[10px] font-pixel leading-tight text-retro-light group-hover:text-retro-primary mt-1">GOLD</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 py-1 group" href="#">
+<div class="relative flex items-center justify-center transition-colors text-retro-light group-hover:text-retro-primary">
+<span class="material-symbols-outlined text-3xl">settings</span>
+</div>
+<p class="text-[10px] font-pixel leading-tight text-retro-light group-hover:text-retro-primary mt-1">CONFIG</p>
+</a>
+</div>
+<div class="mx-auto mt-4 h-2 w-32 bg-retro-border/50"></div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,68 @@
+import { ThemePack } from '../types';
+
+export const spaceTheme: ThemePack = {
+  id: 'space',
+  name: 'Cosmic Space',
+  description: 'Infinite cosmos with nebulas, stars, and celestial wonder',
+  tokens: {
+    background: 'oklch(0.10 0.02 280)',
+    foreground: 'oklch(0.95 0.01 250)',
+    card: 'oklch(0.15 0.03 275 / 80%)',
+    cardForeground: 'oklch(0.95 0.01 250)',
+    primary: 'oklch(0.70 0.18 280)',
+    primaryForeground: 'oklch(0.10 0.02 280)',
+    secondary: 'oklch(0.65 0.15 200)',
+    secondaryForeground: 'oklch(0.10 0.02 280)',
+    muted: 'oklch(0.20 0.02 280)',
+    mutedForeground: 'oklch(0.65 0.02 250)',
+    accent: 'oklch(0.75 0.20 330)',
+    accentForeground: 'oklch(0.10 0.02 280)',
+    destructive: 'oklch(0.60 0.22 25)',
+    border: 'oklch(0.40 0.10 280 / 40%)',
+    input: 'oklch(0.12 0.02 280)',
+    ring: 'oklch(0.70 0.18 280)',
+    chart1: 'oklch(0.70 0.18 280)',
+    chart2: 'oklch(0.65 0.15 200)',
+    chart3: 'oklch(0.75 0.20 330)',
+    chart4: 'oklch(0.80 0.15 60)',
+    chart5: 'oklch(0.60 0.12 150)',
+    glow: 'oklch(0.70 0.18 280 / 40%)',
+    gradientStart: 'oklch(0.10 0.02 280)',
+    gradientEnd: 'oklch(0.15 0.05 320)',
+    radius: '0.75rem',
+  },
+  motion: {
+    pageTransition: {
+      initial: { opacity: 0, scale: 0.95, y: 30 },
+      animate: { opacity: 1, scale: 1, y: 0 },
+      exit: { opacity: 0, scale: 1.05, y: -30 },
+      transition: { duration: 0.6 },
+    },
+    cardHover: {
+      scale: 1.02,
+      y: -3,
+      transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    },
+    stagger: 0.1,
+    duration: { fast: 0.25, normal: 0.5, slow: 0.8 },
+    easing: [0.22, 1, 0.36, 1],
+  },
+  fonts: {
+    heading: '"Space Grotesk", "Geist Sans", sans-serif',
+    body: '"Inter", "Geist Sans", sans-serif',
+    mono: '"Space Mono", "Geist Mono", monospace',
+  },
+  background: {
+    type: 'animated',
+    config: {
+      gradient: 'radial-gradient(ellipse at center, oklch(0.15 0.05 320) 0%, oklch(0.10 0.02 280) 50%, oklch(0.05 0.01 260) 100%)',
+      stars: { enabled: true, count: 200, twinkle: true },
+      nebula: { enabled: true, colors: ['oklch(0.50 0.20 280 / 30%)', 'oklch(0.50 0.20 330 / 20%)'] },
+      shootingStars: { enabled: true, frequency: 5000 },
+      planets: { enabled: true, count: 2 },
+    },
+  },
+  preview: {
+    accent: '#8B5CF6',
+  },
+};

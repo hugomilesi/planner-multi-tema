@@ -1,0 +1,223 @@
+'use client';
+
+import { Moon, Zap, Download, Upload, Info, Trash2 } from 'lucide-react';
+import { useTheme } from '@/themes/ThemeContext';
+import { getThemeVisuals } from '@/themes/themeStyles';
+import { themeList } from '@/themes/registry';
+import { ThemeId } from '@/themes/types';
+import { ThemedCard } from '@/components/shared/ThemedCard';
+import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
+import { PageTransition } from '@/components/layout/PageTransition';
+import { Separator } from '@/components/ui/separator';
+import { useTaskStore } from '@/stores/taskStore';
+import { useFinancialStore } from '@/stores/financialStore';
+import { cn } from '@/lib/utils';
+
+export default function SettingsPage() {
+  const { theme, themeId, setTheme, reduceMotion, setReduceMotion } = useTheme();
+  const visuals = getThemeVisuals(themeId);
+  const tasks = useTaskStore((state) => state.tasks);
+  const { transactions, categories } = useFinancialStore();
+
+  const handleExport = () => {
+    const data = {
+      tasks,
+      transactions,
+      categories,
+      preferences: {
+        themeId,
+        reduceMotion,
+      },
+      exportedAt: new Date().toISOString(),
+    };
+
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `planner-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImport = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json';
+    input.onchange = async (e) => {
+      const file = (e.target as HTMLInputElement).files?.[0];
+      if (!file) return;
+
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        
+        if (data.preferences?.themeId) {
+          setTheme(data.preferences.themeId);
+        }
+        if (data.preferences?.reduceMotion !== undefined) {
+          setReduceMotion(data.preferences.reduceMotion);
+        }
+        
+        alert('Data imported successfully! Please refresh the page to see all changes.');
+      } catch {
+        alert('Failed to import data. Please check the file format.');
+      }
+    };
+    input.click();
+  };
+
+  return (
+    <PageTransition>
+      <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>
+        <header>
+          <h1 className={cn('text-2xl font-bold', visuals.fonts.heading)}>{visuals.labels.settings}</h1>
+          <p className={cn('text-sm opacity-70', visuals.card.titleClassName)}>
+            Customize your planner experience
+          </p>
+        </header>
+
+        <ThemedCard title="Choose Theme" delay={0}>
+          <div className="grid grid-cols-3 gap-3">
+            {themeList.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTheme(t.id as ThemeId)}
+                className={`relative p-3 rounded-xl border-2 transition-all ${
+                  themeId === t.id 
+                    ? 'border-primary ring-2 ring-primary/20' 
+                    : 'border-border hover:border-primary/50'
+                }`}
+              >
+                <div 
+                  className="w-full h-12 rounded-lg mb-2"
+                  style={{ 
+                    background: `linear-gradient(135deg, ${t.tokens.primary} 0%, ${t.tokens.accent} 100%)`,
+                  }}
+                />
+                <p className="text-xs font-medium truncate">{t.name}</p>
+                {themeId === t.id && (
+                  <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </ThemedCard>
+
+        <ThemedCard title="Current Theme" delay={1}>
+          <div className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div 
+                className="w-12 h-12 rounded-xl"
+                style={{ 
+                  background: `linear-gradient(135deg, ${theme.tokens.primary} 0%, ${theme.tokens.accent} 100%)`,
+                }}
+              />
+              <div>
+                <p className="font-semibold">{theme.name}</p>
+                <p className="text-xs text-muted-foreground">{theme.description}</p>
+              </div>
+            </div>
+            
+            <Separator />
+            
+            <div className="grid grid-cols-5 gap-2">
+              <div className="text-center">
+                <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ background: theme.tokens.primary }} />
+                <span className="text-[10px] text-muted-foreground">Primary</span>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ background: theme.tokens.secondary }} />
+                <span className="text-[10px] text-muted-foreground">Secondary</span>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ background: theme.tokens.accent }} />
+                <span className="text-[10px] text-muted-foreground">Accent</span>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 rounded-full mx-auto mb-1 border" style={{ background: theme.tokens.background }} />
+                <span className="text-[10px] text-muted-foreground">BG</span>
+              </div>
+              <div className="text-center">
+                <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ background: theme.tokens.destructive }} />
+                <span className="text-[10px] text-muted-foreground">Danger</span>
+              </div>
+            </div>
+          </div>
+        </ThemedCard>
+
+        <ThemedCard title="Accessibility" delay={2}>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Zap className="w-5 h-5 text-muted-foreground" />
+                <div>
+                  <Label htmlFor="reduce-motion" className="font-medium">Reduce Motion</Label>
+                  <p className="text-xs text-muted-foreground">
+                    Disable animations and transitions
+                  </p>
+                </div>
+              </div>
+              <Switch
+                id="reduce-motion"
+                checked={reduceMotion}
+                onCheckedChange={setReduceMotion}
+              />
+            </div>
+          </div>
+        </ThemedCard>
+
+        <ThemedCard title="Data Management" delay={3}>
+          <div className="space-y-3">
+            <Button 
+              variant="outline" 
+              className="w-full justify-start gap-3"
+              onClick={handleExport}
+            >
+              <Download className="w-4 h-4" />
+              Export Data
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start gap-3"
+              onClick={handleImport}
+            >
+              <Upload className="w-4 h-4" />
+              Import Data
+            </Button>
+            <Button 
+              variant="destructive" 
+              className="w-full justify-start gap-3"
+              onClick={() => {
+                if (confirm('This will reset all data to sample data. Continue?')) {
+                  localStorage.removeItem('planner-tasks');
+                  localStorage.removeItem('planner-financial');
+                  window.location.reload();
+                }
+              }}
+            >
+              <Trash2 className="w-4 h-4" />
+              Reset to Sample Data
+            </Button>
+          </div>
+        </ThemedCard>
+
+        <ThemedCard delay={4}>
+          <div className="flex items-center gap-3 text-muted-foreground">
+            <Info className="w-5 h-5" />
+            <div>
+              <p className="text-sm font-medium">Multi-Theme Planner</p>
+              <p className="text-xs">Version 1.0.0 • Made with ❤️</p>
+            </div>
+          </div>
+        </ThemedCard>
+      </div>
+    </PageTransition>
+  );
+}

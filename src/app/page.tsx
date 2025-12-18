@@ -1,65 +1,194 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import { Plus, TrendingUp, TrendingDown, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
+import { useTheme } from '@/themes/ThemeContext';
+import { getThemeVisuals } from '@/themes/themeStyles';
+import { useTaskStore } from '@/stores/taskStore';
+import { useFinancialStore } from '@/stores/financialStore';
+import { ThemedCard } from '@/components/shared/ThemedCard';
+import { ThemedProgress } from '@/components/shared/ThemedProgress';
+import { ThemedBadge } from '@/components/shared/ThemedBadge';
+import { Button } from '@/components/ui/button';
+import { PageTransition } from '@/components/layout/PageTransition';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
+
+export default function DashboardPage() {
+  const { themeId } = useTheme();
+  const visuals = getThemeVisuals(themeId);
+  const tasks = useTaskStore((state) => state.tasks);
+  const { transactions, currency } = useFinancialStore();
+
+  const today = new Date();
+  const todayStr = today.toISOString().split('T')[0];
+  
+  const todayTasks = tasks.filter((t) => t.dueDate?.startsWith(todayStr));
+  const completedToday = todayTasks.filter((t) => t.status === 'completed').length;
+  const pendingTasks = tasks.filter((t) => t.status === 'pending').length;
+  const overdueTasks = tasks.filter(
+    (t) => t.status === 'pending' && t.dueDate && t.dueDate < todayStr
+  ).length;
+
+  const currentMonth = today.getMonth();
+  const currentYear = today.getFullYear();
+  const monthTransactions = transactions.filter((t) => {
+    const date = new Date(t.date);
+    return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
+  });
+
+  const monthIncome = monthTransactions
+    .filter((t) => t.type === 'income')
+    .reduce((sum, t) => sum + t.amount, 0);
+  const monthExpense = monthTransactions
+    .filter((t) => t.type === 'expense')
+    .reduce((sum, t) => sum + t.amount, 0);
+  const balance = monthIncome - monthExpense;
+
+  const formatCurrency = (value: number) => {
+    return new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: currency,
+    }).format(value);
+  };
+
+  const progressValue = todayTasks.length > 0 
+    ? (completedToday / todayTasks.length) * 100 
+    : 0;
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <PageTransition>
+      <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>
+        {/* Header with themed greeting */}
+        <header className="space-y-1">
+          <p className={cn('text-sm opacity-70', visuals.card.titleClassName)}>
+            {visuals.labels.greeting}
           </p>
+          <h1 className={cn('text-2xl font-bold', visuals.fonts.heading)}>
+            {visuals.labels.dashboard}
+          </h1>
+        </header>
+
+        {/* Daily Progress */}
+        <ThemedCard>
+          <ThemedProgress 
+            value={progressValue}
+            label={visuals.labels.progress}
+            showPercentage
+          />
+          <p className="text-xs opacity-60 mt-2">
+            {completedToday} of {todayTasks.length} tasks completed today
+          </p>
+        </ThemedCard>
+
+        {/* Financial Summary */}
+        <div className="grid grid-cols-2 gap-3">
+          <ThemedCard>
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingUp className="w-4 h-4 text-green-500" />
+              <span className={cn('text-xs', visuals.card.titleClassName)}>{visuals.labels.income}</span>
+            </div>
+            <p className={cn('text-lg font-bold text-green-500', visuals.fonts.heading)}>
+              {formatCurrency(monthIncome)}
+            </p>
+          </ThemedCard>
+
+          <ThemedCard>
+            <div className="flex items-center gap-2 mb-2">
+              <TrendingDown className="w-4 h-4 text-red-500" />
+              <span className={cn('text-xs', visuals.card.titleClassName)}>{visuals.labels.expense}</span>
+            </div>
+            <p className={cn('text-lg font-bold text-red-500', visuals.fonts.heading)}>
+              {formatCurrency(monthExpense)}
+            </p>
+          </ThemedCard>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Today's Tasks */}
+        <ThemedCard title={visuals.labels.taskList}>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <span className="text-sm">{completedToday} done</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Clock className="w-4 h-4 text-yellow-500" />
+                  <span className="text-sm">{todayTasks.length - completedToday} pending</span>
+                </div>
+              </div>
+            </div>
+
+            {todayTasks.length === 0 ? (
+              <p className="text-sm opacity-60 text-center py-4">
+                No tasks scheduled for today
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {todayTasks.slice(0, 3).map((task) => (
+                  <div 
+                    key={task.id}
+                    className="flex items-center justify-between gap-3 p-2 rounded-lg bg-black/10"
+                  >
+                    <div className="flex items-center gap-3 flex-1 min-w-0">
+                      <div 
+                        className={`w-2 h-2 rounded-full shrink-0 ${
+                          task.status === 'completed' ? 'bg-green-500' : 
+                          task.priority === 'high' ? 'bg-red-500' :
+                          task.priority === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+                        }`}
+                      />
+                      <span className={`text-sm truncate ${task.status === 'completed' ? 'line-through opacity-50' : ''}`}>
+                        {task.title}
+                      </span>
+                    </div>
+                    {task.status !== 'completed' && (
+                      <ThemedBadge priority={task.priority} />
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+
+            <Link href="/tasks">
+              <Button variant="outline" className="w-full" size="sm">
+                View All {visuals.labels.tasks}
+              </Button>
+            </Link>
+          </div>
+        </ThemedCard>
+
+        {/* Overdue Alert */}
+        {overdueTasks > 0 && (
+          <ThemedCard>
+            <div className="flex items-center gap-3 text-destructive">
+              <AlertCircle className="w-5 h-5" />
+              <div>
+                <p className={cn('font-medium', visuals.fonts.heading)}>
+                  {overdueTasks} overdue task{overdueTasks > 1 ? 's' : ''}
+                </p>
+                <p className="text-xs opacity-60">Requires your attention</p>
+              </div>
+            </div>
+          </ThemedCard>
+        )}
+
+        {/* Quick Actions */}
+        <div className="grid grid-cols-2 gap-3">
+          <Link href="/tasks">
+            <Button className="w-full h-12 gap-2" variant="default">
+              <Plus className="w-4 h-4" />
+              New Task
+            </Button>
+          </Link>
+          <Link href="/financial">
+            <Button className="w-full h-12 gap-2" variant="secondary">
+              <Plus className="w-4 h-4" />
+              New Transaction
+            </Button>
+          </Link>
         </div>
-      </main>
-    </div>
+      </div>
+    </PageTransition>
   );
 }

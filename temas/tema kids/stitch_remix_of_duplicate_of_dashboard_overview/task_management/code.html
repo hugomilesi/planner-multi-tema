@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Task Management - Kids Theme</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "kid-bg": "#FFFBEB", // Light warm background
+                "kid-bg-dark": "#2D3748", 
+                "kid-card": "#FFFFFF",
+                "kid-card-dark": "#4A5568",
+                "kid-primary": "#FF6B6B", // Playful Coral
+                "kid-accent": "#4ECDC4", // Teal
+                "kid-yellow": "#FFD166", // Warm Yellow
+                "kid-blue": "#118AB2",   // Bright Blue
+                "kid-text": "#2D3748",
+                "kid-text-light": "#E2E8F0",
+              },
+              fontFamily: {
+                "display": ["Fredoka", "sans-serif"]
+              },
+              borderRadius: {
+                "xl": "1rem",
+                "2xl": "1.5rem",
+                "3xl": "2rem",
+              },
+              boxShadow: {
+                "comic": "3px 3px 0px 0px rgba(0,0,0,0.1)",
+                "comic-hover": "5px 5px 0px 0px rgba(0,0,0,0.15)",
+                "comic-active": "1px 1px 0px 0px rgba(0,0,0,0.15)",
+              }
+            },
+          },
+        }
+    </script>
+<style>
+    .no-scrollbar::-webkit-scrollbar { display: none; }
+    .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    body { min-height: max(884px, 100dvh); }
+</style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-kid-bg dark:bg-[#1a202c] text-kid-text dark:text-kid-text-light font-display overflow-x-hidden min-h-screen relative pb-28">
+<div class="flex flex-col gap-2 p-5 pt-8">
+<div class="flex items-center h-14 justify-between">
+<div class="flex size-14 shrink-0 items-center justify-center p-1 bg-white dark:bg-kid-card-dark rounded-full border-4 border-kid-yellow shadow-comic">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full w-full h-full" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_0fjZl4JUPLJRFRivi_eOit3Nl-URKgo8wn_B58sClcu7UnvR1tdEumZcJuyR_AHW9sjvU5Xs2xsAWq--7PZoriEh8IqUXsnyg3E0hZBj1QXOw-cJeHuGDygE3Hl-ZmF1cY0HwQrWQ1pcVcrn6S-yau8nZiGyBrWPZ3pzjhLP05b-Y9HQEGChVze6UMlAedJpZvyB_Ln0yk9KEHuS5kcJwDCwXCZK_yzpoE0NElXSvPubtnVv7XtzjPrgCl-9LD0egeao4-PhTk0");'></div>
+</div>
+<div class="flex w-14 items-center justify-end">
+<button class="flex items-center justify-center rounded-2xl size-12 bg-white dark:bg-kid-card-dark text-kid-blue dark:text-kid-yellow shadow-comic border-2 border-kid-blue/20 hover:scale-105 transition-transform">
+<span class="material-symbols-outlined font-bold">tune</span>
+</button>
+</div>
+</div>
+<div class="flex justify-between items-end mt-2 px-1">
+<div>
+<p class="text-kid-blue dark:text-kid-accent text-lg font-semibold tracking-wide">Tuesday, Oct 24</p>
+<h1 class="text-kid-text dark:text-white text-3xl font-bold leading-tight mt-1">Hi, Alex! 👋</h1>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4 mb-4">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-5 pb-4">
+<button class="group flex flex-col items-center justify-center min-w-[72px] h-[96px] rounded-[24px] bg-kid-primary text-white shadow-comic-hover transform transition-all active:scale-95 border-2 border-kid-primary ring-2 ring-white dark:ring-kid-bg-dark ring-offset-2 ring-offset-transparent">
+<span class="text-sm font-semibold opacity-90">Tue</span>
+<span class="text-3xl font-bold mt-1">24</span>
+<span class="material-symbols-outlined text-[20px] mt-1 animate-pulse">star</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[96px] rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 shadow-sm shrink-0 transform transition-transform active:scale-95 hover:border-kid-yellow hover:text-kid-yellow">
+<span class="text-sm font-semibold">Wed</span>
+<span class="text-3xl font-bold mt-1 text-slate-700 dark:text-slate-300">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[96px] rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 shadow-sm shrink-0 transform transition-transform active:scale-95 hover:border-kid-yellow hover:text-kid-yellow">
+<span class="text-sm font-semibold">Thu</span>
+<span class="text-3xl font-bold mt-1 text-slate-700 dark:text-slate-300">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[72px] h-[96px] rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-slate-100 dark:border-slate-700 text-slate-400 dark:text-slate-500 shadow-sm shrink-0 transform transition-transform active:scale-95 hover:border-kid-yellow hover:text-kid-yellow">
+<span class="text-sm font-semibold">Fri</span>
+<span class="text-3xl font-bold mt-1 text-slate-700 dark:text-slate-300">27</span>
+</button>
+</div>
+</div>
+<div class="px-5 py-2">
+<div class="flex flex-col gap-4 p-6 rounded-[32px] bg-white dark:bg-kid-card-dark border-2 border-kid-blue/10 shadow-comic relative overflow-hidden group">
+<div class="absolute -right-4 -top-4 w-20 h-20 bg-kid-yellow/20 rounded-full blur-xl"></div>
+<div class="absolute -left-4 -bottom-4 w-24 h-24 bg-kid-accent/20 rounded-full blur-xl"></div>
+<div class="flex gap-6 justify-between items-center relative z-10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-kid-yellow text-3xl" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<p class="text-kid-text dark:text-white text-lg font-bold">Super Power</p>
+</div>
+<span class="text-white text-sm font-bold bg-kid-primary px-3 py-1 rounded-full shadow-sm">Level 37%</span>
+</div>
+<div class="relative z-10">
+<div class="rounded-full bg-slate-100 dark:bg-slate-700 h-4 w-full overflow-hidden border border-slate-200 dark:border-slate-600">
+<div class="h-full rounded-full bg-gradient-to-r from-kid-yellow to-kid-primary transition-all duration-500 ease-out flex items-center justify-end pr-1" style="width: 37%;">
+<div class="w-2 h-2 bg-white/50 rounded-full"></div>
+</div>
+</div>
+<div class="flex justify-between mt-2">
+<p class="text-slate-400 dark:text-slate-400 text-xs font-semibold">Keep going!</p>
+<p class="text-kid-blue dark:text-kid-accent text-xs font-bold">3/8 Missions Done</p>
+</div>
+</div>
+</div>
+</div>
+<div class="px-5 pt-6 pb-3 flex items-center gap-2">
+<h2 class="text-kid-text dark:text-white text-2xl font-bold">Today's Missions</h2>
+<span class="bg-kid-yellow/20 text-kid-yellow dark:text-kid-yellow p-1 rounded-lg">
+<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
+</span>
+</div>
+<div class="flex flex-col px-5 gap-4">
+<div class="group relative flex items-center gap-4 p-4 rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-transparent hover:border-kid-accent shadow-comic transition-all">
+<button class="flex-shrink-0 size-10 rounded-full border-4 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 group-hover:border-kid-accent flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-kid-text dark:text-white text-lg font-bold leading-tight">Math Homework</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-bold px-3 py-1 rounded-full bg-purple-100 text-purple-600 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+<span class="material-symbols-outlined text-[12px] align-middle mr-1">school</span>School
+                </span>
+<span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 10:00 AM
+                </span>
+</div>
+</div>
+<div class="absolute right-4 top-4 opacity-10 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-kid-accent text-3xl">sentiment_satisfied</span>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-[24px] bg-slate-50 dark:bg-[#323d4d] border-2 border-slate-100 dark:border-slate-700 opacity-90 shadow-sm">
+<button class="flex-shrink-0 size-10 rounded-full bg-kid-primary border-4 border-kid-primary flex items-center justify-center transition-colors shadow-sm">
+<span class="material-symbols-outlined text-white text-xl font-bold">check</span>
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-slate-400 dark:text-slate-500 text-lg font-bold leading-tight line-through decoration-2 decoration-kid-primary">Clean My Room</p>
+<div class="flex items-center gap-3 mt-1 opacity-60">
+<span class="text-xs font-bold px-3 py-1 rounded-full bg-green-100 text-green-600 dark:bg-green-900/40 dark:text-green-300 border border-green-200 dark:border-green-800">
+<span class="material-symbols-outlined text-[12px] align-middle mr-1">home</span>Chores
+                </span>
+<span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5:30 PM
+                </span>
+</div>
+</div>
+<div class="absolute right-4 top-4">
+<span class="material-symbols-outlined text-slate-300 text-3xl grayscale">sentiment_very_satisfied</span>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-transparent hover:border-kid-yellow shadow-comic transition-all">
+<button class="flex-shrink-0 size-10 rounded-full border-4 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 group-hover:border-kid-yellow flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-kid-text dark:text-white text-lg font-bold leading-tight">Play Outside</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-bold px-3 py-1 rounded-full bg-orange-100 text-orange-600 dark:bg-orange-900/40 dark:text-orange-300 border border-orange-200 dark:border-orange-800">
+<span class="material-symbols-outlined text-[12px] align-middle mr-1">sports_soccer</span>Fun
+                </span>
+<span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 7:00 PM
+                </span>
+</div>
+</div>
+<div class="absolute right-4 top-4 opacity-10 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-kid-yellow text-3xl">sunny</span>
+</div>
+</div>
+<div class="group relative flex items-center gap-4 p-4 rounded-[24px] bg-white dark:bg-kid-card-dark border-2 border-transparent hover:border-kid-blue shadow-comic transition-all">
+<button class="flex-shrink-0 size-10 rounded-full border-4 border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-700 group-hover:border-kid-blue flex items-center justify-center transition-colors">
+</button>
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-kid-text dark:text-white text-lg font-bold leading-tight">Reading Time</p>
+<div class="flex items-center gap-3 mt-1">
+<span class="text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+<span class="material-symbols-outlined text-[12px] align-middle mr-1">menu_book</span>Books
+                </span>
+<span class="text-xs font-bold text-slate-400 dark:text-slate-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 8:30 PM
+                </span>
+</div>
+</div>
+<div class="absolute right-4 top-4 opacity-10 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-kid-blue text-3xl">auto_stories</span>
+</div>
+</div>
+</div>
+<button class="fixed bottom-28 right-5 z-20 flex size-16 items-center justify-center rounded-full bg-kid-yellow text-kid-text shadow-xl shadow-kid-yellow/40 transition-transform active:scale-90 hover:scale-110 border-4 border-white dark:border-kid-bg-dark">
+<span class="material-symbols-outlined text-[36px] font-bold">add</span>
+</button>
+<div class="fixed bottom-0 left-0 w-full z-10">
+<div class="relative flex w-full flex-col bg-white/90 dark:bg-[#1c2127]/95 backdrop-blur-xl border-t-2 border-kid-blue/10 dark:border-slate-800 pb-6 pt-2 rounded-t-[32px] shadow-[0_-5px_15px_rgba(0,0,0,0.05)]">
+<div class="flex justify-around items-center px-4 pt-2">
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 group hover:bg-kid-primary/5 transition-colors" href="#">
+<div class="relative flex items-center justify-center transition-all group-hover:-translate-y-1 text-kid-primary">
+<span class="material-symbols-outlined fill-current text-[28px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<p class="text-[12px] font-bold leading-tight text-kid-primary">Missions</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 group hover:bg-kid-yellow/10 transition-colors" href="#">
+<div class="relative flex items-center justify-center transition-all group-hover:-translate-y-1 text-slate-400 group-hover:text-kid-yellow">
+<span class="material-symbols-outlined text-[28px]">savings</span>
+</div>
+<p class="text-[12px] font-bold leading-tight text-slate-400 group-hover:text-kid-yellow">My Piggy</p>
+</a>
+<a class="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl py-2 group hover:bg-kid-blue/10 transition-colors" href="#">
+<div class="relative flex items-center justify-center transition-all group-hover:-translate-y-1 text-slate-400 group-hover:text-kid-blue">
+<span class="material-symbols-outlined text-[28px]">settings</span>
+</div>
+<p class="text-[12px] font-bold leading-tight text-slate-400 group-hover:text-kid-blue">Settings</p>
+</a>
+</div>
+<div class="mx-auto mt-3 h-1.5 w-32 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+</div>
+</div>
+
+</body></html>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>App Settings - Wild West Theme</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rye&amp;family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "wood-light": "#E8DCC5", // Dusty background
+                        "wood-dark": "#3E2723",  // Deep wood text
+                        "wood-frame": "#5D4037", // Borders
+                        "parchment": "#FFF8E1",  // Card background
+                        "parchment-dark": "#2D1B15", // Dark mode card
+                        "leather": "#8D6E63",    // Secondary elements
+                        "rust": "#BF360C",       // Accents (Active state)
+                        "gold": "#FFB300",       // Badges/Stars
+                        "iron": "#455A64",       // Inactive metals
+                        "text-main": "#3E2723",
+                        "text-light": "#FFF8E1",
+                    },
+                    fontFamily: {
+                        "display": ["Crimson Text", "serif"],
+                        "western": ["Rye", "serif"],
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                    backgroundImage: {
+                        'wood-grain': "repeating-linear-gradient(45deg, #3E2723 0, #3E2723 1px, transparent 0, transparent 50%)"
+                    },
+                    boxShadow: {
+                        'wood': '3px 3px 0px 0px rgba(62, 39, 35, 0.4)',
+                        'inset-wood': 'inset 2px 2px 4px rgba(0,0,0,0.3)',
+                    }
+                },
+            },
+        }
+    </script>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}.toggle-checkbox:checked {
+            right: 0;
+            border-color: #BF360C;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #BF360C;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-wood-light dark:bg-[#1a0f0a] min-h-screen flex flex-col font-display text-wood-dark dark:text-parchment overflow-x-hidden transition-colors duration-300">
+<div class="sticky top-0 z-50 flex items-center bg-[#D7CCC8] dark:bg-[#2D1B15] px-4 py-3 justify-between border-b-4 border-wood-frame dark:border-[#3E2723] shadow-md bg-opacity-95 backdrop-blur-sm">
+<div class="flex size-10 shrink-0 items-center justify-center rounded-full border-2 border-wood-frame/30 hover:bg-wood-frame/10 cursor-pointer text-wood-dark dark:text-parchment transition-colors">
+<span class="material-symbols-outlined font-bold">arrow_back</span>
+</div>
+<h2 class="text-xl font-western tracking-widest flex-1 text-center pr-10 text-wood-dark dark:text-[#D7CCC8] drop-shadow-sm">SETTINGS</h2>
+</div>
+<div class="flex flex-col w-full mt-4">
+<div class="flex items-center px-6 pb-2 pt-2">
+<span class="h-px flex-1 bg-wood-frame/30"></span>
+<h3 class="text-wood-frame dark:text-[#A1887F] text-sm font-western uppercase tracking-wider px-3">Wanted Styles</h3>
+<span class="h-px flex-1 bg-wood-frame/30"></span>
+</div>
+<div class="flex w-full overflow-x-auto px-4 pb-6 pt-2 no-scrollbar gap-5 snap-x">
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 p-1.5 bg-[#5D4037] rounded-sm shadow-wood transform transition-transform active:scale-95 border border-[#3E2723]">
+<div class="absolute top-0.5 left-0.5 w-1 h-1 rounded-full bg-[#1a1a1a] shadow-sm z-20"></div>
+<div class="absolute top-0.5 right-0.5 w-1 h-1 rounded-full bg-[#1a1a1a] shadow-sm z-20"></div>
+<div class="absolute bottom-0.5 left-0.5 w-1 h-1 rounded-full bg-[#1a1a1a] shadow-sm z-20"></div>
+<div class="absolute bottom-0.5 right-0.5 w-1 h-1 rounded-full bg-[#1a1a1a] shadow-sm z-20"></div>
+<div class="relative w-full h-full border border-[#8D6E63] overflow-hidden bg-parchment">
+<div class="absolute inset-0 bg-cover bg-center sepia-[.3]" data-alt="Default blue minimalist app interface mockup" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA0PdoHgc2GvwbrpfavLxYcDwQfCvSqvR_I-8TaGTCxZkNH5ZN4B6tNmvax_pTJhR1C4MJMU5gsZjev236niqJCwWFDRLg5dgS4cAl9JgHXSjDkSqPPWh1RTibDFrWhb1FPfMBcpH4mHbN_4znca4eYKLIYRXbhsowBn46FURuYzMkMLu0uKvwXm8SNhKZnzTizLjeLds0-N-tRgP3ltatzXnv1DOF_21qMo4f_Dn6UJhKeb2gU0LyV4BrPoDzPBJokcMlFJrN96hE");'>
+<div class="absolute inset-0 bg-wood-frame/20 mix-blend-overlay"></div>
+</div>
+<div class="absolute -bottom-2 -right-2 bg-gold text-[#3E2723] rounded-full p-1 shadow-md flex items-center justify-center border-2 border-[#3E2723]">
+<span class="material-symbols-outlined text-[20px] font-bold">local_police</span>
+</div>
+</div>
+</div>
+<div class="bg-parchment dark:bg-parchment-dark border border-wood-frame/50 px-2 py-1 rounded-sm shadow-sm mx-auto -rotate-1">
+<p class="text-center text-sm font-bold font-western text-wood-dark dark:text-parchment">Default</p>
+</div>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 p-1.5 bg-[#8D6E63] rounded-sm shadow-sm hover:shadow-wood transition-all transform active:scale-95 border border-[#5D4037]">
+<div class="relative w-full h-full border border-[#A1887F] overflow-hidden bg-parchment">
+<div class="absolute inset-0 bg-cover bg-center sepia brightness-90 contrast-110" data-alt="Retro sepia toned paper texture app interface" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBlQ_rmuxqaGDqd90lSmys-KBIL5Lx1Fp1fyYKuvF7lnWkb6CQm2IJGFA9_JNEzg2FXTevvOHvo61W5jd2q-FCyEvwQpOy9BwpQazdVbz4vjoyqWD_-UZuPI3RZ1qz7i5SNk0nFTxEMq1eu3gTC7iJLPfE2ziXRHaiLxW8j2zOVtHBKzTTHs77UunBUr3Dg7aqeT-nuP6SsE8tEA0o9p9r0vfYXNdk021M1U-RKeGVX2K8DTi8PdGZWjtALRHxZ1nEIkoe4GJD2dxo");'></div>
+</div>
+</div>
+<p class="text-center text-sm font-bold font-western text-wood-frame/70 dark:text-[#A1887F] group-hover:text-wood-dark transition-colors">Retro</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 p-1.5 bg-[#8D6E63] rounded-sm shadow-sm hover:shadow-wood transition-all transform active:scale-95 border border-[#5D4037]">
+<div class="relative w-full h-full border border-[#A1887F] overflow-hidden bg-parchment">
+<div class="absolute inset-0 bg-cover bg-center contrast-125 saturate-50 opacity-80" data-alt="Neon synthwave purple and pink gradient grid" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBgOAeXiPZgUBkgvuFejn9cMrIpq1GYUNBPWTEuU_JUYGgn-rmxxzjdkX5G-pN_KCaI1J1TwYoxjp_yRsOsvwz1LfbdUjXI7UGW5EnhFjtuQEQ8RNlr0N5ZjBFZZ65hMz3LK0p-C_qwVAbLPhtoOTjBie3Hr58aAnXh-6GsD7MS7Ln_AP6VmkERbhujV62NmSuqyHb1t6uHKBXN1j3BqdaV7RldRaXAPdVhDXHT9Ygd1qdjbRKsDpNzqmIA3L5t7f_lTl17l3W02gY");'></div>
+</div>
+</div>
+<p class="text-center text-sm font-bold font-western text-wood-frame/70 dark:text-[#A1887F] group-hover:text-wood-dark transition-colors">Neon</p>
+</div>
+<div class="flex flex-col gap-3 shrink-0 snap-center cursor-pointer group">
+<div class="relative w-32 h-48 p-1.5 bg-[#8D6E63] rounded-sm shadow-sm hover:shadow-wood transition-all transform active:scale-95 border border-[#5D4037]">
+<div class="relative w-full h-full border border-[#A1887F] overflow-hidden bg-parchment">
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Rustic wooden texture with leather elements" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuARk10TfcNOGHmMY3QBE3EZ2k7tn75iOmFf7TgwoT33Ocg5qd4Ip65oYQM_7mcSKezANEVhtT3p6buMhU9f1idx0iVucvRyVLL8ZzA4buVCmcg9nZXjKAf1MRvd3Hvcr8rInxfWGQwhoAPSdq-2LA1UZ7qUAzf7gqo7vA9slZf26mDrDWGB1qgB0lnWLpqoyNaTMPFj1WK_SVr0p_7TsWEru-QKY9uNVFZuMU6CPGCJ9WYFbSmk0JnIjygdTQpdRG4Q-fY2JWaTY2c");'></div>
+</div>
+</div>
+<p class="text-center text-sm font-bold font-western text-wood-frame/70 dark:text-[#A1887F] group-hover:text-wood-dark transition-colors">Frontier</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6 mt-2">
+<div class="flex items-center px-6 pb-2">
+<h3 class="text-wood-frame dark:text-[#A1887F] text-sm font-western uppercase tracking-wider">Identity</h3>
+<span class="h-px flex-1 ml-3 bg-wood-frame/30"></span>
+</div>
+<div class="mx-4 bg-parchment dark:bg-parchment-dark rounded-sm overflow-hidden shadow-wood border-2 border-wood-frame relative">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] opacity-20 pointer-events-none"></div>
+<div class="relative flex items-center p-4 border-b-2 border-dashed border-wood-frame/30 active:bg-wood-frame/10 transition-colors cursor-pointer group">
+<div class="size-14 rounded-full border-2 border-wood-frame p-0.5 mr-4 bg-[#D7CCC8]">
+<img class="w-full h-full object-cover rounded-full sepia-[.4]" data-alt="User profile avatar" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgi1E-DS_2cZNjdqnwEVS9P6NTa3WgpiIc2C2-o00ypqxzrNvV16T2clbFx28yePUhqOerDhTQhfIknAbhZHPsK20_veHxeTan58K1_Q_D5o4DZEUwxbDoYf8iz-d0jHlS4WX23ZOHUQ76zUSWHT9G3-KekC6uUDQkcZeZUjwYNA5w0Zy_cDNO1rMJtUJZJVc60_xUYf_HeMVJf6JIAhKaNJsSEoc0n4QBYtXhB8nqNNoZ0L8PgsyK5XM1JyC1E5_qUjIHcCTXPDI"/>
+</div>
+<div class="flex-1">
+<h4 class="text-lg font-western text-wood-dark dark:text-parchment">Alex Johnson</h4>
+<p class="text-sm text-wood-frame dark:text-[#A1887F] font-italic">alex.j@example.com</p>
+</div>
+<span class="material-symbols-outlined text-wood-frame text-xl group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="relative flex items-center justify-between p-4 active:bg-wood-frame/10 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-rust">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<span class="text-lg font-semibold text-wood-dark dark:text-parchment">Bounty Pass</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-western font-bold text-parchment bg-rust px-2 py-1 rounded-sm uppercase tracking-wide shadow-sm border border-[#3E2723]">Active</span>
+<span class="material-symbols-outlined text-wood-frame text-xl group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-6">
+<div class="flex items-center px-6 pb-2">
+<h3 class="text-wood-frame dark:text-[#A1887F] text-sm font-western uppercase tracking-wider">Provisions</h3>
+<span class="h-px flex-1 ml-3 bg-wood-frame/30"></span>
+</div>
+<div class="mx-4 bg-parchment dark:bg-parchment-dark rounded-sm overflow-hidden shadow-wood border-2 border-wood-frame relative">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] opacity-20 pointer-events-none"></div>
+<div class="relative flex items-center justify-between p-4 border-b-2 border-dashed border-wood-frame/30">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-rust">
+<span class="material-symbols-outlined text-[22px]">notifications_active</span>
+</div>
+<span class="text-lg font-medium text-wood-dark dark:text-parchment">Signals</span>
+</div>
+<div class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full border-2 border-[#3E2723] transition-colors duration-200 ease-in-out bg-rust shadow-inner">
+<span class="translate-x-5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-[#D7CCC8] shadow ring-0 transition duration-200 ease-in-out border border-[#3E2723] relative">
+<span class="absolute top-[6px] left-[2px] w-[14px] h-[2px] bg-gray-400 rotate-45"></span>
+</span>
+</div>
+</div>
+<div class="relative flex items-center justify-between p-4 border-b-2 border-dashed border-wood-frame/30 active:bg-wood-frame/10 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-[#558B2F]">
+<span class="material-symbols-outlined text-[22px]">payments</span>
+</div>
+<span class="text-lg font-medium text-wood-dark dark:text-parchment">Currency</span>
+</div>
+<div class="flex items-center gap-2 text-wood-frame dark:text-[#A1887F]">
+<span class="text-base font-western">USD ($)</span>
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+<div class="relative flex items-center justify-between p-4 active:bg-wood-frame/10 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-[#6A1B9A]">
+<span class="material-symbols-outlined text-[22px]">calendar_today</span>
+</div>
+<span class="text-lg font-medium text-wood-dark dark:text-parchment">Week Start</span>
+</div>
+<div class="flex items-center gap-2 text-wood-frame dark:text-[#A1887F]">
+<span class="text-base font-western">Monday</span>
+<span class="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col w-full mb-8">
+<div class="flex items-center px-6 pb-2">
+<h3 class="text-wood-frame dark:text-[#A1887F] text-sm font-western uppercase tracking-wider">Security &amp; Records</h3>
+<span class="h-px flex-1 ml-3 bg-wood-frame/30"></span>
+</div>
+<div class="mx-4 bg-parchment dark:bg-parchment-dark rounded-sm overflow-hidden shadow-wood border-2 border-wood-frame relative">
+<div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/paper-fibers.png')] opacity-20 pointer-events-none"></div>
+<div class="relative flex items-center justify-between p-4 border-b-2 border-dashed border-wood-frame/30">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-[#1565C0]">
+<span class="material-symbols-outlined text-[22px]">face</span>
+</div>
+<span class="text-lg font-medium text-wood-dark dark:text-parchment">Wanted Poster ID</span>
+</div>
+<div class="relative inline-flex h-7 w-12 shrink-0 cursor-pointer items-center rounded-full border-2 border-[#3E2723] transition-colors duration-200 ease-in-out bg-[#3E2723] shadow-inner">
+<span class="translate-x-0.5 pointer-events-none inline-block h-5 w-5 transform rounded-full bg-[#8D6E63] shadow ring-0 transition duration-200 ease-in-out border border-[#2D1B15] relative">
+<span class="absolute top-[6px] left-[2px] w-[14px] h-[2px] bg-[#3E2723] rotate-45"></span>
+</span>
+</div>
+</div>
+<div class="relative flex items-center justify-between p-4 border-b-2 border-dashed border-wood-frame/30 active:bg-wood-frame/10 transition-colors cursor-pointer group">
+<div class="flex items-center gap-3">
+<div class="size-8 flex items-center justify-center text-wood-frame">
+<span class="material-symbols-outlined text-[22px]">download</span>
+</div>
+<span class="text-lg font-medium text-wood-dark dark:text-parchment">Export Ledger (CSV)</span>
+</div>
+<span class="material-symbols-outlined text-wood-frame text-xl group-hover:translate-x-1 transition-transform">chevron_right</span>
+</div>
+<div class="relative flex items-center justify-center p-5 active:bg-rust/10 transition-colors cursor-pointer bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]">
+<div class="border-2 border-rust border-dashed px-6 py-1 rounded-sm transform -rotate-1">
+<span class="text-base font-western font-bold text-rust uppercase tracking-widest">Abandon Post</span>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center opacity-60">
+<span class="text-xs text-wood-frame font-western border-t border-wood-frame pt-1 px-4">Est. Version 2.4.0 (Build 302)</span>
+</div>
+</div>
+
+</body></html>

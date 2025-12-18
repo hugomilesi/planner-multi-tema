@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Financial Tracking - 80s Theme</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "retro-bg": "#0b0c15",
+                        "retro-surface": "#151725",
+                        "retro-surface-light": "#1e2136",
+                        "neon-cyan": "#00f3ff",
+                        "neon-pink": "#ff00ff",
+                        "neon-green": "#00ff9f",
+                        "neon-yellow": "#fcee0a",
+                        "neon-purple": "#bc13fe",
+                    },
+                    fontFamily: {
+                        "display": ["Rajdhani", "sans-serif"],
+                        "mono": ["Share Tech Mono", "monospace"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "sm": "2px",
+                        "md": "4px",
+                        "lg": "8px",
+                        "xl": "12px",
+                        "2xl": "16px",
+                        "full": "9999px"
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px)",
+                    }
+                },
+            },
+        }
+    </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>.no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }.no-scrollbar {
+            -ms-overflow-style: none;scrollbar-width: none;}
+        body {
+            min-height: max(884px, 100dvh);
+            background-color: #0b0c15;
+        }
+        .neon-text-cyan {
+            text-shadow: 0 0 5px rgba(0, 243, 255, 0.7), 0 0 10px rgba(0, 243, 255, 0.5);
+        }
+        .neon-text-pink {
+            text-shadow: 0 0 5px rgba(255, 0, 255, 0.7), 0 0 10px rgba(255, 0, 255, 0.5);
+        }
+        .neon-box-cyan {
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.3), inset 0 0 15px rgba(0, 243, 255, 0.1);
+        }
+        .retro-grid {
+            background-size: 30px 30px;
+        }.scanlines {
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2));
+            background-size: 100% 4px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 50;
+            opacity: 0.15;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-retro-bg bg-grid-pattern retro-grid font-display text-white antialiased selection:bg-neon-pink selection:text-white">
+<div class="fixed inset-0 pointer-events-none z-50 mix-blend-overlay opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+<div class="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-retro-bg border-x border-white/5">
+<div class="flex items-center justify-between p-4 sticky top-0 z-20 bg-retro-bg/90 backdrop-blur-md border-b border-white/10">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-neon-pink animate-pulse">equalizer</span>
+<h2 class="text-xl font-bold uppercase tracking-wider text-white neon-text-cyan font-mono">FIN.TRACKER</h2>
+</div>
+<button class="flex items-center justify-center w-10 h-10 rounded-md border border-white/20 hover:border-neon-cyan hover:bg-neon-cyan/10 transition-all text-white group">
+<span class="material-symbols-outlined group-hover:text-neon-cyan transition-colors">visibility_off</span>
+</button>
+</div>
+<div class="flex gap-3 px-4 pt-4 pb-2 overflow-x-auto no-scrollbar w-full flex-nowrap">
+<button class="flex-shrink-0 h-9 px-5 rounded-sm border border-neon-cyan bg-neon-cyan/10 text-neon-cyan text-sm font-bold uppercase tracking-wide shadow-[0_0_10px_rgba(0,243,255,0.4)] transition-transform active:scale-95">
+                This Month
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rounded-sm bg-retro-surface border border-white/10 text-slate-400 text-sm font-medium hover:border-neon-pink hover:text-neon-pink transition-colors uppercase">
+                October
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rounded-sm bg-retro-surface border border-white/10 text-slate-400 text-sm font-medium hover:border-neon-pink hover:text-neon-pink transition-colors uppercase">
+                September
+            </button>
+<button class="flex-shrink-0 h-9 px-5 rounded-sm bg-retro-surface border border-white/10 text-slate-400 text-sm font-medium hover:border-neon-pink hover:text-neon-pink transition-colors uppercase">
+                2023
+            </button>
+</div>
+<div class="flex flex-col items-center pt-8 pb-6 px-4 relative">
+<div class="absolute inset-0 bg-gradient-to-b from-neon-cyan/5 to-transparent pointer-events-none"></div>
+<p class="text-neon-cyan text-xs font-mono uppercase tracking-[0.2em] mb-2 border border-neon-cyan/30 px-2 py-0.5 rounded-sm">System Balance</p>
+<h1 class="text-5xl font-mono font-bold tracking-tighter text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">$4,250<span class="text-3xl text-white/50">.00</span></h1>
+<div class="w-24 h-0.5 bg-gradient-to-r from-transparent via-neon-pink to-transparent mt-6 shadow-[0_0_10px_rgba(255,0,255,0.8)]"></div>
+</div>
+<div class="grid grid-cols-2 gap-4 px-4 mb-8">
+<div class="bg-retro-surface p-4 rounded-sm border-l-4 border-neon-green border-y border-r border-white/5 relative overflow-hidden group hover:bg-white/5 transition-colors">
+<div class="absolute right-0 top-0 w-24 h-24 bg-neon-green/5 rounded-bl-full blur-xl"></div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-neon-green text-lg">arrow_downward</span>
+<span class="text-xs font-mono uppercase text-neon-green tracking-wider">Income</span>
+</div>
+<p class="text-2xl font-mono font-bold text-white drop-shadow-[0_0_5px_rgba(0,255,159,0.5)]">+$2,500</p>
+</div>
+<div class="bg-retro-surface p-4 rounded-sm border-l-4 border-neon-pink border-y border-r border-white/5 relative overflow-hidden group hover:bg-white/5 transition-colors">
+<div class="absolute right-0 top-0 w-24 h-24 bg-neon-pink/5 rounded-bl-full blur-xl"></div>
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-neon-pink text-lg">arrow_upward</span>
+<span class="text-xs font-mono uppercase text-neon-pink tracking-wider">Expenses</span>
+</div>
+<p class="text-2xl font-mono font-bold text-white drop-shadow-[0_0_5px_rgba(255,0,255,0.5)]">-$1,150</p>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="bg-retro-surface rounded-sm p-5 border border-white/10 relative">
+<div class="absolute top-0 left-0 w-2 h-2 border-t border-l border-neon-cyan"></div>
+<div class="absolute top-0 right-0 w-2 h-2 border-t border-r border-neon-cyan"></div>
+<div class="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-neon-cyan"></div>
+<div class="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-neon-cyan"></div>
+<div class="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+<div>
+<h3 class="text-base font-bold uppercase tracking-wider text-white flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-neon-cyan animate-pulse"></span>
+                            Analysis Protocol
+                        </h3>
+<p class="text-[10px] font-mono text-slate-400 mt-1 uppercase">Cycle: Oct 1 - Oct 31</p>
+</div>
+<div class="flex items-center gap-1 border border-neon-green/30 bg-neon-green/5 px-2 py-1 rounded-sm">
+<span class="material-symbols-outlined text-neon-green text-sm">trending_up</span>
+<span class="text-xs font-mono font-bold text-neon-green">+12%</span>
+</div>
+</div>
+<div class="flex items-end justify-between h-40 gap-3 px-2 pb-2 border-b border-l border-white/10 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[length:10px_10px]">
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-full border-2 border-neon-purple/50 bg-neon-purple/5 group-hover:bg-neon-purple/20 transition-all duration-300 shadow-[0_0_10px_rgba(188,19,254,0.1)] relative" style="height: 40%">
+<div class="absolute top-0 w-full h-[1px] bg-neon-purple shadow-[0_0_5px_#bc13fe]"></div>
+</div>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-500 uppercase">W1</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-full border-2 border-neon-purple/50 bg-neon-purple/5 group-hover:bg-neon-purple/20 transition-all duration-300 shadow-[0_0_10px_rgba(188,19,254,0.1)] relative" style="height: 65%">
+<div class="absolute top-0 w-full h-[1px] bg-neon-purple shadow-[0_0_5px_#bc13fe]"></div>
+</div>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-500 uppercase">W2</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-full border-2 border-neon-cyan bg-neon-cyan/20 transition-all duration-300 shadow-[0_0_15px_rgba(0,243,255,0.3)] relative" style="height: 85%">
+<div class="absolute top-0 w-full h-[2px] bg-white shadow-[0_0_10px_#fff]"></div>
+<div class="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,243,255,0.2)_50%)] bg-[length:100%_4px]"></div>
+</div>
+</div>
+<span class="text-[10px] font-mono font-bold text-neon-cyan drop-shadow-[0_0_5px_rgba(0,243,255,0.8)] uppercase">W3</span>
+</div>
+<div class="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+<div class="w-full relative h-32 flex items-end justify-center">
+<div class="w-full border-2 border-neon-purple/50 bg-neon-purple/5 group-hover:bg-neon-purple/20 transition-all duration-300 shadow-[0_0_10px_rgba(188,19,254,0.1)] relative" style="height: 30%">
+<div class="absolute top-0 w-full h-[1px] bg-neon-purple shadow-[0_0_5px_#bc13fe]"></div>
+</div>
+</div>
+<span class="text-[10px] font-mono font-bold text-slate-500 uppercase">W4</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mb-8">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-lg font-bold text-white uppercase tracking-wider neon-text-pink">Allocations</h3>
+<button class="text-neon-cyan text-xs font-mono uppercase border border-neon-cyan/30 px-2 py-1 rounded-sm hover:bg-neon-cyan/10">Edit</button>
+</div>
+<div class="space-y-4">
+<div class="bg-retro-surface p-4 rounded-sm border border-white/10 group hover:border-neon-yellow/50 transition-colors">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm border border-neon-yellow bg-neon-yellow/10 flex items-center justify-center text-neon-yellow shadow-[0_0_8px_rgba(252,238,10,0.3)]">
+<span class="material-symbols-outlined text-lg">shopping_cart</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white uppercase tracking-wide">Groceries</p>
+<p class="text-xs text-slate-400 font-mono">REMAINING: $320</p>
+</div>
+</div>
+<p class="text-sm font-mono text-neon-yellow drop-shadow-[0_0_3px_rgba(252,238,10,0.5)]">$180<span class="text-slate-500"> / $500</span></p>
+</div>
+<div class="w-full h-3 bg-black border border-white/20 rounded-full overflow-hidden relative">
+<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:4px_100%]"></div>
+<div class="h-full bg-neon-yellow shadow-[0_0_10px_rgba(252,238,10,0.6)] relative" style="width: 36%">
+<div class="absolute right-0 top-0 bottom-0 w-1 bg-white"></div>
+</div>
+</div>
+</div>
+<div class="bg-retro-surface p-4 rounded-sm border border-white/10 group hover:border-neon-purple/50 transition-colors">
+<div class="flex justify-between items-center mb-3">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-sm border border-neon-purple bg-neon-purple/10 flex items-center justify-center text-neon-purple shadow-[0_0_8px_rgba(188,19,254,0.3)]">
+<span class="material-symbols-outlined text-lg">directions_car</span>
+</div>
+<div>
+<p class="text-sm font-bold text-white uppercase tracking-wide">Transport</p>
+<p class="text-xs text-slate-400 font-mono">REMAINING: $50</p>
+</div>
+</div>
+<p class="text-sm font-mono text-neon-purple drop-shadow-[0_0_3px_rgba(188,19,254,0.5)]">$150<span class="text-slate-500"> / $200</span></p>
+</div>
+<div class="w-full h-3 bg-black border border-white/20 rounded-full overflow-hidden relative">
+<div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.1)_1px,transparent_1px)] bg-[length:4px_100%]"></div>
+<div class="h-full bg-neon-purple shadow-[0_0_10px_rgba(188,19,254,0.6)] relative" style="width: 75%">
+<div class="absolute right-0 top-0 bottom-0 w-1 bg-white"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 flex-1">
+<div class="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
+<h3 class="text-lg font-bold text-white uppercase tracking-wider">Log Entries</h3>
+<button class="text-neon-cyan text-xs font-mono uppercase hover:underline hover:text-white">View All</button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center justify-between p-3 rounded-sm bg-retro-surface-light/30 border border-transparent hover:border-neon-pink/50 hover:bg-retro-surface-light transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-sm bg-black border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/40 transition-colors">
+<span class="material-symbols-outlined">storefront</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white uppercase tracking-wide">Apple Store</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">10:42 :: Today</p>
+</div>
+</div>
+<p class="text-sm font-mono font-bold text-neon-pink text-right">-$1,150.00</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-sm bg-retro-surface-light/30 border border-transparent hover:border-neon-green/50 hover:bg-retro-surface-light transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-sm bg-black border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/40 transition-colors">
+<span class="material-symbols-outlined">payments</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white uppercase tracking-wide">Salary Deposit</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">09:00 :: Yesterday</p>
+</div>
+</div>
+<p class="text-sm font-mono font-bold text-neon-green text-right">+$2,500.00</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-sm bg-retro-surface-light/30 border border-transparent hover:border-white/30 hover:bg-retro-surface-light transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-sm bg-black border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/40 transition-colors">
+<span class="material-symbols-outlined">movie</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white uppercase tracking-wide">Netflix</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Oct 21 :: 2023</p>
+</div>
+</div>
+<p class="text-sm font-mono font-bold text-white text-right">-$15.00</p>
+</div>
+<div class="flex items-center justify-between p-3 rounded-sm bg-retro-surface-light/30 border border-transparent hover:border-white/30 hover:bg-retro-surface-light transition-all cursor-pointer group">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-sm bg-black border border-white/10 flex items-center justify-center text-slate-400 group-hover:text-white group-hover:border-white/40 transition-colors">
+<span class="material-symbols-outlined">local_dining</span>
+</div>
+<div class="flex flex-col">
+<p class="text-sm font-bold text-white uppercase tracking-wide">Starbucks</p>
+<p class="text-[10px] font-mono text-slate-500 uppercase">Oct 20 :: 2023</p>
+</div>
+</div>
+<p class="text-sm font-mono font-bold text-white text-right">-$5.40</p>
+</div>
+</div>
+</div>
+<button class="fixed bottom-6 right-6 w-14 h-14 bg-retro-bg border-2 border-neon-cyan text-neon-cyan shadow-[0_0_20px_rgba(0,243,255,0.4)] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-30 group">
+<div class="absolute inset-0 bg-neon-cyan/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-3xl font-bold relative z-10">add</span>
+</button>
+<div class="h-6"></div>
+</div>
+
+</body></html>
