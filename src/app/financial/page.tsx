@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, ComponentType } from 'react';
 import { Plus, TrendingUp, TrendingDown, Trash2 } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
@@ -18,6 +18,8 @@ import { Label } from '@/components/ui/label';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { hasCustomPage, themedPages, ThemeWithCustomPages } from '@/themes/packs';
+import { FinancialPageProps } from '@/themes/packs/types';
 
 const themeChartColors: Record<string, { income: string; expense: string; pie: string[]; axis: string; tooltip: { bg: string; border: string } }> = {
   cyberpunk: {
@@ -92,6 +94,20 @@ export default function FinancialPage() {
   const { transactions, categories, currency, addTransaction, deleteTransaction } = useFinancialStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [transactionType, setTransactionType] = useState<'income' | 'expense'>('expense');
+
+  // Dynamic theme page loading
+  const [CustomPage, setCustomPage] = useState<ComponentType<FinancialPageProps> | null>(null);
+  
+  useEffect(() => {
+    if (hasCustomPage(themeId, 'financial')) {
+      const themePack = themedPages[themeId as ThemeWithCustomPages];
+      if (themePack?.financial) {
+        themePack.financial().then((Page) => setCustomPage(() => Page));
+      }
+    } else {
+      setCustomPage(null);
+    }
+  }, [themeId]);
 
   const toLocalDateId = (d: Date) => {
     const y = d.getFullYear();
@@ -192,6 +208,33 @@ export default function FinancialPage() {
     .sort((a, b) => parseLocalDateId(b.date).getTime() - parseLocalDateId(a.date).getTime())
     .slice(0, 10);
 
+  // Props for custom themed pages
+  const pageProps: FinancialPageProps = {
+    monthIncome,
+    monthExpense,
+    balance: monthIncome - monthExpense,
+    formatCurrency,
+    pieData,
+    last7Days: last7Days.map(d => ({ day: d.day, income: d.income, expense: d.expense })),
+    categorySpending: categorySpending.map(c => ({ id: c.id, name: c.name, icon: c.icon, spent: c.spent, budget: c.budget, percentage: c.percentage, color: c.color })),
+    recentTransactions: recentTransactions.map(t => ({ id: t.id, type: t.type, amount: t.amount, categoryId: t.categoryId, date: t.date, note: t.note })),
+    categories: categories.map(c => ({ id: c.id, name: c.name, icon: c.icon, type: c.type, color: c.color, budget: c.budget })),
+    isDialogOpen,
+    setIsDialogOpen,
+    transactionType,
+    setTransactionType,
+    newTransaction,
+    setNewTransaction,
+    handleAddTransaction,
+    deleteTransaction,
+  };
+
+  // Render custom themed page if available
+  if (CustomPage) {
+    return <CustomPage {...pageProps} />;
+  }
+
+  // Default page
   return (
     <PageTransition>
       <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>

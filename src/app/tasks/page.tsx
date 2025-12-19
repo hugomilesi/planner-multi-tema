@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, ComponentType } from 'react';
 import { Plus, Trash2, Calendar } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
@@ -16,6 +16,8 @@ import { Label } from '@/components/ui/label';
 import { PageTransition } from '@/components/layout/PageTransition';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
+import { hasCustomPage, themedPages, ThemeWithCustomPages } from '@/themes/packs';
+import { TasksPageProps } from '@/themes/packs/types';
 
 type FilterType = 'all' | 'today' | 'pending' | 'completed';
 
@@ -23,6 +25,20 @@ export default function TasksPage() {
   const { themeId } = useTheme();
   const visuals = getThemeVisuals(themeId);
   const { tasks, addTask, toggleTaskStatus, deleteTask } = useTaskStore();
+  
+  // Dynamic theme page loading
+  const [CustomPage, setCustomPage] = useState<ComponentType<TasksPageProps> | null>(null);
+  
+  useEffect(() => {
+    if (hasCustomPage(themeId, 'tasks')) {
+      const themePack = themedPages[themeId as ThemeWithCustomPages];
+      if (themePack?.tasks) {
+        themePack.tasks().then((Page) => setCustomPage(() => Page));
+      }
+    } else {
+      setCustomPage(null);
+    }
+  }, [themeId]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>('all');
   
@@ -91,6 +107,27 @@ export default function TasksPage() {
     }
   };
 
+  // Props for custom themed pages
+  const pageProps: TasksPageProps = {
+    tasks,
+    filteredTasks,
+    filter,
+    setFilter,
+    isDialogOpen,
+    setIsDialogOpen,
+    newTask,
+    setNewTask,
+    handleAddTask,
+    toggleTaskStatus,
+    deleteTask,
+  };
+
+  // Render custom themed page if available
+  if (CustomPage) {
+    return <CustomPage {...pageProps} />;
+  }
+
+  // Default page (for themes without custom templates)
   return (
     <PageTransition>
       <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>

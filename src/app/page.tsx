@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, ComponentType } from 'react';
 import { Plus, TrendingUp, TrendingDown, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
@@ -12,12 +13,28 @@ import { Button } from '@/components/ui/button';
 import { PageTransition } from '@/components/layout/PageTransition';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import { hasCustomPage, themedPages, ThemeWithCustomPages } from '@/themes/packs';
+import { DashboardPageProps } from '@/themes/packs/types';
 
 export default function DashboardPage() {
   const { themeId } = useTheme();
   const visuals = getThemeVisuals(themeId);
   const tasks = useTaskStore((state) => state.tasks);
   const { transactions, currency } = useFinancialStore();
+
+  // Dynamic theme page loading
+  const [CustomPage, setCustomPage] = useState<ComponentType<DashboardPageProps> | null>(null);
+  
+  useEffect(() => {
+    if (hasCustomPage(themeId, 'dashboard')) {
+      const themePack = themedPages[themeId as ThemeWithCustomPages];
+      if (themePack?.dashboard) {
+        themePack.dashboard().then((Page) => setCustomPage(() => Page));
+      }
+    } else {
+      setCustomPage(null);
+    }
+  }, [themeId]);
 
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
@@ -55,6 +72,25 @@ export default function DashboardPage() {
     ? (completedToday / todayTasks.length) * 100 
     : 0;
 
+  // Props for custom themed pages
+  const pageProps: DashboardPageProps = {
+    todayTasks,
+    completedToday,
+    pendingTasks,
+    overdueTasks,
+    progressValue,
+    monthIncome,
+    monthExpense,
+    balance,
+    formatCurrency,
+  };
+
+  // Render custom themed page if available
+  if (CustomPage) {
+    return <CustomPage {...pageProps} />;
+  }
+
+  // Default page
   return (
     <PageTransition>
       <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>

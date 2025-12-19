@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, ComponentType } from 'react';
 import { Moon, Zap, Download, Upload, Info, Trash2 } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
@@ -14,12 +15,28 @@ import { Separator } from '@/components/ui/separator';
 import { useTaskStore } from '@/stores/taskStore';
 import { useFinancialStore } from '@/stores/financialStore';
 import { cn } from '@/lib/utils';
+import { hasCustomPage, themedPages, ThemeWithCustomPages } from '@/themes/packs';
+import { SettingsPageProps } from '@/themes/packs/types';
 
 export default function SettingsPage() {
   const { theme, themeId, setTheme, reduceMotion, setReduceMotion } = useTheme();
   const visuals = getThemeVisuals(themeId);
   const tasks = useTaskStore((state) => state.tasks);
   const { transactions, categories } = useFinancialStore();
+
+  // Dynamic theme page loading
+  const [CustomPage, setCustomPage] = useState<ComponentType<SettingsPageProps> | null>(null);
+  
+  useEffect(() => {
+    if (hasCustomPage(themeId, 'settings')) {
+      const themePack = themedPages[themeId as ThemeWithCustomPages];
+      if (themePack?.settings) {
+        themePack.settings().then((Page) => setCustomPage(() => Page));
+      }
+    } else {
+      setCustomPage(null);
+    }
+  }, [themeId]);
 
   const handleExport = () => {
     const data = {
@@ -69,6 +86,24 @@ export default function SettingsPage() {
     input.click();
   };
 
+  // Props for custom themed pages
+  const pageProps: SettingsPageProps = {
+    themeId,
+    setTheme: (id: string) => setTheme(id as ThemeId),
+    reduceMotion,
+    setReduceMotion,
+    themeList: themeList.map(t => ({ id: t.id, name: t.name, tokens: { primary: t.tokens.primary, accent: t.tokens.accent } })),
+    currentTheme: { name: theme.name, tokens: { primary: theme.tokens.primary, accent: theme.tokens.accent } },
+    handleExport,
+    handleImport,
+  };
+
+  // Render custom themed page if available
+  if (CustomPage) {
+    return <CustomPage {...pageProps} />;
+  }
+
+  // Default page
   return (
     <PageTransition>
       <div className={cn('px-4 pt-6 pb-4 space-y-6', visuals.fonts.body)}>
