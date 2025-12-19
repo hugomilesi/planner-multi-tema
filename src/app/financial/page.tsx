@@ -2,20 +2,21 @@
 
 import { useState } from 'react';
 import { Plus, TrendingUp, TrendingDown, Trash2 } from 'lucide-react';
-import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
 import { useFinancialStore } from '@/stores/financialStore';
 import { cn } from '@/lib/utils';
 import { ThemedCard } from '@/components/shared/ThemedCard';
+import { ThemedBarChart } from '@/components/shared/ThemedBarChart';
+import { ThemedPieChart } from '@/components/shared/ThemedPieChart';
+import { ThemedProgress } from '@/components/shared/ThemedProgress';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
 import { PageTransition } from '@/components/layout/PageTransition';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
 const themeChartColors: Record<string, { income: string; expense: string; pie: string[]; axis: string; tooltip: { bg: string; border: string } }> = {
@@ -91,11 +92,23 @@ export default function FinancialPage() {
   const { transactions, categories, currency, addTransaction, deleteTransaction } = useFinancialStore();
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [transactionType, setTransactionType] = useState<'income' | 'expense'>('expense');
+
+  const toLocalDateId = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const day = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${day}`;
+  };
+
+  const parseLocalDateId = (dateId: string) => {
+    const [y, m, d] = dateId.split('-').map(Number);
+    return new Date(y, (m ?? 1) - 1, d ?? 1);
+  };
   
   const [newTransaction, setNewTransaction] = useState({
     amount: '',
     categoryId: '',
-    date: new Date().toISOString().split('T')[0],
+    date: toLocalDateId(new Date()),
     note: '',
   });
 
@@ -104,7 +117,7 @@ export default function FinancialPage() {
   const currentYear = today.getFullYear();
 
   const monthTransactions = transactions.filter((t) => {
-    const date = new Date(t.date);
+    const date = parseLocalDateId(t.date);
     return date.getMonth() === currentMonth && date.getFullYear() === currentYear;
   });
 
@@ -137,7 +150,7 @@ export default function FinancialPage() {
     setNewTransaction({
       amount: '',
       categoryId: '',
-      date: new Date().toISOString().split('T')[0],
+      date: toLocalDateId(new Date()),
       note: '',
     });
     setIsDialogOpen(false);
@@ -166,7 +179,7 @@ export default function FinancialPage() {
   const last7Days = Array.from({ length: 7 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - (6 - i));
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = toLocalDateId(date);
     const dayTransactions = transactions.filter((t) => t.date === dateStr);
     return {
       day: date.toLocaleDateString('pt-BR', { weekday: 'short' }),
@@ -176,7 +189,7 @@ export default function FinancialPage() {
   });
 
   const recentTransactions = [...transactions]
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .sort((a, b) => parseLocalDateId(b.date).getTime() - parseLocalDateId(a.date).getTime())
     .slice(0, 10);
 
   return (
@@ -300,65 +313,35 @@ export default function FinancialPage() {
         </div>
 
         {pieData.length > 0 && (
-          <ThemedCard title="Spending by Category" delay={2}>
-            <div style={{ width: '100%', height: 192 }}>
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={40}
-                    outerRadius={70}
-                    paddingAngle={2}
-                    dataKey="value"
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={chartColors.pie[index % chartColors.pie.length]} />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    formatter={(value) => formatCurrency(Number(value))}
-                    contentStyle={{ 
-                      background: chartColors.tooltip.bg, 
-                      border: `1px solid ${chartColors.tooltip.border}`,
-                      borderRadius: '8px',
-                      color: 'inherit',
-                    }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="flex flex-wrap gap-2 mt-2">
-              {pieData.map((cat, index) => (
-                <div key={cat.name} className="flex items-center gap-1 text-xs">
-                  <div className="w-2 h-2 rounded-full" style={{ background: chartColors.pie[index % chartColors.pie.length] }} />
-                  <span>{cat.name}</span>
-                </div>
-              ))}
-            </div>
+          <ThemedCard title={visuals.labels.financial + ' by Category'} delay={2}>
+            <ThemedPieChart 
+              data={pieData}
+              size={180}
+              showLegend={true}
+              formatValue={(v) => formatCurrency(v)}
+            />
           </ThemedCard>
         )}
 
         <ThemedCard title="Last 7 Days" delay={3}>
-          <div style={{ width: '100%', height: 160 }}>
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={last7Days}>
-                <XAxis dataKey="day" tick={{ fontSize: 10, fill: chartColors.axis }} />
-                <YAxis tick={{ fontSize: 10, fill: chartColors.axis }} width={40} />
-                <Tooltip 
-                  formatter={(value) => formatCurrency(Number(value))}
-                  contentStyle={{ 
-                    background: chartColors.tooltip.bg, 
-                    border: `1px solid ${chartColors.tooltip.border}`,
-                    borderRadius: '8px',
-                    color: 'inherit',
-                  }}
-                />
-                <Bar dataKey="income" fill={chartColors.income} radius={[4, 4, 0, 0]} />
-                <Bar dataKey="expense" fill={chartColors.expense} radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+          <ThemedBarChart 
+            data={last7Days.map(d => ({
+              label: d.day,
+              value: d.income,
+              secondaryValue: d.expense,
+            }))}
+            showLabels={true}
+            formatValue={(v) => formatCurrency(v)}
+          />
+          <div className="flex justify-center gap-4 mt-3 text-xs">
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 bg-green-500 rounded-sm" />
+              <span>{visuals.labels.income}</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <div className="w-3 h-3 bg-red-500 rounded-sm" />
+              <span>{visuals.labels.expense}</span>
+            </div>
           </div>
         </ThemedCard>
 
@@ -366,22 +349,18 @@ export default function FinancialPage() {
           <ThemedCard title="Budget Progress" delay={4}>
             <div className="space-y-4">
               {categorySpending.filter(c => c.budget).map((cat) => (
-                <div key={cat.id} className="space-y-2">
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center gap-2">
-                      <span>{cat.icon}</span>
-                      <span>{cat.name}</span>
-                    </span>
-                    <span className="text-muted-foreground">
+                <div key={cat.id}>
+                  <div className="flex items-center gap-2 mb-1">
+                    <span>{cat.icon}</span>
+                    <span className="text-sm font-medium flex-1">{cat.name}</span>
+                    <span className="text-xs opacity-70">
                       {formatCurrency(cat.spent)} / {formatCurrency(cat.budget!)}
                     </span>
                   </div>
-                  <Progress 
-                    value={Math.min(cat.percentage, 100)} 
-                    className="h-2"
-                    style={{
-                      ['--progress-background' as string]: cat.percentage > 100 ? 'var(--destructive)' : cat.color,
-                    }}
+                  <ThemedProgress 
+                    value={cat.spent}
+                    max={cat.budget!}
+                    showPercentage={false}
                   />
                 </div>
               ))}
@@ -409,7 +388,7 @@ export default function FinancialPage() {
                         <div>
                           <p className="font-medium text-sm">{category?.name || 'Unknown'}</p>
                           <p className="text-xs text-muted-foreground">
-                            {new Date(transaction.date).toLocaleDateString('pt-BR')}
+                            {parseLocalDateId(transaction.date).toLocaleDateString('pt-BR')}
                             {transaction.note && ` • ${transaction.note}`}
                           </p>
                         </div>

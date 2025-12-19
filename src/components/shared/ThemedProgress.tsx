@@ -10,6 +10,7 @@ interface ThemedProgressProps {
   label?: string;
   showPercentage?: boolean;
   className?: string;
+  animated?: boolean;
 }
 
 export function ThemedProgress({ 
@@ -17,7 +18,8 @@ export function ThemedProgress({
   max = 100, 
   label, 
   showPercentage = true,
-  className 
+  className,
+  animated = true
 }: ThemedProgressProps) {
   const { themeId } = useTheme();
   const visuals = getThemeVisuals(themeId);
@@ -50,15 +52,19 @@ export function ThemedProgress({
             <div
               key={i}
               className={cn(
-                'flex-1 h-full',
+                'flex-1 h-full transition-all duration-150',
                 i < filledSegments ? visuals.progressBar.fillClassName : 'bg-[#ff00ff]/20'
               )}
+              style={{ transitionDelay: animated ? `${i * 30}ms` : '0ms' }}
             />
           ))}
         </div>
       </div>
     );
   }
+
+  // Synthwave uses gradient with shine effect
+  const isFuturistic = ['synthwave', 'space'].includes(themeId);
 
   return (
     <div className={cn('space-y-2', className)}>
@@ -76,9 +82,13 @@ export function ThemedProgress({
           )}
         </div>
       )}
-      <div className={visuals.progressBar.className}>
+      <div className={cn('relative', visuals.progressBar.className)}>
         <div 
-          className={cn('h-full transition-all duration-300', visuals.progressBar.fillClassName)}
+          className={cn(
+            'h-full transition-all duration-500 ease-out',
+            visuals.progressBar.fillClassName,
+            isFuturistic && 'shine-effect'
+          )}
           style={{ width: `${percentage}%` }}
         />
       </div>
