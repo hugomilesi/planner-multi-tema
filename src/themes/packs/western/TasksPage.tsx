@@ -2,7 +2,7 @@
 
 import { TasksPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Clock, Trash2, Plus, Star } from 'lucide-react';
+import { Clock, Trash2, Plus, Star, SlidersHorizontal } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,273 +23,287 @@ export function WesternTasksPage({
   deleteTask,
 }: TasksPageProps) {
   const pendingCount = tasks.filter(t => t.status === 'pending').length;
+  const completedCount = tasks.filter(t => t.status === 'completed').length;
+  const today = new Date();
 
-  const getPriorityLabel = (priority: Task['priority']) => {
+  // Generate week days for timeline
+  const weekDays = Array.from({ length: 5 }, (_, i) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + i);
+    return {
+      day: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      date: date.getDate(),
+      isToday: i === 0,
+    };
+  });
+
+  const progressValue = tasks.length > 0 ? (completedCount / tasks.length) * 100 : 0;
+
+  const getCategoryStyle = (priority: Task['priority']) => {
     switch (priority) {
-      case 'high': return 'URGENTE';
-      case 'medium': return 'NORMAL';
-      case 'low': return 'CALMO';
+      case 'high': return 'border-purple-800/20 bg-purple-100/50 text-purple-900';
+      case 'medium': return 'border-orange-800/20 bg-orange-100/50 text-orange-900';
+      case 'low': return 'border-green-800/20 bg-green-100/50 text-green-900';
     }
   };
 
-  const getPriorityStyle = (priority: Task['priority']) => {
+  const getCategoryLabel = (priority: Task['priority']) => {
     switch (priority) {
-      case 'high': return 'bg-red-800 text-amber-100 border-red-900';
-      case 'medium': return 'bg-amber-700 text-amber-100 border-amber-800';
-      case 'low': return 'bg-amber-900/50 text-amber-200 border-amber-800';
+      case 'high': return 'Work';
+      case 'medium': return 'Health';
+      case 'low': return 'Personal';
     }
-  };
-
-  const filterLabels = {
-    all: 'TUDO',
-    today: 'Hoje',
-    pending: 'Pendente',
-    completed: 'Feito',
   };
 
   return (
-    <div 
-      className="min-h-screen font-[family-name:var(--font-rye)]"
-      style={{
-        backgroundColor: '#EFE6DD',
-        backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%238B5A2B' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E")`,
-      }}
-    >
-      <div className="relative z-10 px-4 pt-6 pb-24">
-        {/* Header - Wanted poster style */}
-        <header className="mb-6">
-          <div className="text-amber-800/60 text-xs tracking-[0.2em] mb-1 font-[family-name:var(--font-courier-prime)]">
-            WANTED: TASKS
-          </div>
-          <h1 className="text-3xl text-amber-900 drop-shadow-sm">
-            Lista de Tarefas
-          </h1>
-          
-          {/* Bounty counter */}
-          <div className="flex items-center gap-2 mt-3">
-            <Star className="w-4 h-4 text-amber-600 fill-amber-600" />
-            <span className="text-sm text-amber-800 font-[family-name:var(--font-courier-prime)]">
-              {pendingCount} recompensa{pendingCount !== 1 ? 's' : ''} pendente{pendingCount !== 1 ? 's' : ''}
-            </span>
-          </div>
-        </header>
+    <div className="min-h-screen font-[family-name:var(--font-courier-prime)] text-[#3E2723]"
+      style={{ backgroundColor: '#F0EAD6' }}>
 
-        {/* Filter tabs - Western style buttons */}
-        <div className="flex gap-2 mb-6 overflow-x-auto pb-2">
+      <div className="relative z-10 pb-24">
+        {/* Header */}
+        <div className="flex flex-col gap-2 p-4 pb-2 pt-6">
+          <div className="flex items-center h-12 justify-between">
+            <div className="flex w-12 shrink-0 items-center relative">
+              <div className="absolute inset-0 rounded-full border-2 border-[#8B4513] border-dashed"
+                style={{ animation: 'spin 10s linear infinite' }} />
+              <div className="w-10 h-10 rounded-full border-2 border-[#8B4513] shadow-sm ml-1 bg-gradient-to-br from-[#8B4513] to-[#5D4037] flex items-center justify-center">
+                <Star className="w-5 h-5 text-[#DAA520]" />
+              </div>
+            </div>
+            <button className="flex items-center justify-center rounded-lg w-10 h-10 bg-[#FDF5E6] text-[#8B4513] border-2 border-[#D2B48C]"
+              style={{ boxShadow: '2px 2px 0px 0px rgba(139,69,19,0.15)' }}>
+              <SlidersHorizontal className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex justify-between items-end mt-2">
+            <div>
+              <p className="text-[#8B4513]/70 text-base font-semibold italic tracking-wide">
+                {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+              </p>
+              <h1 className="text-[#8B4513] font-[family-name:var(--font-rye)] text-3xl leading-tight"
+                style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.1)' }}>
+                Howdy, Partner
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        {/* Timeline Calendar */}
+        <div className="flex flex-col gap-2 mb-4 mt-2">
+          <div className="flex overflow-x-auto no-scrollbar gap-3 px-4 pb-2">
+            {weekDays.map((d, i) => (
+              <button key={i}
+                className={cn(
+                  'flex flex-col items-center justify-center min-w-[68px] h-[90px] rounded-lg shrink-0 transform transition-transform active:scale-95 border-2 relative overflow-hidden',
+                  d.isToday
+                    ? 'bg-[#8B4513] text-[#FDF5E6] border-[#5D4037]'
+                    : 'bg-[#FDF5E6] border-[#D2B48C] text-[#3E2723]/60 hover:bg-[#F5DEB3]'
+                )}
+                style={d.isToday ? { boxShadow: '4px 4px 0px 0px rgba(62,39,35,0.3)' } : {}}>
+                {d.isToday && (
+                  <>
+                    <div className="absolute top-0 left-0 w-full h-1 bg-[#5D4037]/30" />
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-[#5D4037]/30" />
+                  </>
+                )}
+                <span className={cn('text-xs font-bold uppercase tracking-widest', d.isToday && 'opacity-90 mt-1')}>
+                  {d.day}
+                </span>
+                <span className={cn('font-[family-name:var(--font-rye)] mt-1', d.isToday ? 'text-3xl' : 'text-2xl font-bold')}>
+                  {d.date}
+                </span>
+                {d.isToday && <Star className="w-2.5 h-2.5 text-[#DAA520] mt-1" />}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Daily Bounty Progress */}
+        <div className="px-4 py-2">
+          <div className="flex flex-col gap-3 p-5 rounded-lg bg-[#FDF5E6] border-2 border-[#D2B48C] relative overflow-hidden"
+            style={{ boxShadow: '2px 2px 0px 0px rgba(139,69,19,0.15)' }}>
+            <div className="absolute top-0 right-0 p-2 opacity-10 pointer-events-none">
+              <Star className="w-16 h-16 rotate-12" />
+            </div>
+            <div className="flex gap-6 justify-between items-center z-10">
+              <p className="text-[#3E2723] text-lg font-[family-name:var(--font-rye)] tracking-wide">Daily Bounty</p>
+              <span className="text-[#A0522D] font-bold bg-[#D2B48C]/20 px-3 py-1 rounded-sm border border-[#D2B48C]/50 text-sm">
+                {Math.round(progressValue)}% Done
+              </span>
+            </div>
+            <div className="rounded-full bg-[#E6DCC3] h-3 w-full overflow-hidden border border-[#D2B48C]/50 z-10">
+              <div className="h-full rounded-full transition-all duration-500 ease-out"
+                style={{
+                  width: `${progressValue}%`,
+                  backgroundImage: 'repeating-linear-gradient(45deg, #8B4513, #8B4513 10px, #A0522D 10px, #A0522D 20px)',
+                  boxShadow: '0 0 10px rgba(139,69,19,0.5)',
+                }} />
+            </div>
+            <p className="text-[#3E2723]/60 text-sm font-semibold italic z-10">
+              {completedCount} of {tasks.length} Tasks Rounded Up
+            </p>
+          </div>
+        </div>
+
+        {/* Section Title */}
+        <div className="flex items-center px-4 pt-6 pb-2">
+          <div className="h-px bg-[#D2B48C] flex-1 opacity-50" />
+          <h2 className="text-[#3E2723] font-[family-name:var(--font-rye)] text-2xl px-4 text-center">Today's Tasks</h2>
+          <div className="h-px bg-[#D2B48C] flex-1 opacity-50" />
+        </div>
+
+        {/* Filter Tabs */}
+        <div className="flex gap-2 px-4 mb-4 overflow-x-auto pb-2">
           {(['all', 'today', 'pending', 'completed'] as const).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={cn(
-                'px-4 py-2 text-sm whitespace-nowrap transition-all border-2 shadow-md',
+            <button key={f} onClick={() => setFilter(f)}
+              className={cn('px-4 py-2 text-sm whitespace-nowrap transition-all border-2 rounded-lg',
                 filter === f
-                  ? 'bg-amber-800 text-amber-100 border-amber-900'
-                  : 'bg-amber-100 text-amber-800 border-amber-700 hover:bg-amber-200'
+                  ? 'bg-[#8B4513] text-[#FDF5E6] border-[#5D4037]'
+                  : 'bg-[#FDF5E6] text-[#8B4513] border-[#D2B48C] hover:bg-[#F5DEB3]'
               )}
-              style={{
-                boxShadow: filter === f 
-                  ? 'inset 0 2px 4px rgba(0,0,0,0.3)' 
-                  : '2px 2px 0 rgba(139,69,19,0.3)',
-              }}
-            >
-              {filterLabels[f]}
+              style={filter === f ? { boxShadow: '4px 4px 0px 0px rgba(62,39,35,0.3)' } : {}}>
+              {f === 'all' ? 'All' : f === 'today' ? 'Today' : f === 'pending' ? 'Active' : 'Done'}
             </button>
           ))}
         </div>
 
-        {/* Task list */}
-        <div className="space-y-4">
+        {/* Task List */}
+        <div className="flex flex-col px-4 gap-4 pb-4">
           {filteredTasks.length === 0 ? (
-            <div 
-              className="p-8 text-center border-2 border-dashed border-amber-700/30 bg-amber-50/50"
-              style={{ borderStyle: 'dashed' }}
-            >
-              <div className="text-amber-700 font-[family-name:var(--font-rye)]">
-                Nenhuma tarefa encontrada
-              </div>
-              <div className="text-amber-600/70 text-sm mt-2 font-[family-name:var(--font-courier-prime)]">
-                Toque no + para criar sua primeira tarefa
-              </div>
+            <div className="p-8 text-center border-2 border-dashed border-[#D2B48C] bg-[#FDF5E6]/50 rounded-lg">
+              <Star className="w-12 h-12 mx-auto text-[#D2B48C] mb-2" />
+              <p className="text-[#8B4513] font-[family-name:var(--font-rye)]">No tasks found</p>
+              <p className="text-[#8B4513]/60 text-sm mt-1 italic">Tap + to create your first bounty</p>
             </div>
           ) : (
-            filteredTasks.map((task, index) => (
-              <div
-                key={task.id}
-                className={cn(
-                  'relative bg-[#F4ECD8] border-2 border-amber-800/40 shadow-lg transform',
-                  task.status === 'completed' ? 'opacity-60' : '',
-                  index % 2 === 0 ? 'rotate-[0.5deg]' : 'rotate-[-0.5deg]'
-                )}
-                style={{
-                  boxShadow: '4px 4px 0 rgba(139,69,19,0.2), inset 0 0 30px rgba(139,69,19,0.05)',
-                }}
-              >
-                {/* Pin decoration */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-amber-700 border-2 border-amber-900 shadow-md z-10" />
+            filteredTasks.map((task) => {
+              const isCompleted = task.status === 'completed';
+              
+              return (
+                <div key={task.id}
+                  className={cn(
+                    'group relative flex items-center gap-4 p-4 rounded-sm bg-[#FDF5E6] border border-[#D2B48C] shadow-sm transition-all hover:border-[#8B4513]',
+                    isCompleted && 'bg-[#E8E0CC] border-[#D2B48C]/60 opacity-70'
+                  )}>
+                  {/* Corner fold */}
+                  {!isCompleted && (
+                    <div className="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-[#F0EAD6] border-r-[#D2B48C] shadow-sm" />
+                  )}
+                  
+                  {/* Checkbox */}
+                  <button onClick={() => toggleTaskStatus(task.id)}
+                    className={cn(
+                      'flex-shrink-0 w-7 h-7 rounded-full border-2 flex items-center justify-center transition-colors',
+                      isCompleted
+                        ? 'bg-[#8B4513] border-[#8B4513] shadow-sm'
+                        : 'border-[#8B4513] group-hover:bg-[#8B4513]/10'
+                    )}>
+                    {isCompleted && <Star className="w-4 h-4 text-white" />}
+                  </button>
 
-                {/* Priority ribbon */}
-                {task.priority === 'high' && task.status !== 'completed' && (
-                  <div className="absolute -top-1 -right-1 px-3 py-1 bg-red-800 text-amber-100 text-[10px] font-bold transform rotate-3 shadow-md border border-red-900">
-                    URGENTE
-                  </div>
-                )}
-
-                <div className="p-4 pt-5">
-                  <div className="flex items-start gap-3">
-                    {/* Checkbox - Western style */}
-                    <button
-                      onClick={() => toggleTaskStatus(task.id)}
-                      className={cn(
-                        'w-6 h-6 border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all',
-                        task.status === 'completed'
-                          ? 'border-amber-700 bg-amber-700 text-amber-100'
-                          : 'border-amber-700 hover:bg-amber-200'
+                  {/* Content */}
+                  <div className="flex flex-1 flex-col gap-1 relative">
+                    {isCompleted && (
+                      <div className="absolute top-1/2 left-0 w-full h-0.5 bg-[#3E2723]/30 -rotate-1" />
+                    )}
+                    <p className={cn(
+                      'text-lg font-bold leading-tight font-[family-name:var(--font-rye)] tracking-wide',
+                      isCompleted ? 'text-[#3E2723] opacity-60' : 'text-[#3E2723]'
+                    )}>
+                      {task.title}
+                    </p>
+                    <div className="flex items-center gap-2">
+                      {task.dueDate && (
+                        <>
+                          <span className="text-sm font-medium text-[#3E2723]/60 flex items-center gap-1 italic">
+                            <Clock className="w-4 h-4" />
+                            {new Date(task.dueDate + 'T12:00:00').toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}
+                          </span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#D2B48C]" />
+                        </>
                       )}
-                    >
-                      {task.status === 'completed' && (
-                        <span className="text-sm font-bold">✓</span>
-                      )}
-                    </button>
-
-                    <div className="flex-1 min-w-0">
-                      {/* Title */}
-                      <h3 className={cn(
-                        'text-lg text-amber-900',
-                        task.status === 'completed' && 'line-through text-amber-700/70'
-                      )}>
-                        {task.title}
-                      </h3>
-
-                      {/* Notes */}
-                      {task.notes && (
-                        <p className="text-sm text-amber-700/80 mt-1 font-[family-name:var(--font-courier-prime)]">
-                          {task.notes}
-                        </p>
-                      )}
-
-                      {/* Meta info */}
-                      <div className="flex items-center gap-3 mt-3">
-                        <span className={cn(
-                          'text-[10px] px-2 py-0.5 border font-[family-name:var(--font-courier-prime)] font-bold',
-                          getPriorityStyle(task.priority)
-                        )}>
-                          {getPriorityLabel(task.priority)}
-                        </span>
-                        
-                        {task.dueDate && (
-                          <div className="flex items-center gap-1 text-xs text-amber-700">
-                            <Clock className="w-3 h-3" />
-                            <span className="font-[family-name:var(--font-courier-prime)]">
-                              {new Date(task.dueDate + 'T12:00:00').toLocaleDateString('pt-BR')}
-                            </span>
-                          </div>
-                        )}
-                      </div>
+                      <span className={cn('text-[11px] font-bold px-2 py-0.5 rounded-sm border uppercase tracking-wider',
+                        getCategoryStyle(task.priority))}>
+                        {getCategoryLabel(task.priority)}
+                      </span>
                     </div>
-
-                    {/* Delete button */}
-                    <button
-                      onClick={() => deleteTask(task.id)}
-                      className="p-2 text-amber-700/50 hover:text-red-700 hover:bg-red-100 transition-all rounded"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                   </div>
-                </div>
 
-                {/* Torn paper effect bottom */}
-                <div 
-                  className="h-2 bg-repeat-x"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='8' viewBox='0 0 20 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 8 L5 0 L10 8 L15 0 L20 8' fill='none' stroke='%238B5A2B' stroke-width='0.5' stroke-opacity='0.2'/%3E%3C/svg%3E")`,
-                  }}
-                />
-              </div>
-            ))
+                  {/* Delete */}
+                  <button onClick={() => deleteTask(task.id)}
+                    className="p-2 text-[#8B4513]/50 hover:text-red-700 hover:bg-red-100 transition-all rounded opacity-0 group-hover:opacity-100">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </div>
+              );
+            })
           )}
         </div>
 
-        {/* FAB - Add new task (leather button style) */}
+        {/* FAB */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <button 
-              className="fixed bottom-24 right-4 w-14 h-14 bg-amber-800 text-amber-100 flex items-center justify-center rounded-full border-4 border-amber-900 z-40"
-              style={{
-                boxShadow: '3px 3px 0 rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.1)',
-              }}
-            >
-              <Plus className="w-6 h-6" />
+            <button className="fixed bottom-24 right-5 z-20 flex w-16 h-16 items-center justify-center rounded-full bg-[#DAA520] text-[#3E2723] border-4 border-[#B8860B] transition-transform active:scale-90 hover:scale-105 group"
+              style={{ boxShadow: '0 4px 10px rgba(0,0,0,0.4)' }}>
+              <div className="absolute inset-0 rounded-full border border-[#FFF8DC] opacity-50 m-1" />
+              <Star className="w-9 h-9 group-hover:rotate-180 transition-transform duration-500" />
             </button>
           </DialogTrigger>
-          <DialogContent 
-            className="bg-[#F4ECD8] border-4 border-amber-800 text-amber-900 max-w-[90vw]"
-            style={{
-              boxShadow: '8px 8px 0 rgba(139,69,19,0.3)',
-            }}
-          >
+          <DialogContent className="bg-[#FDF5E6] border-4 border-[#8B4513] text-[#3E2723] max-w-[90vw] rounded-lg"
+            style={{ boxShadow: '8px 8px 0 rgba(139,69,19,0.3)' }}>
             <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-rye)] text-amber-900 text-xl">
-                Nova Tarefa
+              <DialogTitle className="font-[family-name:var(--font-rye)] text-[#8B4513] text-xl flex items-center gap-2">
+                <Star className="w-5 h-5 text-[#DAA520]" />
+                New Bounty
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4 pt-4">
               <div className="space-y-2">
-                <Label className="text-amber-800 font-[family-name:var(--font-courier-prime)]">Título</Label>
-                <Input
-                  placeholder="Digite o título..."
+                <Label className="text-[#8B4513] font-bold">Title</Label>
+                <Input placeholder="Enter bounty title..."
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-amber-50 border-2 border-amber-700 text-amber-900 placeholder:text-amber-600/50 focus:border-amber-900"
-                />
+                  className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] placeholder:text-[#8B4513]/50 focus:border-[#8B4513] rounded-lg" />
               </div>
               
               <div className="space-y-2">
-                <Label className="text-amber-800 font-[family-name:var(--font-courier-prime)]">Notas</Label>
-                <Input
-                  placeholder="Detalhes adicionais..."
+                <Label className="text-[#8B4513] font-bold">Notes</Label>
+                <Input placeholder="Additional details..."
                   value={newTask.notes}
                   onChange={(e) => setNewTask({ ...newTask, notes: e.target.value })}
-                  className="bg-amber-50 border-2 border-amber-700 text-amber-900 placeholder:text-amber-600/50 focus:border-amber-900"
-                />
+                  className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] placeholder:text-[#8B4513]/50 focus:border-[#8B4513] rounded-lg" />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-amber-800 font-[family-name:var(--font-courier-prime)]">Data</Label>
-                  <Input
-                    type="date"
+                  <Label className="text-[#8B4513] font-bold">Due Date</Label>
+                  <Input type="date"
                     value={newTask.dueDate}
                     onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                    className="bg-amber-50 border-2 border-amber-700 text-amber-900 focus:border-amber-900"
-                  />
+                    className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] focus:border-[#8B4513] rounded-lg" />
                 </div>
                 
                 <div className="space-y-2">
-                  <Label className="text-amber-800 font-[family-name:var(--font-courier-prime)]">Prioridade</Label>
-                  <Select
-                    value={newTask.priority}
-                    onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}
-                  >
-                    <SelectTrigger className="bg-amber-50 border-2 border-amber-700 text-amber-900">
+                  <Label className="text-[#8B4513] font-bold">Priority</Label>
+                  <Select value={newTask.priority}
+                    onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}>
+                    <SelectTrigger className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] rounded-lg">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#F4ECD8] border-2 border-amber-700">
-                      <SelectItem value="low" className="text-amber-700">Calmo</SelectItem>
-                      <SelectItem value="medium" className="text-amber-800">Normal</SelectItem>
-                      <SelectItem value="high" className="text-red-800">Urgente</SelectItem>
+                    <SelectContent className="bg-[#FDF5E6] border-2 border-[#D2B48C] rounded-lg">
+                      <SelectItem value="low" className="text-green-800">Low</SelectItem>
+                      <SelectItem value="medium" className="text-orange-800">Medium</SelectItem>
+                      <SelectItem value="high" className="text-purple-800">High</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
 
-              <button
-                onClick={handleAddTask}
-                className="w-full py-3 bg-amber-800 text-amber-100 font-[family-name:var(--font-rye)] border-2 border-amber-900 hover:bg-amber-700 transition-all"
-                style={{
-                  boxShadow: '3px 3px 0 rgba(0,0,0,0.2)',
-                }}
-              >
-                Adicionar Tarefa
+              <button onClick={handleAddTask}
+                className="w-full py-3 bg-[#8B4513] text-[#FDF5E6] font-[family-name:var(--font-rye)] border-2 border-[#5D4037] hover:bg-[#A0522D] transition-all rounded-lg"
+                style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.2)' }}>
+                Post Bounty
               </button>
             </div>
           </DialogContent>

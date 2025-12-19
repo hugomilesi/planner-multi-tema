@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const spaceTheme: ThemePack = {
   id: 'space',
-  name: 'Cosmic Space',
+  name: 'Sacred Serenity',
   description: 'Infinite cosmos with nebulas, stars, and celestial wonder',
   tokens: {
     background: 'oklch(0.10 0.02 280)',

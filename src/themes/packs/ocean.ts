@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const oceanTheme: ThemePack = {
   id: 'ocean',
-  name: 'Deep Ocean',
+  name: 'Tema Blue',
   description: 'Serene underwater aesthetics with flowing waves and bioluminescence',
   tokens: {
     background: 'oklch(0.18 0.04 230)',

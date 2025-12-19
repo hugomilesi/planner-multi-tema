@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const westernTheme: ThemePack = {
   id: 'western',
-  name: 'Wild West',
+  name: 'Tema West',
   description: 'Rustic paper textures, leather accents, and dusty desert vibes',
   tokens: {
     background: 'oklch(0.92 0.03 75)',

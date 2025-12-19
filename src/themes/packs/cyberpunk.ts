@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const cyberpunkTheme: ThemePack = {
   id: 'cyberpunk',
-  name: 'Cyberpunk Neon',
+  name: 'Tema Cyberpunk',
   description: 'Futuristic neon aesthetics with glitch effects and holographic elements',
   tokens: {
     background: 'oklch(0.13 0.02 280)',

@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const darkAcademiaTheme: ThemePack = {
   id: 'dark-academia',
-  name: 'Dark Academia',
+  name: 'Elegance',
   description: 'Scholarly elegance with rich browns, deep greens, and vintage charm',
   tokens: {
     background: 'oklch(0.22 0.03 60)',

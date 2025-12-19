@@ -2,7 +2,7 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Trash2, Plus, Mountain, Snowflake } from 'lucide-react';
+import { Trash2, Plus, Wallet, Plane, Landmark } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,100 +17,183 @@ export function NordicFinancialPage({
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
+  const today = new Date();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
-      <div className="relative z-10 px-4 pt-6 pb-24">
+    <div className="min-h-screen font-sans text-[#2c2825] antialiased pb-24 relative">
+      {/* Warm gradient background */}
+      <div className="fixed inset-0 -z-10" style={{
+        background: 'linear-gradient(180deg, #e8d5c4 0%, #dcc4b0 30%, #d4b8a0 60%, #c9a88a 100%)'
+      }} />
+      <div className="relative z-10 px-4 pt-6">
+        {/* Header */}
         <header className="mb-6 flex items-center justify-between">
           <div>
-            <div className="flex items-center gap-2 text-slate-400 text-xs tracking-widest mb-1"><Snowflake className="w-3 h-3" /><span>FINANÇAS</span></div>
-            <h1 className="text-2xl font-semibold text-slate-800">Controle Financeiro</h1>
+            <p className="text-[#5d5650] text-[10px] font-mono font-bold uppercase tracking-widest">
+              {today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()} • LOGBOOK
+            </p>
+            <h1 className="text-[28px] font-serif font-bold italic text-[#2c2825]">Travel Budget</h1>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <button className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/30 hover:bg-blue-600">
+              <button className="w-12 h-12 rounded-full bg-[#c24d3b] text-white flex items-center justify-center shadow-lg shadow-[#c24d3b]/30 border-4 border-white">
                 <Plus className="w-5 h-5" />
               </button>
             </DialogTrigger>
-            <DialogContent className="bg-white border border-slate-200 text-slate-800 max-w-[90vw] rounded-2xl">
-              <DialogHeader><DialogTitle className="text-slate-800 flex items-center gap-2"><Mountain className="w-5 h-5 text-blue-500" />Nova Transação</DialogTitle></DialogHeader>
+            <DialogContent className="bg-[#f5efe8] border border-[#e0d5c8] text-[#2c2825] max-w-[90vw] rounded-xl">
+              <DialogHeader>
+                <DialogTitle className="text-lg font-serif font-bold italic flex items-center gap-2">
+                  <Plane className="w-5 h-5 text-[#3b5998]" />
+                  New Expense
+                </DialogTitle>
+              </DialogHeader>
               <div className="space-y-4 pt-4">
                 <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                  <TabsList className="w-full grid grid-cols-2 bg-slate-100 rounded-xl">
-                    <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-red-500 data-[state=active]:text-white">Despesa</TabsTrigger>
-                    <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white">Receita</TabsTrigger>
+                  <TabsList className="w-full grid grid-cols-2 bg-[#e8dfc5] rounded-lg">
+                    <TabsTrigger value="expense" className="rounded-lg data-[state=active]:bg-[#c24d3b] data-[state=active]:text-white font-mono uppercase text-xs">Expense</TabsTrigger>
+                    <TabsTrigger value="income" className="rounded-lg data-[state=active]:bg-[#3b5998] data-[state=active]:text-white font-mono uppercase text-xs">Income</TabsTrigger>
                   </TabsList>
                 </Tabs>
-                <div className="space-y-2"><Label className="text-slate-600 text-sm">Valor</Label>
-                  <Input type="number" placeholder="0.00" value={newTransaction.amount} onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                    className="bg-slate-50 border-slate-200 rounded-xl" /></div>
-                <div className="space-y-2"><Label className="text-slate-600 text-sm">Categoria</Label>
-                  <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                    <SelectTrigger className="bg-slate-50 border-slate-200 rounded-xl"><SelectValue placeholder="Selecione..." /></SelectTrigger>
-                    <SelectContent className="bg-white border-slate-200 rounded-xl">
-                      {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (<SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>))}
-                    </SelectContent>
-                  </Select></div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2"><Label className="text-slate-600 text-sm">Data</Label>
-                    <Input type="date" value={newTransaction.date} onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })} className="bg-slate-50 border-slate-200 rounded-xl" /></div>
-                  <div className="space-y-2"><Label className="text-slate-600 text-sm">Nota</Label>
-                    <Input placeholder="Opcional" value={newTransaction.note} onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })} className="bg-slate-50 border-slate-200 rounded-xl" /></div>
+                <div className="space-y-2">
+                  <Label className="text-[#8a8078] text-xs font-mono uppercase">Amount</Label>
+                  <Input type="number" placeholder="0.00" value={newTransaction.amount}
+                    onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
+                    className="bg-white border-[#e0d5c8] rounded-lg" />
                 </div>
-                <button onClick={handleAddTransaction} className="w-full py-3 rounded-xl bg-blue-500 text-white font-medium hover:bg-blue-600">Adicionar</button>
+                <div className="space-y-2">
+                  <Label className="text-[#8a8078] text-xs font-mono uppercase">Category</Label>
+                  <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
+                    <SelectTrigger className="bg-white border-[#e0d5c8] rounded-lg">
+                      <SelectValue placeholder="Select..." />
+                    </SelectTrigger>
+                    <SelectContent className="bg-[#f5efe8] border-[#e0d5c8] rounded-lg">
+                      {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
+                        <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label className="text-[#8a8078] text-xs font-mono uppercase">Date</Label>
+                    <Input type="date" value={newTransaction.date}
+                      onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
+                      className="bg-white border-[#e0d5c8] rounded-lg" />
+                  </div>
+                  <div className="space-y-2">
+                    <Label className="text-[#8a8078] text-xs font-mono uppercase">Note</Label>
+                    <Input placeholder="Optional" value={newTransaction.note}
+                      onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
+                      className="bg-white border-[#e0d5c8] rounded-lg" />
+                  </div>
+                </div>
+                <button onClick={handleAddTransaction}
+                  className="w-full py-3 rounded-lg bg-[#3b5998] text-white font-mono font-bold uppercase tracking-wider hover:opacity-90">
+                  Add Entry
+                </button>
               </div>
             </DialogContent>
           </Dialog>
         </header>
 
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-4 h-4 text-green-500" /><span className="text-xs text-slate-500">Entradas</span></div>
-            <p className="text-xl font-semibold text-green-600">{formatCurrency(monthIncome)}</p>
+        {/* Budget Card - Notebook style */}
+        <div className="relative bg-[#f5efe8] rounded-lg border border-[#e0d5c8] shadow-sm overflow-hidden mb-6">
+          {/* Notebook holes */}
+          <div className="absolute top-0 bottom-0 left-3 flex flex-col justify-center gap-6">
+            <div className="w-2 h-2 rounded-full bg-[#d4c8b8]" />
+            <div className="w-2 h-2 rounded-full bg-[#d4c8b8]" />
+            <div className="w-2 h-2 rounded-full bg-[#d4c8b8]" />
           </div>
-          <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-2 mb-2"><TrendingDown className="w-4 h-4 text-red-500" /><span className="text-xs text-slate-500">Saídas</span></div>
-            <p className="text-xl font-semibold text-red-500">{formatCurrency(monthExpense)}</p>
-          </div>
-        </div>
-
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between">
-            <div><span className="text-xs text-slate-500">Saldo</span><p className={cn('text-2xl font-semibold', balance >= 0 ? 'text-slate-800' : 'text-red-500')}>{formatCurrency(balance)}</p></div>
-            <Mountain className={cn('w-8 h-8', balance >= 0 ? 'text-blue-500' : 'text-red-400')} />
-          </div>
-        </div>
-
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <h3 className="text-sm text-slate-600 mb-4">Últimos 7 Dias</h3>
-          <div className="h-32 flex items-end gap-1">
-            {last7Days.map((day, i) => {
-              const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                  <div className="w-full flex items-end justify-center gap-0.5 h-24">
-                    <div className="w-2/5 bg-green-500 rounded-t" style={{ height: `${(day.income / max) * 100}%` }} />
-                    <div className="w-2/5 bg-red-400 rounded-t" style={{ height: `${(day.expense / max) * 100}%` }} />
-                  </div>
-                  <span className="text-[8px] text-slate-400">{day.day}</span>
+          <div className="pl-8 pr-4 py-4">
+            <div className="flex justify-between items-start mb-3">
+              <div className="flex items-center gap-2">
+                <Landmark className="w-4 h-4 text-[#5d5650]" />
+                <div>
+                  <h3 className="text-base font-serif font-bold text-[#2c2825]">Travel Budget</h3>
+                  <p className="text-[10px] font-mono text-[#8a8078] uppercase tracking-wide">{today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()} • LOGBOOK</p>
                 </div>
-              );
-            })}
+              </div>
+            </div>
+            <div className="border-t border-dashed border-[#d4c8b8] pt-3">
+              <div className="grid grid-cols-2 gap-3 mb-3">
+                <div className="min-w-0">
+                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Spent</span>
+                  <p className="text-lg font-serif font-bold text-[#2c2825] truncate">{formatCurrency(monthExpense)}</p>
+                </div>
+                <div className="min-w-0">
+                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Allowance</span>
+                  <p className="text-lg font-serif font-bold text-[#8a8078] line-through decoration-[#c24d3b]/50 truncate">{formatCurrency(monthIncome)}</p>
+                </div>
+              </div>
+              {/* Mini chart */}
+              <div className="flex items-end gap-1 h-12 border-b border-[#2c2825] pb-0">
+                {last7Days.map((day, i) => {
+                  const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
+                  const isToday = i === last7Days.length - 2;
+                  return (
+                    <div key={i} className={cn(
+                      'flex-1 rounded-t-sm',
+                      isToday ? 'bg-[#3b5998]' : i >= 3 ? 'bg-[#3b5998]/50' : 'bg-[#d4c8b8]'
+                    )} style={{ height: `${Math.max(10, ((day.income + day.expense) / max) * 100)}%` }} />
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="rounded-xl bg-white border border-slate-200 shadow-sm overflow-hidden">
-          <div className="p-3 border-b border-slate-100"><span className="text-sm text-slate-600">Transações Recentes</span></div>
+        {/* Balance Card */}
+        <div className="grid grid-cols-2 gap-3 mb-6">
+          <div className="p-3 rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm min-w-0">
+            <p className="text-[10px] text-[#8a8078] font-mono uppercase tracking-wider mb-1">Credits</p>
+            <p className="text-lg font-serif font-bold text-[#3b5998] truncate">{formatCurrency(monthIncome)}</p>
+          </div>
+          <div className="p-3 rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm min-w-0">
+            <p className="text-[10px] text-[#8a8078] font-mono uppercase tracking-wider mb-1">Balance</p>
+            <p className={cn('text-lg font-serif font-bold truncate', balance >= 0 ? 'text-[#2c2825]' : 'text-[#c24d3b]')}>{formatCurrency(balance)}</p>
+          </div>
+        </div>
+
+        {/* Recent Transactions */}
+        <div className="rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm overflow-hidden">
+          <div className="p-4 border-b border-[#e0d5c8] flex items-center justify-between">
+            <h3 className="text-lg font-serif font-bold italic">Expense Log</h3>
+            <span className="text-[10px] font-mono text-[#8a8078]">{recentTransactions.length} entries</span>
+          </div>
           <div className="max-h-64 overflow-y-auto">
-            {recentTransactions.length === 0 ? (<p className="text-center text-slate-400 py-8 text-sm">Nenhuma transação</p>) : (
+            {recentTransactions.length === 0 ? (
+              <div className="p-8 text-center">
+                <div className="text-3xl mb-2">✈️</div>
+                <p className="text-[#8a8078] font-serif italic">No expenses logged</p>
+              </div>
+            ) : (
               recentTransactions.map((t) => {
                 const cat = categories.find(c => c.id === t.categoryId);
+                const isIncome = t.type === 'income';
                 return (
-                  <div key={t.id} className="flex items-center justify-between p-3 border-b border-slate-50">
-                    <div className="flex items-center gap-3"><span className="text-xl">{cat?.icon || '💰'}</span><div><p className="text-sm text-slate-700">{cat?.name || 'Desconhecido'}</p><p className="text-[10px] text-slate-400">{t.date}</p></div></div>
-                    <div className="flex items-center gap-2">
-                      <span className={cn('font-semibold', t.type === 'income' ? 'text-green-600' : 'text-red-500')}>{t.type === 'income' ? '+' : '-'}{formatCurrency(t.amount)}</span>
-                      <button onClick={() => deleteTransaction(t.id)} className="p-1 text-slate-300 hover:text-red-500"><Trash2 className="w-4 h-4" /></button>
+                  <div key={t.id} className="flex items-center justify-between p-3 border-b border-[#e0d5c8] last:border-b-0 group hover:bg-[#e8dfc5]/30 transition-colors">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
+                      <div className={cn(
+                        'w-9 h-9 rounded-lg flex items-center justify-center text-base shrink-0',
+                        isIncome ? 'bg-[#3b5998]/10' : 'bg-[#e8dfc5]'
+                      )}>
+                        {cat?.icon || '💰'}
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-serif truncate">{cat?.name || 'Unknown'}</p>
+                        <p className="text-[10px] text-[#8a8078] font-mono">
+                          {new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 shrink-0">
+                      <span className={cn('font-serif font-bold text-sm', isIncome ? 'text-[#3b5998]' : 'text-[#2c2825]')}>
+                        {isIncome ? '+' : '-'}{formatCurrency(t.amount)}
+                      </span>
+                      <button onClick={() => deleteTransaction(t.id)}
+                        className="text-[#c4b8a8] hover:text-[#c24d3b] transition-colors">
+                        <Trash2 className="w-4 h-4" />
+                      </button>
                     </div>
                   </div>
                 );

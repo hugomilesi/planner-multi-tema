@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const kawaiiTheme: ThemePack = {
   id: 'kawaii',
-  name: 'Kawaii Pop',
+  name: 'Tema Floral',
   description: 'Cute and playful with pastel colors, soft shapes, and bouncy animations',
   tokens: {
     background: 'oklch(0.97 0.02 330)',

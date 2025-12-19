@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const noirTheme: ThemePack = {
   id: 'noir',
-  name: 'Film Noir',
+  name: 'Tema Kids',
   description: 'Classic detective aesthetics with high contrast, shadows, and mystery',
   tokens: {
     background: 'oklch(0.12 0 0)',

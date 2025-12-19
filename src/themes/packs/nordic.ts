@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const nordicTheme: ThemePack = {
   id: 'nordic',
-  name: 'Nordic Minimal',
+  name: 'Vintage Voyager',
   description: 'Clean Scandinavian design with soft whites and natural accents',
   tokens: {
     background: 'oklch(0.98 0.005 90)',

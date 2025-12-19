@@ -2,59 +2,159 @@
 
 import { SettingsPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Download, Upload, Zap, Snowflake } from 'lucide-react';
-import { Switch } from '@/components/ui/switch';
+import { Download, ChevronLeft, ChevronRight, Bell, Wallet, Calendar, LogOut, Check, Plane } from 'lucide-react';
 
 export function NordicSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
 }: SettingsPageProps) {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
-      <div className="relative z-10 px-4 pt-6 pb-24">
-        <header className="mb-6">
-          <div className="flex items-center gap-2 text-slate-400 text-xs tracking-widest mb-1"><Snowflake className="w-3 h-3" /><span>CONFIGURAÇÕES</span></div>
-          <h1 className="text-2xl font-semibold text-slate-800">Ajustes</h1>
-        </header>
+    <div className="min-h-screen font-sans text-[#2c2825] antialiased pb-24 relative">
+      {/* Warm gradient background */}
+      <div className="fixed inset-0 -z-10" style={{
+        background: 'linear-gradient(180deg, #e8d5c4 0%, #dcc4b0 30%, #d4b8a0 60%, #c9a88a 100%)'
+      }} />
+      {/* Header */}
+      <div className="flex items-center px-4 py-4 pt-6 justify-between">
+        <button className="flex w-10 h-10 shrink-0 items-center justify-center text-[#2c2825]">
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <h2 className="text-lg font-serif font-bold italic flex-1 text-center pr-10">Gear Settings</h2>
+      </div>
 
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <h3 className="text-sm text-slate-600 mb-4">Escolha o Tema</h3>
-          <div className="grid grid-cols-3 gap-2">
+      <div className="px-4 pt-2">
+        {/* Theme Selection */}
+        <div className="mb-6">
+          <h3 className="text-[#8a8078] text-[10px] font-mono font-bold uppercase tracking-widest mb-3 px-1">Travel Style</h3>
+          <div className="flex overflow-x-auto no-scrollbar gap-3 pb-2">
             {themeList.map((t) => (
               <button key={t.id} onClick={() => setTheme(t.id)}
-                className={cn('p-2 rounded-xl border-2 transition-all', themeId === t.id ? 'border-blue-500 bg-blue-50' : 'border-slate-200 hover:border-blue-300')}>
-                <div className="w-full h-8 rounded-lg mb-1" style={{ background: `linear-gradient(135deg, ${t.tokens.primary} 0%, ${t.tokens.accent} 100%)` }} />
-                <p className="text-[10px] truncate text-slate-600">{t.name}</p>
+                className="flex flex-col gap-2 shrink-0 group">
+                <div className={cn(
+                  'relative w-20 h-28 rounded-lg p-1 transition-all border-2',
+                  themeId === t.id
+                    ? 'border-[#3b5998] shadow-lg'
+                    : 'border-[#e0d5c8] hover:border-[#3b5998]/50'
+                )}>
+                  <div className="w-full h-full rounded-md overflow-hidden"
+                    style={{ background: `linear-gradient(135deg, ${t.tokens.primary} 0%, ${(t.tokens as Record<string, string>).accent || t.tokens.primary} 100%)` }}>
+                  </div>
+                  {themeId === t.id && (
+                    <div className="absolute -bottom-1.5 -right-1.5 w-5 h-5 bg-[#c24d3b] text-white rounded-full flex items-center justify-center border-2 border-white">
+                      <Check className="w-2.5 h-2.5" />
+                    </div>
+                  )}
+                </div>
+                <p className={cn(
+                  'text-[10px] font-mono text-center truncate w-20 uppercase',
+                  themeId === t.id ? 'text-[#3b5998] font-bold' : 'text-[#8a8078]'
+                )}>{t.name}</p>
               </button>
             ))}
           </div>
         </div>
 
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <h3 className="text-sm text-slate-600 mb-3">Tema Atual</h3>
-          <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl" style={{ background: `linear-gradient(135deg, ${currentTheme.tokens.primary} 0%, ${currentTheme.tokens.accent} 100%)` }} />
-            <div><p className="font-semibold text-slate-800">{currentTheme.name}</p><p className="text-xs text-slate-400">Ativo</p></div>
+        {/* Account Section */}
+        <div className="mb-6">
+          <h3 className="text-[#8a8078] text-[10px] font-mono font-bold uppercase tracking-widest mb-3 px-1">Traveler Info</h3>
+          <div className="bg-[#f5efe8] rounded-lg border border-[#e0d5c8] shadow-sm overflow-hidden">
+            <div className="flex items-center p-4 border-b border-[#e0d5c8] cursor-pointer hover:bg-[#e8dfc5]/30 transition-colors group">
+              <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#a08060] to-[#6b5040] flex items-center justify-center mr-3 ring-2 ring-[#b58e46]">
+                <span className="text-white font-serif font-bold">A</span>
+              </div>
+              <div className="flex-1">
+                <p className="font-serif font-semibold text-sm">Alex Johnson</p>
+                <p className="text-[10px] text-[#8a8078] font-mono">alex@example.com</p>
+              </div>
+              <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
+            </div>
+            <div className="flex items-center justify-between p-4 cursor-pointer hover:bg-[#e8dfc5]/30 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#b58e46]/10 flex items-center justify-center">
+                  <Plane className="w-4 h-4 text-[#b58e46]" />
+                </div>
+                <span className="font-serif text-sm">Travel Class</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono font-bold text-white bg-[#c24d3b] px-2 py-0.5 rounded">FIRST</span>
+                <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="mb-6 p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <h3 className="text-sm text-slate-600 mb-4">Preferências</h3>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2"><Zap className="w-4 h-4 text-blue-500" /><span className="text-sm text-slate-700">Reduzir Animações</span></div>
-            <Switch checked={reduceMotion} onCheckedChange={setReduceMotion} />
+        {/* Preferences Section */}
+        <div className="mb-6">
+          <h3 className="text-[#8a8078] text-[10px] font-mono font-bold uppercase tracking-widest mb-3 px-1">Preferences</h3>
+          <div className="bg-[#f5efe8] rounded-lg border border-[#e0d5c8] shadow-sm overflow-hidden">
+            <div className="flex items-center justify-between p-4 border-b border-[#e0d5c8]">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#3b5998]/10 flex items-center justify-center">
+                  <Bell className="w-4 h-4 text-[#3b5998]" />
+                </div>
+                <span className="font-serif text-sm">Notifications</span>
+              </div>
+              <button onClick={() => setReduceMotion(!reduceMotion)}
+                className={cn(
+                  'relative w-11 h-6 rounded-full transition-colors',
+                  !reduceMotion ? 'bg-[#3b5998]' : 'bg-[#d4c8b8]'
+                )}>
+                <div className={cn(
+                  'absolute top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform',
+                  !reduceMotion ? 'right-0.5' : 'left-0.5'
+                )} />
+              </button>
+            </div>
+            <div className="flex items-center justify-between p-4 border-b border-[#e0d5c8] cursor-pointer hover:bg-[#e8dfc5]/30 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#b58e46]/10 flex items-center justify-center">
+                  <Wallet className="w-4 h-4 text-[#b58e46]" />
+                </div>
+                <span className="font-serif text-sm">Currency</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-[#8a8078] font-mono">USD ($)</span>
+                <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
+              </div>
+            </div>
+            <div className="flex items-center justify-between p-4 cursor-pointer hover:bg-[#e8dfc5]/30 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#c24d3b]/10 flex items-center justify-center">
+                  <Calendar className="w-4 h-4 text-[#c24d3b]" />
+                </div>
+                <span className="font-serif text-sm">Week Starts</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-[#8a8078] font-mono">Monday</span>
+                <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
-          <h3 className="text-sm text-slate-600 mb-4">Dados</h3>
-          <div className="grid grid-cols-2 gap-3">
-            <button onClick={handleExport} className="py-3 rounded-xl bg-blue-500 text-white text-sm flex items-center justify-center gap-2 hover:bg-blue-600">
-              <Download className="w-4 h-4" />Exportar
+        {/* Data Section */}
+        <div className="mb-6">
+          <h3 className="text-[#8a8078] text-[10px] font-mono font-bold uppercase tracking-widest mb-3 px-1">Logbook Data</h3>
+          <div className="bg-[#f5efe8] rounded-lg border border-[#e0d5c8] shadow-sm overflow-hidden">
+            <button onClick={handleExport}
+              className="w-full flex items-center justify-between p-4 border-b border-[#e0d5c8] hover:bg-[#e8dfc5]/30 transition-colors group">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-lg bg-[#e8dfc5] flex items-center justify-center">
+                  <Download className="w-4 h-4 text-[#8a8078]" />
+                </div>
+                <span className="font-serif text-sm">Export Journal</span>
+              </div>
+              <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
             </button>
-            <button onClick={handleImport} className="py-3 rounded-xl border border-slate-200 text-slate-600 text-sm flex items-center justify-center gap-2 hover:bg-slate-50">
-              <Upload className="w-4 h-4" />Importar
+            <button className="w-full flex items-center justify-center gap-2 p-4 text-[#c24d3b] hover:bg-[#c24d3b]/5 transition-colors">
+              <LogOut className="w-4 h-4" />
+              <span className="font-serif text-sm">End Journey</span>
             </button>
           </div>
+        </div>
+
+        {/* Version */}
+        <div className="text-center py-4">
+          <p className="text-[10px] text-[#8a8078] font-mono">Version 2.4.0 • Safe Travels ✈️</p>
         </div>
       </div>
     </div>

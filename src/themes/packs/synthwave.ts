@@ -2,7 +2,7 @@ import { ThemePack } from '../types';
 
 export const synthwaveTheme: ThemePack = {
   id: 'synthwave',
-  name: 'Synthwave 80s',
+  name: 'Tema Retro',
   description: 'Retro-futuristic vibes with sunset gradients and chrome aesthetics',
   tokens: {
     background: 'oklch(0.15 0.05 280)',

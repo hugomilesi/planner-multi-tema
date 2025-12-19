@@ -2,7 +2,7 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Trash2, Plus, BookOpen, Feather } from 'lucide-react';
+import { Trash2, Plus, Bell, TrendingUp, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,107 +17,195 @@ export function DarkAcademiaFinancialPage({
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
+  const today = new Date();
+
+  const months = ['This Month', 'October', 'September', 'August'];
 
   return (
-    <div className="min-h-screen text-stone-200" style={{ background: 'linear-gradient(180deg, #1c1917 0%, #292524 50%, #1c1917 100%)' }}>
-      <div className="relative z-10 px-4 pt-6 pb-24">
-        <header className="mb-6 flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-2 text-amber-600 text-xs tracking-widest mb-1 italic"><Feather className="w-3 h-3" /><span>Livro Contábil</span></div>
-            <h1 className="text-3xl font-serif text-amber-100">Finanças</h1>
-          </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <button className="w-12 h-12 rounded-full bg-amber-900 text-amber-200 flex items-center justify-center border border-amber-800">
-                <Plus className="w-5 h-5" />
-              </button>
-            </DialogTrigger>
-            <DialogContent className="bg-stone-900 border border-stone-700 text-stone-200 max-w-[90vw] rounded-lg">
-              <DialogHeader><DialogTitle className="text-amber-200 flex items-center gap-2 font-serif"><Feather className="w-5 h-5 text-amber-600" />Nova Anotação</DialogTitle></DialogHeader>
-              <div className="space-y-4 pt-4">
-                <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                  <TabsList className="w-full grid grid-cols-2 bg-stone-800 rounded">
-                    <TabsTrigger value="expense" className="rounded data-[state=active]:bg-amber-900 data-[state=active]:text-amber-200">Despesa</TabsTrigger>
-                    <TabsTrigger value="income" className="rounded data-[state=active]:bg-amber-900 data-[state=active]:text-amber-200">Receita</TabsTrigger>
-                  </TabsList>
-                </Tabs>
-                <div className="space-y-2"><Label className="text-amber-400 text-sm font-serif">Valor</Label>
-                  <Input type="number" placeholder="0.00" value={newTransaction.amount} onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                    className="bg-stone-800 border-stone-700 text-stone-200 rounded" /></div>
-                <div className="space-y-2"><Label className="text-amber-400 text-sm font-serif">Categoria</Label>
-                  <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                    <SelectTrigger className="bg-stone-800 border-stone-700 text-stone-200 rounded"><SelectValue placeholder="Selecione..." /></SelectTrigger>
-                    <SelectContent className="bg-stone-800 border-stone-700 rounded">
-                      {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (<SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>))}
-                    </SelectContent>
-                  </Select></div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2"><Label className="text-amber-400 text-sm font-serif">Data</Label>
-                    <Input type="date" value={newTransaction.date} onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })} className="bg-stone-800 border-stone-700 text-stone-200 rounded" /></div>
-                  <div className="space-y-2"><Label className="text-amber-400 text-sm font-serif">Nota</Label>
-                    <Input placeholder="Opcional" value={newTransaction.note} onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })} className="bg-stone-800 border-stone-700 text-stone-200 rounded" /></div>
-                </div>
-                <button onClick={handleAddTransaction} className="w-full py-3 rounded bg-amber-900 text-amber-200 font-serif hover:bg-amber-800 border border-amber-800">Registrar</button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </header>
-
-        <div className="grid grid-cols-2 gap-3 mb-6">
-          <div className="p-4 rounded bg-stone-900/40 border border-stone-800">
-            <div className="flex items-center gap-2 mb-2"><TrendingUp className="w-4 h-4 text-amber-600" /><span className="text-xs text-amber-500">Receitas</span></div>
-            <p className="text-xl font-serif text-amber-200">{formatCurrency(monthIncome)}</p>
-          </div>
-          <div className="p-4 rounded bg-stone-900/40 border border-stone-800">
-            <div className="flex items-center gap-2 mb-2"><TrendingDown className="w-4 h-4 text-red-700" /><span className="text-xs text-red-400">Despesas</span></div>
-            <p className="text-xl font-serif text-red-300">{formatCurrency(monthExpense)}</p>
+    <div className="min-h-screen bg-[#09090B] font-sans text-slate-200 antialiased pb-24 selection:bg-[#C5A059] selection:text-white">
+      <div className="relative min-h-screen flex flex-col max-w-md mx-auto w-full">
+        {/* Header */}
+        <div className="flex items-center justify-between px-6 py-5 sticky top-0 z-20 bg-[#09090B]/90 backdrop-blur-md">
+          <h2 className="text-2xl font-serif font-semibold tracking-wide text-white">Overview</h2>
+          <div className="flex items-center gap-3">
+            <button className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-800 transition-colors text-slate-400">
+              <Bell className="w-5 h-5" />
+            </button>
+            <div className="w-10 h-10 rounded-full border border-slate-700 overflow-hidden p-0.5 bg-gradient-to-br from-[#C5A059] to-[#9E8256] flex items-center justify-center">
+              <span className="text-white text-sm font-serif font-bold">A</span>
+            </div>
           </div>
         </div>
 
-        <div className="mb-6 p-4 rounded bg-stone-900/50 border border-amber-900/30">
-          <div className="flex items-center justify-between">
-            <div><span className="text-xs text-amber-500">Saldo</span><p className={cn('text-2xl font-serif', balance >= 0 ? 'text-amber-200' : 'text-red-400')}>{formatCurrency(balance)}</p></div>
-            <BookOpen className={cn('w-8 h-8', balance >= 0 ? 'text-amber-700' : 'text-red-700')} />
+        {/* Month Tabs */}
+        <div className="flex items-center gap-4 px-6 pb-4 overflow-x-auto no-scrollbar w-full flex-nowrap border-b border-slate-800">
+          {months.map((month, i) => (
+            <button key={month} className={cn(
+              'flex-shrink-0 relative pb-2 font-medium text-sm transition-colors whitespace-nowrap',
+              i === 0 ? 'text-[#C5A059]' : 'text-slate-500 hover:text-slate-300'
+            )}>
+              {month}
+              {i === 0 && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C5A059] rounded-full" />}
+            </button>
+          ))}
+        </div>
+
+        {/* Balance Section */}
+        <div className="flex flex-col items-center pt-8 pb-6 px-6">
+          <p className="text-slate-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3">Total Balance</p>
+          <h1 className="text-4xl font-serif font-medium tracking-tight text-white mb-2">
+            {formatCurrency(balance).split('.')[0]}<span className="text-2xl text-slate-600">.{formatCurrency(balance).split('.')[1] || '00'}</span>
+          </h1>
+          <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/20">
+            <TrendingUp className="w-3.5 h-3.5 text-green-400" />
+            <span className="text-xs font-semibold text-green-400">+2.4% vs last month</span>
           </div>
         </div>
 
-        <div className="mb-6 p-4 rounded bg-stone-900/40 border border-stone-800">
-          <h3 className="text-sm text-amber-400 font-serif mb-4">Últimos 7 Dias</h3>
-          <div className="h-32 flex items-end gap-1">
-            {last7Days.map((day, i) => {
-              const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                  <div className="w-full flex items-end justify-center gap-0.5 h-24">
-                    <div className="w-2/5 bg-gradient-to-t from-amber-800 to-amber-600 rounded-t" style={{ height: `${(day.income / max) * 100}%` }} />
-                    <div className="w-2/5 bg-gradient-to-t from-stone-700 to-stone-500 rounded-t" style={{ height: `${(day.expense / max) * 100}%` }} />
-                  </div>
-                  <span className="text-[8px] text-stone-500">{day.day}</span>
-                </div>
-              );
-            })}
+        {/* Income/Expense Cards */}
+        <div className="grid grid-cols-2 gap-3 px-6 mb-8">
+          <div className="bg-[#18181B] p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A059]/30 transition-colors">
+            <div className="flex justify-between items-start">
+              <ArrowDownLeft className="w-4 h-4 text-slate-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Income</span>
+            </div>
+            <p className="text-xl font-serif font-medium text-white group-hover:text-green-400 transition-colors truncate">{formatCurrency(monthIncome)}</p>
+          </div>
+          <div className="bg-[#18181B] p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A059]/30 transition-colors">
+            <div className="flex justify-between items-start">
+              <ArrowUpRight className="w-4 h-4 text-slate-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Expense</span>
+            </div>
+            <p className="text-xl font-serif font-medium text-white group-hover:text-red-400 transition-colors truncate">{formatCurrency(monthExpense)}</p>
           </div>
         </div>
 
-        <div className="rounded bg-stone-900/40 border border-stone-800 overflow-hidden">
-          <div className="p-3 border-b border-stone-800"><span className="text-sm text-amber-400 font-serif">Transações Recentes</span></div>
-          <div className="max-h-64 overflow-y-auto">
-            {recentTransactions.length === 0 ? (<p className="text-center text-stone-600 py-8 text-sm italic font-serif">"Nenhum registro encontrado"</p>) : (
-              recentTransactions.map((t) => {
-                const cat = categories.find(c => c.id === t.categoryId);
+        {/* Analytics Chart */}
+        <div className="px-6 mb-8">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base font-serif font-medium text-white">Analytics</h3>
+            <button className="text-[#C5A059] text-xs font-semibold tracking-wide uppercase hover:opacity-80">View Report</button>
+          </div>
+          <div className="bg-[#18181B] rounded-xl p-5 border border-slate-800 shadow-none">
+            <div className="flex items-end justify-between h-32 gap-3">
+              {['W1', 'W2', 'W3', 'W4', 'W5'].map((week, i) => {
+                const heights = [40, 65, 85, 30, 50];
+                const isActive = i === 2;
                 return (
-                  <div key={t.id} className="flex items-center justify-between p-3 border-b border-stone-800/50">
-                    <div className="flex items-center gap-3"><span className="text-xl">{cat?.icon || '💰'}</span><div><p className="text-sm font-serif text-stone-300">{cat?.name || 'Desconhecido'}</p><p className="text-[10px] text-stone-500">{t.date}</p></div></div>
-                    <div className="flex items-center gap-2">
-                      <span className={cn('font-serif', t.type === 'income' ? 'text-amber-300' : 'text-red-400')}>{t.type === 'income' ? '+' : '-'}{formatCurrency(t.amount)}</span>
-                      <button onClick={() => deleteTransaction(t.id)} className="p-1 text-stone-600 hover:text-red-400"><Trash2 className="w-4 h-4" /></button>
+                  <div key={week} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+                    <div className="w-full relative h-24 flex items-end justify-center">
+                      <div className={cn(
+                        'w-2 rounded-full transition-all duration-500 ease-out',
+                        isActive ? 'bg-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.3)]' : 'bg-slate-700 group-hover:bg-[#C5A059]/40'
+                      )} style={{ height: `${heights[i]}%` }} />
                     </div>
+                    <span className={cn('text-[9px] font-medium uppercase tracking-wide', isActive ? 'font-bold text-[#C5A059]' : 'text-slate-500')}>{week}</span>
                   </div>
                 );
-              })
-            )}
+              })}
+            </div>
           </div>
         </div>
+
+        {/* Latest Activity */}
+        <div className="px-6 flex-1">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base font-serif font-medium text-white">Latest Activity</h3>
+            <button className="text-[#C5A059] text-xs font-semibold tracking-wide uppercase hover:opacity-80">See All</button>
+          </div>
+          <div className="bg-[#18181B] rounded-xl border border-slate-800 shadow-sm overflow-hidden">
+            <div className="divide-y divide-slate-800/50">
+              {recentTransactions.length === 0 ? (
+                <div className="p-8 text-center">
+                  <div className="text-3xl mb-2">📊</div>
+                  <p className="text-slate-500 text-sm">No transactions yet</p>
+                </div>
+              ) : (
+                recentTransactions.slice(0, 4).map((t) => {
+                  const cat = categories.find(c => c.id === t.categoryId);
+                  const isIncome = t.type === 'income';
+                  return (
+                    <div key={t.id} className="flex items-center justify-between p-3 hover:bg-white/[0.02] transition-colors cursor-pointer group">
+                      <div className="flex items-center gap-3 min-w-0 flex-1">
+                        <div className="w-9 h-9 rounded-full bg-slate-800 flex items-center justify-center text-slate-400 group-hover:text-[#C5A059] transition-colors text-base shrink-0">
+                          {cat?.icon || '💰'}
+                        </div>
+                        <div className="flex flex-col min-w-0">
+                          <p className="text-sm font-medium text-white truncate">{cat?.name || 'Unknown'}</p>
+                          <p className="text-[10px] uppercase tracking-wider text-slate-500 mt-0.5">
+                            {new Date(t.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                          </p>
+                        </div>
+                      </div>
+                      <p className={cn('text-sm font-serif font-medium shrink-0 ml-2', isIncome ? 'text-green-400' : 'text-white')}>
+                        {isIncome ? '+' : '-'}{formatCurrency(t.amount)}
+                      </p>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* FAB */}
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogTrigger asChild>
+            <button className="fixed bottom-8 right-6 w-14 h-14 bg-[#C5A059] hover:bg-[#B08D45] text-white rounded-full shadow-lg shadow-[#C5A059]/30 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 z-30 group">
+              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+            </button>
+          </DialogTrigger>
+          <DialogContent className="bg-[#18181B] border border-slate-800 text-white max-w-[90vw] rounded-2xl">
+            <DialogHeader>
+              <DialogTitle className="text-lg font-serif font-semibold">New Transaction</DialogTitle>
+            </DialogHeader>
+            <div className="space-y-4 pt-4">
+              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
+                <TabsList className="w-full grid grid-cols-2 bg-slate-800 rounded-xl">
+                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-slate-900 data-[state=active]:text-white">Expense</TabsTrigger>
+                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Income</TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <div className="space-y-2">
+                <Label className="text-slate-400 text-sm font-medium">Amount</Label>
+                <Input type="number" placeholder="0.00" value={newTransaction.amount}
+                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
+                  className="bg-slate-900 border-slate-700 rounded-xl" />
+              </div>
+              <div className="space-y-2">
+                <Label className="text-slate-400 text-sm font-medium">Category</Label>
+                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
+                  <SelectTrigger className="bg-slate-900 border-slate-700 rounded-xl">
+                    <SelectValue placeholder="Select..." />
+                  </SelectTrigger>
+                  <SelectContent className="bg-[#18181B] border-slate-700 rounded-xl">
+                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
+                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-2">
+                  <Label className="text-slate-400 text-sm font-medium">Date</Label>
+                  <Input type="date" value={newTransaction.date}
+                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
+                    className="bg-slate-900 border-slate-700 rounded-xl" />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-slate-400 text-sm font-medium">Note</Label>
+                  <Input placeholder="Optional" value={newTransaction.note}
+                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
+                    className="bg-slate-900 border-slate-700 rounded-xl" />
+                </div>
+              </div>
+              <button onClick={handleAddTransaction}
+                className="w-full py-3 rounded-xl bg-[#C5A059] hover:bg-[#B08D45] text-white font-medium transition-colors">
+                Add Transaction
+              </button>
+            </div>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );

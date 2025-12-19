@@ -2,7 +2,7 @@
 
 import { TasksPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Music, Zap, Clock, Trash2, Plus, Sun } from 'lucide-react';
+import { Trash2, Plus, Check, SlidersHorizontal } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -22,203 +22,163 @@ export function SynthwaveTasksPage({
   toggleTaskStatus,
   deleteTask,
 }: TasksPageProps) {
-  const pendingCount = tasks.filter(t => t.status === 'pending').length;
+  const today = new Date();
+  const completedCount = tasks.filter(t => t.status === 'completed').length;
+  const totalCount = tasks.length;
+  const progressPercent = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-  const getPriorityLabel = (priority: Task['priority']) => {
-    switch (priority) {
-      case 'high': return 'HOT!';
-      case 'medium': return 'COOL';
-      case 'low': return 'CHILL';
-    }
-  };
+  const weekDays = Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    return { day: d.toLocaleDateString('en-US', { weekday: 'short' }).toUpperCase(), date: d.getDate(), isToday: i === 0 };
+  });
 
-  const getPriorityStyle = (priority: Task['priority']) => {
+  const getCategoryStyle = (priority: Task['priority']) => {
     switch (priority) {
-      case 'high': return 'bg-gradient-to-r from-red-500 to-orange-500 text-white';
-      case 'medium': return 'bg-gradient-to-r from-pink-500 to-purple-500 text-white';
-      case 'low': return 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white';
+      case 'high': return 'bg-purple-600';
+      case 'medium': return 'bg-orange-600';
+      case 'low': return 'bg-blue-600';
     }
   };
 
   return (
-    <div 
-      className="min-h-screen text-white font-[family-name:var(--font-space-grotesk)]"
-      style={{
-        background: 'linear-gradient(180deg, #1a0533 0%, #2d1b4e 40%, #1a0533 100%)',
-      }}
-    >
-      {/* Sun/horizon effect */}
-      <div 
-        className="fixed bottom-0 left-0 right-0 h-48 opacity-30"
-        style={{
-          background: 'linear-gradient(0deg, #ff6ec7 0%, #ffcc00 30%, transparent 100%)',
-        }}
-      />
-      
-      {/* Grid floor */}
-      <div 
-        className="fixed bottom-0 left-0 right-0 h-32 opacity-20"
-        style={{
-          backgroundImage: 'linear-gradient(#ff6ec7 1px, transparent 1px), linear-gradient(90deg, #ff6ec7 1px, transparent 1px)',
-          backgroundSize: '40px 20px',
-          transform: 'perspective(200px) rotateX(60deg)',
-          transformOrigin: 'bottom',
-        }}
-      />
+    <div className="min-h-screen text-[#dcdcdc] font-[family-name:var(--font-vt323)]"
+      style={{ backgroundColor: '#2b2b2b', imageRendering: 'pixelated' }}>
 
-      <div className="relative z-10 px-4 pt-6 pb-24">
+      <div className="relative pb-24">
         {/* Header */}
-        <header className="mb-6">
-          <div className="flex items-center gap-2 text-[#ff6ec7] text-xs tracking-[0.2em] mb-1">
-            <Music className="w-3 h-3" />
-            <span>RETRO VIBES</span>
-          </div>
-          <h1 
-            className="text-4xl font-bold"
-            style={{
-              background: 'linear-gradient(180deg, #ff6ec7 0%, #ffcc00 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textShadow: '0 0 30px rgba(255,110,199,0.3)',
-            }}
-          >
-            TASK WAVE
-          </h1>
-          
-          {/* Stats */}
-          <div className="flex items-center gap-2 mt-4 text-[#ff6ec7]">
-            <Sun className="w-4 h-4" />
-            <span className="text-sm">{pendingCount} tasks to crush</span>
-          </div>
-        </header>
-
-        {/* Filter tabs - Retro buttons */}
-        <div className="flex gap-2 mb-6">
-          {(['all', 'today', 'pending', 'completed'] as const).map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={cn(
-                'flex-1 py-2.5 text-xs font-bold tracking-wider transition-all border-2',
-                filter === f
-                  ? 'bg-gradient-to-b from-[#ff6ec7] to-[#ff4d94] border-[#ffcc00] text-white'
-                  : 'bg-[#2d1b4e] border-[#ff6ec7]/30 text-[#ff6ec7] hover:border-[#ff6ec7]'
-              )}
-              style={{
-                clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-              }}
-            >
-              {f.toUpperCase()}
-            </button>
-          ))}
-        </div>
-
-        {/* Task list */}
-        <div className="space-y-3">
-          {filteredTasks.length === 0 ? (
-            <div 
-              className="p-8 text-center border-2 border-[#ff6ec7]/30 bg-[#2d1b4e]/50"
-              style={{
-                clipPath: 'polygon(16px 0, 100% 0, 100% calc(100% - 16px), calc(100% - 16px) 100%, 0 100%, 0 16px)',
-              }}
-            >
-              <Music className="w-12 h-12 mx-auto text-[#ff6ec7]/50 mb-3" />
-              <div className="text-[#ff6ec7]">No tasks yet</div>
-              <div className="text-[#ff6ec7]/50 text-sm mt-1">
-                Add some retro vibes!
+        <div className="flex flex-col gap-2 p-4 pb-2 pt-6">
+          <div className="flex items-center h-12 justify-between">
+            <div className="flex w-12 shrink-0 items-center">
+              <div className="w-10 h-10 border-4 border-black bg-[#f2a900] flex items-center justify-center"
+                style={{ boxShadow: '2px 2px 0px 0px #000000' }}>
+                <span className="font-[family-name:var(--font-press-start)] text-[#1a1a1a] text-xs">:P</span>
               </div>
             </div>
-          ) : (
-            filteredTasks.map((task, index) => (
-              <div
-                key={task.id}
+            <button className="flex items-center justify-center w-10 h-10 bg-[#404040] text-[#dcdcdc] border-2 border-black transition-all active:translate-y-1"
+              style={{ boxShadow: '2px 2px 0px 0px #000000' }}>
+              <SlidersHorizontal className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex justify-between items-end mt-4">
+            <div>
+              <p className="text-[#f2a900] text-lg font-[family-name:var(--font-press-start)] mb-2 tracking-tighter">
+                {today.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+              </p>
+              <h1 className="text-white tracking-tight text-3xl font-[family-name:var(--font-press-start)] leading-snug"
+                style={{ textShadow: '2px 2px 0 #000' }}>
+                HI PLAYER!
+              </h1>
+            </div>
+          </div>
+        </div>
+
+        {/* Date Selector */}
+        <div className="flex flex-col gap-2 mb-4 mt-2">
+          <div className="flex overflow-x-auto no-scrollbar gap-3 px-4 pb-2">
+            {weekDays.map((d, i) => (
+              <button key={i}
                 className={cn(
-                  'relative border-2 bg-[#2d1b4e]/80 transition-all',
-                  task.status === 'completed'
-                    ? 'border-[#00ff88]/30 opacity-60'
-                    : 'border-[#ff6ec7]/50'
+                  'flex flex-col items-center justify-center min-w-[72px] h-[90px] border-2 border-black shrink-0 transform transition-transform active:translate-y-1',
+                  d.isToday
+                    ? 'bg-[#f2a900] text-[#1a1a1a]'
+                    : 'bg-[#404040] text-[#dcdcdc]'
                 )}
-                style={{
-                  clipPath: 'polygon(12px 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%, 0 12px)',
-                }}
-              >
-                {/* Accent line */}
-                <div 
+                style={{ boxShadow: d.isToday ? '4px 4px 0px 0px #000000' : '2px 2px 0px 0px #000000' }}>
+                <span className={cn('text-xs font-[family-name:var(--font-press-start)] mt-2', !d.isToday && 'opacity-70')}>{d.day}</span>
+                <span className="text-3xl font-[family-name:var(--font-press-start)] mt-1">{d.date}</span>
+                {d.isToday && <div className="w-2 h-2 bg-[#1a1a1a] mt-2" />}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Daily EXP Progress */}
+        <div className="px-4 py-2">
+          <div className="flex flex-col gap-3 p-5 bg-[#404040] border-2 border-black relative"
+            style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
+            <div className="absolute top-1 left-1 w-1 h-1 bg-[#dcdcdc] opacity-20" />
+            <div className="absolute bottom-1 right-1 w-1 h-1 bg-[#dcdcdc] opacity-20" />
+            <div className="flex gap-6 justify-between items-center">
+              <p className="text-[#dcdcdc] text-sm font-[family-name:var(--font-press-start)] leading-normal uppercase">Daily EXP</p>
+              <span className="text-[#1a1a1a] text-xs font-[family-name:var(--font-press-start)] bg-[#f2a900] px-2 py-1 border border-black"
+                style={{ boxShadow: '2px 2px 0px 0px #000000' }}>
+                {progressPercent}%
+              </span>
+            </div>
+            <div className="bg-[#1a1a1a] h-6 w-full border-2 border-black relative p-0.5">
+              <div className="h-full bg-[#70c655] transition-all duration-500" style={{ width: `${progressPercent}%` }}>
+                <div className="w-full h-1 bg-white opacity-30 mt-0.5" />
+              </div>
+            </div>
+            <p className="text-[#f2a900] text-sm font-[family-name:var(--font-press-start)] leading-normal text-right">
+              {completedCount}/{totalCount} CLEARED
+            </p>
+          </div>
+        </div>
+
+        {/* Current Quests Title */}
+        <h2 className="text-white tracking-wide text-lg font-[family-name:var(--font-press-start)] leading-tight px-4 text-left pt-6 pb-4 uppercase"
+          style={{ textShadow: '2px 2px 0 #000' }}>
+          Current Quests
+        </h2>
+
+        {/* Task List */}
+        <div className="flex flex-col px-4 gap-4">
+          {filteredTasks.length === 0 ? (
+            <div className="p-8 text-center bg-[#404040] border-2 border-black"
+              style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
+              <p className="text-[#dcdcdc] font-[family-name:var(--font-press-start)] text-sm">NO QUESTS</p>
+              <p className="text-[#dcdcdc]/50 mt-2">Add a new quest!</p>
+            </div>
+          ) : (
+            filteredTasks.map((task) => (
+              <div key={task.id}
+                className={cn(
+                  'group relative flex items-start gap-4 p-4 border-2 border-black transition-all',
+                  task.status === 'completed'
+                    ? 'bg-[#1a1a1a] opacity-60'
+                    : 'bg-[#404040] hover:translate-x-1'
+                )}
+                style={{ boxShadow: task.status === 'completed' ? 'none' : '4px 4px 0px 0px #000000' }}>
+                <button onClick={() => toggleTaskStatus(task.id)}
                   className={cn(
-                    'absolute top-0 left-0 w-1 h-full',
-                    task.priority === 'high' ? 'bg-gradient-to-b from-red-500 to-orange-500' :
-                    task.priority === 'medium' ? 'bg-gradient-to-b from-[#ff6ec7] to-[#ffcc00]' :
-                    'bg-gradient-to-b from-cyan-500 to-blue-500'
-                  )}
-                />
-
-                <div className="p-4 pl-5">
-                  <div className="flex items-start gap-3">
-                    {/* Checkbox */}
-                    <button
-                      onClick={() => toggleTaskStatus(task.id)}
-                      className={cn(
-                        'w-6 h-6 border-2 flex items-center justify-center shrink-0 mt-0.5 transition-all',
-                        task.status === 'completed'
-                          ? 'border-[#00ff88] bg-[#00ff88]/20 text-[#00ff88]'
-                          : 'border-[#ff6ec7] hover:bg-[#ff6ec7]/20'
-                      )}
-                      style={{
-                        clipPath: 'polygon(4px 0, 100% 0, 100% calc(100% - 4px), calc(100% - 4px) 100%, 0 100%, 0 4px)',
-                      }}
-                    >
-                      {task.status === 'completed' && (
-                        <Zap className="w-4 h-4" />
-                      )}
-                    </button>
-
-                    <div className="flex-1 min-w-0">
-                      {/* Title */}
-                      <h3 className={cn(
-                        'font-bold',
-                        task.status === 'completed'
-                          ? 'line-through text-[#00ff88]/70'
-                          : 'text-white'
-                      )}>
-                        {task.title}
-                      </h3>
-
-                      {/* Notes */}
-                      {task.notes && (
-                        <p className="text-sm text-[#ff6ec7]/70 mt-1">
-                          {task.notes}
-                        </p>
-                      )}
-
-                      {/* Meta */}
-                      <div className="flex items-center gap-2 mt-3 flex-wrap">
-                        <span className={cn(
-                          'text-[10px] px-2 py-0.5 font-bold',
-                          getPriorityStyle(task.priority)
-                        )}>
-                          {getPriorityLabel(task.priority)}
-                        </span>
-                        
-                        {task.dueDate && (
-                          <div className="flex items-center gap-1 text-xs text-[#ffcc00]">
-                            <Clock className="w-3 h-3" />
-                            <span>
-                              {new Date(task.dueDate + 'T12:00:00').toLocaleDateString('pt-BR')}
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Delete */}
-                    <button
-                      onClick={() => deleteTask(task.id)}
-                      className="p-2 text-[#ff6ec7]/50 hover:text-red-400 hover:bg-red-500/20 transition-all"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
+                    'flex-shrink-0 w-8 h-8 border-2 border-black flex items-center justify-center transition-colors mt-1',
+                    task.status === 'completed'
+                      ? 'bg-[#70c655]'
+                      : 'bg-[#1a1a1a] group-hover:bg-[#f2a900]'
+                  )}>
+                  {task.status === 'completed' && <Check className="w-5 h-5 text-[#1a1a1a]" />}
+                </button>
+                <div className="flex flex-1 flex-col gap-2">
+                  <p className={cn(
+                    'text-xl font-bold leading-none pt-1',
+                    task.status === 'completed'
+                      ? 'text-[#dcdcdc] line-through decoration-2 decoration-[#e63946]'
+                      : 'text-[#dcdcdc]'
+                  )}>
+                    {task.title}
+                  </p>
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {task.dueDate && (
+                      <span className="text-sm text-[#dcdcdc]/70 flex items-center gap-1 bg-[#1a1a1a] px-2 py-0.5 border border-black">
+                        {new Date(task.dueDate + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      </span>
+                    )}
+                    <span className={cn(
+                      'text-xs font-[family-name:var(--font-press-start)] px-2 py-1 text-white border border-black',
+                      getCategoryStyle(task.priority)
+                    )}
+                      style={{ boxShadow: '2px 2px 0px 0px #000000' }}>
+                      {task.priority.toUpperCase()}
+                    </span>
                   </div>
                 </div>
+                <button onClick={() => deleteTask(task.id)}
+                  className="p-2 text-[#dcdcdc]/50 hover:text-[#e63946] transition-colors opacity-0 group-hover:opacity-100">
+                  <Trash2 className="w-4 h-4" />
+                </button>
               </div>
             ))
           )}
@@ -227,86 +187,58 @@ export function SynthwaveTasksPage({
         {/* FAB */}
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <button 
-              className="fixed bottom-24 right-4 w-14 h-14 bg-gradient-to-b from-[#ff6ec7] to-[#ff4d94] text-white flex items-center justify-center shadow-lg z-40 border-2 border-[#ffcc00]"
-              style={{
-                clipPath: 'polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px)',
-              }}
-            >
-              <Plus className="w-6 h-6" />
+            <button className="fixed bottom-24 right-5 z-20 flex w-14 h-14 items-center justify-center bg-[#e63946] text-white border-2 border-white transition-transform active:translate-y-1"
+              style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
+              <Plus className="w-8 h-8" />
             </button>
           </DialogTrigger>
-          <DialogContent 
-            className="bg-[#1a0533] border-2 border-[#ff6ec7] text-white max-w-[90vw]"
-          >
+          <DialogContent className="bg-[#2b2b2b] border-4 border-black text-[#dcdcdc] max-w-[90vw]"
+            style={{ boxShadow: '8px 8px 0px 0px #000000' }}>
             <DialogHeader>
-              <DialogTitle 
-                className="flex items-center gap-2"
-                style={{
-                  background: 'linear-gradient(90deg, #ff6ec7, #ffcc00)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                <Music className="w-5 h-5 text-[#ff6ec7]" />
-                New Task
+              <DialogTitle className="font-[family-name:var(--font-press-start)] text-[#f2a900] text-sm">
+                NEW QUEST
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4 pt-4">
               <div className="space-y-2">
-                <Label className="text-[#ff6ec7] text-sm">Title</Label>
-                <Input
-                  placeholder="What's the vibe?"
+                <Label className="text-[#dcdcdc] text-sm font-[family-name:var(--font-press-start)]">Title</Label>
+                <Input placeholder="Quest name..."
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-[#2d1b4e] border-[#ff6ec7]/50 text-white placeholder:text-[#ff6ec7]/40 focus:border-[#ffcc00]"
-                />
+                  className="bg-[#1a1a1a] border-2 border-black text-[#dcdcdc] placeholder:text-[#dcdcdc]/40" />
               </div>
-              
               <div className="space-y-2">
-                <Label className="text-[#ff6ec7] text-sm">Notes</Label>
-                <Input
-                  placeholder="Extra details..."
+                <Label className="text-[#dcdcdc] text-sm font-[family-name:var(--font-press-start)]">Notes</Label>
+                <Input placeholder="Details..."
                   value={newTask.notes}
                   onChange={(e) => setNewTask({ ...newTask, notes: e.target.value })}
-                  className="bg-[#2d1b4e] border-[#ff6ec7]/50 text-white placeholder:text-[#ff6ec7]/40 focus:border-[#ffcc00]"
-                />
+                  className="bg-[#1a1a1a] border-2 border-black text-[#dcdcdc] placeholder:text-[#dcdcdc]/40" />
               </div>
-
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label className="text-[#ff6ec7] text-sm">Date</Label>
-                  <Input
-                    type="date"
-                    value={newTask.dueDate}
+                  <Label className="text-[#dcdcdc] text-sm font-[family-name:var(--font-press-start)]">Date</Label>
+                  <Input type="date" value={newTask.dueDate}
                     onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                    className="bg-[#2d1b4e] border-[#ff6ec7]/50 text-white focus:border-[#ffcc00]"
-                  />
+                    className="bg-[#1a1a1a] border-2 border-black text-[#dcdcdc]" />
                 </div>
-                
                 <div className="space-y-2">
-                  <Label className="text-[#ff6ec7] text-sm">Priority</Label>
-                  <Select
-                    value={newTask.priority}
-                    onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}
-                  >
-                    <SelectTrigger className="bg-[#2d1b4e] border-[#ff6ec7]/50 text-white">
+                  <Label className="text-[#dcdcdc] text-sm font-[family-name:var(--font-press-start)]">Priority</Label>
+                  <Select value={newTask.priority} onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}>
+                    <SelectTrigger className="bg-[#1a1a1a] border-2 border-black text-[#dcdcdc]">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#2d1b4e] border-[#ff6ec7]">
-                      <SelectItem value="low" className="text-cyan-400">CHILL</SelectItem>
-                      <SelectItem value="medium" className="text-[#ff6ec7]">COOL</SelectItem>
-                      <SelectItem value="high" className="text-orange-400">HOT!</SelectItem>
+                    <SelectContent className="bg-[#2b2b2b] border-2 border-black">
+                      <SelectItem value="low" className="text-blue-400">LOW</SelectItem>
+                      <SelectItem value="medium" className="text-orange-400">MEDIUM</SelectItem>
+                      <SelectItem value="high" className="text-purple-400">HIGH</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
-
-              <button
-                onClick={handleAddTask}
-                className="w-full py-3 bg-gradient-to-r from-[#ff6ec7] to-[#ffcc00] text-black font-bold tracking-wider hover:opacity-90 transition-opacity"
-              >
-                ADD TASK ⚡
+              <button onClick={handleAddTask}
+                className="w-full py-3 bg-[#f2a900] text-[#1a1a1a] font-[family-name:var(--font-press-start)] text-sm border-2 border-black hover:brightness-110 transition-all"
+                style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
+                START QUEST
               </button>
             </div>
           </DialogContent>
