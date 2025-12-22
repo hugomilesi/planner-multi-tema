@@ -15,6 +15,7 @@ export function SynthwaveDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 5 }, (_, i) => {
@@ -40,7 +41,7 @@ export function SynthwaveDashboardPage({
                 {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'short' })}
               </span>
               <h2 className="text-xs font-[family-name:var(--font-press-start)] leading-tight mt-1 text-[#fbbf24]">
-                Hi, Alex
+                Hi, {userName}
               </h2>
             </div>
           </div>

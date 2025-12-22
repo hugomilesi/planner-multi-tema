@@ -21,6 +21,7 @@ export function DarkAcademiaTasksPage({
   handleAddTask,
   toggleTaskStatus,
   deleteTask,
+  userName = 'User',
 }: TasksPageProps) {
   const today = new Date();
   const pendingCount = tasks.filter(t => t.status === 'pending').length;
@@ -39,51 +40,48 @@ export function DarkAcademiaTasksPage({
       <div className="fixed inset-0 bg-gradient-to-br from-[#141414] to-[#0A0A0A] -z-10" />
 
       {/* Header */}
-      <div className="flex flex-col gap-2 p-6 pb-2 pt-8">
-        <div className="flex items-center h-12 justify-between">
-          <div className="flex w-12 h-12 shrink-0 items-center">
-            <div className="w-12 h-12 rounded-full border border-white/50 shadow-sm bg-gradient-to-br from-[#B08D55] to-[#9E8256] flex items-center justify-center">
-              <span className="text-white text-sm font-serif font-bold">A</span>
+      <header className="flex items-center justify-between p-6 pb-2 sticky top-0 z-10 bg-[#141414]/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
+        <div className="flex items-center gap-4">
+          <div className="relative group">
+            <div className="w-12 h-12 rounded-full ring-2 ring-[#C5A065]/30 group-hover:ring-[#C5A065]/60 transition-all shadow-md bg-gradient-to-br from-[#C5A065] to-[#A6854F] flex items-center justify-center">
+              <span className="text-white font-serif font-bold text-lg">{userName.charAt(0).toUpperCase()}</span>
             </div>
+            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#141414]" />
           </div>
-          <div className="flex w-12 items-center justify-end">
-            <button className="flex items-center justify-center rounded-full w-10 h-10 bg-[#292524] text-white shadow-sm border border-[#44403C] hover:bg-[#B08D55]/10 transition-colors">
-              <Filter className="w-5 h-5" />
-            </button>
-          </div>
-        </div>
-        <div className="flex justify-between items-end mt-4">
-          <div>
-            <p className="text-[#B08D55] font-serif italic text-base mb-1">
+          <div className="flex flex-col">
+            <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-stone-400 mb-0.5">
               {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-            </p>
-            <h1 className="text-white tracking-tight text-3xl font-serif font-medium leading-tight">Good Morning,<br/>Alex.</h1>
+            </span>
+            <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Tasks, {userName}</h2>
           </div>
         </div>
-      </div>
+        <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
+          <Filter className="w-5 h-5" />
+        </button>
+      </header>
 
-      {/* Date Strip - Pill/Oval style */}
-      <div className="flex flex-col gap-2 mb-4">
-        <div className="flex overflow-x-auto no-scrollbar gap-3 px-6 pb-4 pt-2">
+      {/* Calendar Strip */}
+      <div className="flex flex-col gap-2 mt-4">
+        <div className="flex overflow-x-auto no-scrollbar gap-3 px-6 py-2">
           {weekDays.map((d, i) => (
             <button key={i}
               className={cn(
-                'flex flex-col items-center justify-center min-w-[52px] h-[80px] rounded-full shrink-0 transform transition-all hover:scale-105 active:scale-95',
+                'flex flex-col items-center justify-center min-w-[3.5rem] h-20 rounded-2xl shrink-0 transition-all',
                 d.isToday
-                  ? 'bg-[#B08D55] text-white shadow-[0_10px_30px_-10px_rgba(176,141,85,0.3)]'
-                  : 'bg-[#292524] border border-[#44403C] text-[#78716C] hover:border-[#B08D55]/50 group'
+                  ? 'bg-[#C5A065] text-stone-900 shadow-xl shadow-[#C5A065]/10 transform scale-105 border border-[#C5A065]'
+                  : 'bg-[#1E1E1E] text-stone-400 border border-[#333333] hover:border-[#C5A065]/50 group'
               )}>
-              <span className={cn('text-[10px] font-medium uppercase tracking-wider mt-2', d.isToday ? 'opacity-90' : 'group-hover:text-[#B08D55] transition-colors')}>{d.day}</span>
-              <span className={cn('text-xl font-serif font-medium my-auto', !d.isToday && 'text-white')}>{d.date}</span>
-              <span className={cn('w-1 h-1 rounded-full mb-3', d.isToday ? 'bg-white' : 'bg-transparent')} />
+              <span className={cn('text-[10px] font-bold uppercase tracking-wider mb-1', d.isToday && 'opacity-80')}>{d.day}</span>
+              <span className={cn('text-xl font-serif font-bold', !d.isToday && 'group-hover:text-white')}>{d.date}</span>
+              {d.isToday && <div className={cn('w-1 h-1 rounded-full mt-1', 'bg-stone-900')} />}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="px-6 py-2 mb-2">
-        <div className="flex flex-col gap-3 p-5 rounded-2xl bg-[#292524] border border-[#44403C] shadow-sm">
+      {/* Progress Card */}
+      <div className="px-6 mt-6">
+        <div className="flex flex-col gap-3 p-5 rounded-xl bg-[#1E1E1E] border border-[#333333] shadow-sm">
           <div className="flex gap-4 justify-between items-end">
             <div className="flex flex-col gap-1">
               <p className="text-gray-400 text-xs font-medium uppercase tracking-widest">Daily Goal</p>

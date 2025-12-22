@@ -1,8 +1,9 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { ThemePack, ThemeId } from './types';
 import { getTheme, DEFAULT_THEME } from './registry';
+import { createClient } from '@/lib/supabase/client';
 
 interface ThemeContextType {
   theme: ThemePack;
@@ -62,24 +63,58 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<ThemePack>(getTheme(DEFAULT_THEME));
   const [reduceMotion, setReduceMotionState] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const supabaseRef = useRef(createClient());
+  const userSettingsIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as ThemeId | null;
-    const savedReduceMotion = localStorage.getItem(REDUCE_MOTION_KEY);
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const loadSettings = async () => {
+      const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as ThemeId | null;
+      const savedReduceMotion = localStorage.getItem(REDUCE_MOTION_KEY);
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (savedTheme && getTheme(savedTheme)) {
-      setThemeId(savedTheme);
-      setThemeState(getTheme(savedTheme));
-    }
+      // Try to load from Supabase if user is authenticated
+      const supabase = supabaseRef.current;
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (user) {
+        const { data: settings } = await supabase
+          .from('user_settings')
+          .select('id, theme_id, reduce_motion')
+          .eq('user_id', user.id)
+          .single();
+        
+        if (settings) {
+          userSettingsIdRef.current = settings.id;
+          if (settings.theme_id && getTheme(settings.theme_id as ThemeId)) {
+            setThemeId(settings.theme_id as ThemeId);
+            setThemeState(getTheme(settings.theme_id as ThemeId));
+            localStorage.setItem(THEME_STORAGE_KEY, settings.theme_id);
+          }
+          if (settings.reduce_motion !== null) {
+            setReduceMotionState(settings.reduce_motion);
+            localStorage.setItem(REDUCE_MOTION_KEY, String(settings.reduce_motion));
+          }
+          setMounted(true);
+          return;
+        }
+      }
 
-    if (savedReduceMotion !== null) {
-      setReduceMotionState(savedReduceMotion === 'true');
-    } else if (prefersReducedMotion) {
-      setReduceMotionState(true);
-    }
+      // Fallback to localStorage
+      if (savedTheme && getTheme(savedTheme)) {
+        setThemeId(savedTheme);
+        setThemeState(getTheme(savedTheme));
+      }
 
-    setMounted(true);
+      if (savedReduceMotion !== null) {
+        setReduceMotionState(savedReduceMotion === 'true');
+      } else if (prefersReducedMotion) {
+        setReduceMotionState(true);
+      }
+
+      setMounted(true);
+    };
+
+    loadSettings();
   }, []);
 
   useEffect(() => {
@@ -93,11 +128,29 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeId(id);
     setThemeState(newTheme);
     localStorage.setItem(THEME_STORAGE_KEY, id);
+    
+    // Save to Supabase if user has settings
+    if (userSettingsIdRef.current) {
+      supabaseRef.current
+        .from('user_settings')
+        .update({ theme_id: id, updated_at: new Date().toISOString() })
+        .eq('id', userSettingsIdRef.current)
+        .then(() => {});
+    }
   }, []);
 
   const setReduceMotion = useCallback((value: boolean) => {
     setReduceMotionState(value);
     localStorage.setItem(REDUCE_MOTION_KEY, String(value));
+    
+    // Save to Supabase if user has settings
+    if (userSettingsIdRef.current) {
+      supabaseRef.current
+        .from('user_settings')
+        .update({ reduce_motion: value, updated_at: new Date().toISOString() })
+        .eq('id', userSettingsIdRef.current)
+        .then(() => {});
+    }
   }, []);
 
   if (!mounted) {

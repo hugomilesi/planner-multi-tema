@@ -15,6 +15,7 @@ export function NoirDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 5 }, (_, i) => {
@@ -49,7 +50,7 @@ export function NoirDashboardPage({
                 {today.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
               </span>
               <h2 className="text-2xl font-bold leading-tight text-slate-800">
-                Hi, Alex! 👋
+                Hi, {userName}! 👋
               </h2>
             </div>
           </div>

@@ -6,6 +6,7 @@ import { Download, ChevronLeft, ChevronRight, Bell, Wallet, Calendar, LogOut, Ch
 
 export function NordicSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen font-sans text-[#2c2825] antialiased pb-24 relative">
@@ -59,11 +60,11 @@ export function NordicSettingsPage({
           <div className="bg-[#f5efe8] rounded-lg border border-[#e0d5c8] shadow-sm overflow-hidden">
             <div className="flex items-center p-4 border-b border-[#e0d5c8] cursor-pointer hover:bg-[#e8dfc5]/30 transition-colors group">
               <div className="w-11 h-11 rounded-full bg-gradient-to-br from-[#a08060] to-[#6b5040] flex items-center justify-center mr-3 ring-2 ring-[#b58e46]">
-                <span className="text-white font-serif font-bold">A</span>
+                <span className="text-white font-serif font-bold">{userName?.charAt(0).toUpperCase() || 'U'}</span>
               </div>
               <div className="flex-1">
-                <p className="font-serif font-semibold text-sm">Alex Johnson</p>
-                <p className="text-[10px] text-[#8a8078] font-mono">alex@example.com</p>
+                <p className="font-serif font-semibold text-sm">{userName || 'User'}</p>
+                <p className="text-[10px] text-[#8a8078] font-mono">{userEmail || ''}</p>
               </div>
               <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
             </div>
@@ -145,9 +146,12 @@ export function NordicSettingsPage({
               </div>
               <ChevronRight className="w-5 h-5 text-[#c4b8a8] group-hover:text-[#3b5998] transition-colors" />
             </button>
-            <button className="w-full flex items-center justify-center gap-2 p-4 text-[#c24d3b] hover:bg-[#c24d3b]/5 transition-colors">
+            <button 
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="w-full flex items-center justify-center gap-2 p-4 text-[#c24d3b] hover:bg-[#c24d3b]/5 transition-colors disabled:opacity-50">
               <LogOut className="w-4 h-4" />
-              <span className="font-serif text-sm">End Journey</span>
+              <span className="font-serif text-sm">{isLoggingOut ? 'Logging out...' : 'End Journey'}</span>
             </button>
           </div>
         </div>

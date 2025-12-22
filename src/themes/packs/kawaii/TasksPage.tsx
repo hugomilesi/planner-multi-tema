@@ -21,6 +21,7 @@ export function KawaiiTasksPage({
   handleAddTask,
   toggleTaskStatus,
   deleteTask,
+  userName = 'User',
 }: TasksPageProps) {
   const today = new Date();
   const completedCount = tasks.filter(t => t.status === 'completed').length;
@@ -74,7 +75,7 @@ export function KawaiiTasksPage({
                 </p>
                 <h1 className="text-3xl font-[family-name:var(--font-playfair)] font-bold leading-tight"
                   style={{ background: 'linear-gradient(135deg, #c05b6a 0%, #d4b06a 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                  Hello, Alex
+                  Hello, {userName}
                 </h1>
               </div>
             </div>

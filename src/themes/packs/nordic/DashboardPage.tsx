@@ -15,6 +15,7 @@ export function NordicDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 5 }, (_, i) => {
@@ -36,7 +37,7 @@ export function NordicDashboardPage({
           <div className="relative">
             <div className="w-12 h-12 rounded-full ring-2 ring-[#b58e46] overflow-hidden bg-[#8b7355]">
               <div className="w-full h-full bg-gradient-to-br from-[#a08060] to-[#6b5040] flex items-center justify-center">
-                <span className="text-white font-serif font-bold text-lg">A</span>
+                <span className="text-white font-serif font-bold text-lg">{userName.charAt(0).toUpperCase()}</span>
               </div>
             </div>
           </div>
@@ -44,7 +45,7 @@ export function NordicDashboardPage({
             <span className="text-[10px] font-mono font-bold text-[#5d5650] uppercase tracking-widest">
               {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }).toUpperCase()}
             </span>
-            <h2 className="text-xl font-serif font-bold text-[#2c2825] italic">Journal of Alex</h2>
+            <h2 className="text-xl font-serif font-bold text-[#2c2825] italic">Journal of {userName}</h2>
           </div>
         </div>
         <button className="flex items-center justify-center w-10 h-10 text-[#2c2825]">

@@ -6,12 +6,13 @@ import { Download, ChevronLeft, ChevronRight, Palette, User, Bell, PiggyBank, Ca
 
 export function NoirSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen font-[family-name:var(--font-nunito)] text-gray-800"
       style={{ backgroundColor: '#F0F4F8' }}>
 
-      <div className="flex flex-col w-full max-w-md mx-auto">
+      <div className="flex flex-col w-full max-w-md md:max-w-2xl lg:max-w-4xl mx-auto">
         {/* Header */}
         <div className="sticky top-0 z-50 flex items-center bg-white/95 backdrop-blur-md px-5 py-4 justify-between border-b-4 border-gray-100 shadow-sm">
           <div className="flex w-12 h-12 shrink-0 items-center justify-center rounded-2xl bg-white border-2 border-gray-100 shadow-[2px_2px_0px_0px_rgba(0,0,0,0.1)] hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)] active:shadow-none active:translate-y-0.5 cursor-pointer text-[#4DACFF] transition-all group">
@@ -65,7 +66,7 @@ export function NoirSettingsPage({
                   <span className="text-3xl">😊</span>
                 </div>
                 <div className="flex-1 ml-4">
-                  <h4 className="text-lg font-[family-name:var(--font-fredoka)] font-bold text-gray-900">Alex Johnson</h4>
+                  <h4 className="text-lg font-[family-name:var(--font-fredoka)] font-bold text-gray-900">{userName || 'User'}</h4>
                   <span className="inline-block mt-1 px-2 py-0.5 bg-[#4DACFF]/20 text-[#4DACFF] text-xs font-bold rounded-lg">Super Planner</span>
                 </div>
                 <div className="w-10 h-10 bg-gray-100 rounded-xl flex items-center justify-center group-hover:bg-[#4DACFF] group-hover:text-white transition-colors">
@@ -168,10 +169,15 @@ export function NoirSettingsPage({
                 </div>
                 <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-[#4DACFF] transition-colors" />
               </div>
-              <div className="flex items-center justify-center p-4 active:bg-red-50 transition-colors cursor-pointer bg-red-50/50">
+              <button 
+                onClick={() => onLogout?.()}
+                disabled={isLoggingOut || !isAuthenticated}
+                className="w-full flex items-center justify-center p-4 active:bg-red-50 transition-colors cursor-pointer bg-red-50/50 disabled:opacity-50">
                 <LogOut className="w-5 h-5 text-red-500 mr-2" />
-                <span className="text-base font-bold font-[family-name:var(--font-fredoka)] text-red-500">Log Out</span>
-              </div>
+                <span className="text-base font-bold font-[family-name:var(--font-fredoka)] text-red-500">
+                  {isLoggingOut ? 'Logging out...' : 'Log Out'}
+                </span>
+              </button>
             </div>
 
             {/* Version */}

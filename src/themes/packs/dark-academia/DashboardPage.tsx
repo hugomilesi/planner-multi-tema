@@ -15,6 +15,7 @@ export function DarkAcademiaDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 6 }, (_, i) => {
@@ -34,7 +35,7 @@ export function DarkAcademiaDashboardPage({
           <div className="flex items-center gap-4">
             <div className="relative group">
               <div className="w-12 h-12 rounded-full ring-2 ring-[#C5A065]/30 group-hover:ring-[#C5A065]/60 transition-all shadow-md bg-gradient-to-br from-[#C5A065] to-[#A6854F] flex items-center justify-center">
-                <span className="text-white font-serif font-bold text-lg">A</span>
+                <span className="text-white font-serif font-bold text-lg">{userName.charAt(0).toUpperCase()}</span>
               </div>
               <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#141414]" />
             </div>
@@ -42,7 +43,7 @@ export function DarkAcademiaDashboardPage({
               <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-stone-400 mb-0.5">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </span>
-              <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Hello, Alex</h2>
+              <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Hello, {userName}</h2>
             </div>
           </div>
           <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
@@ -104,7 +105,7 @@ export function DarkAcademiaDashboardPage({
               <div className="flex flex-1 flex-col">
                 <p className="text-[#C5A065]/90 text-[10px] font-bold uppercase tracking-[0.2em] mb-2">Today's Focus</p>
                 <p className="text-white text-2xl font-serif font-medium leading-tight mb-3">
-                  {todayTasks.find(t => t.status !== 'completed')?.title || 'Client Meeting Presentation'}
+                  {todayTasks.find(t => t.status !== 'completed')?.title || 'No tasks for today'}
                 </p>
                 <div className="flex items-center gap-2">
                   <Clock className="w-4 h-4 text-stone-400" />

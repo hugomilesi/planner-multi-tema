@@ -21,6 +21,7 @@ export function OceanTasksPage({
   handleAddTask,
   toggleTaskStatus,
   deleteTask,
+  userName = 'User',
 }: TasksPageProps) {
   const today = new Date();
   const pendingCount = tasks.filter(t => t.status === 'pending').length;
@@ -63,7 +64,7 @@ export function OceanTasksPage({
             <p className="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">
               {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
             </p>
-            <h1 className="text-[#111418] dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good Morning, Alex</h1>
+            <h1 className="text-[#111418] dark:text-white tracking-tight text-[28px] font-bold leading-tight">Good Morning, {userName}</h1>
           </div>
         </div>
       </div>

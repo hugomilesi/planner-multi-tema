@@ -21,6 +21,7 @@ export function NoirTasksPage({
   handleAddTask,
   toggleTaskStatus,
   deleteTask,
+  userName = 'User',
 }: TasksPageProps) {
   const today = new Date();
   const pendingCount = tasks.filter(t => t.status === 'pending').length;
@@ -63,7 +64,7 @@ export function NoirTasksPage({
               <p className="text-[#118AB2] text-lg font-semibold tracking-wide">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </p>
-              <h1 className="text-slate-800 text-3xl font-bold leading-tight mt-1">Hi, Alex! 👋</h1>
+              <h1 className="text-slate-800 text-3xl font-bold leading-tight mt-1">Hi, {userName}! 👋</h1>
             </div>
           </div>
         </div>

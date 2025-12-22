@@ -5,8 +5,25 @@ import { cn } from '@/lib/utils';
 import { Download, ChevronLeft, ChevronRight, Flower2, Bell, DollarSign, Calendar, User, Check, LogOut, Shield } from 'lucide-react';
 
 export function KawaiiSettingsPage({
-  themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  themeId,
+  setTheme,
+  reduceMotion,
+  setReduceMotion,
+  themeList,
+  currentTheme,
+  handleExport,
+  handleImport,
+  userName = 'Garden Friend',
+  userEmail = 'friend@example.com',
+  isAuthenticated = false,
+  onLogout,
+  isLoggingOut = false,
 }: SettingsPageProps) {
+  const canLogout = isAuthenticated && !!onLogout;
+  const handleLogoutClick = () => {
+    if (!canLogout || isLoggingOut) return;
+    onLogout?.();
+  };
   return (
     <div className="min-h-screen font-[family-name:var(--font-lato)] text-[#5d4037]"
       style={{
@@ -93,8 +110,8 @@ export function KawaiiSettingsPage({
                 </div>
               </div>
               <div className="flex-1">
-                <h4 className="text-xl font-[family-name:var(--font-playfair)] font-bold text-[#5d4037] mb-0.5">Alex Johnson</h4>
-                <p className="text-sm text-[#8d6e63] italic">alex.j@example.com</p>
+                <h4 className="text-xl font-[family-name:var(--font-playfair)] font-bold text-[#5d4037] mb-0.5">{userName}</h4>
+                <p className="text-sm text-[#8d6e63] italic">{userEmail}</p>
               </div>
               <div className="w-8 h-8 rounded-full bg-stone-100 flex items-center justify-center group-hover:bg-[#d05a6e] group-hover:text-white transition-colors">
                 <ChevronRight className="w-4 h-4" />
@@ -196,12 +213,21 @@ export function KawaiiSettingsPage({
               </div>
               <Download className="w-4 h-4 text-stone-400 group-hover:text-[#d05a6e] transition-colors" />
             </button>
-            <div className="flex items-center justify-center p-4 py-5 cursor-pointer border-t border-dashed border-stone-200">
+            <button
+              onClick={handleLogoutClick}
+              disabled={!canLogout}
+              className={cn(
+                'flex items-center justify-center p-4 py-5 border-t border-dashed border-stone-200 transition-colors',
+                canLogout ? 'hover:bg-[#ffe4eb]' : 'cursor-not-allowed opacity-40'
+              )}
+            >
               <div className="flex items-center gap-2 text-[#d05a6e]">
-                <LogOut className="w-5 h-5" />
-                <span className="text-base font-bold font-[family-name:var(--font-playfair)] tracking-wide">Leave Garden</span>
+                <LogOut className={cn('w-5 h-5', isLoggingOut && 'animate-pulse')} />
+                <span className="text-base font-bold font-[family-name:var(--font-playfair)] tracking-wide">
+                  {isLoggingOut ? 'Leaving...' : 'Leave Garden'}
+                </span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Version */}

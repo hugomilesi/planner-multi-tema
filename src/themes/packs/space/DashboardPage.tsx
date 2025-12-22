@@ -15,6 +15,7 @@ export function SpaceDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 6 }, (_, i) => {
@@ -31,14 +32,14 @@ export function SpaceDashboardPage({
         <div className="flex items-center justify-between p-4 pb-2 relative z-10">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-full ring-2 ring-[#8C6A5D]/30 shadow-sm bg-gradient-to-br from-[#8C6A5D] to-[#D4A373] flex items-center justify-center">
-              <span className="text-white font-serif font-bold text-lg">A</span>
+              <span className="text-white font-serif font-bold text-lg">{userName.charAt(0).toUpperCase()}</span>
             </div>
             <div className="flex flex-col">
               <span className="text-xs font-medium text-stone-500 dark:text-stone-400 italic font-serif">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </span>
               <h2 className="text-xl font-serif font-bold leading-tight text-[#8C6A5D] dark:text-[#EAD8C8]">
-                Blessings, Alex
+                Blessings, {userName}
               </h2>
             </div>
           </div>

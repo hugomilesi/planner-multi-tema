@@ -6,6 +6,7 @@ import { Download, ChevronLeft, ChevronRight, Bell, Wallet, Calendar, LogOut, Ch
 
 export function DarkAcademiaSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen bg-black font-sans text-stone-200 antialiased pb-24 selection:bg-[#C6A87C]/20">
@@ -67,7 +68,7 @@ export function DarkAcademiaSettingsPage({
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-sm font-semibold text-white font-serif truncate">Alex Johnson</h4>
+                <h4 className="text-sm font-semibold text-white font-serif truncate">{userName || 'User'}</h4>
                 <p className="text-xs text-stone-400">Premium Member</p>
               </div>
               <ChevronRight className="w-5 h-5 text-stone-600 group-hover:text-[#BFA15F] transition-colors shrink-0" />
@@ -165,8 +166,13 @@ export function DarkAcademiaSettingsPage({
               </div>
               <ChevronRight className="w-5 h-5 text-stone-600 group-hover:text-[#BFA15F] transition-colors" />
             </button>
-            <button className="w-full flex items-center justify-center p-4 active:bg-red-900/10 transition-colors cursor-pointer">
-              <span className="text-sm font-medium text-red-400 tracking-wide">Log Out</span>
+            <button 
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="w-full flex items-center justify-center p-4 active:bg-red-900/10 transition-colors cursor-pointer disabled:opacity-50">
+              <span className="text-sm font-medium text-red-400 tracking-wide">
+                {isLoggingOut ? 'Logging out...' : 'Log Out'}
+              </span>
             </button>
           </div>
 

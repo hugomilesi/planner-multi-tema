@@ -24,7 +24,7 @@ export function WesternFinancialPage({
     <div className="min-h-screen font-[family-name:var(--font-courier-prime)] text-[#2c1810]"
       style={{ backgroundColor: '#5c4033' }}>
 
-      <div className="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden border-x-8 border-[#5c4033]"
+      <div className="relative min-h-screen flex flex-col pb-24 max-w-md md:max-w-2xl lg:max-w-4xl mx-auto w-full shadow-2xl overflow-hidden border-x-8 border-[#5c4033]"
         style={{ backgroundColor: '#f3e5ab' }}>
         
         {/* Paper nail decorations */}

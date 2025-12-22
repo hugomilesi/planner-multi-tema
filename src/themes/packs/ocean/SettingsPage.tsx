@@ -6,6 +6,7 @@ import { Download, ChevronLeft, ChevronRight, Bell, Wallet, Calendar, LogOut, Ch
 
 export function OceanSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen bg-[#f6f7f8] dark:bg-[#101922] font-[family-name:var(--font-inter)] text-[#111418] dark:text-white pb-24">
@@ -56,11 +57,11 @@ export function OceanSettingsPage({
           <div className="bg-white dark:bg-[#1c2127] rounded-2xl border border-[#e5e7eb] dark:border-[#283039] overflow-hidden">
             <div className="flex items-center p-4 border-b border-[#e5e7eb] dark:border-[#283039] cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors group">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#137fec] to-[#0ea5e9] flex items-center justify-center mr-4">
-                <span className="text-white font-bold">A</span>
+                <span className="text-white font-bold">{userName.charAt(0).toUpperCase()}</span>
               </div>
               <div className="flex-1">
-                <p className="font-semibold">Alex Johnson</p>
-                <p className="text-xs text-[#637588] dark:text-[#9dabb9]">alex@example.com</p>
+                <p className="font-semibold">{userName}</p>
+                <p className="text-xs text-[#637588] dark:text-[#9dabb9]">{userEmail}</p>
               </div>
               <ChevronRight className="w-5 h-5 text-[#9dabb9] group-hover:text-[#137fec] transition-colors" />
             </div>
@@ -142,9 +143,12 @@ export function OceanSettingsPage({
               </div>
               <ChevronRight className="w-5 h-5 text-[#9dabb9] group-hover:text-[#137fec] transition-colors" />
             </button>
-            <button className="w-full flex items-center justify-center gap-2 p-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+            <button 
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="w-full flex items-center justify-center gap-2 p-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors disabled:opacity-50">
               <LogOut className="w-5 h-5" />
-              <span className="font-medium">Log Out</span>
+              <span className="font-medium">{isLoggingOut ? 'Logging out...' : 'Log Out'}</span>
             </button>
           </div>
         </div>

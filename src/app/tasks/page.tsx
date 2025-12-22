@@ -5,6 +5,7 @@ import { Plus, Trash2, Calendar } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
 import { useTaskStore, Task } from '@/stores/taskStore';
+import { useAuth } from '@/contexts/AuthContext';
 import { ThemedCard } from '@/components/shared/ThemedCard';
 import { ThemedBadge } from '@/components/shared/ThemedBadge';
 import { Button } from '@/components/ui/button';
@@ -25,6 +26,7 @@ export default function TasksPage() {
   const { themeId } = useTheme();
   const visuals = getThemeVisuals(themeId);
   const { tasks, addTask, toggleTaskStatus, deleteTask } = useTaskStore();
+  const { user, profile } = useAuth();
   
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<TasksPageProps> | null>(null);
@@ -107,6 +109,9 @@ export default function TasksPage() {
     }
   };
 
+  // Get user display name
+  const userName = profile?.display_name || user?.email?.split('@')[0] || 'User';
+
   // Props for custom themed pages
   const pageProps: TasksPageProps = {
     tasks,
@@ -120,6 +125,7 @@ export default function TasksPage() {
     handleAddTask,
     toggleTaskStatus,
     deleteTask,
+    userName,
   };
 
   // Render custom themed page if available

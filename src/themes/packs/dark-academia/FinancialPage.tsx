@@ -22,39 +22,50 @@ export function DarkAcademiaFinancialPage({
   const months = ['This Month', 'October', 'September', 'August'];
 
   return (
-    <div className="min-h-screen bg-[#09090B] font-sans text-slate-200 antialiased pb-24 selection:bg-[#C5A059] selection:text-white">
-      <div className="relative min-h-screen flex flex-col max-w-md mx-auto w-full">
+    <div className="min-h-screen bg-[#141414] font-sans text-white antialiased pb-24">
+      {/* Background gradient */}
+      <div className="fixed inset-0 bg-gradient-to-br from-[#141414] to-[#0A0A0A] -z-10" />
+
+      <div className="relative flex min-h-screen w-full flex-col overflow-x-hidden pb-24">
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-5 sticky top-0 z-20 bg-[#09090B]/90 backdrop-blur-md">
-          <h2 className="text-2xl font-serif font-semibold tracking-wide text-white">Overview</h2>
-          <div className="flex items-center gap-3">
-            <button className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-slate-800 transition-colors text-slate-400">
-              <Bell className="w-5 h-5" />
-            </button>
-            <div className="w-10 h-10 rounded-full border border-slate-700 overflow-hidden p-0.5 bg-gradient-to-br from-[#C5A059] to-[#9E8256] flex items-center justify-center">
-              <span className="text-white text-sm font-serif font-bold">A</span>
+        <header className="flex items-center justify-between p-6 pb-2 sticky top-0 z-10 bg-[#141414]/80 backdrop-blur-md border-b border-transparent transition-all duration-300">
+          <div className="flex items-center gap-4">
+            <div className="relative group">
+              <div className="w-12 h-12 rounded-full ring-2 ring-[#C5A065]/30 group-hover:ring-[#C5A065]/60 transition-all shadow-md bg-gradient-to-br from-[#C5A065] to-[#A6854F] flex items-center justify-center">
+                <span className="text-white font-serif font-bold text-lg">A</span>
+              </div>
+              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-[#141414]" />
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-stone-400 mb-0.5">
+                {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+              </span>
+              <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Financial</h2>
             </div>
           </div>
-        </div>
+          <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
+            <Bell className="w-5 h-5" />
+          </button>
+        </header>
 
         {/* Month Tabs */}
-        <div className="flex items-center gap-4 px-6 pb-4 overflow-x-auto no-scrollbar w-full flex-nowrap border-b border-slate-800">
+        <div className="flex items-center gap-4 px-6 mt-4 pb-4 overflow-x-auto no-scrollbar w-full flex-nowrap border-b border-[#333333]">
           {months.map((month, i) => (
             <button key={month} className={cn(
               'flex-shrink-0 relative pb-2 font-medium text-sm transition-colors whitespace-nowrap',
-              i === 0 ? 'text-[#C5A059]' : 'text-slate-500 hover:text-slate-300'
+              i === 0 ? 'text-[#C5A065]' : 'text-stone-500 hover:text-stone-300'
             )}>
               {month}
-              {i === 0 && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C5A059] rounded-full" />}
+              {i === 0 && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C5A065] rounded-full" />}
             </button>
           ))}
         </div>
 
         {/* Balance Section */}
-        <div className="flex flex-col items-center pt-8 pb-6 px-6">
-          <p className="text-slate-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3">Total Balance</p>
-          <h1 className="text-4xl font-serif font-medium tracking-tight text-white mb-2">
-            {formatCurrency(balance).split('.')[0]}<span className="text-2xl text-slate-600">.{formatCurrency(balance).split('.')[1] || '00'}</span>
+        <div className="flex flex-col items-center pt-6 pb-6 px-6">
+          <p className="text-stone-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3">Total Balance</p>
+          <h1 className="text-4xl font-serif font-medium tracking-tight text-stone-100 mb-2">
+            {formatCurrency(balance).split('.')[0]}<span className="text-2xl text-stone-600">.{formatCurrency(balance).split('.')[1] || '00'}</span>
           </h1>
           <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/20">
             <TrendingUp className="w-3.5 h-3.5 text-green-400" />
@@ -63,20 +74,20 @@ export function DarkAcademiaFinancialPage({
         </div>
 
         {/* Income/Expense Cards */}
-        <div className="grid grid-cols-2 gap-3 px-6 mb-8">
-          <div className="bg-[#18181B] p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A059]/30 transition-colors">
+        <div className="grid grid-cols-2 gap-3 px-6 mb-6">
+          <div className="bg-[#1E1E1E] p-4 rounded-xl border border-[#333333] shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A065]/30 transition-colors">
             <div className="flex justify-between items-start">
-              <ArrowDownLeft className="w-4 h-4 text-slate-400" />
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Income</span>
+              <ArrowDownLeft className="w-4 h-4 text-stone-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-400">Income</span>
             </div>
-            <p className="text-xl font-serif font-medium text-white group-hover:text-green-400 transition-colors truncate">{formatCurrency(monthIncome)}</p>
+            <p className="text-xl font-serif font-medium text-stone-100 group-hover:text-green-400 transition-colors truncate">{formatCurrency(monthIncome)}</p>
           </div>
-          <div className="bg-[#18181B] p-4 rounded-xl border border-slate-800 shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A059]/30 transition-colors">
+          <div className="bg-[#1E1E1E] p-4 rounded-xl border border-[#333333] shadow-sm relative overflow-hidden flex flex-col justify-between h-24 group hover:border-[#C5A065]/30 transition-colors">
             <div className="flex justify-between items-start">
-              <ArrowUpRight className="w-4 h-4 text-slate-400" />
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-slate-400">Expense</span>
+              <ArrowUpRight className="w-4 h-4 text-stone-400" />
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-stone-400">Expense</span>
             </div>
-            <p className="text-xl font-serif font-medium text-white group-hover:text-red-400 transition-colors truncate">{formatCurrency(monthExpense)}</p>
+            <p className="text-xl font-serif font-medium text-stone-100 group-hover:text-red-400 transition-colors truncate">{formatCurrency(monthExpense)}</p>
           </div>
         </div>
 

@@ -15,6 +15,7 @@ export function KawaiiDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 6 }, (_, i) => {
@@ -50,7 +51,7 @@ export function KawaiiDashboardPage({
                 <span>{today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</span>
               </div>
               <h2 className="text-2xl font-[family-name:var(--font-playfair)] font-bold text-[#5c3a45] leading-tight flex items-center gap-2">
-                Hello, Alex <span className="text-xl animate-pulse">🌺</span>
+                Hello, {userName} <span className="text-xl animate-pulse">🌺</span>
               </h2>
             </div>
           </div>

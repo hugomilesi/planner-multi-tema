@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Orbitron, Space_Grotesk, Playfair_Display, Caveat, Rye, Cormorant_Garamond, Fredoka, Press_Start_2P, VT323 } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/themes/ThemeContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import { AppShell } from "@/components/layout/AppShell";
 
 const geistSans = Geist({
@@ -94,7 +95,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${orbitron.variable} ${spaceGrotesk.variable} ${playfair.variable} ${caveat.variable} ${rye.variable} ${cormorant.variable} ${fredoka.variable} ${pressStart.variable} ${vt323.variable} antialiased`}
       >
         <ThemeProvider>
-          <AppShell>{children}</AppShell>
+          <AuthProvider>
+            <AppShell>{children}</AppShell>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

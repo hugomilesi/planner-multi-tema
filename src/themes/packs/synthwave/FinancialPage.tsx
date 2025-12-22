@@ -24,7 +24,7 @@ export function SynthwaveFinancialPage({
     <div className="min-h-screen text-[#E5E5E5] font-[family-name:var(--font-vt323)]"
       style={{ backgroundColor: '#121212' }}>
 
-      <div className="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-[#121212] border-x-2 border-[#525252]">
+      <div className="relative min-h-screen flex flex-col pb-24 max-w-md md:max-w-2xl lg:max-w-4xl mx-auto w-full shadow-2xl overflow-hidden bg-[#121212] border-x-2 border-[#525252]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 sticky top-0 z-20 bg-[#121212] border-b-2 border-[#525252]">
           <div className="flex items-center gap-2">

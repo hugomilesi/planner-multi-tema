@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, ComponentType } from 'react';
-import { Moon, Zap, Download, Upload, Info, Trash2 } from 'lucide-react';
+import { Zap, Download, Upload, Info, LogOut, User, Loader2 } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
 import { themeList } from '@/themes/registry';
@@ -23,10 +24,23 @@ export default function SettingsPage() {
   const visuals = getThemeVisuals(themeId);
   const tasks = useTaskStore((state) => state.tasks);
   const { transactions, categories } = useFinancialStore();
+  const { user, profile, signOut, isAuthenticated, isLoading } = useAuth();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  
+  const handleLogout = async () => {
+    if (isLoggingOut) return;
+    setIsLoggingOut(true);
+    try {
+      await signOut();
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
 
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<SettingsPageProps> | null>(null);
   
+
   useEffect(() => {
     if (hasCustomPage(themeId, 'settings')) {
       const themePack = themedPages[themeId as ThemeWithCustomPages];
@@ -87,6 +101,9 @@ export default function SettingsPage() {
   };
 
   // Props for custom themed pages
+  const displayName = profile?.display_name || user?.email?.split('@')[0] || 'User';
+  const userEmail = user?.email || '';
+
   const pageProps: SettingsPageProps = {
     themeId,
     setTheme: (id: string) => setTheme(id as ThemeId),
@@ -96,7 +113,20 @@ export default function SettingsPage() {
     currentTheme: { name: theme.name, tokens: { primary: theme.tokens.primary, accent: theme.tokens.accent } },
     handleExport,
     handleImport,
+    userName: displayName,
+    userEmail,
+    isAuthenticated,
+    onLogout: handleLogout,
+    isLoggingOut,
   };
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center text-muted-foreground">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
+    );
+  }
 
   // Render custom themed page if available
   if (CustomPage) {
@@ -226,28 +256,45 @@ export default function SettingsPage() {
               <Upload className="w-4 h-4" />
               Import Data
             </Button>
-            <Button 
-              variant="destructive" 
-              className="w-full justify-start gap-3"
-              onClick={() => {
-                if (confirm('This will reset all data to sample data. Continue?')) {
-                  localStorage.removeItem('planner-tasks');
-                  localStorage.removeItem('planner-financial');
-                  window.location.reload();
-                }
-              }}
-            >
-              <Trash2 className="w-4 h-4" />
-              Reset to Sample Data
-            </Button>
           </div>
         </ThemedCard>
 
-        <ThemedCard delay={4}>
+        {/* Account Section */}
+        {isAuthenticated && (
+          <ThemedCard title="Account" delay={4}>
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center">
+                  <User className="w-6 h-6 text-primary" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium truncate">
+                    {profile?.display_name || user?.email?.split('@')[0] || 'User'}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate">
+                    {user?.email}
+                  </p>
+                </div>
+              </div>
+              
+              <Button 
+                variant="destructive" 
+                className="w-full justify-start gap-3"
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+              >
+                <LogOut className="w-4 h-4" />
+                {isLoggingOut ? 'Logging out...' : 'Sign Out'}
+              </Button>
+            </div>
+          </ThemedCard>
+        )}
+
+        <ThemedCard delay={5}>
           <div className="flex items-center gap-3 text-muted-foreground">
             <Info className="w-5 h-5" />
             <div>
-              <p className="text-sm font-medium">Multi-Theme Planner</p>
+              <p className="text-sm font-medium">Chamaleon Planner</p>
               <p className="text-xs">Version 1.0.0 • Made with ❤️</p>
             </div>
           </div>

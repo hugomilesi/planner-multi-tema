@@ -6,6 +6,7 @@ import { useTheme } from '@/themes/ThemeContext';
 import { getThemeVisuals } from '@/themes/themeStyles';
 import { useTaskStore } from '@/stores/taskStore';
 import { useFinancialStore } from '@/stores/financialStore';
+import { useAuth } from '@/contexts/AuthContext';
 import { ThemedCard } from '@/components/shared/ThemedCard';
 import { ThemedProgress } from '@/components/shared/ThemedProgress';
 import { ThemedBadge } from '@/components/shared/ThemedBadge';
@@ -21,6 +22,7 @@ export default function DashboardPage() {
   const visuals = getThemeVisuals(themeId);
   const tasks = useTaskStore((state) => state.tasks);
   const { transactions, currency } = useFinancialStore();
+  const { user, profile } = useAuth();
 
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<DashboardPageProps> | null>(null);
@@ -72,6 +74,9 @@ export default function DashboardPage() {
     ? (completedToday / todayTasks.length) * 100 
     : 0;
 
+  // Get user display name
+  const userName = profile?.display_name || user?.email?.split('@')[0] || 'User';
+
   // Props for custom themed pages
   const pageProps: DashboardPageProps = {
     todayTasks,
@@ -83,6 +88,7 @@ export default function DashboardPage() {
     monthExpense,
     balance,
     formatCurrency,
+    userName,
   };
 
   // Render custom themed page if available

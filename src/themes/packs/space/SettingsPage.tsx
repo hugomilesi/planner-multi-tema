@@ -6,6 +6,7 @@ import { Download, ChevronLeft, ChevronRight, Bell, Wallet, Calendar, LogOut, Ch
 
 export function SpaceSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen bg-[#FAF7F2] dark:bg-[#2C2420] font-sans text-stone-800 dark:text-stone-100 antialiased pb-24">
@@ -56,11 +57,11 @@ export function SpaceSettingsPage({
           <div className="bg-white dark:bg-[#3D3430] rounded-2xl border border-stone-100 dark:border-stone-700 overflow-hidden">
             <div className="flex items-center p-4 border-b border-stone-100 dark:border-stone-700 cursor-pointer hover:bg-stone-50 dark:hover:bg-stone-800/50 transition-colors group">
               <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#8C6A5D] to-[#D4A373] flex items-center justify-center mr-4">
-                <span className="text-white font-serif font-bold">A</span>
+                <span className="text-white font-serif font-bold">{userName?.charAt(0).toUpperCase() || 'U'}</span>
               </div>
               <div className="flex-1">
-                <p className="font-serif font-semibold">Alex Johnson</p>
-                <p className="text-xs text-stone-500 dark:text-stone-400">alex@example.com</p>
+                <p className="font-serif font-semibold">{userName || 'User'}</p>
+                <p className="text-xs text-stone-500 dark:text-stone-400">{userEmail || ''}</p>
               </div>
               <ChevronRight className="w-5 h-5 text-stone-400 group-hover:text-[#8C6A5D] transition-colors" />
             </div>
@@ -142,9 +143,12 @@ export function SpaceSettingsPage({
               </div>
               <ChevronRight className="w-5 h-5 text-stone-400 group-hover:text-[#8C6A5D] transition-colors" />
             </button>
-            <button className="w-full flex items-center justify-center gap-2 p-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+            <button 
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="w-full flex items-center justify-center gap-2 p-4 text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors disabled:opacity-50">
               <LogOut className="w-5 h-5" />
-              <span className="font-serif font-medium">Log Out</span>
+              <span className="font-serif font-medium">{isLoggingOut ? 'Logging out...' : 'Log Out'}</span>
             </button>
           </div>
         </div>

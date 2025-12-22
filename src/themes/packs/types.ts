@@ -19,6 +19,7 @@ export interface TasksPageProps {
   handleAddTask: () => void;
   toggleTaskStatus: (id: string) => void;
   deleteTask: (id: string) => void;
+  userName?: string;
 }
 
 // Props compartilhadas para páginas de Dashboard (view-model)
@@ -32,6 +33,7 @@ export interface DashboardPageProps {
   monthExpense: number;
   balance: number;
   formatCurrency: (value: number) => string;
+  userName?: string;
 }
 
 // Props compartilhadas para páginas de Financial (view-model)
@@ -66,6 +68,11 @@ export interface SettingsPageProps {
   currentTheme: { name: string; tokens: { primary: string; accent: string } };
   handleExport: () => void;
   handleImport: () => void;
+  userName?: string;
+  userEmail?: string;
+  isAuthenticated?: boolean;
+  onLogout?: () => void | Promise<void>;
+  isLoggingOut?: boolean;
 }
 
 // Registro de temas que têm templates customizados

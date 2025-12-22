@@ -28,7 +28,7 @@ export function NoirFinancialPage({
         backgroundPosition: '0 0, 12px 12px',
       }}>
 
-      <div className="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full overflow-hidden">
+      <div className="relative min-h-screen flex flex-col pb-24 max-w-md md:max-w-2xl lg:max-w-4xl mx-auto w-full overflow-hidden">
         {/* Header */}
         <div className="sticky top-0 z-40 w-full">
           <div className="absolute inset-0 bg-[#FFF9F0]/95 backdrop-blur-xl border-b border-slate-200 shadow-sm" />
@@ -107,26 +107,33 @@ export function NoirFinancialPage({
               </h3>
             </div>
             <div className="flex items-end justify-between h-48 gap-3">
-              {[
-                { icon: Gamepad2, color: '#4ECDC4', label: 'Toys', value: 40 },
-                { icon: IceCream, color: '#FF6B6B', label: 'Snacks', value: 85 },
-                { icon: Gift, color: '#2EC4B6', label: 'Books', value: 30 },
-                { icon: Gamepad2, color: '#FF9F1C', label: 'Games', value: 55 },
-              ].map((item, i) => (
-                <div key={i} className="flex flex-col items-center gap-2 flex-1 group">
-                  <div className="w-full rounded-2xl relative h-36 flex items-end justify-center overflow-hidden border"
-                    style={{ backgroundColor: `${item.color}10`, borderColor: `${item.color}20` }}>
-                    <div className="w-full mx-1.5 rounded-t-xl transition-all duration-300 relative flex items-start justify-center pt-2 shadow-sm"
-                      style={{ height: `${item.value}%`, backgroundColor: item.color }}>
-                      <span className="text-xs font-bold text-white drop-shadow-md">${Math.round(item.value / 10)}</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-center">
-                    <item.icon className="w-6 h-6 mb-0.5" style={{ color: item.color }} />
-                    <span className="text-xs font-bold text-slate-600">{item.label}</span>
-                  </div>
+              {categorySpending.length === 0 ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
+                  <div className="text-5xl mb-3">📊</div>
+                  <p className="text-sm font-bold text-slate-600">No expenses yet!</p>
+                  <p className="text-xs text-slate-500 mt-1">Add transactions to see your spending</p>
                 </div>
-              ))}
+              ) : (
+                categorySpending.slice(0, 4).map((cat, i) => {
+                  const maxSpent = Math.max(...categorySpending.map(c => c.spent));
+                  const heightPercent = maxSpent > 0 ? (cat.spent / maxSpent) * 100 : 0;
+                  return (
+                    <div key={cat.id} className="flex flex-col items-center gap-2 flex-1 group">
+                      <div className="w-full rounded-2xl relative h-36 flex items-end justify-center overflow-hidden border"
+                        style={{ backgroundColor: `${cat.color}10`, borderColor: `${cat.color}20` }}>
+                        <div className="w-full mx-1.5 rounded-t-xl transition-all duration-300 relative flex items-start justify-center pt-2 shadow-sm"
+                          style={{ height: `${heightPercent}%`, backgroundColor: cat.color }}>
+                          <span className="text-xs font-bold text-white drop-shadow-md">{formatCurrency(cat.spent)}</span>
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-center">
+                        <span className="text-2xl mb-0.5">{cat.icon}</span>
+                        <span className="text-xs font-bold text-slate-600">{cat.name}</span>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
             </div>
           </div>
         </div>

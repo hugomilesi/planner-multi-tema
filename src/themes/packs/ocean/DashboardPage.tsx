@@ -15,6 +15,7 @@ export function OceanDashboardPage({
   monthExpense,
   balance,
   formatCurrency,
+  userName = 'User',
 }: DashboardPageProps) {
   const today = new Date();
   const weekDays = Array.from({ length: 6 }, (_, i) => {
@@ -31,13 +32,13 @@ export function OceanDashboardPage({
         <header className="flex items-center justify-between p-4 pb-2 sticky top-0 z-10 bg-[#f6f7f8]/95 dark:bg-[#101922]/95 backdrop-blur-md">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full ring-2 ring-[#137fec]/20 bg-gradient-to-br from-[#137fec] to-[#0ea5e9] flex items-center justify-center">
-              <span className="text-white text-sm font-bold">A</span>
+              <span className="text-white text-sm font-bold">{userName.charAt(0).toUpperCase()}</span>
             </div>
             <div className="flex flex-col">
               <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </span>
-              <h2 className="text-lg font-bold leading-tight">Good Morning, Alex</h2>
+              <h2 className="text-lg font-bold leading-tight">Good Morning, {userName}</h2>
             </div>
           </div>
           <button className="flex items-center justify-center rounded-full w-10 h-10 bg-[#1c2630]/10 dark:bg-[#1c2630] text-slate-900 dark:text-white hover:bg-[#137fec]/10 transition-colors">

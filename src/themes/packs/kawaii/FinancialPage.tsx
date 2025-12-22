@@ -31,7 +31,7 @@ export function KawaiiFinancialPage({
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#fde047]/15 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative min-h-screen flex flex-col pb-24 max-w-md mx-auto w-full shadow-2xl overflow-hidden bg-[#fff5f9]/90 backdrop-blur-sm border-x border-stone-100">
+      <div className="relative min-h-screen flex flex-col pb-24 max-w-md md:max-w-2xl lg:max-w-4xl mx-auto w-full shadow-2xl overflow-hidden bg-[#fff5f9]/90 backdrop-blur-sm border-x border-stone-100">
         {/* Header */}
         <div className="flex items-center justify-between p-6 pb-2 sticky top-0 z-30 bg-[#fff5f9]/95 backdrop-blur-md transition-colors duration-200 border-b border-[#ec4899]/10">
           <div>
@@ -141,33 +141,43 @@ export function KawaiiFinancialPage({
               </div>
             </div>
             <div className="flex items-end justify-between h-44 px-2 gap-4">
-              {['W1', 'W2', 'W3', 'W4'].map((week, i) => {
-                const heights = [40, 65, 85, 30];
-                const isHighlighted = i === 2;
-                return (
-                  <div key={week} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer relative">
-                    <div className="w-full flex flex-col items-center justify-end h-36 relative group-hover:-translate-y-2 transition-transform duration-300">
-                      <div className="w-1.5 bg-[#84cc16]/30 h-full rounded-full absolute bottom-0" />
-                      <div className="relative w-full flex justify-center z-10" style={{ height: `${heights[i]}%` }}>
-                        {isHighlighted && (
-                          <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12">
-                            <Flower2 className="w-12 h-12 text-[#ec4899] animate-spin" style={{ animationDuration: '8s' }} />
+              {last7Days.length === 0 ? (
+                <div className="flex-1 flex flex-col items-center justify-center text-center py-8">
+                  <div className="text-5xl mb-3">🌱</div>
+                  <p className="text-sm font-bold text-stone-600">No activity yet!</p>
+                  <p className="text-xs text-stone-500 mt-1">Plant some seeds by adding transactions</p>
+                </div>
+              ) : (
+                last7Days.map((dayData, i) => {
+                  const maxAmount = Math.max(...last7Days.map(d => Math.max(d.income, d.expense)));
+                  const totalAmount = dayData.income + dayData.expense;
+                  const heightPercent = maxAmount > 0 ? (totalAmount / maxAmount) * 100 : 0;
+                  const isHighlighted = i === last7Days.length - 1;
+                  return (
+                    <div key={dayData.day} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer relative">
+                      <div className="w-full flex flex-col items-center justify-end h-36 relative group-hover:-translate-y-2 transition-transform duration-300">
+                        <div className="w-1.5 bg-[#84cc16]/30 h-full rounded-full absolute bottom-0" />
+                        <div className="relative w-full flex justify-center z-10" style={{ height: `${heightPercent}%` }}>
+                          {isHighlighted && (
+                            <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-12">
+                              <Flower2 className="w-12 h-12 text-[#ec4899] animate-spin" style={{ animationDuration: '8s' }} />
+                            </div>
+                          )}
+                          <div className={cn(
+                            'h-full rounded-t-full rounded-b-lg border-2 border-white shadow-sm relative overflow-hidden',
+                            isHighlighted ? 'w-10 bg-gradient-to-t from-[#ec4899] to-pink-400 shadow-lg shadow-[#ec4899]/30' : 'w-8 bg-gradient-to-t from-[#ec4899]/30 to-[#ec4899]/60'
+                          )}>
+                            {isHighlighted && <div className="absolute inset-0 bg-white/10" />}
                           </div>
-                        )}
-                        <div className={cn(
-                          'h-full rounded-t-full rounded-b-lg border-2 border-white shadow-sm relative overflow-hidden',
-                          isHighlighted ? 'w-10 bg-gradient-to-t from-[#ec4899] to-pink-400 shadow-lg shadow-[#ec4899]/30' : 'w-8 bg-gradient-to-t from-[#ec4899]/30 to-[#ec4899]/60'
-                        )}>
-                          {isHighlighted && <div className="absolute inset-0 bg-white/10" />}
                         </div>
                       </div>
+                      <span className={cn('text-[10px] font-bold uppercase tracking-wider', isHighlighted ? 'text-[#ec4899]' : 'text-stone-400')}>
+                        {dayData.day}
+                      </span>
                     </div>
-                    <span className={cn('text-[10px] font-bold uppercase tracking-wider', isHighlighted ? 'text-[#ec4899]' : 'text-stone-400')}>
-                      {week}
-                    </span>
-                  </div>
-                );
-              })}
+                  );
+                })
+              )}
             </div>
           </div>
         </div>
