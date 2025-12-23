@@ -60,5 +60,6 @@ export const noirTheme: ThemePack = {
   },
   preview: {
     accent: '#1a1a1a',
+    icon: '🕵️',
   },
 };

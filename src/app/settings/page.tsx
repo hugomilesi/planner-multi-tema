@@ -1,4 +1,4 @@
-'use client';
+
 
 import { useState, useEffect, ComponentType } from 'react';
 import { Zap, Download, Upload, Info, LogOut, User, Loader2 } from 'lucide-react';
@@ -109,7 +109,7 @@ export default function SettingsPage() {
     setTheme: (id: string) => setTheme(id as ThemeId),
     reduceMotion,
     setReduceMotion,
-    themeList: themeList.map(t => ({ id: t.id, name: t.name, tokens: { primary: t.tokens.primary, accent: t.tokens.accent } })),
+    themeList: themeList.map(t => ({ id: t.id, name: t.name, tokens: { primary: t.tokens.primary, accent: t.tokens.accent }, preview: t.preview })),
     currentTheme: { name: theme.name, tokens: { primary: theme.tokens.primary, accent: theme.tokens.accent } },
     handleExport,
     handleImport,
@@ -151,8 +151,8 @@ export default function SettingsPage() {
                 key={t.id}
                 onClick={() => setTheme(t.id as ThemeId)}
                 className={`relative group rounded-2xl border-2 transition-all overflow-hidden ${themeId === t.id
-                    ? 'border-primary ring-2 ring-primary/20 scale-[1.02]'
-                    : 'border-border hover:border-primary/50 hover:scale-[1.01]'
+                  ? 'border-primary ring-2 ring-primary/20 scale-[1.02]'
+                  : 'border-border hover:border-primary/50 hover:scale-[1.01]'
                   }`}
               >
                 {/* Theme Preview - Mini UI */}

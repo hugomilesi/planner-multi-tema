@@ -3,7 +3,7 @@
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, ChevronRight, Check, Clock, MoreHorizontal } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function DarkAcademiaDashboardPage({
   todayTasks,
@@ -92,7 +92,7 @@ export function DarkAcademiaDashboardPage({
         {/* Focus Card - with image background */}
         <div className="px-6 mt-6">
           <div className="flex flex-col items-stretch justify-end rounded-xl pt-32 shadow-xl shadow-stone-900/10 dark:shadow-black/30 overflow-hidden relative group cursor-pointer border border-white/5"
-            style={{ 
+            style={{
               backgroundImage: 'linear-gradient(180deg, rgba(20, 20, 20, 0) 0%, rgba(20, 20, 20, 0.95) 100%), linear-gradient(135deg, rgba(60, 60, 80, 0.9) 0%, rgba(30, 30, 50, 0.95) 100%)',
               backgroundSize: 'cover',
               backgroundPosition: 'center'
@@ -148,7 +148,7 @@ export function DarkAcademiaDashboardPage({
                 <div key={i} className={cn(
                   'flex-1 rounded-sm transition-all relative group',
                   i === 5 ? 'bg-[#C5A065] shadow-[0_0_15px_-3px_rgba(197,160,101,0.6)]' :
-                  i >= 3 ? 'bg-[#C5A065]/30' : 'bg-stone-800'
+                    i >= 3 ? 'bg-[#C5A065]/30' : 'bg-stone-800'
                 )} style={{ height: `${h}%` }}>
                   {i === 5 && (
                     <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-stone-900 text-white text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">

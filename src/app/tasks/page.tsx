@@ -1,4 +1,4 @@
-'use client';
+
 
 import { useState, useEffect, ComponentType } from 'react';
 import { Plus, Trash2, Calendar } from 'lucide-react';
@@ -27,10 +27,10 @@ export default function TasksPage() {
   const visuals = getThemeVisuals(themeId);
   const { tasks, addTask, toggleTaskStatus, deleteTask } = useTaskStore();
   const { user, profile } = useAuth();
-  
+
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<TasksPageProps> | null>(null);
-  
+
   useEffect(() => {
     if (hasCustomPage(themeId, 'tasks')) {
       const themePack = themedPages[themeId as ThemeWithCustomPages];
@@ -43,7 +43,7 @@ export default function TasksPage() {
   }, [themeId]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>('all');
-  
+
   const [newTask, setNewTask] = useState({
     title: '',
     notes: '',
@@ -73,7 +73,7 @@ export default function TasksPage() {
 
   const handleAddTask = () => {
     if (!newTask.title.trim()) return;
-    
+
     addTask({
       title: newTask.title,
       notes: newTask.notes,
@@ -144,7 +144,7 @@ export default function TasksPage() {
               {tasks.filter(t => t.status === 'pending').length} pending
             </p>
           </div>
-          
+
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button size="icon" className="rounded-full h-12 w-12">
@@ -165,7 +165,7 @@ export default function TasksPage() {
                     onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="notes">Notes (optional)</Label>
                   <Input
@@ -186,7 +186,7 @@ export default function TasksPage() {
                       onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label>Priority</Label>
                     <Select
@@ -242,7 +242,7 @@ export default function TasksPage() {
                       onCheckedChange={() => toggleTaskStatus(task.id)}
                       className="mt-1"
                     />
-                    
+
                     <div className="flex-1 min-w-0">
                       <div className="flex items-start justify-between gap-2">
                         <p className={`font-medium ${task.status === 'completed' ? 'line-through text-muted-foreground' : ''}`}>
@@ -250,13 +250,13 @@ export default function TasksPage() {
                         </p>
                         <ThemedBadge priority={task.priority} />
                       </div>
-                      
+
                       {task.notes && (
                         <p className="text-sm text-muted-foreground mt-1 truncate">
                           {task.notes}
                         </p>
                       )}
-                      
+
                       <div className="flex items-center gap-3 mt-2">
                         {task.dueDate && (
                           <div className="flex items-center gap-1 text-xs text-muted-foreground">

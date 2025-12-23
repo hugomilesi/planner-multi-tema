@@ -57,5 +57,6 @@ export const nordicTheme: ThemePack = {
   },
   preview: {
     accent: '#5E81AC',
+    icon: '❄️',
   },
 };

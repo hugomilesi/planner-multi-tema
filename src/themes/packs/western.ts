@@ -61,5 +61,6 @@ export const westernTheme: ThemePack = {
   },
   preview: {
     accent: '#8B4513',
+    icon: '🤠',
   },
 };

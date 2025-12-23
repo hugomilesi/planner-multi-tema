@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { useTaskStore } from '@/stores/taskStore';
 import { useFinancialStore } from '@/stores/financialStore';
 
@@ -31,10 +31,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [tenantId, setTenantId] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
-  const router = useRouter();
+
+  const navigate = useNavigate();
   const supabase = createClient();
-  
+
   const taskStore = useTaskStore();
   const financialStore = useFinancialStore();
 
@@ -66,7 +66,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (userTenantId) {
         taskStore.setContext(userTenantId, authUser.id);
         financialStore.setContext(userTenantId, authUser.id);
-        
+
         // Fetch data from database
         await Promise.all([
           taskStore.fetchTasks(),
@@ -89,7 +89,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         if (!isMounted) return;
-        
+
         if (session?.user) {
           await fetchUserData(session.user);
         } else {
@@ -109,16 +109,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       isMounted = false;
       subscription.unsubscribe();
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const signOut = useCallback(async () => {
     taskStore.clearTasks();
     financialStore.clearData();
     await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
-  }, [supabase, router, taskStore, financialStore]);
+    navigate('/login');
+  }, [supabase, navigate, taskStore, financialStore]);
 
   const refreshUser = useCallback(async () => {
     const { data: { user: authUser } } = await supabase.auth.getUser();

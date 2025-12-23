@@ -1,8 +1,6 @@
-'use client';
-
 import { useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff, Loader2 } from 'lucide-react';
 
 export default function LoginPage() {
@@ -13,7 +11,7 @@ export default function LoginPage() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [message, setMessage] = useState<string | null>(null);
-  const router = useRouter();
+  const navigate = useNavigate();
   const supabase = createClient();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -28,7 +26,8 @@ export default function LoginPage() {
           email,
           password,
           options: {
-            emailRedirectTo: `${window.location.origin}/auth/callback`,
+            // Redirect to home page, AuthProvider will handle the session
+            emailRedirectTo: `${window.location.origin}`,
           },
         });
         if (error) throw error;
@@ -39,8 +38,7 @@ export default function LoginPage() {
           password,
         });
         if (error) throw error;
-        router.push('/');
-        router.refresh();
+        navigate('/');
       }
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'An error occurred');
@@ -56,7 +54,7 @@ export default function LoginPage() {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback`,
+          redirectTo: `${window.location.origin}`,
         },
       });
       if (error) throw error;

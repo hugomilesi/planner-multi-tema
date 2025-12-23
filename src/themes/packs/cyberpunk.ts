@@ -62,5 +62,6 @@ export const cyberpunkTheme: ThemePack = {
   },
   preview: {
     accent: '#ff00ff',
+    icon: '⚡',
   },
 };

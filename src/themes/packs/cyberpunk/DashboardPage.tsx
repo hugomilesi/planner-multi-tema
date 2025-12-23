@@ -3,7 +3,7 @@
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Zap, TrendingUp, TrendingDown, AlertTriangle, ChevronRight, Clock, Wallet } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function CyberpunkDashboardPage({
   todayTasks,
@@ -92,12 +92,12 @@ export function CyberpunkDashboardPage({
           </div>
         </div>
 
-        {/* System Status - Segmented Progress */}
+        {/* Daily Progress - Segmented Progress */}
         <div className="px-4 mt-6">
           <div className="p-1 border-2 border-[#ffff00] bg-black/40"
             style={{ boxShadow: '4px 4px 0 #ffff00' }}>
             <div className="flex justify-between items-center px-3 pt-2">
-              <p className="text-xs font-bold text-[#ffff00] font-[family-name:var(--font-orbitron)] uppercase tracking-wider">System Status</p>
+              <p className="text-xs font-bold text-[#ffff00] font-[family-name:var(--font-orbitron)] uppercase tracking-wider">Daily Progress</p>
               <p className="text-sm font-black text-[#ffff00] font-[family-name:var(--font-orbitron)]">{Math.round(progressValue)}%</p>
             </div>
             <div className="h-6 w-full bg-[#4d008c] p-1 flex items-center gap-1 mt-2">
@@ -120,15 +120,15 @@ export function CyberpunkDashboardPage({
               {/* Offset border effect */}
               <div className="absolute -top-2 -right-2 w-full h-full border-2 border-[#00ffff] bg-transparent z-0" />
               <div className="absolute -bottom-2 -left-2 w-16 h-16 bg-gradient-to-tr from-[#ff00ff] to-transparent opacity-50 blur-xl" />
-              
+
               <div className="relative z-10 bg-[#2a0052] border-2 border-white pt-20 pb-5 px-5"
                 style={{ boxShadow: '8px 8px 0 rgba(0,255,255,0.4)' }}>
                 {/* Priority Badge */}
                 <div className="absolute top-0 right-4 bg-[#ff00ff] text-white px-3 py-1 text-[10px] font-black font-[family-name:var(--font-orbitron)] uppercase tracking-widest transform -skew-x-[15deg] border-b-2 border-l-2 border-black"
                   style={{ boxShadow: '2px 2px 0 black' }}>
-                  Primary Mission
+                  Priority Task
                 </div>
-                
+
                 <div className="flex items-end justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
@@ -148,7 +148,7 @@ export function CyberpunkDashboardPage({
                       </div>
                     )}
                   </div>
-                  <Link href="/tasks">
+                  <Link to="/tasks">
                     <div className="bg-gradient-to-br from-[#00ffff] to-blue-600 border border-white p-3 text-white hover:translate-y-1 hover:translate-x-1 transition-all"
                       style={{ boxShadow: '4px 4px 0 black' }}>
                       <ChevronRight className="w-6 h-6" />
@@ -167,17 +167,17 @@ export function CyberpunkDashboardPage({
             {/* Grid overlay */}
             <div className="absolute inset-0 pointer-events-none"
               style={{ backgroundImage: 'linear-gradient(rgba(188,19,254,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(188,19,254,0.1) 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-            
+
             <div className="relative z-10">
               <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-lg font-bold text-white font-[family-name:var(--font-orbitron)] uppercase tracking-wider flex items-center gap-2">
+                  <h3 className="text-lg font-black text-white font-[family-name:var(--font-orbitron)] uppercase tracking-wider flex items-center gap-2">
                     <Wallet className="w-5 h-5 text-[#bc13fe]" />
-                    Credits
+                    Financial Summary
                   </h3>
                   <p className="text-xs text-[#bc13fe]/80 mt-1 font-mono">CYCLE: {today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()}</p>
                 </div>
-                <Link href="/financial">
+                <Link to="/financial">
                   <button className="text-black text-xs font-black uppercase tracking-wide px-4 py-1 bg-[#bc13fe] hover:bg-white transition-colors border-2 border-transparent hover:border-[#bc13fe]">
                     Info
                   </button>
@@ -252,9 +252,9 @@ export function CyberpunkDashboardPage({
                     {/* Left accent bar */}
                     <div className="absolute left-0 top-0 bottom-0 w-1 group-hover:w-2 transition-all"
                       style={{ backgroundColor: borderColor }} />
-                    
+
                     {/* Checkbox */}
-                    <button onClick={() => {}} 
+                    <button onClick={() => { }}
                       className={cn('w-6 h-6 border-2 flex items-center justify-center shrink-0 transition-all',
                         task.status === 'completed' ? 'border-[#00ff00] bg-[#00ff00]' : `border-[${borderColor}]`)}>
                       {task.status === 'completed' && <span className="text-black font-bold text-sm">✓</span>}
@@ -283,7 +283,7 @@ export function CyberpunkDashboardPage({
             )}
           </div>
 
-          <Link href="/tasks" className="block mt-4">
+          <Link to="/tasks" className="block mt-4">
             <div className="flex items-center justify-center gap-2 py-3 border-2 border-[#ff00ff] text-[#ff00ff] text-xs font-bold uppercase tracking-wider hover:bg-[#ff00ff] hover:text-black transition-all"
               style={{ boxShadow: '4px 4px 0 rgba(255,0,255,0.3)' }}>
               VIEW ALL QUESTS
@@ -312,13 +312,13 @@ export function CyberpunkDashboardPage({
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 px-4 mt-6">
-          <Link href="/tasks">
+          <Link to="/tasks">
             <button className="w-full py-4 bg-[#ff00ff] text-black font-[family-name:var(--font-orbitron)] text-sm font-black tracking-wider hover:brightness-110 transition-all border-2 border-white"
               style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.5)' }}>
               + NEW QUEST
             </button>
           </Link>
-          <Link href="/financial">
+          <Link to="/financial">
             <button className="w-full py-4 border-2 border-[#00ffff] text-[#00ffff] font-[family-name:var(--font-orbitron)] text-sm font-black tracking-wider hover:bg-[#00ffff] hover:text-black transition-all"
               style={{ boxShadow: '4px 4px 0 rgba(0,255,255,0.3)' }}>
               + TRANSACTION

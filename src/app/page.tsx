@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect, ComponentType } from 'react';
 import { Plus, TrendingUp, TrendingDown, CheckCircle2, Clock, AlertCircle } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
@@ -12,7 +10,7 @@ import { ThemedProgress } from '@/components/shared/ThemedProgress';
 import { ThemedBadge } from '@/components/shared/ThemedBadge';
 import { Button } from '@/components/ui/button';
 import { PageTransition } from '@/components/layout/PageTransition';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { hasCustomPage, themedPages, ThemeWithCustomPages } from '@/themes/packs';
 import { DashboardPageProps } from '@/themes/packs/types';
@@ -26,7 +24,7 @@ export default function DashboardPage() {
 
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<DashboardPageProps> | null>(null);
-  
+
   useEffect(() => {
     if (hasCustomPage(themeId, 'dashboard')) {
       const themePack = themedPages[themeId as ThemeWithCustomPages];
@@ -40,7 +38,7 @@ export default function DashboardPage() {
 
   const today = new Date();
   const todayStr = today.toISOString().split('T')[0];
-  
+
   const todayTasks = tasks.filter((t) => t.dueDate?.startsWith(todayStr));
   const completedToday = todayTasks.filter((t) => t.status === 'completed').length;
   const pendingTasks = tasks.filter((t) => t.status === 'pending').length;
@@ -70,8 +68,8 @@ export default function DashboardPage() {
     }).format(value);
   };
 
-  const progressValue = todayTasks.length > 0 
-    ? (completedToday / todayTasks.length) * 100 
+  const progressValue = todayTasks.length > 0
+    ? (completedToday / todayTasks.length) * 100
     : 0;
 
   // Get user display name
@@ -112,7 +110,7 @@ export default function DashboardPage() {
 
         {/* Daily Progress */}
         <ThemedCard>
-          <ThemedProgress 
+          <ThemedProgress
             value={progressValue}
             label={visuals.labels.progress}
             showPercentage
@@ -168,17 +166,16 @@ export default function DashboardPage() {
             ) : (
               <div className="space-y-2">
                 {todayTasks.slice(0, 3).map((task) => (
-                  <div 
+                  <div
                     key={task.id}
                     className="flex items-center justify-between gap-3 p-2 rounded-lg bg-black/10"
                   >
                     <div className="flex items-center gap-3 flex-1 min-w-0">
-                      <div 
-                        className={`w-2 h-2 rounded-full shrink-0 ${
-                          task.status === 'completed' ? 'bg-green-500' : 
-                          task.priority === 'high' ? 'bg-red-500' :
-                          task.priority === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
-                        }`}
+                      <div
+                        className={`w-2 h-2 rounded-full shrink-0 ${task.status === 'completed' ? 'bg-green-500' :
+                            task.priority === 'high' ? 'bg-red-500' :
+                              task.priority === 'medium' ? 'bg-yellow-500' : 'bg-blue-500'
+                          }`}
                       />
                       <span className={`text-sm truncate ${task.status === 'completed' ? 'line-through opacity-50' : ''}`}>
                         {task.title}
@@ -192,7 +189,7 @@ export default function DashboardPage() {
               </div>
             )}
 
-            <Link href="/tasks">
+            <Link to="/tasks">
               <Button variant="outline" className="w-full" size="sm">
                 View All {visuals.labels.tasks}
               </Button>
@@ -217,13 +214,13 @@ export default function DashboardPage() {
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3">
-          <Link href="/tasks">
+          <Link to="/tasks">
             <Button className="w-full h-12 gap-2" variant="default">
               <Plus className="w-4 h-4" />
               New Task
             </Button>
           </Link>
-          <Link href="/financial">
+          <Link to="/financial">
             <Button className="w-full h-12 gap-2" variant="secondary">
               <Plus className="w-4 h-4" />
               New Transaction

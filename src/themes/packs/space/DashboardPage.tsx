@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, ChevronRight, Check, Clock, BookOpen, Heart } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function SpaceDashboardPage({
   todayTasks,
@@ -118,7 +116,7 @@ export function SpaceDashboardPage({
                 <p className="text-white/90 text-sm font-medium">2:00 PM - 3:30 PM</p>
               </div>
             </div>
-            <Link href="/tasks" className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 text-white border border-white/20 transition-colors">
+            <Link to="/tasks" className="bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-2 text-white border border-white/20 transition-colors">
               <ChevronRight className="w-5 h-5" />
             </Link>
           </div>
@@ -136,9 +134,9 @@ export function SpaceDashboardPage({
               </h3>
               <p className="text-xs text-stone-500 dark:text-stone-400 mt-1">{today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</p>
             </div>
-            <button className="text-[#8C6A5D] text-xs font-bold uppercase tracking-wide px-3 py-1 bg-[#8C6A5D]/10 rounded-full hover:bg-[#8C6A5D]/20 transition-colors">
+            <Link to="/financial" className="text-[#8C6A5D] text-xs font-bold uppercase tracking-wide px-3 py-1 bg-[#8C6A5D]/10 rounded-full hover:bg-[#8C6A5D]/20 transition-colors">
               Details
-            </button>
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-4 relative z-10">
             <div className="flex flex-col gap-1">

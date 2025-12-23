@@ -64,7 +64,7 @@ export interface SettingsPageProps {
   setTheme: (id: string) => void;
   reduceMotion: boolean;
   setReduceMotion: (value: boolean) => void;
-  themeList: { id: string; name: string; tokens: { primary: string; accent: string } }[];
+  themeList: { id: string; name: string; tokens: { primary: string; accent: string }; preview?: { accent: string; icon?: string } }[];
   currentTheme: { name: string; tokens: { primary: string; accent: string } };
   handleExport: () => void;
   handleImport: () => void;

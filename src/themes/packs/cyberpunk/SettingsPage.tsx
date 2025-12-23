@@ -63,6 +63,14 @@ export function CyberpunkSettingsPage({
                     <div className="absolute inset-0 opacity-60 group-hover:opacity-80 transition-opacity"
                       style={{ background: `linear-gradient(135deg, ${t.tokens.primary} 0%, ${t.tokens.accent} 100%)` }} />
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+                    
+                    {/* Theme Icon */}
+                    {t.preview?.icon && (
+                      <div className="absolute inset-0 flex items-center justify-center z-10">
+                        <span className="text-5xl opacity-90 drop-shadow-[0_0_10px_rgba(0,255,255,0.5)]">{t.preview.icon}</span>
+                      </div>
+                    )}
+                    
                     {isActive && (
                       <>
                         <div className="absolute top-2 right-2 bg-[#00ffff] text-black rounded px-1.5 py-0.5 shadow-lg flex items-center justify-center">

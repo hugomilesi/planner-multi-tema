@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, ChevronRight, Check, Clock, Plus, Wallet } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function OceanDashboardPage({
   todayTasks,
@@ -99,7 +97,7 @@ export function OceanDashboardPage({
                   <p className="text-white/90 text-sm font-medium">2:00 PM - 3:30 PM</p>
                 </div>
               </div>
-              <Link href="/tasks" className="bg-[#137fec] rounded-full p-2 text-white shadow-lg shadow-[#137fec]/30">
+              <Link to="/tasks" className="bg-[#137fec] rounded-full p-2 text-white shadow-lg shadow-[#137fec]/30">
                 <ChevronRight className="w-5 h-5" />
               </Link>
             </div>
@@ -116,7 +114,7 @@ export function OceanDashboardPage({
                   {today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
                 </p>
               </div>
-              <Link href="/financial">
+              <Link to="/financial">
                 <button className="text-[#137fec] text-xs font-bold uppercase tracking-wide px-3 py-1 bg-[#137fec]/10 rounded-full hover:bg-[#137fec]/20 transition-colors">
                   Details
                 </button>

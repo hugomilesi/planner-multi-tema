@@ -64,5 +64,6 @@ export const spaceTheme: ThemePack = {
   },
   preview: {
     accent: '#8B5CF6',
+    icon: '🚀',
   },
 };

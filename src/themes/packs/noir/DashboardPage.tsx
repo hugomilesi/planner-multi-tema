@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, ChevronRight, Clock, Check, PiggyBank } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function NoirDashboardPage({
   todayTasks,
@@ -124,7 +122,7 @@ export function NoirDashboardPage({
                     <p className="text-white text-sm font-bold font-[family-name:var(--font-quicksand)]">2:00 PM - 3:30 PM</p>
                   </div>
                 </div>
-                <Link href="/tasks" className="bg-white rounded-2xl p-3 text-[#4FACFE] shadow-lg group-hover:bg-[#FFD200] group-hover:text-white transition-colors">
+                <Link to="/tasks" className="bg-white rounded-2xl p-3 text-[#4FACFE] shadow-lg group-hover:bg-[#FFD200] group-hover:text-white transition-colors">
                   <ChevronRight className="w-6 h-6" />
                 </Link>
               </div>
@@ -149,7 +147,7 @@ export function NoirDashboardPage({
                   </p>
                 </div>
               </div>
-              <Link href="/financial">
+              <Link to="/financial">
                 <button className="text-white text-xs font-bold uppercase tracking-wide px-4 py-2 bg-[#2ECC71] rounded-xl shadow-[0_4px_0_rgb(34,197,94)] active:shadow-none active:translate-y-[4px] transition-all">
                   See All
                 </button>

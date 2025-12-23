@@ -1,9 +1,7 @@
-'use client';
-
 import { useState, useEffect, useCallback } from 'react';
 import { User } from '@supabase/supabase-js';
 import { createClient } from '@/lib/supabase/client';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 
 interface UserProfile {
   id: string;
@@ -38,8 +36,8 @@ export function useAuth() {
     isLoading: true,
     isAuthenticated: false,
   });
-  
-  const router = useRouter();
+
+  const navigate = useNavigate();
   const supabase = createClient();
 
   const fetchUserData = useCallback(async (user: User) => {
@@ -88,7 +86,7 @@ export function useAuth() {
   useEffect(() => {
     const initAuth = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      
+
       if (user) {
         await fetchUserData(user);
       } else {
@@ -127,9 +125,8 @@ export function useAuth() {
 
   const signOut = useCallback(async () => {
     await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
-  }, [supabase, router]);
+    navigate('/login');
+  }, [supabase, navigate]);
 
   const refreshUser = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();

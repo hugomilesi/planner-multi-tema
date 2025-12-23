@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, Check, Clock, ChevronRight } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function SynthwaveDashboardPage({
   todayTasks,
@@ -107,7 +105,7 @@ export function SynthwaveDashboardPage({
                   <span className="text-white text-base">14:00 - 15:30</span>
                 </div>
               </div>
-              <Link href="/tasks" className="bg-[#4f46e5] border-2 border-white p-2 text-white hover:bg-white hover:text-[#4f46e5] transition-colors">
+              <Link to="/tasks" className="bg-[#4f46e5] border-2 border-white p-2 text-white hover:bg-white hover:text-[#4f46e5] transition-colors">
                 <ChevronRight className="w-6 h-6" />
               </Link>
             </div>
@@ -123,7 +121,7 @@ export function SynthwaveDashboardPage({
                 <h3 className="text-xs font-[family-name:var(--font-press-start)] text-white uppercase">Budget_Stats</h3>
                 <p className="text-lg text-gray-400 mt-1">{today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}.dat</p>
               </div>
-              <Link href="/financial" className="text-white text-xs font-[family-name:var(--font-press-start)] uppercase px-2 py-1 border-2 border-white hover:bg-white hover:text-black transition-colors">
+              <Link to="/financial" className="text-white text-xs font-[family-name:var(--font-press-start)] uppercase px-2 py-1 border-2 border-white hover:bg-white hover:text-black transition-colors">
                 [View]
               </Link>
             </div>
@@ -144,7 +142,7 @@ export function SynthwaveDashboardPage({
                 <div key={i} className={cn(
                   'flex-1 border-x-2 border-t-2 transition-all',
                   i === 5 ? 'bg-[#4f46e5] border-white' :
-                  i >= 3 ? 'bg-[#4f46e5]/60 border-white' : 'bg-gray-700 border-white/10'
+                    i >= 3 ? 'bg-[#4f46e5]/60 border-white' : 'bg-gray-700 border-white/10'
                 )} style={{ height: `${h}%` }} />
               ))}
             </div>

@@ -59,5 +59,6 @@ export const darkAcademiaTheme: ThemePack = {
   },
   preview: {
     accent: '#C9A227',
+    icon: '📚',
   },
 };

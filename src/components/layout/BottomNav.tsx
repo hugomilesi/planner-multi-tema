@@ -1,7 +1,4 @@
-'use client';
-
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Wallet, CheckSquare, Settings, Plus } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { cn } from '@/lib/utils';
@@ -138,13 +135,13 @@ const themeNavStyles: Record<string, NavStyleConfig> = {
 };
 
 export function BottomNav() {
-  const pathname = usePathname();
+  const { pathname } = useLocation();
   const { themeId } = useTheme();
   const navStyle = themeNavStyles[themeId] || themeNavStyles.nordic;
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-50">
-      <div 
+      <div
         className={cn('pb-safe pt-2', navStyle.container)}
         style={navStyle.containerStyle}
       >
@@ -156,7 +153,7 @@ export function BottomNav() {
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={cn(
                   navStyle.item,
                   'transition-colors',
@@ -189,7 +186,7 @@ export function BottomNav() {
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                to={item.href}
                 className={cn(
                   navStyle.item,
                   'transition-colors',

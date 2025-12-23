@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Bell, Check, Clock, Compass, Plane, Landmark, MapPin } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function NordicDashboardPage({
   todayTasks,
@@ -92,7 +90,7 @@ export function NordicDashboardPage({
       {/* Focus Card - Postcard style */}
       <div className="px-4 mt-4">
         <div className="relative rounded-2xl overflow-hidden shadow-lg transform -rotate-1"
-          style={{ 
+          style={{
             background: 'linear-gradient(180deg, rgba(30, 40, 60, 0.7) 0%, rgba(20, 30, 50, 0.95) 100%)',
             border: '4px solid white'
           }}>
@@ -114,7 +112,7 @@ export function NordicDashboardPage({
               <p className="text-white/80 text-sm font-mono">14:00 - 15:30</p>
             </div>
           </div>
-          <Link href="/tasks" className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2.5 text-white">
+          <Link to="/tasks" className="absolute bottom-4 right-4 bg-white/20 backdrop-blur-sm rounded-full p-2.5 text-white">
             <Plane className="w-5 h-5 -rotate-45" />
           </Link>
         </div>
@@ -138,7 +136,7 @@ export function NordicDashboardPage({
                   <p className="text-[10px] font-mono text-[#8a8078] uppercase tracking-wide">{today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()} • LOGBOOK</p>
                 </div>
               </div>
-              <Link href="/financial" className="text-[#3b5998] text-[10px] font-bold uppercase tracking-wider px-2 py-1 border border-[#3b5998] rounded hover:bg-[#3b5998]/10 transition-colors">
+              <Link to="/financial" className="text-[#3b5998] text-[10px] font-bold uppercase tracking-wider px-2 py-1 border border-[#3b5998] rounded hover:bg-[#3b5998]/10 transition-colors">
                 View
               </Link>
             </div>

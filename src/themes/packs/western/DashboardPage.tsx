@@ -1,9 +1,7 @@
-'use client';
-
 import { DashboardPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Star, AlertTriangle, ChevronRight, Clock, Bell } from 'lucide-react';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export function WesternDashboardPage({
   todayTasks,
@@ -17,7 +15,7 @@ export function WesternDashboardPage({
   formatCurrency,
 }: DashboardPageProps) {
   const today = new Date();
-  
+
   // Generate week days for timeline
   const weekDays = Array.from({ length: 6 }, (_, i) => {
     const date = new Date(today);
@@ -162,7 +160,7 @@ export function WesternDashboardPage({
                         </span>
                       </div>
                     )}
-                    <Link href="/tasks">
+                    <Link to="/tasks">
                       <div className="bg-[#DAA520] rounded-full p-2 text-[#5D3A1A] shadow-lg hover:bg-white transition-colors cursor-pointer border border-[#2C241B]">
                         <ChevronRight className="w-5 h-5" />
                       </div>
@@ -180,7 +178,7 @@ export function WesternDashboardPage({
             <div className="absolute inset-0 pointer-events-none"
               style={{ backgroundImage: 'linear-gradient(#e5e7eb 1px, transparent 1px)', backgroundSize: '100% 24px', marginTop: '3.5rem' }} />
             <div className="absolute left-10 top-14 bottom-4 w-px bg-red-300/50 pointer-events-none" />
-            
+
             <div className="flex justify-between items-start p-4 bg-[#EFE6DD] border-b border-double border-gray-400">
               <div>
                 <h3 className="text-lg font-[family-name:var(--font-rye)] text-[#5D3A1A]">Town Bank Ledger</h3>
@@ -188,7 +186,7 @@ export function WesternDashboardPage({
                   {today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                 </p>
               </div>
-              <Link href="/financial">
+              <Link to="/financial">
                 <button className="text-[#A0522D] text-xs font-bold uppercase tracking-wide px-3 py-1 border border-[#A0522D] rounded hover:bg-[#A0522D] hover:text-white transition-colors">
                   Inspect
                 </button>
@@ -257,7 +255,7 @@ export function WesternDashboardPage({
                 const borderColor = task.status === 'completed' ? 'bg-green-700' : task.priority === 'high' ? 'bg-red-800' : task.priority === 'medium' ? 'bg-[#A0522D]' : 'bg-blue-800';
                 const priorityLabel = task.priority === 'high' ? 'High' : task.priority === 'medium' ? 'Med' : 'Low';
                 const priorityColor = task.priority === 'high' ? 'text-red-800 border-red-800' : task.priority === 'medium' ? 'text-[#A0522D] border-[#A0522D]' : 'text-green-800 border-green-800';
-                
+
                 return (
                   <label key={task.id}
                     className="group flex items-center gap-4 p-3 bg-[#F4ECD8] border border-[#6F4E37] active:scale-[0.99] transition-transform cursor-pointer relative overflow-hidden"
@@ -291,7 +289,7 @@ export function WesternDashboardPage({
             )}
           </div>
 
-          <Link href="/tasks" className="block px-4 mt-3">
+          <Link to="/tasks" className="block px-4 mt-3">
             <div className="flex items-center justify-center gap-2 py-2 border-2 border-[#8B5A2B] text-[#5D3A1A] text-sm hover:bg-[#EFE6DD] transition-colors"
               style={{ boxShadow: '2px 2px 0px 0px rgba(93,58,26,0.4)' }}>
               View All Bounties
@@ -322,7 +320,7 @@ export function WesternDashboardPage({
 
         {/* Quick Actions */}
         <div className="grid grid-cols-2 gap-3 px-4">
-          <Link href="/tasks">
+          <Link to="/tasks">
             <button className="w-full py-3 text-[#F4ECD8] text-sm border-2 border-[#5D3A1A] hover:bg-[#A0522D] transition-colors font-bold"
               style={{
                 backgroundColor: '#8B5A2B',
@@ -331,7 +329,7 @@ export function WesternDashboardPage({
               + New Bounty
             </button>
           </Link>
-          <Link href="/financial">
+          <Link to="/financial">
             <button className="w-full py-3 bg-[#F4ECD8] text-[#5D3A1A] text-sm border-2 border-[#8B5A2B] hover:bg-[#EFE6DD] transition-colors font-bold"
               style={{ boxShadow: '2px 2px 0px 0px rgba(93,58,26,0.4)' }}>
               + Transaction

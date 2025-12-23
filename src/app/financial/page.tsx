@@ -1,4 +1,4 @@
-'use client';
+
 
 import { useState, useEffect, ComponentType } from 'react';
 import { Plus, TrendingUp, TrendingDown, Trash2 } from 'lucide-react';

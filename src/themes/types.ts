@@ -76,6 +76,7 @@ export interface ThemePack {
   preview: {
     accent: string;
     thumbnail?: string;
+    icon?: string; // Emoji or icon to represent the theme
   };
 }
 

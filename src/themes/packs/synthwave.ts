@@ -63,5 +63,6 @@ export const synthwaveTheme: ThemePack = {
   },
   preview: {
     accent: '#FF6EC7',
+    icon: '🌆',
   },
 };

@@ -48,6 +48,17 @@
 
 :root {
   --radius: 0.625rem;
+  --font-geist-sans: "Inter", sans-serif;
+  --font-geist-mono: "Roboto Mono", monospace;
+  --font-orbitron: "Orbitron", sans-serif;
+  --font-space-grotesk: "Space Grotesk", sans-serif;
+  --font-playfair: "Playfair Display", serif;
+  --font-caveat: "Caveat", cursive;
+  --font-rye: "Rye", serif;
+  --font-cormorant: "Cormorant Garamond", serif;
+  --font-fredoka: "Fredoka", sans-serif;
+  --font-press-start: "Press Start 2P", cursive;
+  --font-vt323: "VT323", monospace;
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);

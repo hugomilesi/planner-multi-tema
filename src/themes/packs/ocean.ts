@@ -63,5 +63,6 @@ export const oceanTheme: ThemePack = {
   },
   preview: {
     accent: '#00CED1',
+    icon: '🌊',
   },
 };
