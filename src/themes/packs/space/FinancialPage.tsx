@@ -28,7 +28,7 @@ export function SpaceFinancialPage({
             <p className="text-stone-500 dark:text-stone-400 text-xs font-medium italic font-serif">
               {today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}
             </p>
-            <h1 className="text-[28px] font-serif font-bold tracking-tight text-[#8C6A5D] dark:text-[#EAD8C8]">Giving & Budget</h1>
+            <h1 className="text-[28px] font-serif font-bold tracking-tight text-[#8C6A5D] dark:text-[#EAD8C8]">Financial Overview</h1>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
@@ -93,7 +93,7 @@ export function SpaceFinancialPage({
         <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-[#8C6A5D] to-[#D4A373] text-white shadow-lg shadow-[#8C6A5D]/20">
           <div className="flex items-center justify-between">
             <div className="min-w-0 flex-1">
-              <p className="text-white/80 text-xs font-medium mb-1">Current Balance</p>
+              <p className="text-white/80 text-xs font-medium mb-1">Total Balance</p>
               <p className="text-2xl font-serif font-bold truncate">{formatCurrency(balance)}</p>
             </div>
             <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 ml-3">

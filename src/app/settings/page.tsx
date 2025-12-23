@@ -26,7 +26,7 @@ export default function SettingsPage() {
   const { transactions, categories } = useFinancialStore();
   const { user, profile, signOut, isAuthenticated, isLoading } = useAuth();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  
+
   const handleLogout = async () => {
     if (isLoggingOut) return;
     setIsLoggingOut(true);
@@ -39,7 +39,7 @@ export default function SettingsPage() {
 
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<SettingsPageProps> | null>(null);
-  
+
 
   useEffect(() => {
     if (hasCustomPage(themeId, 'settings')) {
@@ -84,14 +84,14 @@ export default function SettingsPage() {
       try {
         const text = await file.text();
         const data = JSON.parse(text);
-        
+
         if (data.preferences?.themeId) {
           setTheme(data.preferences.themeId);
         }
         if (data.preferences?.reduceMotion !== undefined) {
           setReduceMotion(data.preferences.reduceMotion);
         }
-        
+
         alert('Data imported successfully! Please refresh the page to see all changes.');
       } catch {
         alert('Failed to import data. Please check the file format.');
@@ -145,27 +145,65 @@ export default function SettingsPage() {
         </header>
 
         <ThemedCard title="Choose Theme" delay={0}>
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {themeList.map((t) => (
               <button
                 key={t.id}
                 onClick={() => setTheme(t.id as ThemeId)}
-                className={`relative p-3 rounded-xl border-2 transition-all ${
-                  themeId === t.id 
-                    ? 'border-primary ring-2 ring-primary/20' 
-                    : 'border-border hover:border-primary/50'
-                }`}
+                className={`relative group rounded-2xl border-2 transition-all overflow-hidden ${themeId === t.id
+                    ? 'border-primary ring-2 ring-primary/20 scale-[1.02]'
+                    : 'border-border hover:border-primary/50 hover:scale-[1.01]'
+                  }`}
               >
-                <div 
-                  className="w-full h-12 rounded-lg mb-2"
-                  style={{ 
-                    background: `linear-gradient(135deg, ${t.tokens.primary} 0%, ${t.tokens.accent} 100%)`,
-                  }}
-                />
-                <p className="text-xs font-medium truncate">{t.name}</p>
+                {/* Theme Preview - Mini UI */}
+                <div className="aspect-[3/4] p-3 flex flex-col gap-2" style={{ background: t.tokens.background }}>
+                  {/* Mini Header */}
+                  <div className="h-6 rounded-lg flex items-center justify-between px-2" style={{ background: t.tokens.card }}>
+                    <div className="flex gap-1">
+                      <div className="w-1 h-1 rounded-full" style={{ background: t.tokens.primary }} />
+                      <div className="w-1 h-1 rounded-full" style={{ background: t.tokens.secondary }} />
+                    </div>
+                    <div className="w-4 h-1 rounded" style={{ background: t.tokens.muted }} />
+                  </div>
+
+                  {/* Mini Cards */}
+                  <div className="flex-1 grid grid-cols-2 gap-1.5">
+                    <div className="rounded-md p-1.5" style={{ background: t.tokens.card }}>
+                      <div className="w-full h-1 rounded mb-1" style={{ background: t.tokens.primary, opacity: 0.3 }} />
+                      <div className="w-2/3 h-1 rounded" style={{ background: t.tokens.muted }} />
+                    </div>
+                    <div className="rounded-md p-1.5" style={{ background: t.tokens.card }}>
+                      <div className="w-full h-1 rounded mb-1" style={{ background: t.tokens.accent, opacity: 0.3 }} />
+                      <div className="w-2/3 h-1 rounded" style={{ background: t.tokens.muted }} />
+                    </div>
+                  </div>
+
+                  {/* Mini Chart Area */}
+                  <div className="h-12 rounded-lg p-2 flex items-end justify-around gap-0.5" style={{ background: t.tokens.card }}>
+                    <div className="w-1 rounded-t" style={{ background: t.tokens.primary, height: '60%' }} />
+                    <div className="w-1 rounded-t" style={{ background: t.tokens.primary, height: '80%' }} />
+                    <div className="w-1 rounded-t" style={{ background: t.tokens.primary, height: '40%' }} />
+                    <div className="w-1 rounded-t" style={{ background: t.tokens.primary, height: '90%' }} />
+                    <div className="w-1 rounded-t" style={{ background: t.tokens.primary, height: '70%' }} />
+                  </div>
+
+                  {/* Mini FAB */}
+                  <div className="absolute bottom-2 right-2 w-6 h-6 rounded-full shadow-lg flex items-center justify-center" style={{ background: t.tokens.primary }}>
+                    <svg className="w-3 h-3" style={{ color: t.tokens.primaryForeground }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M12 4v16m8-8H4" />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Theme Name */}
+                <div className="p-2 border-t" style={{ background: t.tokens.card, borderColor: t.tokens.border }}>
+                  <p className="text-xs font-semibold truncate text-center" style={{ color: t.tokens.foreground }}>{t.name}</p>
+                </div>
+
+                {/* Selected Indicator */}
                 {themeId === t.id && (
-                  <div className="absolute top-1 right-1 w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-primary-foreground" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div className="absolute top-2 right-2 w-6 h-6 rounded-full flex items-center justify-center shadow-lg" style={{ background: t.tokens.primary }}>
+                    <svg className="w-3 h-3" style={{ color: t.tokens.primaryForeground }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
@@ -178,9 +216,9 @@ export default function SettingsPage() {
         <ThemedCard title="Current Theme" delay={1}>
           <div className="space-y-3">
             <div className="flex items-center gap-3">
-              <div 
+              <div
                 className="w-12 h-12 rounded-xl"
-                style={{ 
+                style={{
                   background: `linear-gradient(135deg, ${theme.tokens.primary} 0%, ${theme.tokens.accent} 100%)`,
                 }}
               />
@@ -189,9 +227,9 @@ export default function SettingsPage() {
                 <p className="text-xs text-muted-foreground">{theme.description}</p>
               </div>
             </div>
-            
+
             <Separator />
-            
+
             <div className="grid grid-cols-5 gap-2">
               <div className="text-center">
                 <div className="w-8 h-8 rounded-full mx-auto mb-1" style={{ background: theme.tokens.primary }} />
@@ -240,16 +278,16 @@ export default function SettingsPage() {
 
         <ThemedCard title="Data Management" delay={3}>
           <div className="space-y-3">
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full justify-start gap-3"
               onClick={handleExport}
             >
               <Download className="w-4 h-4" />
               Export Data
             </Button>
-            <Button 
-              variant="outline" 
+            <Button
+              variant="outline"
               className="w-full justify-start gap-3"
               onClick={handleImport}
             >
@@ -276,9 +314,9 @@ export default function SettingsPage() {
                   </p>
                 </div>
               </div>
-              
-              <Button 
-                variant="destructive" 
+
+              <Button
+                variant="destructive"
                 className="w-full justify-start gap-3"
                 onClick={handleLogout}
                 disabled={isLoggingOut}

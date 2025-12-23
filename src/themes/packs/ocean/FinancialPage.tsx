@@ -93,7 +93,7 @@ export function OceanFinancialPage({
         <div className="mb-6 p-4 rounded-2xl bg-gradient-to-br from-[#137fec] to-[#0ea5e9] text-white shadow-lg shadow-[#137fec]/20">
           <div className="flex items-center justify-between">
             <div className="min-w-0 flex-1">
-              <p className="text-white/80 text-xs font-medium mb-1">Current Balance</p>
+              <p className="text-white/80 text-xs font-medium mb-1">Total Balance</p>
               <p className="text-2xl font-bold truncate">{formatCurrency(balance)}</p>
             </div>
             <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0 ml-3">

@@ -32,7 +32,7 @@ export function SynthwaveFinancialPage({
               <span className="font-[family-name:var(--font-press-start)] text-[8px]">$</span>
             </div>
             <h2 className="text-2xl font-bold uppercase tracking-widest mt-1">
-              Finance<span className="text-[#6366F1]">OS</span>
+              FINANCIAL<span className="text-[#6366F1]"> OVERVIEW</span>
             </h2>
           </div>
           <button className="flex items-center justify-center w-10 h-10 border-2 border-[#525252] bg-[#1E1E1E] transition-all active:translate-x-[2px] active:translate-y-[2px] hover:bg-[#525252] hover:text-[#121212]"
@@ -80,7 +80,7 @@ export function SynthwaveFinancialPage({
             style={{ boxShadow: '3px 3px 0px 0px #000000' }}>
             <div className="flex flex-col h-full justify-between">
               <div className="flex items-start justify-between mb-1">
-                <span className="text-lg uppercase font-bold">In</span>
+                <span className="text-lg uppercase font-bold">Income</span>
                 <div className="w-5 h-5 border border-[#10B981] flex items-center justify-center bg-[#10B981]/10 shrink-0">
                   <Plus className="w-3 h-3 text-[#10B981]" />
                 </div>
@@ -92,7 +92,7 @@ export function SynthwaveFinancialPage({
             style={{ boxShadow: '3px 3px 0px 0px #000000' }}>
             <div className="flex flex-col h-full justify-between">
               <div className="flex items-start justify-between mb-1">
-                <span className="text-lg uppercase font-bold">Out</span>
+                <span className="text-lg uppercase font-bold">Expenses</span>
                 <div className="w-5 h-5 border border-[#EF4444] flex items-center justify-center bg-[#EF4444]/10 shrink-0">
                   <span className="text-[#EF4444] font-bold text-sm">-</span>
                 </div>
@@ -108,7 +108,7 @@ export function SynthwaveFinancialPage({
             style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
             <div className="flex items-center justify-between mb-6 border-b-2 border-[#525252]/30 pb-2">
               <div>
-                <h3 className="text-2xl font-bold text-[#E5E5E5] uppercase leading-none">Analysis</h3>
+                <h3 className="text-2xl font-bold text-[#E5E5E5] uppercase leading-none">Weekly Overview</h3>
                 <p className="text-lg text-[#A3A3A3] mt-1">
                   {today.toLocaleDateString('en-US', { month: 'short' })} 01 - 31
                 </p>
@@ -146,7 +146,7 @@ export function SynthwaveFinancialPage({
         {/* Budgets */}
         <div className="px-4 mb-8">
           <div className="flex items-center justify-between mb-4 border-b-2 border-[#525252] pb-1">
-            <h3 className="text-2xl font-bold uppercase">Budgets</h3>
+            <h3 className="text-2xl font-bold uppercase">Expenses by Category</h3>
             <button className="text-[#6366F1] text-xl underline hover:no-underline hover:text-[#E5E5E5]">EDIT</button>
           </div>
           <div className="space-y-4">
@@ -191,7 +191,7 @@ export function SynthwaveFinancialPage({
         {/* Transactions */}
         <div className="px-4 flex-1">
           <div className="flex items-center justify-between mb-4 border-b-2 border-[#525252] pb-1">
-            <h3 className="text-2xl font-bold uppercase">Transactions</h3>
+            <h3 className="text-2xl font-bold uppercase">Recent Transactions</h3>
             <button className="text-[#6366F1] text-xl underline hover:no-underline hover:text-[#E5E5E5]">ALL</button>
           </div>
           <div className="space-y-3">

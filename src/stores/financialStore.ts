@@ -28,20 +28,20 @@ interface FinancialStore {
   isLoading: boolean;
   tenantId: string | null;
   userId: string | null;
-  
+
   setContext: (tenantId: string, userId: string) => void;
   fetchData: () => Promise<void>;
-  
+
   addTransaction: (transaction: Omit<Transaction, 'id' | 'createdAt'>) => Promise<void>;
   updateTransaction: (id: string, updates: Partial<Transaction>) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
-  
+
   addCategory: (category: Omit<Category, 'id'>) => Promise<void>;
   updateCategory: (id: string, updates: Partial<Category>) => Promise<void>;
   deleteCategory: (id: string) => Promise<void>;
-  
+
   setCurrency: (currency: string) => void;
-  
+
   getMonthlyBalance: (year: number, month: number) => { income: number; expense: number; balance: number };
   getCategorySpending: (categoryId: string, year: number, month: number) => number;
   getTransactionsByMonth: (year: number, month: number) => Transaction[];
@@ -126,13 +126,13 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
 
     const categories: Category[] = categoriesData && categoriesData.length > 0
       ? categoriesData.map((c) => ({
-          id: c.id,
-          name: c.name,
-          icon: c.icon || '📦',
-          color: c.color || '#6b7280',
-          type: c.type as 'income' | 'expense',
-          isDefault: c.is_default || false,
-        }))
+        id: c.id,
+        name: c.name,
+        icon: c.icon || '📦',
+        color: c.color || '#6b7280',
+        type: c.type as 'income' | 'expense',
+        isDefault: c.is_default || false,
+      }))
       : defaultCategories;
 
     set({
@@ -145,7 +145,12 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
 
   addTransaction: async (transaction) => {
     const { tenantId, userId } = get();
-    if (!tenantId || !userId) return;
+    console.log('🔵 addTransaction called with:', { transaction, tenantId, userId });
+
+    if (!tenantId || !userId) {
+      console.error('❌ Missing tenantId or userId');
+      return;
+    }
 
     const supabase = createClient();
 
@@ -164,9 +169,11 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
       .single();
 
     if (error) {
-      console.error('Error adding transaction:', error);
+      console.error('❌ Error adding transaction:', error);
       return;
     }
+
+    console.log('✅ Transaction saved to database:', data);
 
     const newTransaction: Transaction = {
       id: data.id,
@@ -178,7 +185,11 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
       createdAt: data.created_at || new Date().toISOString(),
     };
 
-    set((state) => ({ transactions: [newTransaction, ...state.transactions] }));
+    set((state) => {
+      const updatedTransactions = [newTransaction, ...state.transactions];
+      console.log('✅ Store updated, new transactions count:', updatedTransactions.length);
+      return { transactions: updatedTransactions };
+    });
   },
 
   updateTransaction: async (id, updates) => {

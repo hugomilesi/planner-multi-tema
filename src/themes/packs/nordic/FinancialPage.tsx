@@ -32,7 +32,7 @@ export function NordicFinancialPage({
             <p className="text-[#5d5650] text-[10px] font-mono font-bold uppercase tracking-widest">
               {today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()} • LOGBOOK
             </p>
-            <h1 className="text-[28px] font-serif font-bold italic text-[#2c2825]">Travel Budget</h1>
+            <h1 className="text-[28px] font-serif font-bold italic text-[#2c2825]">Financial Overview</h1>
           </div>
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
@@ -109,7 +109,7 @@ export function NordicFinancialPage({
               <div className="flex items-center gap-2">
                 <Landmark className="w-4 h-4 text-[#5d5650]" />
                 <div>
-                  <h3 className="text-base font-serif font-bold text-[#2c2825]">Travel Budget</h3>
+                  <h3 className="text-base font-serif font-bold text-[#2c2825]">Financial Overview</h3>
                   <p className="text-[10px] font-mono text-[#8a8078] uppercase tracking-wide">{today.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }).toUpperCase()} • LOGBOOK</p>
                 </div>
               </div>
@@ -117,11 +117,11 @@ export function NordicFinancialPage({
             <div className="border-t border-dashed border-[#d4c8b8] pt-3">
               <div className="grid grid-cols-2 gap-3 mb-3">
                 <div className="min-w-0">
-                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Spent</span>
+                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Expenses</span>
                   <p className="text-lg font-serif font-bold text-[#2c2825] truncate">{formatCurrency(monthExpense)}</p>
                 </div>
                 <div className="min-w-0">
-                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Allowance</span>
+                  <span className="text-[10px] text-[#8a8078] font-mono uppercase">Income</span>
                   <p className="text-lg font-serif font-bold text-[#8a8078] line-through decoration-[#c24d3b]/50 truncate">{formatCurrency(monthIncome)}</p>
                 </div>
               </div>
@@ -145,7 +145,7 @@ export function NordicFinancialPage({
         {/* Balance Card */}
         <div className="grid grid-cols-2 gap-3 mb-6">
           <div className="p-3 rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm min-w-0">
-            <p className="text-[10px] text-[#8a8078] font-mono uppercase tracking-wider mb-1">Credits</p>
+            <p className="text-[10px] text-[#8a8078] font-mono uppercase tracking-wider mb-1">Income</p>
             <p className="text-lg font-serif font-bold text-[#3b5998] truncate">{formatCurrency(monthIncome)}</p>
           </div>
           <div className="p-3 rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm min-w-0">
@@ -157,7 +157,7 @@ export function NordicFinancialPage({
         {/* Recent Transactions */}
         <div className="rounded-lg bg-[#f5efe8] border border-[#e0d5c8] shadow-sm overflow-hidden">
           <div className="p-4 border-b border-[#e0d5c8] flex items-center justify-between">
-            <h3 className="text-lg font-serif font-bold italic">Expense Log</h3>
+            <h3 className="text-lg font-serif font-bold italic">Recent Transactions</h3>
             <span className="text-[10px] font-mono text-[#8a8078]">{recentTransactions.length} entries</span>
           </div>
           <div className="max-h-64 overflow-y-auto">

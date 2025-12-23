@@ -37,7 +37,7 @@ export function NoirFinancialPage({
               <div className="w-11 h-11 bg-[#FF9F1C] rounded-full flex items-center justify-center text-white shadow-[0_8px_0px_0px_rgba(0,0,0,0.1)] transform active:translate-y-1 transition-transform border-2 border-white">
                 <PiggyBank className="w-5 h-5" />
               </div>
-              <h2 className="text-3xl font-[family-name:var(--font-fredoka)] font-black text-slate-900 tracking-tight">My Wallet</h2>
+              <h2 className="text-3xl font-[family-name:var(--font-fredoka)] font-black text-slate-900 tracking-tight">Financial Overview</h2>
             </div>
             <button className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm border-2 border-slate-200 hover:bg-slate-50 transition-colors text-slate-500 hover:text-[#FF9F1C]">
               <Settings className="w-5 h-5" />
@@ -59,7 +59,7 @@ export function NoirFinancialPage({
             <div className="absolute top-0 right-0 w-32 h-32 bg-white/20 rounded-full -mr-10 -mt-10 blur-sm" />
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-8 -mb-8 blur-sm" />
             <div className="relative z-10 flex flex-col items-center text-center">
-              <p className="text-white/95 font-bold text-lg mb-1 tracking-wide">My Piggy Bank</p>
+              <p className="text-white/95 font-bold text-lg mb-1 tracking-wide">Total Balance</p>
               <h1 className="text-6xl font-[family-name:var(--font-fredoka)] font-black text-white drop-shadow-md mb-5 tracking-tight">
                 {formatCurrency(balance)}
               </h1>
@@ -80,7 +80,7 @@ export function NoirFinancialPage({
               <div className="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center text-green-600 mb-2 rotate-3 group-hover:rotate-6 transition-transform shadow-sm">
                 <PlusCircle className="w-10 h-10" />
               </div>
-              <span className="text-sm font-extrabold text-slate-500 uppercase tracking-wider mb-1">Earned</span>
+              <span className="text-sm font-extrabold text-slate-500 uppercase tracking-wider mb-1">Income</span>
               <p className="text-3xl font-[family-name:var(--font-fredoka)] font-black text-green-600">+{formatCurrency(monthIncome)}</p>
             </div>
           </div>
@@ -89,7 +89,7 @@ export function NoirFinancialPage({
               <div className="w-14 h-14 rounded-2xl bg-red-50 flex items-center justify-center text-red-600 mb-2 -rotate-3 group-hover:-rotate-6 transition-transform shadow-sm">
                 <MinusCircle className="w-10 h-10" />
               </div>
-              <span className="text-sm font-extrabold text-slate-500 uppercase tracking-wider mb-1">Spent</span>
+              <span className="text-sm font-extrabold text-slate-500 uppercase tracking-wider mb-1">Expenses</span>
               <p className="text-3xl font-[family-name:var(--font-fredoka)] font-black text-red-600">-{formatCurrency(monthExpense)}</p>
             </div>
           </div>
@@ -103,7 +103,7 @@ export function NoirFinancialPage({
                 <div className="p-1.5 bg-[#FF9F1C]/10 rounded-lg">
                   <BarChart3 className="w-5 h-5 text-[#FF9F1C]" />
                 </div>
-                Where did it go?
+                Expenses by Category
               </h3>
             </div>
             <div className="flex items-end justify-between h-48 gap-3">
@@ -141,7 +141,7 @@ export function NoirFinancialPage({
         {/* Recent Transactions */}
         <div className="px-6 flex-1 bg-white rounded-t-[3rem] shadow-[0_-10px_40px_-15px_rgba(0,0,0,0.08)] pt-8 pb-8 -mx-1 border-t border-slate-100">
           <div className="flex items-center justify-between mb-6 px-2">
-            <h3 className="text-xl font-[family-name:var(--font-fredoka)] font-extrabold text-slate-900">Recent Fun</h3>
+            <h3 className="text-xl font-[family-name:var(--font-fredoka)] font-extrabold text-slate-900">Recent Transactions</h3>
             <button className="text-[#FF9F1C] text-sm font-bold hover:underline">See All</button>
           </div>
           <div className="space-y-4">
@@ -197,14 +197,14 @@ export function NoirFinancialPage({
           <DialogContent className="bg-[#FFF9F0] border-2 border-[#FF9F1C]/30 text-slate-800 max-w-[90vw] rounded-3xl shadow-[5px_5px_0px_0px_rgba(0,0,0,0.1)]">
             <DialogHeader>
               <DialogTitle className="text-slate-800 text-xl font-[family-name:var(--font-fredoka)] font-bold flex items-center gap-2">
-                <span className="text-2xl">💰</span> Add Money
+                <span className="text-2xl">💰</span> New Transaction
               </DialogTitle>
             </DialogHeader>
             <div className="space-y-4 pt-4">
               <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
                 <TabsList className="w-full grid grid-cols-2 bg-slate-100 rounded-xl">
-                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white font-bold">💵 Earned</TabsTrigger>
-                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-red-500 data-[state=active]:text-white font-bold">🛒 Spent</TabsTrigger>
+                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white font-bold">💵 Income</TabsTrigger>
+                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-red-500 data-[state=active]:text-white font-bold">🛒 Expenses</TabsTrigger>
                 </TabsList>
               </Tabs>
               <div className="space-y-2">

@@ -40,7 +40,7 @@ export function DarkAcademiaFinancialPage({
               <span className="text-[10px] font-semibold tracking-[0.2em] uppercase text-stone-400 mb-0.5">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </span>
-              <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Financial</h2>
+              <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Financial Overview</h2>
             </div>
           </div>
           <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
@@ -94,7 +94,7 @@ export function DarkAcademiaFinancialPage({
         {/* Analytics Chart */}
         <div className="px-6 mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-serif font-medium text-white">Analytics</h3>
+            <h3 className="text-base font-serif font-medium text-white">Weekly Overview</h3>
             <button className="text-[#C5A059] text-xs font-semibold tracking-wide uppercase hover:opacity-80">View Report</button>
           </div>
           <div className="bg-[#18181B] rounded-xl p-5 border border-slate-800 shadow-none">
@@ -121,7 +121,7 @@ export function DarkAcademiaFinancialPage({
         {/* Latest Activity */}
         <div className="px-6 flex-1">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-serif font-medium text-white">Latest Activity</h3>
+            <h3 className="text-base font-serif font-medium text-white">Recent Transactions</h3>
             <button className="text-[#C5A059] text-xs font-semibold tracking-wide uppercase hover:opacity-80">See All</button>
           </div>
           <div className="bg-[#18181B] rounded-xl border border-slate-800 shadow-sm overflow-hidden">

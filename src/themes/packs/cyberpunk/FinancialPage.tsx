@@ -31,7 +31,7 @@ export function CyberpunkFinancialPage({
         backgroundImage: 'linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)',
         backgroundSize: '30px 30px',
       }}>
-      
+
       {/* Noise overlay */}
       <div className="fixed inset-0 pointer-events-none z-50 mix-blend-overlay opacity-20"
         style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cfilter id=\"noise\"%3E%3CfeTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/%3E%3C/filter%3E%3Crect width=\"100%\" height=\"100%\" filter=\"url(%23noise)\"/%3E%3C/svg%3E')" }} />
@@ -44,7 +44,7 @@ export function CyberpunkFinancialPage({
               <span className="text-[#ff00ff] animate-pulse">≡</span>
               <h2 className="text-xl font-bold uppercase tracking-wider text-white font-mono"
                 style={{ textShadow: '0 0 5px rgba(0,243,255,0.7), 0 0 10px rgba(0,243,255,0.5)' }}>
-                FIN.TRACKER
+                FINANCIAL OVERVIEW
               </h2>
             </div>
             <button onClick={() => setShowBalance(!showBalance)}
@@ -72,7 +72,7 @@ export function CyberpunkFinancialPage({
         <div className="flex flex-col items-center pt-6 pb-4 px-4 relative">
           <div className="absolute inset-0 bg-gradient-to-b from-[#00ffff]/5 to-transparent pointer-events-none" />
           <p className="text-[#00ffff] text-[10px] font-mono uppercase tracking-[0.2em] mb-2 border border-[#00ffff]/30 px-2 py-0.5 rounded-sm">
-            System Balance
+            Total Balance
           </p>
           <h1 className="text-4xl font-mono font-bold tracking-tighter text-white"
             style={{ textShadow: '0 0 10px rgba(255,255,255,0.5)' }}>
@@ -121,12 +121,12 @@ export function CyberpunkFinancialPage({
             <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00ffff]" />
             <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00ffff]" />
             <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00ffff]" />
-            
+
             <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
               <div>
                 <h3 className="text-base font-bold uppercase tracking-wider text-white flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-[#00ffff] animate-pulse" />
-                  Analysis Protocol
+                  Weekly Overview
                 </h3>
                 <p className="text-[10px] font-mono text-slate-400 mt-1 uppercase">
                   Cycle: {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(today.getFullYear(), today.getMonth() + 1, 0).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
@@ -148,17 +148,17 @@ export function CyberpunkFinancialPage({
                 const height = Math.max(day.income, day.expense);
                 const heightPercent = (height / max) * 100;
                 const isHighest = i === 2; // Highlight current week
-                
+
                 return (
                   <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
                     <div className="w-full relative h-32 flex items-end justify-center">
                       <div className={cn(
                         'w-full border-2 transition-all duration-300 relative',
-                        isHighest 
-                          ? 'border-[#00ffff] bg-[#00ffff]/20' 
+                        isHighest
+                          ? 'border-[#00ffff] bg-[#00ffff]/20'
                           : 'border-[#bc13fe]/50 bg-[#bc13fe]/5 group-hover:bg-[#bc13fe]/20'
                       )}
-                        style={{ 
+                        style={{
                           height: `${heightPercent}%`,
                           boxShadow: isHighest ? '0 0 15px rgba(0,243,255,0.3)' : '0 0 10px rgba(188,19,254,0.1)'
                         }}>
@@ -189,7 +189,7 @@ export function CyberpunkFinancialPage({
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-lg font-bold text-white uppercase tracking-wider"
               style={{ textShadow: '0 0 5px rgba(255,0,255,0.7), 0 0 10px rgba(255,0,255,0.5)' }}>
-              Allocations
+              Expenses by Category
             </h3>
             <button className="text-[#00ffff] text-xs font-mono uppercase border border-[#00ffff]/30 px-2 py-1 rounded-sm hover:bg-[#00ffff]/10">
               Edit
@@ -200,7 +200,7 @@ export function CyberpunkFinancialPage({
               const colors = ['#fcee0a', '#bc13fe'];
               const color = colors[i % colors.length];
               const percentage = monthExpense > 0 ? (cat.spent / monthExpense) * 100 : 0;
-              
+
               return (
                 <div key={cat.name} className="bg-[#151725] p-4 rounded-sm border border-white/10 group hover:border-opacity-50 transition-colors"
                   style={{ borderColor: `${color}50` }}>
@@ -237,7 +237,7 @@ export function CyberpunkFinancialPage({
         {/* Log Entries */}
         <div className="px-4">
           <div className="flex items-center justify-between mb-4 border-b border-white/10 pb-2">
-            <h3 className="text-lg font-bold text-white uppercase tracking-wider">Log Entries</h3>
+            <h3 className="text-lg font-bold text-white uppercase tracking-wider">Recent Transactions</h3>
             <button className="text-[#00ffff] text-xs font-mono uppercase hover:underline hover:text-white">View All</button>
           </div>
           <div className="space-y-3">
@@ -250,7 +250,7 @@ export function CyberpunkFinancialPage({
                 const cat = categories.find(c => c.id === t.categoryId);
                 const isIncome = t.type === 'income';
                 const borderColor = isIncome ? '#00ff9f' : '#ff00ff';
-                
+
                 return (
                   <div key={t.id}
                     className="flex items-center justify-between p-3 rounded-sm bg-[#1e2136]/30 border border-transparent transition-all cursor-pointer group"
@@ -303,10 +303,10 @@ export function CyberpunkFinancialPage({
             <div className="space-y-4 pt-4">
               <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
                 <TabsList className="w-full grid grid-cols-2 bg-[#151725] rounded-lg">
-                  <TabsTrigger value="expense" className="data-[state=active]:bg-[#ff00ff] data-[state=active]:text-black rounded-md">
+                  <TabsTrigger value="expense" className="data-[state=active]:bg-[#ff00ff] data-[state=active]:text-black rounded-md cursor-pointer">
                     EXPENSE
                   </TabsTrigger>
-                  <TabsTrigger value="income" className="data-[state=active]:bg-[#00ff9f] data-[state=active]:text-black rounded-md">
+                  <TabsTrigger value="income" className="data-[state=active]:bg-[#00ff9f] data-[state=active]:text-black rounded-md cursor-pointer">
                     INCOME
                   </TabsTrigger>
                 </TabsList>
@@ -321,12 +321,17 @@ export function CyberpunkFinancialPage({
                 <Label className="text-[#ff00ff] text-xs font-bold uppercase">Category</Label>
                 <Select value={newTransaction.categoryId}
                   onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg">
+                  <SelectTrigger className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg cursor-pointer">
                     <SelectValue placeholder="Select..." />
                   </SelectTrigger>
-                  <SelectContent className="bg-[#151725] border-[#bc13fe] rounded-lg">
+                  <SelectContent className="bg-[#151725] border-[#bc13fe] rounded-lg z-[100]">
                     {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
+                      <SelectItem key={cat.id} value={cat.id} className="cursor-pointer hover:bg-[#ff00ff]/20 focus:bg-[#ff00ff]/20 text-white">
+                        <span className="flex items-center gap-2">
+                          <span>{cat.icon}</span>
+                          <span>{cat.name}</span>
+                        </span>
+                      </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
@@ -336,7 +341,7 @@ export function CyberpunkFinancialPage({
                   <Label className="text-[#ff00ff] text-xs font-bold uppercase">Date</Label>
                   <Input type="date" value={newTransaction.date}
                     onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg" />
+                    className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg cursor-pointer" />
                 </div>
                 <div className="space-y-2">
                   <Label className="text-[#ff00ff] text-xs font-bold uppercase">Note</Label>
@@ -345,7 +350,7 @@ export function CyberpunkFinancialPage({
                     className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg" />
                 </div>
               </div>
-              <button onClick={handleAddTransaction}
+              <button onClick={handleAddTransaction} type="button"
                 className="w-full py-3 rounded-lg bg-gradient-to-r from-[#ff00ff] to-[#bc13fe] text-white font-[family-name:var(--font-orbitron)] tracking-wider hover:opacity-90 transition-opacity"
                 style={{ boxShadow: '0 0 15px rgba(255,0,255,0.4)' }}>
                 EXECUTE TRANSACTION

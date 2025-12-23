@@ -26,14 +26,14 @@ export function WesternFinancialPage({
 
       <div className="relative min-h-screen flex flex-col pb-24 max-w-md md:max-w-2xl lg:max-w-4xl mx-auto w-full shadow-2xl overflow-hidden border-x-8 border-[#5c4033]"
         style={{ backgroundColor: '#f3e5ab' }}>
-        
+
         {/* Paper nail decorations */}
         <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-neutral-800 shadow-inner z-50 border border-black opacity-60" />
         <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-neutral-800 shadow-inner z-50 border border-black opacity-60" />
 
         {/* Header */}
         <div className="flex items-center justify-between p-4 pt-8 sticky top-0 z-20 bg-[#f3e5ab]/95 backdrop-blur-sm border-b-2 border-[#2c1810] border-dashed">
-          <h2 className="text-2xl font-[family-name:var(--font-rye)] text-[#2c1810] tracking-wide">The Ledger</h2>
+          <h2 className="text-2xl font-[family-name:var(--font-rye)] text-[#2c1810] tracking-wide">Financial Overview</h2>
           <button className="flex items-center justify-center w-10 h-10 rounded-full hover:bg-[#d4af37]/20 transition-colors text-[#2c1810]">
             <EyeOff className="w-5 h-5" />
           </button>
@@ -62,7 +62,7 @@ export function WesternFinancialPage({
             <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-4 border-l-4 border-[#2c1810]" />
             <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-4 border-r-4 border-[#2c1810]" />
             <p className="text-[#2c1810]/70 text-xs font-bold tracking-widest mb-2 text-center font-[family-name:var(--font-rye)] uppercase border-b border-[#2c1810] pb-1">
-              Current Bounty
+              Total Balance
             </p>
             <h1 className="text-3xl font-bold tracking-tight text-[#2c1810] font-[family-name:var(--font-rye)] flex items-center gap-1 justify-center">
               <span className="text-2xl opacity-80">$</span><span className="truncate">{formatCurrency(balance).replace(/[^\d.,]/g, '')}</span>
@@ -79,7 +79,7 @@ export function WesternFinancialPage({
               <div className="w-7 h-7 rounded-full border-2 border-[#2e4a2e] flex items-center justify-center text-[#2e4a2e] bg-[#2e4a2e]/10 shrink-0">
                 <Plus className="w-3.5 h-3.5" />
               </div>
-              <span className="text-xs font-bold text-[#2c1810] uppercase font-[family-name:var(--font-rye)]">Loot</span>
+              <span className="text-xs font-bold text-[#2c1810] uppercase font-[family-name:var(--font-rye)]">Income</span>
             </div>
             <p className="text-lg font-bold text-[#2e4a2e] border-b-2 border-[#2e4a2e] inline-block truncate max-w-full">
               +{formatCurrency(monthIncome)}
@@ -92,7 +92,7 @@ export function WesternFinancialPage({
               <div className="w-7 h-7 rounded-full border-2 border-[#8b0000] flex items-center justify-center text-[#8b0000] bg-[#8b0000]/10 shrink-0">
                 <span className="text-base font-bold">-</span>
               </div>
-              <span className="text-xs font-bold text-[#2c1810] uppercase font-[family-name:var(--font-rye)]">Losses</span>
+              <span className="text-xs font-bold text-[#2c1810] uppercase font-[family-name:var(--font-rye)]">Expenses</span>
             </div>
             <p className="text-lg font-bold text-[#8b0000] border-b-2 border-[#8b0000] inline-block truncate max-w-full">
               -{formatCurrency(monthExpense)}
@@ -107,7 +107,7 @@ export function WesternFinancialPage({
             <div className="absolute -top-2 -right-2 bg-neutral-400 w-4 h-4 rounded-full shadow border border-black z-10" />
             <div className="flex items-center justify-between mb-6">
               <div>
-                <h3 className="text-base font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase tracking-wider">Spending Trail</h3>
+                <h3 className="text-base font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase tracking-wider">Weekly Overview</h3>
                 <p className="text-xs text-[#2c1810]/60 mt-1">
                   {today.toLocaleDateString('en-US', { month: 'short' })} 1 - {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                 </p>
@@ -148,7 +148,7 @@ export function WesternFinancialPage({
         {/* Monthly Rations */}
         <div className="px-4 mb-8">
           <div className="flex items-center justify-between mb-4 border-b border-[#2c1810] pb-2 border-dashed">
-            <h3 className="text-lg font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase">Monthly Rations</h3>
+            <h3 className="text-lg font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase">Expenses by Category</h3>
             <button className="text-[#2c1810] text-sm font-bold uppercase hover:text-[#d4af37] transition-colors font-[family-name:var(--font-rye)]">
               Modify
             </button>
@@ -158,7 +158,7 @@ export function WesternFinancialPage({
               const icons = [ShoppingBag, Compass];
               const Icon = icons[i % icons.length];
               const percentage = cat.percentage || 0;
-              
+
               return (
                 <div key={cat.name} className="bg-[#fffdf0]/50 p-4 border-b border-[#2c1810]/30 relative">
                   <div className="flex justify-between items-center mb-2">
@@ -186,7 +186,7 @@ export function WesternFinancialPage({
         <div className="px-4 flex-1 border-t-4 border-double border-[#2c1810] pt-6"
           style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/lined-paper-2.png')" }}>
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase">Recent Dealings</h3>
+            <h3 className="text-lg font-bold text-[#2c1810] font-[family-name:var(--font-rye)] uppercase">Recent Transactions</h3>
             <button className="text-[#2c1810] text-sm font-bold hover:underline font-[family-name:var(--font-rye)] uppercase">See All</button>
           </div>
           <div className="space-y-1">
@@ -198,7 +198,7 @@ export function WesternFinancialPage({
               recentTransactions.slice(0, 4).map((t) => {
                 const cat = categories.find(c => c.id === t.categoryId);
                 const isIncome = t.type === 'income';
-                
+
                 return (
                   <div key={t.id}
                     className="flex items-center justify-between p-3 border-b border-[#2c1810]/20 hover:bg-[#5c4033]/5 transition-colors cursor-pointer group">
@@ -247,10 +247,10 @@ export function WesternFinancialPage({
               <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
                 <TabsList className="w-full grid grid-cols-2 bg-[#d4c596] rounded-lg">
                   <TabsTrigger value="expense" className="data-[state=active]:bg-[#8b0000] data-[state=active]:text-white rounded-md font-[family-name:var(--font-rye)]">
-                    Losses
+                    Expenses
                   </TabsTrigger>
                   <TabsTrigger value="income" className="data-[state=active]:bg-[#2e4a2e] data-[state=active]:text-white rounded-md font-[family-name:var(--font-rye)]">
-                    Loot
+                    Income
                   </TabsTrigger>
                 </TabsList>
               </Tabs>

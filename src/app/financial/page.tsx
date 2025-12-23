@@ -97,7 +97,7 @@ export default function FinancialPage() {
 
   // Dynamic theme page loading
   const [CustomPage, setCustomPage] = useState<ComponentType<FinancialPageProps> | null>(null);
-  
+
   useEffect(() => {
     if (hasCustomPage(themeId, 'financial')) {
       const themePack = themedPages[themeId as ThemeWithCustomPages];
@@ -120,7 +120,7 @@ export default function FinancialPage() {
     const [y, m, d] = dateId.split('-').map(Number);
     return new Date(y, (m ?? 1) - 1, d ?? 1);
   };
-  
+
   const [newTransaction, setNewTransaction] = useState({
     amount: '',
     categoryId: '',
@@ -151,17 +151,30 @@ export default function FinancialPage() {
     }).format(value);
   };
 
-  const handleAddTransaction = () => {
+  const handleAddTransaction = async () => {
     const amount = parseFloat(newTransaction.amount);
-    if (isNaN(amount) || amount <= 0 || !newTransaction.categoryId) return;
+    if (isNaN(amount) || amount <= 0 || !newTransaction.categoryId) {
+      console.log('❌ Validation failed:', { amount, categoryId: newTransaction.categoryId });
+      return;
+    }
 
-    addTransaction({
+    console.log('✅ Adding transaction:', {
       type: transactionType,
       amount,
       categoryId: newTransaction.categoryId,
       date: newTransaction.date,
       note: newTransaction.note,
     });
+
+    await addTransaction({
+      type: transactionType,
+      amount,
+      categoryId: newTransaction.categoryId,
+      date: newTransaction.date,
+      note: newTransaction.note,
+    });
+
+    console.log('✅ Transaction added, current transactions count:', transactions.length);
 
     setNewTransaction({
       amount: '',
@@ -245,7 +258,7 @@ export default function FinancialPage() {
               {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
             </p>
           </div>
-          
+
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
               <Button size="icon" className="rounded-full h-12 w-12">
@@ -313,7 +326,7 @@ export default function FinancialPage() {
                       onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
                     />
                   </div>
-                  
+
                   <div className="space-y-2">
                     <Label htmlFor="note">Note</Label>
                     <Input
@@ -357,7 +370,7 @@ export default function FinancialPage() {
 
         {pieData.length > 0 && (
           <ThemedCard title={visuals.labels.financial + ' by Category'} delay={2}>
-            <ThemedPieChart 
+            <ThemedPieChart
               data={pieData}
               size={180}
               showLegend={true}
@@ -367,7 +380,7 @@ export default function FinancialPage() {
         )}
 
         <ThemedCard title="Last 7 Days" delay={3}>
-          <ThemedBarChart 
+          <ThemedBarChart
             data={last7Days.map(d => ({
               label: d.day,
               value: d.income,
@@ -400,7 +413,7 @@ export default function FinancialPage() {
                       {formatCurrency(cat.spent)} / {formatCurrency(cat.budget!)}
                     </span>
                   </div>
-                  <ThemedProgress 
+                  <ThemedProgress
                     value={cat.spent}
                     max={cat.budget!}
                     showPercentage={false}
