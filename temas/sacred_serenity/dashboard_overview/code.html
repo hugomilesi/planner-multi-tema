@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Dashboard Overview - Elegance Noir</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Lato:wght@300;400;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#C5A059", // Elegant Gold
+                        "primary-light": "#F0E6D2", // Champagne / Pale Gold
+                        "primary-dim": "#8A7029", // Darker Gold for depth
+                        "accent": "#DBB87C", // Lighter Gold Accent
+                        "background-light": "#FAF7F2",
+                        "background-dark": "#050505", // True Noir (Deep Black)
+                        "surface-light": "#FFFFFF",
+                        "surface-dark": "#121212", // Very dark surface
+                        "surface-card": "#1A1A1A", // Card surface
+                        "soft-blue": "#A3B8C8",
+                        "sage": "#A3C4BC",
+                        "gold-text": "#E8C888", // Text Gold
+                    },
+                    fontFamily: {
+                        "serif": ["Lora", "serif"],
+                        "sans": ["Lato", "sans-serif"]
+                    },
+                    backgroundImage: {
+                        'stained-glass': "url('https://images.unsplash.com/photo-1457296898342-cdd24585d095?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')",
+                        'sunrise': "url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80')",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-sans text-stone-800 dark:text-stone-200 selection:bg-primary selection:text-white">
+<div class="fixed inset-0 z-0 pointer-events-none hidden dark:block opacity-20 bg-stained-glass bg-cover bg-center mix-blend-soft-light"></div>
+<div class="fixed inset-0 z-0 pointer-events-none hidden dark:block bg-gradient-to-b from-background-dark/50 via-background-dark/90 to-background-dark"></div>
+<div class="relative flex h-full min-h-screen w-full flex-col overflow-x-hidden pb-24 z-10">
+<header class="flex flex-col relative sticky top-0 z-20 transition-all duration-300">
+<div class="absolute inset-0 bg-background-light/95 dark:bg-background-dark/80 backdrop-blur-xl z-0 border-b border-primary/10 dark:border-primary/20"></div>
+<div class="flex items-center justify-between p-4 pb-2 relative z-10">
+<div class="flex items-center gap-3">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-12 ring-2 ring-primary/30 dark:ring-primary/40 shadow-lg shadow-primary/5" data-alt="Portrait of a smiling user" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBAw6PVEMs2IEVevYS3tCwtwZkR3Ri4sKgUCAnIrxYH963lTcmjuEmvKHuZlhwwOpL8YJfmJLp5unlHZGWojFva7pqVIViRCE47EXHDgd8wT1aFemyqxyEXzE_gn_qlMp3x9A9-SlImrLmM9sINqE2DyDTHrTwN5PzuXMh_aV_gFQAFK41nmD1PmwsFeiccpQpy1H1lpYErBZl4LRE1NrjLBXPssxLNtY5-AE_v9NAWPg-tPiNQkbjtXgQs_T0criEIABJSlpTHPbw");'></div>
+<div class="flex flex-col">
+<span class="text-xs font-medium text-stone-500 dark:text-primary-light/70 italic font-serif">Monday, Oct 24</span>
+<h2 class="text-xl font-serif font-bold leading-tight text-primary dark:text-primary-light">Blessings, Alex</h2>
+</div>
+</div>
+<button class="flex items-center justify-center rounded-full size-10 bg-white dark:bg-surface-card text-stone-600 dark:text-primary hover:bg-primary/10 dark:hover:bg-surface-dark transition-all shadow-sm border border-stone-100 dark:border-primary/20">
+<span class="material-symbols-outlined" style="font-size: 24px;">church</span>
+</button>
+</div>
+</header>
+<div class="flex flex-col gap-2 mt-2">
+<div class="flex overflow-x-auto no-scrollbar gap-3 px-4 py-2">
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-primary dark:bg-gradient-to-br dark:from-primary dark:to-primary-dim text-white dark:text-background-dark shadow-lg shadow-primary/20 shrink-0 border border-primary dark:border-primary-light/50 relative overflow-hidden group">
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+<span class="text-xs font-medium opacity-90 font-serif relative z-10">Mon</span>
+<span class="text-lg font-bold relative z-10">24</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-card/60 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-white/5 shrink-0 backdrop-blur-sm hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
+<span class="text-xs font-medium text-stone-400 dark:text-stone-500 font-serif">Tue</span>
+<span class="text-lg font-bold">25</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-card/60 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-white/5 shrink-0 backdrop-blur-sm hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
+<span class="text-xs font-medium text-stone-400 dark:text-stone-500 font-serif">Wed</span>
+<span class="text-lg font-bold">26</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-card/60 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-white/5 shrink-0 backdrop-blur-sm hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
+<span class="text-xs font-medium text-stone-400 dark:text-stone-500 font-serif">Thu</span>
+<span class="text-lg font-bold">27</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-card/60 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-white/5 shrink-0 backdrop-blur-sm hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
+<span class="text-xs font-medium text-stone-400 dark:text-stone-500 font-serif">Fri</span>
+<span class="text-lg font-bold">28</span>
+</button>
+<button class="flex flex-col items-center justify-center min-w-[3.5rem] h-16 rounded-xl bg-white dark:bg-surface-card/60 text-stone-600 dark:text-stone-400 border border-stone-200 dark:border-white/5 shrink-0 backdrop-blur-sm hover:border-primary/30 dark:hover:border-primary/30 transition-colors">
+<span class="text-xs font-medium text-stone-400 dark:text-stone-500 font-serif">Sat</span>
+<span class="text-lg font-bold">29</span>
+</button>
+</div>
+</div>
+<div class="px-4 mt-4">
+<div class="relative overflow-hidden rounded-2xl shadow-md border border-stone-100 dark:border-primary/20 dark:bg-surface-card">
+<div class="absolute inset-0 bg-sunrise bg-cover bg-center opacity-20 dark:opacity-10 mix-blend-multiply dark:mix-blend-luminosity"></div>
+<div class="relative bg-gradient-to-r from-primary/10 to-accent/5 dark:from-surface-dark/80 dark:to-surface-card/50 p-5">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary dark:text-primary" style="font-size: 20px;">auto_stories</span>
+<h3 class="text-sm font-bold text-primary dark:text-primary uppercase tracking-wider">Verse of the Day</h3>
+</div>
+<p class="font-serif italic text-stone-700 dark:text-stone-200 text-lg leading-relaxed drop-shadow-sm">
+                    "For I know the plans I have for you," declares the Lord, "plans to prosper you and not to harm you, plans to give you hope and a future."
+                </p>
+<p class="text-right text-xs font-bold text-primary dark:text-accent mt-3 border-t border-primary/20 dark:border-primary/20 inline-block pt-2 ml-auto">— Jeremiah 29:11</p>
+</div>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-2 p-4 rounded-xl bg-white dark:bg-surface-card/90 backdrop-blur-sm border border-stone-100 dark:border-primary/10 shadow-sm">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent dark:text-primary" style="font-size: 18px;">spa</span>
+<p class="text-sm font-semibold text-stone-800 dark:text-primary-light font-serif">Stewardship Goals</p>
+</div>
+<p class="text-xs font-medium text-primary dark:text-primary">65%</p>
+</div>
+<div class="h-2 w-full rounded-full bg-stone-100 dark:bg-surface-dark overflow-hidden border border-transparent dark:border-white/5">
+<div class="h-full rounded-full bg-gradient-to-r from-primary to-accent dark:from-primary-dark dark:to-primary shadow-[0_0_10px_rgba(197,160,89,0.3)]" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="relative rounded-xl overflow-hidden shadow-lg group cursor-pointer pt-32 transition-transform active:scale-[0.99] border border-transparent dark:border-primary/20">
+<div class="absolute inset-0 z-0 bg-cover bg-center opacity-90 dark:opacity-60 grayscale-[30%] sepia-[20%]" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuB9Op1CSYUM9lHuBnRZa2UF9n3xcKnRFmzR3Nzbjat9IdMuht2webMPiuNsVAP1l4n2pFcuOAJ-m2LWdcTbp-zbJS91L6hpYZ1Sn9gj9D3Wnz96e380zpactrmzJw_T_7vG3HXKHi7Hhj0AsxzSjYISzwJo8Zl237mdXd7TQRHwl-DxsAjc3esVULqxlXI69CiwSR-n8xgvaXWfJlc2nZm6NS-NQTkXeo2ErV4XjiN1b9H4CW2AV1vCkylFpvIveUFHPCk0jN1jr2o");'></div>
+<div class="absolute inset-0 z-0 bg-gradient-to-t from-stone-900/90 via-stone-800/40 to-transparent dark:from-background-dark/95 dark:via-background-dark/40"></div>
+<div class="absolute top-3 right-3 bg-white/20 dark:bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-white dark:text-primary-light uppercase tracking-wider border border-white/20 dark:border-primary/30 flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px] text-primary dark:text-primary">star</span> Priority
+            </div>
+<div class="flex w-full items-end justify-between gap-4 p-5 relative z-10">
+<div class="flex flex-1 flex-col gap-1">
+<p class="text-accent dark:text-primary text-xs font-bold uppercase tracking-wider">Today's Mission</p>
+<p class="text-white dark:text-white text-xl font-serif font-bold leading-tight">Charity Board Meeting</p>
+<div class="flex items-center gap-2 mt-1">
+<span class="material-symbols-outlined text-white/80 dark:text-stone-400" style="font-size: 16px;">schedule</span>
+<p class="text-white/90 dark:text-stone-300 text-sm font-medium">2:00 PM - 3:30 PM</p>
+</div>
+</div>
+<div class="bg-white/20 hover:bg-white/30 dark:bg-primary/20 dark:hover:bg-primary/30 backdrop-blur-sm rounded-full p-2 text-white dark:text-primary border border-white/20 dark:border-primary/30 transition-colors">
+<span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+<div class="px-4 mt-6">
+<div class="flex flex-col gap-4 p-5 rounded-xl bg-white dark:bg-surface-card/90 backdrop-blur-sm border border-stone-100 dark:border-primary/10 shadow-sm relative overflow-hidden">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/5 dark:bg-primary/5 rounded-full -mr-16 -mt-16 pointer-events-none"></div>
+<div class="flex justify-between items-start relative z-10">
+<div>
+<h3 class="text-base font-bold text-stone-900 dark:text-primary-light font-serif flex items-center gap-2">
+<span class="material-symbols-outlined text-primary dark:text-primary text-[20px]">account_balance</span>
+                        Monthly Budget
+                    </h3>
+<p class="text-xs text-stone-500 dark:text-stone-500 mt-1">October 2023</p>
+</div>
+<button class="text-primary dark:text-primary text-xs font-bold uppercase tracking-wide px-3 py-1 bg-primary/10 dark:bg-primary/10 rounded-full hover:bg-primary/20 transition-colors border border-transparent dark:border-primary/10">
+                    Details
+                </button>
+</div>
+<div class="grid grid-cols-2 gap-4 relative z-10">
+<div class="flex flex-col gap-1">
+<span class="text-xs text-stone-500 dark:text-stone-500 font-medium">Spent</span>
+<span class="text-xl font-bold text-stone-800 dark:text-white font-serif">$1,240</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs text-stone-500 dark:text-stone-500 font-medium">Tithe Target (10%)</span>
+<span class="text-xl font-bold text-primary dark:text-primary font-serif">$200</span>
+</div>
+</div>
+<div class="flex items-end gap-1.5 h-12 mt-1 border-b border-stone-100 dark:border-white/5 pb-1 relative z-10">
+<div class="flex-1 bg-stone-100 dark:bg-surface-dark rounded-t-sm h-[30%]"></div>
+<div class="flex-1 bg-stone-100 dark:bg-surface-dark rounded-t-sm h-[50%]"></div>
+<div class="flex-1 bg-stone-100 dark:bg-surface-dark rounded-t-sm h-[40%]"></div>
+<div class="flex-1 bg-primary/30 dark:bg-primary/20 rounded-t-sm h-[60%]"></div>
+<div class="flex-1 bg-primary/50 dark:bg-primary/50 rounded-t-sm h-[45%]"></div>
+<div class="flex-1 bg-primary dark:bg-gradient-to-t dark:from-primary-dark dark:to-primary rounded-t-sm h-[85%] relative group shadow-[0_0_8px_rgba(197,160,89,0.2)]">
+<div class="absolute -top-7 left-1/2 -translate-x-1/2 bg-stone-800 dark:bg-primary dark:text-background-dark text-white text-[9px] px-2 py-1 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap z-20 font-bold">
+                        Today
+                    </div>
+</div>
+<div class="flex-1 bg-stone-100 dark:bg-surface-dark rounded-t-sm h-[20%]"></div>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<div class="flex items-center justify-between px-4 pb-2">
+<h3 class="text-lg font-bold leading-tight font-serif text-stone-800 dark:text-primary-light">Daily Duties</h3>
+<span class="text-xs font-medium text-stone-500 dark:text-stone-400 bg-stone-100 dark:bg-surface-card px-2 py-1 rounded-full border border-stone-200 dark:border-white/5">3 Remaining</span>
+</div>
+<div class="flex flex-col gap-3 px-4 mt-2">
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-card/80 backdrop-blur-sm border border-stone-100 dark:border-white/5 shadow-sm active:scale-[0.99] transition-transform cursor-pointer group hover:border-primary/30 dark:hover:border-primary/30">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-stone-300 dark:border-stone-600 checked:border-primary dark:checked:border-primary checked:bg-primary dark:checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white dark:text-background-dark opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-stone-800 dark:text-stone-200 line-through peer-checked:text-stone-400 dark:peer-checked:text-stone-600">Prayer &amp; Meditation</span>
+<span class="text-xs text-stone-500 dark:text-stone-500 flex items-center gap-1">
+<span class="material-symbols-outlined text-[10px]">wb_sunny</span> Morning
+                    </span>
+</div>
+<span class="bg-primary/10 dark:bg-primary/10 text-primary dark:text-primary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide border border-transparent dark:border-primary/20">High</span>
+</label>
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-card/80 backdrop-blur-sm border border-stone-100 dark:border-white/5 shadow-sm active:scale-[0.99] transition-transform cursor-pointer group hover:border-primary/30 dark:hover:border-primary/30">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-stone-300 dark:border-stone-600 checked:border-primary dark:checked:border-primary checked:bg-primary dark:checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white dark:text-background-dark opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-stone-800 dark:text-stone-200">Church Community Event</span>
+<span class="text-xs text-stone-500 dark:text-stone-500">6:00 PM</span>
+</div>
+<span class="bg-sage/20 dark:bg-surface-dark text-teal-700 dark:text-stone-400 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wide border border-transparent dark:border-white/5">Low</span>
+</label>
+<label class="flex items-center gap-4 p-3 rounded-lg bg-white dark:bg-surface-card/80 backdrop-blur-sm border border-stone-100 dark:border-white/5 shadow-sm active:scale-[0.99] transition-transform cursor-pointer group hover:border-primary/30 dark:hover:border-primary/30">
+<div class="relative flex items-center">
+<input class="peer h-5 w-5 cursor-pointer appearance-none rounded-full border-2 border-stone-300 dark:border-stone-600 checked:border-primary dark:checked:border-primary checked:bg-primary dark:checked:bg-primary transition-all" type="checkbox"/>
+<span class="material-symbols-outlined absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[14px] text-white dark:text-background-dark opacity-0 peer-checked:opacity-100 pointer-events-none font-bold">check</span>
+</div>
+<div class="flex flex-col flex-1">
+<span class="text-sm font-medium text-stone-800 dark:text-stone-200">Review Ministry Budget</span>
+<span class="text-xs text-stone-500 dark:text-stone-500">Tomorrow, 9:00 AM</span>
+</div>
+</label>
+</div>
+</div>
+<div class="h-8"></div>
+</div>
+<nav class="fixed bottom-0 left-0 w-full bg-white/95 dark:bg-background-dark/90 backdrop-blur-xl border-t border-stone-200 dark:border-primary/20 pb-safe pt-2 z-50">
+<div class="flex justify-around items-end pb-6 px-2">
+<button class="flex flex-col items-center gap-1 w-16 text-primary dark:text-primary">
+<span class="material-symbols-outlined fill-1" style="font-variation-settings: 'FILL' 1, 'wght' 400;">home</span>
+<span class="text-[10px] font-medium font-serif">Home</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-primary-light transition-colors">
+<span class="material-symbols-outlined">calendar_month</span>
+<span class="text-[10px] font-medium font-serif">Planner</span>
+</button>
+<button class="flex items-center justify-center -mt-8 size-14 rounded-full bg-primary dark:bg-gradient-to-br dark:from-primary dark:to-primary-dim text-white dark:text-background-dark shadow-lg shadow-primary/40 dark:shadow-primary/20 hover:scale-105 transition-transform active:scale-95 border-4 border-background-light dark:border-background-dark">
+<span class="material-symbols-outlined" style="font-size: 28px;">add</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-primary-light transition-colors">
+<span class="material-symbols-outlined">volunteer_activism</span>
+<span class="text-[10px] font-medium font-serif">Giving</span>
+</button>
+<button class="flex flex-col items-center gap-1 w-16 text-stone-400 hover:text-stone-600 dark:text-stone-600 dark:hover:text-primary-light transition-colors">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-[10px] font-medium font-serif">Settings</span>
+</button>
+</div>
+</nav>
+
+</body></html>
