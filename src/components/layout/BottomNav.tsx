@@ -1,7 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Wallet, CheckSquare, Settings, Plus } from 'lucide-react';
+import { LayoutDashboard, Wallet, CheckSquare, Settings } from 'lucide-react';
 import { useTheme } from '@/themes/ThemeContext';
 import { cn } from '@/lib/utils';
+import { FABMenu } from './FABMenu';
 
 const navItems = [
   { href: '/', icon: LayoutDashboard, label: 'Home' },
@@ -168,15 +169,15 @@ export function BottomNav() {
 
           {/* FAB Center Button */}
           {navStyle.fab && (
-            <button
-              className={cn(
-                'flex items-center justify-center -mt-8 w-14 h-14 rounded-full transition-transform active:scale-95 hover:scale-105',
-                navStyle.fab.className
-              )}
-              style={navStyle.fab.style}
-            >
-              <Plus className="w-7 h-7" />
-            </button>
+            <div className="-mt-8">
+              <FABMenu
+                className={cn(
+                  'transition-transform active:scale-95 hover:scale-105',
+                  navStyle.fab.className
+                )}
+                style={navStyle.fab.style}
+              />
+            </div>
           )}
 
           {navItems.slice(2).map((item) => {
