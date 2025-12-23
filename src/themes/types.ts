@@ -89,4 +89,5 @@ export type ThemeId =
   | 'synthwave'
   | 'kawaii'
   | 'noir'
-  | 'space';
+  | 'space'
+  | 'sacred-serenity';

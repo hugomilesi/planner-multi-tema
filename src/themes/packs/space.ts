@@ -2,8 +2,8 @@ import { ThemePack } from '../types';
 
 export const spaceTheme: ThemePack = {
   id: 'space',
-  name: 'Sacred Serenity',
-  description: 'A peaceful Christian-inspired theme with warm earth tones and divine gold accents',
+  name: 'Space Explorer',
+  description: 'Explore the cosmos with deep space colors and stellar accents',
   tokens: {
     background: '#1a1614',
     foreground: '#f5f0e8',

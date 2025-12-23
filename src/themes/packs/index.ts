@@ -54,6 +54,12 @@ export const themedPages = {
     financial: () => import('./nordic/FinancialPage').then(m => m.NordicFinancialPage),
     settings: () => import('./nordic/SettingsPage').then(m => m.NordicSettingsPage),
   },
+  'sacred-serenity': {
+    tasks: () => import('./sacred-serenity/TasksPage').then(m => m.SacredSerenityTasksPage),
+    dashboard: () => import('./sacred-serenity/DashboardPage').then(m => m.SacredSerenityDashboardPage),
+    financial: () => import('./sacred-serenity/FinancialPage').then(m => m.SacredSerenityFinancialPage),
+    settings: () => import('./sacred-serenity/SettingsPage').then(m => m.SacredSerenitySettingsPage),
+  },
 } as const;
 
 export type ThemeWithCustomPages = keyof typeof themedPages;

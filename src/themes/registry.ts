@@ -8,6 +8,7 @@ import { synthwaveTheme } from './packs/synthwave';
 import { kawaiiTheme } from './packs/kawaii';
 import { noirTheme } from './packs/noir';
 import { spaceTheme } from './packs/space';
+import { sacredSerenityTheme } from './packs/sacred-serenity';
 
 export const themeRegistry: Record<ThemeId, ThemePack> = {
   cyberpunk: cyberpunkTheme,
@@ -19,6 +20,7 @@ export const themeRegistry: Record<ThemeId, ThemePack> = {
   kawaii: kawaiiTheme,
   noir: noirTheme,
   space: spaceTheme,
+  'sacred-serenity': sacredSerenityTheme,
 };
 
 export const themeList = Object.values(themeRegistry);
