@@ -100,6 +100,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           if (event === 'SIGNED_OUT') {
             taskStore.clearTasks();
             financialStore.clearData();
+            // Redirect to login after sign out
+            navigate('/login');
           }
         }
       }

@@ -6,6 +6,7 @@ import { Download, Upload, ChevronLeft, ChevronRight, Bell, DollarSign, Calendar
 
 export function WesternSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'Partner', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen font-[family-name:var(--font-courier-prime)] text-[#3E2723]"
@@ -218,15 +219,19 @@ export function WesternSettingsPage({
               <ChevronRight className="w-5 h-5 text-[#5D4037] group-hover:translate-x-1 transition-transform" />
             </button>
 
-            <div className="relative flex items-center justify-center p-5 hover:bg-[#BF360C]/10 transition-colors cursor-pointer"
-              style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/wood-pattern.png')" }}>
+            <button
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="relative flex items-center justify-center p-5 hover:bg-[#BF360C]/10 transition-colors cursor-pointer w-full disabled:opacity-50"
+              style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/wood-pattern.png')" }}
+            >
               <div className="border-2 border-[#BF360C] border-dashed px-6 py-1 rounded-sm transform -rotate-1 flex items-center gap-2">
                 <LogOut className="w-4 h-4 text-[#BF360C]" />
                 <span className="text-base font-[family-name:var(--font-rye)] font-bold text-[#BF360C] uppercase tracking-widest">
-                  Abandon Post
+                  {isLoggingOut ? 'Departing...' : 'Abandon Post'}
                 </span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Version */}

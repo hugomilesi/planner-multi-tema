@@ -112,7 +112,7 @@ export function DarkAcademiaDashboardPage({
                   <p className="text-stone-300 text-sm tracking-wide">2:00 PM — 3:30 PM</p>
                 </div>
               </div>
-              <Link href="/tasks" className="bg-white/10 backdrop-blur-sm rounded-full p-3 text-white border border-white/10 hover:bg-white/20 transition-colors">
+              <Link to="/tasks" className="bg-white/10 backdrop-blur-sm rounded-full p-3 text-white border border-white/10 hover:bg-white/20 transition-colors">
                 <ChevronRight className="w-5 h-5" />
               </Link>
             </div>

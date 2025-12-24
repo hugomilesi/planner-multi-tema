@@ -6,6 +6,7 @@ import { Download, Upload, ChevronLeft, Palette, User, Settings, Shield, Bell, D
 
 export function CyberpunkSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen text-gray-200 font-[family-name:var(--font-space-grotesk)]"
@@ -258,13 +259,17 @@ export function CyberpunkSettingsPage({
               <ChevronRight className="w-5 h-5 text-gray-500 group-hover:text-gray-300 transition-colors" />
             </button>
 
-            <div className="flex items-center justify-center p-4 hover:bg-red-500/5 transition-colors cursor-pointer border-t border-red-500/20 mt-1">
+            <button
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="flex items-center justify-center p-4 hover:bg-red-500/5 transition-colors cursor-pointer border-t border-red-500/20 mt-1 w-full disabled:opacity-50"
+            >
               <LogOut className="w-4 h-4 text-red-500 mr-2" />
               <span className="text-base font-bold text-red-500 font-[family-name:var(--font-orbitron)] tracking-widest uppercase"
                 style={{ textShadow: '0 0 5px rgba(239,68,68,0.4)' }}>
-                Log Out
+                {isLoggingOut ? 'LOGGING OUT...' : 'LOG OUT'}
               </span>
-            </div>
+            </button>
           </div>
 
           {/* Version */}

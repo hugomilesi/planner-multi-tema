@@ -21,6 +21,7 @@ const backgroundComponents = {
   kawaii: KawaiiBackground,
   noir: NoirBackground,
   space: SpaceBackground,
+  'sacred-serenity': NoirBackground, // Reuse Noir background for Sacred Serenity
 };
 
 export function ThemeBackground() {

@@ -20,16 +20,20 @@ export function AppShell({ children }: AppShellProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Auth protection
+  // Auth protection - redirect to login if not authenticated
   useEffect(() => {
-    if (!isLoading && !isAuthenticated) {
-      // Save the location we were trying to go to (optional, can implement later)
+    if (!isLoading && !isAuthenticated && location.pathname !== '/login') {
       navigate('/login');
     }
-  }, [isLoading, isAuthenticated, navigate]);
+  }, [isLoading, isAuthenticated, navigate, location.pathname]);
 
-  // Splash screen logic
+  // Splash screen logic - only show on first authenticated session
   useEffect(() => {
+    if (!isAuthenticated) {
+      setShowSplash(false);
+      return;
+    }
+
     const splashShown = sessionStorage.getItem(SPLASH_SHOWN_KEY);
 
     if (splashShown) {
@@ -43,15 +47,16 @@ export function AppShell({ children }: AppShellProps) {
     }, SPLASH_DURATION);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [isAuthenticated]);
 
-  // Don't render content while checking auth or ensuring splash
+  // Show splash while loading auth
   if (isLoading) {
-    return <SplashScreen isVisible={true} />;
+    return null; // Don't show splash while checking auth
   }
 
+  // Don't render content if not authenticated (will redirect)
   if (!isAuthenticated) {
-    return null; // Will redirect via useEffect
+    return null;
   }
 
   return (

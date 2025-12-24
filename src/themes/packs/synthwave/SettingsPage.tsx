@@ -6,6 +6,7 @@ import { Download, Upload, ChevronLeft, ChevronRight, Bell, DollarSign, Calendar
 
 export function SynthwaveSettingsPage({
   themeId, setTheme, reduceMotion, setReduceMotion, themeList, currentTheme, handleExport, handleImport,
+  userName = 'User', userEmail = '', isAuthenticated = false, onLogout, isLoggingOut = false,
 }: SettingsPageProps) {
   return (
     <div className="min-h-screen text-[#e2e2e2] font-[family-name:var(--font-vt323)]"
@@ -232,14 +233,18 @@ export function SynthwaveSettingsPage({
               </div>
               <ChevronRight className="w-6 h-6 text-[#e2e2e2] group-hover:text-[#3b82f6] transition-colors group-hover:translate-x-1" />
             </button>
-            <div className="flex items-center justify-center p-3 hover:bg-[#ff4d4d]/10 cursor-pointer border-t-4 border-black/50 transition-colors">
+            <button
+              onClick={() => onLogout?.()}
+              disabled={isLoggingOut || !isAuthenticated}
+              className="flex items-center justify-center p-3 hover:bg-[#ff4d4d]/10 cursor-pointer border-t-4 border-black/50 transition-colors w-full disabled:opacity-50"
+            >
               <div className="flex items-center gap-2">
                 <LogOut className="w-4 h-4 text-[#ff4d4d]" />
                 <span className="text-xs font-[family-name:var(--font-press-start)] font-bold text-[#ff4d4d] uppercase tracking-wide hover:scale-105 transition-transform">
-                  Log Out
+                  {isLoggingOut ? 'Logging Out...' : 'Log Out'}
                 </span>
               </div>
-            </div>
+            </button>
           </div>
 
           {/* Version */}

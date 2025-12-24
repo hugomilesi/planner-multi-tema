@@ -5,12 +5,11 @@ import { AuthProvider } from '@/contexts/AuthContext';
 import { AppShell } from '@/components/layout/AppShell';
 
 // Pages
-import HomePage from '@/app/page';
-import LoginPage from '@/app/login/page';
-import TasksPage from '@/app/tasks/page';
-
-import FinancialPage from '@/app/financial/page';
-import SettingsPage from '@/app/settings/page';
+import DashboardPage from '@/pages/DashboardPage';
+import LoginPage from '@/pages/LoginPage';
+import TasksPage from '@/pages/TasksPage';
+import FinancialPage from '@/pages/FinancialPage';
+import SettingsPage from '@/pages/SettingsPage';
 
 const Layout = ({ children }: { children: React.ReactNode }) => (
     <AppShell>{children}</AppShell>
@@ -25,7 +24,7 @@ export default function App() {
                         <Route path="/login" element={<LoginPage />} />
 
                         {/* Protected Routes wrapped in Layout */}
-                        <Route path="/" element={<Layout><HomePage /></Layout>} />
+                        <Route path="/" element={<Layout><DashboardPage /></Layout>} />
 
                         <Route path="/tasks" element={<Layout><TasksPage /></Layout>} />
                         <Route path="/financial" element={<Layout><FinancialPage /></Layout>} />

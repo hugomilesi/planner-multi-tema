@@ -5,10 +5,12 @@ export const sacredSerenityTheme: ThemePack = {
   name: 'Sacred Serenity',
   description: 'Elegant spiritual theme with warm gold tones and serene aesthetics',
   motion: {
-    initial: { opacity: 0, y: 20 },
-    animate: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-    transition: { duration: 0.3, ease: [0.4, 0, 0.2, 1] },
+    pageTransition: {
+      initial: { opacity: 0, y: 20 },
+      animate: { opacity: 1, y: 0 },
+      exit: { opacity: 0, y: -20 },
+      transition: { duration: 0.3 },
+    },
     cardHover: {
       scale: 1.02,
       y: -2,
