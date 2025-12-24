@@ -154,14 +154,14 @@ export function NoirDashboardPage({
               </Link>
             </div>
             <div className="flex items-center justify-between bg-[#FFF9E6] rounded-2xl p-4 border border-[#FFD200]/30">
-              <div className="flex flex-col">
+              <div className="flex flex-col min-w-0 flex-1">
                 <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Spent</span>
-                <span className="text-2xl font-black text-slate-800">{formatCurrency(monthExpense)}</span>
+                <span className="text-xl font-black text-slate-800 truncate">{formatCurrency(monthExpense)}</span>
               </div>
-              <div className="h-8 w-[2px] bg-slate-200 rounded-full" />
-              <div className="flex flex-col text-right">
+              <div className="h-8 w-[2px] bg-slate-200 rounded-full mx-2 shrink-0" />
+              <div className="flex flex-col text-right min-w-0 flex-1">
                 <span className="text-xs text-slate-400 font-bold uppercase tracking-wider">Balance</span>
-                <span className={cn('text-2xl font-black', balance >= 0 ? 'text-slate-800' : 'text-[#FF6B6B]')}>
+                <span className={cn('text-xl font-black truncate', balance >= 0 ? 'text-slate-800' : 'text-[#FF6B6B]')}>
                   {formatCurrency(balance)}
                 </span>
               </div>

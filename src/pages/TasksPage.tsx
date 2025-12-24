@@ -1,20 +1,21 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useState, useMemo, useCallback, memo } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTaskStore, Task } from '@/stores/taskStore';
 import { useTheme } from '@/themes/ThemeContext';
 import { TasksPageProps } from '@/themes/packs/types';
+import { createMemoizedThemedComponent } from '@/utils/memoizedComponent';
 
 const themedTasks: Record<string, () => Promise<{ default: React.ComponentType<TasksPageProps> }>> = {
-  cyberpunk: () => import('@/themes/packs/cyberpunk/TasksPage').then(m => ({ default: m.CyberpunkTasksPage })),
-  western: () => import('@/themes/packs/western/TasksPage').then(m => ({ default: m.WesternTasksPage })),
-  nordic: () => import('@/themes/packs/nordic/TasksPage').then(m => ({ default: m.NordicTasksPage })),
-  'dark-academia': () => import('@/themes/packs/dark-academia/TasksPage').then(m => ({ default: m.DarkAcademiaTasksPage })),
-  ocean: () => import('@/themes/packs/ocean/TasksPage').then(m => ({ default: m.OceanTasksPage })),
-  synthwave: () => import('@/themes/packs/synthwave/TasksPage').then(m => ({ default: m.SynthwaveTasksPage })),
-  kawaii: () => import('@/themes/packs/kawaii/TasksPage').then(m => ({ default: m.KawaiiTasksPage })),
-  noir: () => import('@/themes/packs/noir/TasksPage').then(m => ({ default: m.NoirTasksPage })),
-  space: () => import('@/themes/packs/space/TasksPage').then(m => ({ default: m.SpaceTasksPage })),
-  'sacred-serenity': () => import('@/themes/packs/sacred-serenity/TasksPage').then(m => ({ default: m.SacredSerenityTasksPage })),
+  cyberpunk: () => import('@/themes/packs/cyberpunk/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.CyberpunkTasksPage) })),
+  western: () => import('@/themes/packs/western/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.WesternTasksPage) })),
+  nordic: () => import('@/themes/packs/nordic/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.NordicTasksPage) })),
+  'dark-academia': () => import('@/themes/packs/dark-academia/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.DarkAcademiaTasksPage) })),
+  ocean: () => import('@/themes/packs/ocean/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.OceanTasksPage) })),
+  synthwave: () => import('@/themes/packs/synthwave/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SynthwaveTasksPage) })),
+  kawaii: () => import('@/themes/packs/kawaii/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.KawaiiTasksPage) })),
+  noir: () => import('@/themes/packs/noir/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.NoirTasksPage) })),
+  space: () => import('@/themes/packs/space/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SpaceTasksPage) })),
+  'sacred-serenity': () => import('@/themes/packs/sacred-serenity/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SacredSerenityTasksPage) })),
 };
 
 export default function TasksPage() {
@@ -27,7 +28,7 @@ export default function TasksPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [newTask, setNewTask] = useState({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
 
-  const filteredTasks = tasks.filter(t => {
+  const filteredTasks = useMemo(() => tasks.filter(t => {
     if (filter === 'pending') return !t.completedAt;
     if (filter === 'completed') return !!t.completedAt;
     if (filter === 'today') {
@@ -35,14 +36,15 @@ export default function TasksPage() {
       return t.dueDate && new Date(t.dueDate).toDateString() === today;
     }
     return true;
-  });
+  }), [tasks, filter]);
 
-  const handleAddTask = () => {
+  const handleAddTask = useCallback(() => {
     // This would be implemented with the actual add task logic
     setIsDialogOpen(false);
-  };
+    setNewTask({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
+  }, []);
 
-  const pageProps: TasksPageProps = {
+  const pageProps: TasksPageProps = useMemo(() => ({
     tasks,
     filteredTasks,
     filter,
@@ -54,7 +56,16 @@ export default function TasksPage() {
     handleAddTask,
     toggleTaskStatus,
     deleteTask,
-  };
+  }), [
+    tasks,
+    filteredTasks,
+    filter,
+    isDialogOpen,
+    newTask,
+    handleAddTask,
+    toggleTaskStatus,
+    deleteTask,
+  ]);
 
   const ThemedTasks = themedTasks[themeId];
 
@@ -75,15 +86,15 @@ export default function TasksPage() {
           <p className="text-muted-foreground">No tasks yet</p>
         ) : (
           tasks.map((task: Task) => (
-            <div 
-              key={task.id} 
+            <div
+              key={task.id}
               className="p-4 border rounded flex items-start gap-3 cursor-pointer hover:bg-accent/50"
               onClick={() => toggleTaskStatus(task.id)}
             >
               <input
                 type="checkbox"
                 checked={!!task.completedAt}
-                onChange={() => {}}
+                onChange={() => { }}
                 className="mt-1"
               />
               <div className="flex-1">

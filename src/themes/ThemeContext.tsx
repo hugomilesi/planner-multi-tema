@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { ThemePack, ThemeId } from './types';
 import { getTheme, DEFAULT_THEME } from './registry';
 import { createClient } from '@/lib/supabase/client';
@@ -75,14 +75,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       // Try to load from Supabase if user is authenticated
       const supabase = supabaseRef.current;
       const { data: { user } } = await supabase.auth.getUser();
-      
+
       if (user) {
         const { data: settings } = await supabase
           .from('user_settings')
           .select('id, theme_id, reduce_motion')
           .eq('user_id', user.id)
           .single();
-        
+
         if (settings) {
           userSettingsIdRef.current = settings.id;
           if (settings.theme_id && getTheme(settings.theme_id as ThemeId)) {
@@ -128,37 +128,42 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     setThemeId(id);
     setThemeState(newTheme);
     localStorage.setItem(THEME_STORAGE_KEY, id);
-    
+
     // Save to Supabase if user has settings
     if (userSettingsIdRef.current) {
       supabaseRef.current
         .from('user_settings')
         .update({ theme_id: id, updated_at: new Date().toISOString() })
         .eq('id', userSettingsIdRef.current)
-        .then(() => {});
+        .then(() => { });
     }
   }, []);
 
   const setReduceMotion = useCallback((value: boolean) => {
     setReduceMotionState(value);
     localStorage.setItem(REDUCE_MOTION_KEY, String(value));
-    
+
     // Save to Supabase if user has settings
     if (userSettingsIdRef.current) {
       supabaseRef.current
         .from('user_settings')
         .update({ reduce_motion: value, updated_at: new Date().toISOString() })
         .eq('id', userSettingsIdRef.current)
-        .then(() => {});
+        .then(() => { });
     }
   }, []);
+
+  const value = useMemo(
+    () => ({ theme, themeId, setTheme, reduceMotion, setReduceMotion }),
+    [theme, themeId, setTheme, reduceMotion, setReduceMotion]
+  );
 
   if (!mounted) {
     return null;
   }
 
   return (
-    <ThemeContext.Provider value={{ theme, themeId, setTheme, reduceMotion, setReduceMotion }}>
+    <ThemeContext.Provider value={value}>
       {children}
     </ThemeContext.Provider>
   );

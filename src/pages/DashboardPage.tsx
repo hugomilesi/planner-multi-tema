@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useMemo, useCallback } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTaskStore } from '@/stores/taskStore';
 import { useFinancialStore } from '@/stores/financialStore';
@@ -25,29 +25,48 @@ export default function DashboardPage() {
   const tasks = useTaskStore((state) => state.tasks);
   const getMonthlyBalance = useFinancialStore((state) => state.getMonthlyBalance);
 
-  const userName = user?.user_metadata?.name || user?.email?.split('@')[0] || 'User';
-  const now = new Date();
-  const { income: monthIncome, expense: monthExpense, balance } = getMonthlyBalance(now.getFullYear(), now.getMonth());
-  
-  const todayTasks = tasks.filter(t => {
+  const userName = useMemo(() =>
+    user?.user_metadata?.name || user?.email?.split('@')[0] || 'User',
+    [user]
+  );
+
+  const now = useMemo(() => new Date(), []);
+  const { income: monthIncome, expense: monthExpense, balance } = useMemo(
+    () => getMonthlyBalance(now.getFullYear(), now.getMonth()),
+    [getMonthlyBalance, now]
+  );
+
+  const todayTasks = useMemo(() => tasks.filter(t => {
     if (!t.dueDate) return false;
     const today = new Date().toDateString();
     return new Date(t.dueDate).toDateString() === today;
-  });
+  }), [tasks]);
 
-  const completedToday = todayTasks.filter(t => t.completedAt).length;
-  const pendingTasks = tasks.filter(t => !t.completedAt).length;
-  const overdueTasks = tasks.filter(t => {
+  const completedToday = useMemo(() =>
+    todayTasks.filter(t => t.completedAt).length,
+    [todayTasks]
+  );
+
+  const pendingTasks = useMemo(() =>
+    tasks.filter(t => !t.completedAt).length,
+    [tasks]
+  );
+
+  const overdueTasks = useMemo(() => tasks.filter(t => {
     if (!t.dueDate || t.completedAt) return false;
     return new Date(t.dueDate) < new Date();
-  }).length;
-  const progressValue = tasks.length > 0 ? (completedToday / tasks.length) * 100 : 0;
+  }).length, [tasks]);
 
-  const formatCurrency = (value: number) => {
+  const progressValue = useMemo(() =>
+    tasks.length > 0 ? (completedToday / tasks.length) * 100 : 0,
+    [tasks.length, completedToday]
+  );
+
+  const formatCurrency = useCallback((value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
-  };
+  }, []);
 
-  const pageProps: DashboardPageProps = {
+  const pageProps: DashboardPageProps = useMemo(() => ({
     todayTasks,
     completedToday,
     pendingTasks,
@@ -58,7 +77,18 @@ export default function DashboardPage() {
     balance,
     formatCurrency,
     userName,
-  };
+  }), [
+    todayTasks,
+    completedToday,
+    pendingTasks,
+    overdueTasks,
+    progressValue,
+    monthIncome,
+    monthExpense,
+    balance,
+    formatCurrency,
+    userName,
+  ]);
 
   // Get themed dashboard component
   const ThemedDashboard = themedDashboards[themeId];

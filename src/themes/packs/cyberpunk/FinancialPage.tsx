@@ -3,21 +3,13 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Trash2, Plus, Eye, EyeOff, ShoppingCart, Car } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useState } from 'react';
 
 export function CyberpunkFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
-  const expenseCategories = categories.filter(c => c.type === 'expense');
-  const incomeCategories = categories.filter(c => c.type === 'income');
   const [showBalance, setShowBalance] = useState(true);
   const today = new Date();
 
@@ -285,79 +277,14 @@ export function CyberpunkFinancialPage({
         </div>
 
         {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-6 w-14 h-14 bg-[#0b0c15] border-2 border-[#00ffff] text-[#00ffff] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-30 group"
-              style={{ boxShadow: '0 0 20px rgba(0,243,255,0.4)' }}>
-              <div className="absolute inset-0 bg-[#00ffff]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
-              <Plus className="w-8 h-8 relative z-10" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#0b0c15] border-2 border-[#bc13fe] text-white max-w-[90vw] rounded-lg"
-            style={{ boxShadow: '0 0 30px rgba(188,19,254,0.3)' }}>
-            <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-orbitron)] text-[#00ffff] tracking-wider">
-                NEW_TRANSACTION
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-[#151725] rounded-lg">
-                  <TabsTrigger value="expense" className="data-[state=active]:bg-[#ff00ff] data-[state=active]:text-black rounded-md cursor-pointer">
-                    EXPENSE
-                  </TabsTrigger>
-                  <TabsTrigger value="income" className="data-[state=active]:bg-[#00ff9f] data-[state=active]:text-black rounded-md cursor-pointer">
-                    INCOME
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-[#ff00ff] text-xs font-bold uppercase">Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-[#ff00ff] text-xs font-bold uppercase">Category</Label>
-                <Select value={newTransaction.categoryId}
-                  onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg cursor-pointer">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#151725] border-[#bc13fe] rounded-lg z-[100]">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id} className="cursor-pointer hover:bg-[#ff00ff]/20 focus:bg-[#ff00ff]/20 text-white">
-                        <span className="flex items-center gap-2">
-                          <span>{cat.icon}</span>
-                          <span>{cat.name}</span>
-                        </span>
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#ff00ff] text-xs font-bold uppercase">Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg cursor-pointer" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[#ff00ff] text-xs font-bold uppercase">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-[#151725] border-[#bc13fe]/50 text-white rounded-lg" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction} type="button"
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-[#ff00ff] to-[#bc13fe] text-white font-[family-name:var(--font-orbitron)] tracking-wider hover:opacity-90 transition-opacity"
-                style={{ boxShadow: '0 0 15px rgba(255,0,255,0.4)' }}>
-                EXECUTE TRANSACTION
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-6 w-14 h-14 bg-[#0b0c15] border-2 border-[#00ffff] text-[#00ffff] flex items-center justify-center transition-all hover:scale-105 active:scale-95 z-30 group"
+          style={{ boxShadow: '0 0 20px rgba(0,243,255,0.4)' }}
+        >
+          <div className="absolute inset-0 bg-[#00ffff]/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+          <Plus className="w-8 h-8 relative z-10" />
+        </button>
       </div>
     </div>
   );

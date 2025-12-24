@@ -3,20 +3,12 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, Plane, ArrowDownLeft, ArrowUpRight, Utensils, Bus, Eye } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function NordicFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
-  const expenseCategories = categories.filter(c => c.type === 'expense');
-  const incomeCategories = categories.filter(c => c.type === 'income');
   const today = new Date();
   const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
   const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1).toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
@@ -30,12 +22,12 @@ export function NordicFinancialPage({
       <div className="fixed bottom-0 left-0 right-0 h-3 z-50" style={{
         background: 'repeating-linear-gradient(135deg, #c24d3b 0px, #c24d3b 10px, white 10px, white 20px, #3d5a6b 20px, #3d5a6b 30px, white 30px, white 40px)'
       }} />
-      
+
       {/* Gradient background */}
-      <div className="fixed inset-0 -z-10" style={{ 
+      <div className="fixed inset-0 -z-10" style={{
         background: 'linear-gradient(180deg, #f4e4d8 0%, #f0d5c0 20%, #e8c4a8 50%, #d8b098 80%, #c89878 100%)'
       }} />
-      <div className="fixed inset-0 -z-10 opacity-20 mix-blend-multiply pointer-events-none" 
+      <div className="fixed inset-0 -z-10 opacity-20 mix-blend-multiply pointer-events-none"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/natural-paper.png')" }} />
 
       <div className="relative z-10 px-4 pt-8">
@@ -221,66 +213,12 @@ export function NordicFinancialPage({
         </div>
 
         {/* Add Transaction FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-4 w-14 h-14 rounded-full bg-[#c24d3b] text-white flex items-center justify-center shadow-lg shadow-[#c24d3b]/30 border-4 border-white z-40 hover:scale-105 transition-transform">
-              <Plus className="w-6 h-6" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-white/95 border border-[#d1c7b0] text-[#2c2825] max-w-[90vw] rounded-xl">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-bold uppercase tracking-widest flex items-center gap-2" style={{ fontFamily: '"Courier Prime", monospace' }}>
-                <Plane className="w-5 h-5 text-[#3d5a6b]" />
-                New Entry
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-[#f4ecd8] rounded-lg">
-                  <TabsTrigger value="expense" className="rounded-lg data-[state=active]:bg-[#c24d3b] data-[state=active]:text-white uppercase text-xs font-bold tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Expense</TabsTrigger>
-                  <TabsTrigger value="income" className="rounded-lg data-[state=active]:bg-[#3d5a6b] data-[state=active]:text-white uppercase text-xs font-bold tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Income</TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-[#5d5650] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-white border-[#d1c7b0] rounded-lg" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-[#5d5650] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Category</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-white border-[#d1c7b0] rounded-lg">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-white border-[#d1c7b0] rounded-lg">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#5d5650] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-white border-[#d1c7b0] rounded-lg" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[#5d5650] text-xs font-bold uppercase tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-white border-[#d1c7b0] rounded-lg" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 rounded-lg bg-[#3d5a6b] text-white font-bold uppercase tracking-wider hover:opacity-90" style={{ fontFamily: '"Courier Prime", monospace' }}>
-                Add Entry
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-4 w-14 h-14 rounded-full bg-[#c24d3b] text-white flex items-center justify-center shadow-lg shadow-[#c24d3b]/30 border-4 border-white z-40 hover:scale-105 transition-transform"
+        >
+          <Plus className="w-6 h-6" />
+        </button>
       </div>
     </div>
   );

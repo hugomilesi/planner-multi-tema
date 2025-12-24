@@ -16,13 +16,14 @@ interface CreateTransactionDialogProps {
   defaultType?: 'income' | 'expense';
 }
 
-export function CreateTransactionDialog({ 
-  open, 
+export function CreateTransactionDialog({
+  open,
   onOpenChange,
-  defaultType = 'expense' 
+  defaultType = 'expense'
 }: CreateTransactionDialogProps) {
   const { categories, addTransaction } = useFinancialStore();
   const [transactionType, setTransactionType] = useState<'income' | 'expense'>(defaultType);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [newTransaction, setNewTransaction] = useState({
     amount: '',
     categoryId: '',
@@ -35,27 +36,47 @@ export function CreateTransactionDialog({
   const currentCategories = transactionType === 'expense' ? expenseCategories : incomeCategories;
 
   const handleSubmit = async () => {
-    const amount = parseFloat(newTransaction.amount);
-    if (isNaN(amount) || amount <= 0 || !newTransaction.categoryId) {
+    // Prevent multiple submissions
+    if (isSubmitting) {
+      console.log('⚠️ Already submitting, ignoring click');
       return;
     }
 
-    await addTransaction({
-      type: transactionType,
-      amount,
-      categoryId: newTransaction.categoryId,
-      date: newTransaction.date,
-      note: newTransaction.note,
-    });
+    const amount = parseFloat(newTransaction.amount);
+    if (isNaN(amount) || amount <= 0 || !newTransaction.categoryId) {
+      console.log('❌ Validation failed:', { amount, categoryId: newTransaction.categoryId });
+      return;
+    }
 
-    // Reset form
-    setNewTransaction({
-      amount: '',
-      categoryId: '',
-      date: getTodayId(),
-      note: '',
-    });
-    onOpenChange(false);
+    console.log('🚀 Starting transaction submission...');
+
+    setIsSubmitting(true);
+
+    try {
+      await addTransaction({
+        type: transactionType,
+        amount,
+        categoryId: newTransaction.categoryId,
+        date: newTransaction.date,
+        note: newTransaction.note,
+      });
+
+      console.log('✅ Transaction added successfully');
+
+      // Reset form
+      setNewTransaction({
+        amount: '',
+        categoryId: '',
+        date: getTodayId(),
+        note: '',
+      });
+      onOpenChange(false);
+    } catch (error) {
+      console.error('❌ Error adding transaction:', error);
+    } finally {
+      console.log('🏁 Resetting isSubmitting');
+      setIsSubmitting(false);
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
@@ -148,8 +169,8 @@ export function CreateTransactionDialog({
             </div>
           </div>
 
-          <Button onClick={handleSubmit} className="w-full">
-            {labels.actions.add}
+          <Button onClick={handleSubmit} className="w-full" disabled={isSubmitting}>
+            {isSubmitting ? 'Adicionando...' : labels.actions.add}
           </Button>
         </div>
       </DialogContent>

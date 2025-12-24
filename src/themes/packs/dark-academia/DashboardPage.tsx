@@ -133,11 +133,11 @@ export function DarkAcademiaDashboardPage({
               </button>
             </div>
             <div className="grid grid-cols-2 gap-4 mb-5 border-b border-stone-800 pb-5">
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1 min-w-0">
                 <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Spent</span>
                 <span className="text-xl font-serif font-medium text-white truncate">{formatCurrency(monthExpense)}</span>
               </div>
-              <div className="flex flex-col gap-1 border-l border-stone-800 pl-4">
+              <div className="flex flex-col gap-1 border-l border-stone-800 pl-4 min-w-0">
                 <span className="text-[10px] text-stone-400 font-bold uppercase tracking-wider">Limit</span>
                 <span className="text-xl font-serif font-medium text-stone-500 truncate">{formatCurrency(monthIncome)}</span>
               </div>

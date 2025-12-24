@@ -3,20 +3,12 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, Wallet } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function OceanFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
-  const expenseCategories = categories.filter(c => c.type === 'expense');
-  const incomeCategories = categories.filter(c => c.type === 'income');
   const today = new Date();
 
   return (
@@ -30,63 +22,12 @@ export function OceanFinancialPage({
             </p>
             <h1 className="text-[28px] font-bold tracking-tight">Financial Overview</h1>
           </div>
-          <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-            <DialogTrigger asChild>
-              <button className="w-12 h-12 rounded-full bg-[#137fec] text-white flex items-center justify-center shadow-lg shadow-[#137fec]/30">
-                <Plus className="w-5 h-5" />
-              </button>
-            </DialogTrigger>
-            <DialogContent className="bg-white dark:bg-[#1c2127] border border-[#e5e7eb] dark:border-[#283039] text-[#111418] dark:text-white max-w-[90vw] rounded-2xl">
-              <DialogHeader>
-                <DialogTitle className="text-lg font-bold">New Transaction</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 pt-4">
-                <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                  <TabsList className="w-full grid grid-cols-2 bg-[#f6f7f8] dark:bg-[#101922] rounded-xl">
-                    <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-[#137fec] data-[state=active]:text-white">Expense</TabsTrigger>
-                    <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white">Income</TabsTrigger>
-                  </TabsList>
-                </Tabs>
-                <div className="space-y-2">
-                  <Label className="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Amount</Label>
-                  <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                    className="bg-[#f6f7f8] dark:bg-[#101922] border-[#e5e7eb] dark:border-[#283039] rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Category</Label>
-                  <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                    <SelectTrigger className="bg-[#f6f7f8] dark:bg-[#101922] border-[#e5e7eb] dark:border-[#283039] rounded-xl">
-                      <SelectValue placeholder="Select..." />
-                    </SelectTrigger>
-                    <SelectContent className="bg-white dark:bg-[#1c2127] border-[#e5e7eb] dark:border-[#283039] rounded-xl">
-                      {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                        <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label className="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Date</Label>
-                    <Input type="date" value={newTransaction.date}
-                      onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                      className="bg-[#f6f7f8] dark:bg-[#101922] border-[#e5e7eb] dark:border-[#283039] rounded-xl" />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-[#637588] dark:text-[#9dabb9] text-sm font-medium">Note</Label>
-                    <Input placeholder="Optional" value={newTransaction.note}
-                      onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                      className="bg-[#f6f7f8] dark:bg-[#101922] border-[#e5e7eb] dark:border-[#283039] rounded-xl" />
-                  </div>
-                </div>
-                <button onClick={handleAddTransaction}
-                  className="w-full py-3 rounded-xl bg-[#137fec] text-white font-semibold hover:bg-[#137fec]/90">
-                  Add Transaction
-                </button>
-              </div>
-            </DialogContent>
-          </Dialog>
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="w-12 h-12 rounded-full bg-[#137fec] text-white flex items-center justify-center shadow-lg shadow-[#137fec]/30"
+          >
+            <Plus className="w-5 h-5" />
+          </button>
         </header>
 
         {/* Balance Card */}
@@ -132,7 +73,7 @@ export function OceanFinancialPage({
                     <div className={cn(
                       'w-full rounded-t-sm transition-all',
                       isToday ? 'bg-[#137fec]' : 'bg-slate-100 dark:bg-slate-700/50'
-                    )} style={{ height: `${Math.max(5, ((day.income + day.expense) / max) * 100)}%` }} />
+                    )} style={{ height: `${Math.max(5, ((day.income + day.expense) / max) * 100)}% ` }} />
                   </div>
                   <span className="text-[10px] text-[#637588] dark:text-[#9dabb9] font-medium">{day.day}</span>
                 </div>

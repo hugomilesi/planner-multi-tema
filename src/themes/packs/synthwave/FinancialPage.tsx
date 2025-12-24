@@ -78,26 +78,26 @@ export function SynthwaveFinancialPage({
         <div className="grid grid-cols-2 gap-3 px-4 mb-6">
           <div className="bg-[#1E1E1E] p-3 border-2 border-[#525252] relative group cursor-default hover:bg-[#525252] hover:text-[#121212] transition-all active:translate-y-1 min-w-0"
             style={{ boxShadow: '3px 3px 0px 0px #000000' }}>
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex items-start justify-between mb-1">
-                <span className="text-lg uppercase font-bold">Income</span>
-                <div className="w-5 h-5 border border-[#10B981] flex items-center justify-center bg-[#10B981]/10 shrink-0">
+            <div className="flex flex-col h-full justify-between gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-base uppercase font-bold truncate">Income</span>
+                <div className="w-5 h-5 border border-[#10B981] flex items-center justify-center bg-[#10B981]/10 shrink-0 ml-1">
                   <Plus className="w-3 h-3 text-[#10B981]" />
                 </div>
               </div>
-              <p className="text-2xl font-bold text-[#10B981] tracking-tighter truncate">+{formatCurrency(monthIncome)}</p>
+              <p className="text-xl font-bold text-[#10B981] tracking-tighter truncate">+{formatCurrency(monthIncome)}</p>
             </div>
           </div>
           <div className="bg-[#1E1E1E] p-3 border-2 border-[#525252] relative group cursor-default hover:bg-[#525252] hover:text-[#121212] transition-all active:translate-y-1 min-w-0"
             style={{ boxShadow: '3px 3px 0px 0px #000000' }}>
-            <div className="flex flex-col h-full justify-between">
-              <div className="flex items-start justify-between mb-1">
-                <span className="text-lg uppercase font-bold">Expenses</span>
-                <div className="w-5 h-5 border border-[#EF4444] flex items-center justify-center bg-[#EF4444]/10 shrink-0">
+            <div className="flex flex-col h-full justify-between gap-2">
+              <div className="flex items-center justify-between">
+                <span className="text-base uppercase font-bold truncate">Expenses</span>
+                <div className="w-5 h-5 border border-[#EF4444] flex items-center justify-center bg-[#EF4444]/10 shrink-0 ml-1">
                   <span className="text-[#EF4444] font-bold text-sm">-</span>
                 </div>
               </div>
-              <p className="text-2xl font-bold text-[#EF4444] tracking-tighter truncate">-{formatCurrency(monthExpense)}</p>
+              <p className="text-xl font-bold text-[#EF4444] tracking-tighter truncate">-{formatCurrency(monthExpense)}</p>
             </div>
           </div>
         </div>

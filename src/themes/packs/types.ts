@@ -47,14 +47,9 @@ export interface FinancialPageProps {
   categorySpending: { id: string; name: string; icon: string; spent: number; budget?: number; percentage: number; color?: string }[];
   recentTransactions: { id: string; type: 'income' | 'expense'; amount: number; categoryId: string; date: string; note?: string }[];
   categories: { id: string; name: string; icon: string; type: 'income' | 'expense'; color?: string; budget?: number }[];
-  // Dialog state
+  // Dialog state - apenas controla a abertura, o CreateTransactionDialog global gerencia o resto
   isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
-  transactionType: 'income' | 'expense';
-  setTransactionType: (type: 'income' | 'expense') => void;
-  newTransaction: { amount: string; categoryId: string; date: string; note: string };
-  setNewTransaction: (t: FinancialPageProps['newTransaction']) => void;
-  handleAddTransaction: () => void;
   deleteTransaction: (id: string) => void;
 }
 

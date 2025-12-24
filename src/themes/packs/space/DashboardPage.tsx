@@ -142,13 +142,13 @@ export function SpaceDashboardPage({
             </Link>
           </div>
           <div className="grid grid-cols-2 gap-4 relative z-10">
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 min-w-0">
               <span className="text-xs text-stone-500 font-medium">Spent</span>
-              <span className="text-xl font-bold text-stone-800" style={{ fontFamily: '"Playfair Display", serif' }}>{formatCurrency(monthExpense)}</span>
+              <span className="text-xl font-bold text-stone-800 truncate" style={{ fontFamily: '"Playfair Display", serif' }}>{formatCurrency(monthExpense)}</span>
             </div>
-            <div className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 min-w-0">
               <span className="text-xs text-stone-500 font-medium">Tithe Target (10%)</span>
-              <span className="text-xl font-bold text-[#8C6A5D]" style={{ fontFamily: '"Playfair Display", serif' }}>{formatCurrency(monthIncome * 0.1)}</span>
+              <span className="text-xl font-bold text-[#8C6A5D] truncate" style={{ fontFamily: '"Playfair Display", serif' }}>{formatCurrency(monthIncome * 0.1)}</span>
             </div>
           </div>
           <div className="flex items-end gap-1.5 h-12 mt-1 border-b border-stone-100 pb-1 relative z-10">
