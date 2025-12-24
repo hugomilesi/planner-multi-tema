@@ -1,10 +1,33 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createClient } from '@/lib/supabase/client';
+
+Para o Chamaleon Planner, a tela de login não pode ser apenas um formulário; ela precisa ser o primeiro "spoiler" da proposta de valor do app: adaptação e estética.
+
+Considerando o seu PRD (Mobile-first, React, Tailwind, Framer Motion) e o pedido de uma marca minimalista e abstrata, aqui está a proposta de design e a implementação técnica.
+
+O Conceito: "Minimalismo Vivo"
+Em vez de escolher uma cor fixa, a tela de login terá um fundo sutilmente animado que transita lentamente entre as cores dos seus temas (Cyberpunk, Nordic, Kawaii, etc.), sugerindo a natureza "camaleão" sem sobrecarregar o usuário.
+
+Estrutura Visual:
+
+Background: Gradiente fluido e lento (aurora effect).
+
+Logo: Sua nova logo abstrata centralizada, em branco ou preto (dependendo do contraste), com bastante respiro.
+
+Glassmorphism: O formulário fica dentro de um card com efeito de "vidro fosco" (blur), flutuando sobre as cores.
+
+Inputs: Minimalistas, apenas com linha inferior ou borda suave.
+
+Implementação (React + Tailwind + Framer Motion)
+Aqui está um componente funcional que você pode usar como base. Ele utiliza a stack definida no seu PRD.
+
+
+
+
+
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Eye, EyeOff, ArrowRight, Loader2 } from 'lucide-react';
 
-// Cores representando a transição dos temas (Cyberpunk -> Ocean -> Synthwave -> etc)
+// Cores representando a transição dos seus temas (Cyberpunk -> Ocean -> Synthwave -> etc)
 const BACKGROUND_COLORS = [
   "from-fuchsia-600 via-purple-600 to-indigo-600", // Cyberpunk/Space
   "from-cyan-500 via-teal-500 to-emerald-500",     // Ocean
@@ -12,16 +35,10 @@ const BACKGROUND_COLORS = [
   "from-slate-800 via-gray-700 to-zinc-900",       // Noir/Dark Academia
 ];
 
-export default function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [isSignUp, setIsSignUp] = useState(false);
+export default function LoginScreen() {
   const [colorIndex, setColorIndex] = useState(0);
-  const navigate = useNavigate();
-  const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   // Efeito para trocar o fundo suavemente a cada 5 segundos
   useEffect(() => {
@@ -31,43 +48,17 @@ export default function LoginPage() {
     return () => clearInterval(interval);
   }, []);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
-    try {
-      const { error } = await supabase.auth.signInWithPassword({ email, password });
-      if (error) throw error;
-      navigate('/');
-    } catch (error: any) {
-      console.error('Login error:', error);
-      setError(error.message || 'Login failed. Please check your credentials.');
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const handleSignUp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError('');
-    try {
-      const { error } = await supabase.auth.signUp({ email, password });
-      if (error) throw error;
-      setError('');
-      alert('Check your email for the confirmation link!');
-    } catch (error: any) {
-      console.error('Sign up error:', error);
-      setError(error.message || 'Sign up failed. Please try again.');
-    } finally {
-      setIsLoading(false);
-    }
+    // Simulação de chamada ao Supabase
+    setTimeout(() => setIsLoading(false), 2000);
   };
 
   return (
     <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden">
       
-      {/* Background Animado (O "Camaleão") */}
+      {/* 1. Background Animado (O "Camaleão") */}
       <motion.div 
         className={`absolute inset-0 bg-gradient-to-br ${BACKGROUND_COLORS[colorIndex]} transition-colors duration-[3000ms] ease-in-out`}
         initial={{ opacity: 0 }}
@@ -77,7 +68,7 @@ export default function LoginPage() {
       {/* Overlay para garantir contraste */}
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
 
-      {/* Card Glassmorphism */}
+      {/* 2. Card Glassmorphism */}
       <motion.div 
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -87,35 +78,20 @@ export default function LoginPage() {
         {/* Header */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/20 shadow-inner">
-            {/* Logo Abstrata Minimalista */}
+            {/* Placeholder da Logo Abstrata Minimalista */}
             <div className="h-8 w-8 rounded-full border-[3px] border-white border-t-transparent animate-spin-slow" /> 
           </div>
           <h1 className="text-3xl font-bold text-white tracking-tight">Chamaleon</h1>
-          <p className="mt-2 text-sm text-white/70">
-            {isSignUp ? 'Crie sua conta e organize sua vida.' : 'Organize sua vida, escolha seu estilo.'}
-          </p>
+          <p className="mt-2 text-sm text-white/70">Organize sua vida, escolha seu estilo.</p>
         </div>
 
         {/* Formulário */}
-        <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-6">
-          {error && (
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="p-3 bg-red-500/20 border border-red-400/50 rounded-xl text-red-100 text-sm backdrop-blur-sm"
-            >
-              {error}
-            </motion.div>
-          )}
-
+        <form onSubmit={handleLogin} className="space-y-6">
           <div className="space-y-2">
             <label className="text-xs font-medium text-white/80 uppercase tracking-wider ml-1">Email</label>
             <input 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              type="email" 
               placeholder="seu@email.com"
-              required
               className="w-full rounded-xl border-0 bg-black/20 p-4 text-white placeholder:text-white/30 focus:ring-2 focus:ring-white/50 focus:outline-none transition-all"
             />
           </div>
@@ -125,10 +101,7 @@ export default function LoginPage() {
             <div className="relative">
               <input 
                 type={showPassword ? "text" : "password"}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                required
                 className="w-full rounded-xl border-0 bg-black/20 p-4 text-white placeholder:text-white/30 focus:ring-2 focus:ring-white/50 focus:outline-none transition-all"
               />
               <button
@@ -139,11 +112,9 @@ export default function LoginPage() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
-            {!isSignUp && (
-              <div className="text-right">
-                <a href="#" className="text-xs text-white/60 hover:text-white transition-colors">Esqueceu a senha?</a>
-              </div>
-            )}
+            <div className="text-right">
+              <a href="#" className="text-xs text-white/60 hover:text-white transition-colors">Esqueceu a senha?</a>
+            </div>
           </div>
 
           {/* Botão de Ação */}
@@ -151,7 +122,6 @@ export default function LoginPage() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             disabled={isLoading}
-            type="submit"
             className="group relative w-full overflow-hidden rounded-xl bg-white p-4 font-bold text-gray-900 shadow-lg transition-all hover:bg-gray-50 disabled:opacity-70"
           >
             <span className="relative flex items-center justify-center gap-2">
@@ -159,7 +129,7 @@ export default function LoginPage() {
                 <Loader2 className="animate-spin" size={20} />
               ) : (
                 <>
-                  {isSignUp ? 'Criar Conta' : 'Entrar'}
+                  Entrar
                   <ArrowRight size={18} className="transition-transform group-hover:translate-x-1" />
                 </>
               )}
@@ -169,33 +139,10 @@ export default function LoginPage() {
 
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-white/60">
-          {isSignUp ? (
-            <>
-              Já tem uma conta?{' '}
-              <button 
-                onClick={() => {
-                  setIsSignUp(false);
-                  setError('');
-                }}
-                className="font-semibold text-white hover:underline"
-              >
-                Entre agora
-              </button>
-            </>
-          ) : (
-            <>
-              Não tem uma conta?{' '}
-              <button 
-                onClick={() => {
-                  setIsSignUp(true);
-                  setError('');
-                }}
-                className="font-semibold text-white hover:underline"
-              >
-                Crie agora
-              </button>
-            </>
-          )}
+          Não tem uma conta?{' '}
+          <a href="#" className="font-semibold text-white hover:underline">
+            Crie agora
+          </a>
         </div>
       </motion.div>
     </div>
