@@ -4,6 +4,7 @@ import { useTaskStore, Task } from '@/stores/taskStore';
 import { useTheme } from '@/themes/ThemeContext';
 import { TasksPageProps } from '@/themes/packs/types';
 import { createMemoizedThemedComponent } from '@/utils/memoizedComponent';
+import { CreateTaskDialog } from '@/components/dialogs/CreateTaskDialog';
 
 const themedTasks: Record<string, () => Promise<{ default: React.ComponentType<TasksPageProps> }>> = {
   cyberpunk: () => import('@/themes/packs/cyberpunk/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.CyberpunkTasksPage) })),
@@ -26,7 +27,6 @@ export default function TasksPage() {
   const deleteTask = useTaskStore((state) => state.deleteTask);
   const [filter, setFilter] = useState<'all' | 'today' | 'pending' | 'completed'>('all');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [newTask, setNewTask] = useState({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
 
   const filteredTasks = useMemo(() => tasks.filter(t => {
     if (filter === 'pending') return !t.completedAt;
@@ -38,12 +38,6 @@ export default function TasksPage() {
     return true;
   }), [tasks, filter]);
 
-  const handleAddTask = useCallback(() => {
-    // This would be implemented with the actual add task logic
-    setIsDialogOpen(false);
-    setNewTask({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
-  }, []);
-
   const pageProps: TasksPageProps = useMemo(() => ({
     tasks,
     filteredTasks,
@@ -51,9 +45,6 @@ export default function TasksPage() {
     setFilter,
     isDialogOpen,
     setIsDialogOpen,
-    newTask,
-    setNewTask,
-    handleAddTask,
     toggleTaskStatus,
     deleteTask,
   }), [
@@ -61,8 +52,6 @@ export default function TasksPage() {
     filteredTasks,
     filter,
     isDialogOpen,
-    newTask,
-    handleAddTask,
     toggleTaskStatus,
     deleteTask,
   ]);
@@ -72,9 +61,15 @@ export default function TasksPage() {
   if (ThemedTasks) {
     const LazyThemedTasks = lazy(ThemedTasks);
     return (
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
-        <LazyThemedTasks {...pageProps} />
-      </Suspense>
+      <>
+        <Suspense fallback={<div className="p-6">Loading...</div>}>
+          <LazyThemedTasks {...pageProps} />
+        </Suspense>
+        <CreateTaskDialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+        />
+      </>
     );
   }
 

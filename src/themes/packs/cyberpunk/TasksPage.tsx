@@ -3,10 +3,6 @@
 import { TasksPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Zap, Clock, Trash2, Plus, Filter } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Task } from '@/stores/taskStore';
 
 export function CyberpunkTasksPage({
@@ -16,9 +12,6 @@ export function CyberpunkTasksPage({
   setFilter,
   isDialogOpen,
   setIsDialogOpen,
-  newTask,
-  setNewTask,
-  handleAddTask,
   toggleTaskStatus,
   deleteTask,
 }: TasksPageProps) {
@@ -64,7 +57,7 @@ export function CyberpunkTasksPage({
         backgroundImage: 'linear-gradient(rgba(42,27,61,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(42,27,61,0.3) 1px, transparent 1px)',
         backgroundSize: '40px 40px',
       }}>
-      
+
       {/* Vaporwave sun effect */}
       <div className="fixed top-[-100px] right-[-100px] w-[300px] h-[300px] rounded-full opacity-40 pointer-events-none z-0"
         style={{ background: 'linear-gradient(to bottom, #ff00ff, #ffbd00)', filter: 'blur(60px)' }} />
@@ -130,7 +123,7 @@ export function CyberpunkTasksPage({
             {/* Animated gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/5 to-transparent h-[200%] w-full opacity-10 pointer-events-none"
               style={{ animation: 'spin 4s linear infinite' }} />
-            
+
             <div className="relative z-10 flex justify-between items-center">
               <p className="text-white text-lg font-[family-name:var(--font-orbitron)] font-bold tracking-wide uppercase">System Status</p>
               <span className="text-[#ffff00] text-sm font-mono font-bold border border-[#ffff00]/50 px-2 py-0.5 rounded bg-[#ffff00]/10"
@@ -138,7 +131,7 @@ export function CyberpunkTasksPage({
                 {Math.round(progressValue)}%
               </span>
             </div>
-            
+
             <div className="relative h-4 w-full bg-black/40 rounded border border-white/10 p-[2px] mt-3">
               <div className="h-full rounded-sm bg-gradient-to-r from-[#bc13fe] to-[#ff00ff] relative overflow-hidden"
                 style={{ width: `${progressValue}%`, boxShadow: '0 0 10px rgba(188,19,254,0.6)' }}>
@@ -148,7 +141,7 @@ export function CyberpunkTasksPage({
                 }} />
               </div>
             </div>
-            
+
             <p className="text-[#00ffff]/80 text-xs font-mono tracking-widest uppercase mt-2">
               {completedCount}/{totalTasks} Missions Complete
             </p>
@@ -187,22 +180,22 @@ export function CyberpunkTasksPage({
             filteredTasks.map((task) => {
               const borderColor = getBorderColor(task);
               const isCompleted = task.status === 'completed';
-              
+
               return (
                 <div key={task.id}
                   className={cn(
                     'group relative flex items-center gap-4 p-4 rounded-xl bg-[#1e0c35] border-l-4 border-y border-r transition-all',
-                    isCompleted 
+                    isCompleted
                       ? 'border-y-white/5 border-r-white/5 opacity-60 grayscale hover:grayscale-0 hover:opacity-100'
                       : 'border-y-white/5 border-r-white/5 shadow-lg hover:border-y-[#bc13fe]/50 hover:border-r-[#bc13fe]/50'
                   )}
                   style={{ borderLeftColor: borderColor, ...(isCompleted ? {} : { boxShadow: `0 0 15px ${borderColor}20` }) }}>
-                  
+
                   {/* Checkbox */}
                   <button onClick={() => toggleTaskStatus(task.id)}
                     className={cn(
                       'flex-shrink-0 w-6 h-6 rounded border-2 flex items-center justify-center transition-colors bg-black/20',
-                      isCompleted 
+                      isCompleted
                         ? 'border-[#00ffff] bg-[#00ffff]/20'
                         : 'border-[#bc13fe]/50 group-hover:border-[#bc13fe]'
                     )}
@@ -246,82 +239,17 @@ export function CyberpunkTasksPage({
           )}
         </div>
 
-        {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-5 z-20 flex w-14 h-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ff00ff] to-[#bc13fe] text-white border border-white/20 transition-transform active:scale-90 hover:scale-105 group overflow-hidden"
-              style={{ boxShadow: '0 0 20px rgba(255,0,255,0.6)' }}>
-              <span className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
-              <Plus className="w-8 h-8 relative z-10" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#0f0518] border-2 border-[#bc13fe] text-white max-w-[90vw] rounded-xl"
-            style={{ boxShadow: '0 0 30px rgba(188,19,254,0.3)' }}>
-            <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-orbitron)] text-[#00ffff] tracking-wider flex items-center gap-2">
-                <Zap className="w-5 h-5 text-[#ff00ff]" />
-                NEW_QUEST.INIT
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <div className="space-y-2">
-                <Label className="text-[#ff00ff] text-xs tracking-wider font-bold uppercase">Mission Title</Label>
-                <Input
-                  placeholder="Enter quest objective..."
-                  value={newTask.title}
-                  onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-[#1e0c35] border-[#bc13fe]/50 text-white placeholder:text-[#ff00ff]/30 focus:border-[#00ffff] rounded-lg"
-                />
-              </div>
-              
-              <div className="space-y-2">
-                <Label className="text-[#ff00ff] text-xs tracking-wider font-bold uppercase">Details</Label>
-                <Input
-                  placeholder="Additional intel..."
-                  value={newTask.notes}
-                  onChange={(e) => setNewTask({ ...newTask, notes: e.target.value })}
-                  className="bg-[#1e0c35] border-[#bc13fe]/50 text-white placeholder:text-[#ff00ff]/30 focus:border-[#00ffff] rounded-lg"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#ff00ff] text-xs tracking-wider font-bold uppercase">Deadline</Label>
-                  <Input
-                    type="date"
-                    value={newTask.dueDate}
-                    onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                    className="bg-[#1e0c35] border-[#bc13fe]/50 text-white focus:border-[#00ffff] rounded-lg"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label className="text-[#ff00ff] text-xs tracking-wider font-bold uppercase">Priority</Label>
-                  <Select
-                    value={newTask.priority}
-                    onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}
-                  >
-                    <SelectTrigger className="bg-[#1e0c35] border-[#bc13fe]/50 text-white rounded-lg">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#1e0c35] border-[#bc13fe] rounded-lg">
-                      <SelectItem value="low" className="text-green-400">Low</SelectItem>
-                      <SelectItem value="medium" className="text-[#bc13fe]">Medium</SelectItem>
-                      <SelectItem value="high" className="text-orange-400">High</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <button onClick={handleAddTask}
-                className="w-full py-3 rounded-lg bg-gradient-to-r from-[#ff00ff] to-[#bc13fe] text-white font-[family-name:var(--font-orbitron)] tracking-wider hover:opacity-90 transition-opacity"
-                style={{ boxShadow: '0 0 15px rgba(255,0,255,0.4)' }}>
-                INITIALIZE QUEST
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* FAB - abre o CreateTaskDialog */}
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-5 z-20 flex w-14 h-14 items-center justify-center rounded-full bg-gradient-to-br from-[#ff00ff] to-[#bc13fe] text-white border border-white/20 transition-transform active:scale-90 hover:scale-105 group overflow-hidden"
+          style={{ boxShadow: '0 0 20px rgba(255,0,255,0.6)' }}
+        >
+          <span className="absolute inset-0 bg-white/20 rounded-full scale-0 group-hover:scale-100 transition-transform duration-300" />
+          <Plus className="w-8 h-8 relative z-10" />
+        </button>
       </div>
     </div>
   );
 }
+

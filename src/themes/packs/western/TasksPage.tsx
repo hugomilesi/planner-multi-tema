@@ -3,10 +3,6 @@
 import { TasksPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Clock, Trash2, Plus, Star, SlidersHorizontal } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Task } from '@/stores/taskStore';
 
 export function WesternTasksPage({
@@ -16,9 +12,6 @@ export function WesternTasksPage({
   setFilter,
   isDialogOpen,
   setIsDialogOpen,
-  newTask,
-  setNewTask,
-  handleAddTask,
   toggleTaskStatus,
   deleteTask,
 }: TasksPageProps) {
@@ -179,7 +172,7 @@ export function WesternTasksPage({
           ) : (
             filteredTasks.map((task) => {
               const isCompleted = task.status === 'completed';
-              
+
               return (
                 <div key={task.id}
                   className={cn(
@@ -190,7 +183,7 @@ export function WesternTasksPage({
                   {!isCompleted && (
                     <div className="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-[#F0EAD6] border-r-[#D2B48C] shadow-sm" />
                   )}
-                  
+
                   {/* Checkbox */}
                   <button onClick={() => toggleTaskStatus(task.id)}
                     className={cn(
@@ -241,74 +234,17 @@ export function WesternTasksPage({
           )}
         </div>
 
-        {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-5 z-20 flex w-16 h-16 items-center justify-center rounded-full bg-[#DAA520] text-[#3E2723] border-4 border-[#B8860B] transition-transform active:scale-90 hover:scale-105 group"
-              style={{ boxShadow: '0 4px 10px rgba(0,0,0,0.4)' }}>
-              <div className="absolute inset-0 rounded-full border border-[#FFF8DC] opacity-50 m-1" />
-              <Star className="w-9 h-9 group-hover:rotate-180 transition-transform duration-500" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#FDF5E6] border-4 border-[#8B4513] text-[#3E2723] max-w-[90vw] rounded-lg"
-            style={{ boxShadow: '8px 8px 0 rgba(139,69,19,0.3)' }}>
-            <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-rye)] text-[#8B4513] text-xl flex items-center gap-2">
-                <Star className="w-5 h-5 text-[#DAA520]" />
-                New Bounty
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <div className="space-y-2">
-                <Label className="text-[#8B4513] font-bold">Title</Label>
-                <Input placeholder="Enter bounty title..."
-                  value={newTask.title}
-                  onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
-                  className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] placeholder:text-[#8B4513]/50 focus:border-[#8B4513] rounded-lg" />
-              </div>
-              
-              <div className="space-y-2">
-                <Label className="text-[#8B4513] font-bold">Notes</Label>
-                <Input placeholder="Additional details..."
-                  value={newTask.notes}
-                  onChange={(e) => setNewTask({ ...newTask, notes: e.target.value })}
-                  className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] placeholder:text-[#8B4513]/50 focus:border-[#8B4513] rounded-lg" />
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#8B4513] font-bold">Due Date</Label>
-                  <Input type="date"
-                    value={newTask.dueDate}
-                    onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
-                    className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] focus:border-[#8B4513] rounded-lg" />
-                </div>
-                
-                <div className="space-y-2">
-                  <Label className="text-[#8B4513] font-bold">Priority</Label>
-                  <Select value={newTask.priority}
-                    onValueChange={(value: Task['priority']) => setNewTask({ ...newTask, priority: value })}>
-                    <SelectTrigger className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] rounded-lg">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#FDF5E6] border-2 border-[#D2B48C] rounded-lg">
-                      <SelectItem value="low" className="text-green-800">Low</SelectItem>
-                      <SelectItem value="medium" className="text-orange-800">Medium</SelectItem>
-                      <SelectItem value="high" className="text-purple-800">High</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-
-              <button onClick={handleAddTask}
-                className="w-full py-3 bg-[#8B4513] text-[#FDF5E6] font-[family-name:var(--font-rye)] border-2 border-[#5D4037] hover:bg-[#A0522D] transition-all rounded-lg"
-                style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.2)' }}>
-                Post Bounty
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* FAB - abre o CreateTaskDialog */}
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-5 z-20 flex w-16 h-16 items-center justify-center rounded-full bg-[#DAA520] text-[#3E2723] border-4 border-[#B8860B] transition-transform active:scale-90 hover:scale-105 group"
+          style={{ boxShadow: '0 4px 10px rgba(0,0,0,0.4)' }}
+        >
+          <div className="absolute inset-0 rounded-full border border-[#FFF8DC] opacity-50 m-1" />
+          <Star className="w-9 h-9 group-hover:rotate-180 transition-transform duration-500" />
+        </button>
       </div>
     </div>
   );
 }
+

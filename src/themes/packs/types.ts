@@ -6,17 +6,9 @@ export interface TasksPageProps {
   filteredTasks: Task[];
   filter: 'all' | 'today' | 'pending' | 'completed';
   setFilter: (filter: 'all' | 'today' | 'pending' | 'completed') => void;
+  // Dialog state - controla abertura do CreateTaskDialog via FABMenu
   isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
-  newTask: {
-    title: string;
-    notes: string;
-    dueDate: string;
-    priority: Task['priority'];
-    tags: string[];
-  };
-  setNewTask: (task: TasksPageProps['newTask']) => void;
-  handleAddTask: () => void;
   toggleTaskStatus: (id: string) => void;
   deleteTask: (id: string) => void;
   userName?: string;

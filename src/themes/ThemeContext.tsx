@@ -159,7 +159,19 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   );
 
   if (!mounted) {
-    return null;
+    return (
+      <div style={{ 
+        position: 'fixed', 
+        inset: 0, 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        background: '#0a0a0a',
+        color: '#fff'
+      }}>
+        Carregando...
+      </div>
+    );
   }
 
   return (
