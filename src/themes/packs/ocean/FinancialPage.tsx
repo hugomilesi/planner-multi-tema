@@ -5,16 +5,15 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Trash2, Plus, Waves, Wallet } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function OceanFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const today = new Date();
-  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] dark:bg-[#101922] font-[family-name:var(--font-inter)] text-[#111418] dark:text-white pb-24">

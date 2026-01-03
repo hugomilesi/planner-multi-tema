@@ -6,16 +6,15 @@ import { TrendingUp, Trash2, Plus, Plane, ArrowDownLeft, ArrowUpRight, Utensils,
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function NordicFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const today = new Date();
-  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
   const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
   const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1).toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
 

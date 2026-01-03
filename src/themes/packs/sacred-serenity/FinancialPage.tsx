@@ -5,7 +5,6 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Trash2, Plus, Eye, EyeOff, Leaf, Sprout, TreeDeciduous } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function SacredSerenityFinancialPage({
   monthIncome,
@@ -19,6 +18,7 @@ export function SacredSerenityFinancialPage({
   categories,
   selectedPeriod,
   setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const today = new Date();
 
@@ -96,37 +96,85 @@ export function SacredSerenityFinancialPage({
         </div>
       </div>
 
-      {/* Monthly Stewardship Chart */}
+      {/* Stewardship Analysis (Temporal) */}
       <div className="px-6 mb-8">
         <div className="bg-[#121212] rounded-2xl p-6 border border-white/5 shadow-[0_4px_25px_-4px_rgba(197,160,89,0.15)]">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-4">
             <div>
-              <h3 className="text-base font-serif font-bold text-white">Monthly Stewardship</h3>
+              <h3 className="text-base font-serif font-bold text-white">Stewardship Analysis</h3>
               <p className="text-xs text-[#A1A1AA] mt-1">
-                {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {today.toLocaleDateString('en-US', { month: 'short' })} 31
+                 {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
               </p>
             </div>
             <div className="flex items-center gap-1 bg-[#C5A059]/10 px-3 py-1.5 rounded-lg border border-[#C5A059]/20 shadow-[0_0_10px_rgba(197,160,89,0.1)]">
               <span className="text-[#C5A059] text-sm">✨</span>
-              <span className="text-xs font-bold text-[#C5A059]">+12% Saved</span>
+              <span className="text-xs font-bold text-[#C5A059]">Growth</span>
             </div>
           </div>
+
+          {/* Filters */}
+          <div className="flex gap-2 mb-6">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-bold transition-all border",
+                chartView === 'weekly'
+                  ? "bg-gradient-to-r from-[#C5A059] to-[#9C7C33] text-black border-transparent shadow-lg shadow-[#C5A059]/20"
+                  : "bg-[#121212] text-slate-400 border-white/10 hover:border-[#C5A059]/50"
+              )}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-bold transition-all border",
+                chartView === 'monthly'
+                  ? "bg-gradient-to-r from-[#C5A059] to-[#9C7C33] text-black border-transparent shadow-lg shadow-[#C5A059]/20"
+                  : "bg-[#121212] text-slate-400 border-white/10 hover:border-[#C5A059]/50"
+              )}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-4 py-1.5 rounded-full text-xs font-bold transition-all border",
+                chartView === 'yearly'
+                  ? "bg-gradient-to-r from-[#C5A059] to-[#9C7C33] text-black border-transparent shadow-lg shadow-[#C5A059]/20"
+                  : "bg-[#121212] text-slate-400 border-white/10 hover:border-[#C5A059]/50"
+              )}
+            >
+              Year
+            </button>
+          </div>
+          
           <div className="flex items-end justify-between h-40 gap-3 px-2">
-            {[40, 65, 55, 80, 45, 90, 60].map((height, i) => (
-              <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
-                <div className="w-2.5 sm:w-4 bg-white/5 rounded-full relative h-32 flex items-end overflow-hidden">
-                  <div
-                    className={`w - full rounded - full transition - all duration - 500 ease - out ${
-  i === 5
-    ? 'bg-gradient-to-t from-[#9C7C33] to-[#C5A059] shadow-[0_0_10px_rgba(197,160,89,0.3)]'
-    : 'bg-[#C5A059]/40 group-hover:bg-[#C5A059]/60'
-} `}
-                    style={{ height: `${ height }% ` }}
-                  ></div>
+            {chartData.map((item, i) => {
+              const max = Math.max(...chartData.map(d => d.amount)) || 1;
+              const sqrtValue = Math.sqrt(item.amount);
+              const sqrtMax = Math.sqrt(max);
+              let heightPercent = (sqrtValue / sqrtMax) * 100;
+              if (item.amount > 0 && heightPercent < 10) heightPercent = 10;
+              const isHighlighted = item.pattern === 'striped';
+              
+              return (
+                <div key={item.week} className="flex flex-col items-center gap-2 flex-1 group cursor-default">
+                  <div className="w-2.5 sm:w-4 bg-white/5 rounded-full relative h-32 flex items-end overflow-hidden">
+                    <div
+                      className={cn(
+                        "w-full rounded-full transition-all duration-500 ease-out",
+                        isHighlighted
+                          ? 'bg-gradient-to-t from-[#9C7C33] to-[#C5A059] shadow-[0_0_10px_rgba(197,160,89,0.3)]'
+                          : 'bg-[#C5A059]/40 group-hover:bg-[#C5A059]/60'
+                      )}
+                      style={{ height: `${ heightPercent }% ` }}
+                    />
+                  </div>
+                  <span className="text-[11px] font-medium text-slate-400 font-serif">{item.week}</span>
                 </div>
-                <span className="text-[11px] font-medium text-slate-400 font-serif">W{i + 1}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

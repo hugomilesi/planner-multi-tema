@@ -5,18 +5,18 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, Trash2, Plus, Zap, Activity, DollarSign, EyeOff, ShoppingCart, Car } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function SynthwaveFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
   const today = new Date();
-  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
+  // Hook call removed
   const topCategories = categorySpending.slice(0, 2);
 
   return (

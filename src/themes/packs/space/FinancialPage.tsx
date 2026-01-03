@@ -7,7 +7,6 @@ import { useState } from 'react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -19,6 +18,7 @@ export function SpaceFinancialPage({
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -90,27 +90,77 @@ export function SpaceFinancialPage({
           </div>
         </div>
 
-        {/* Monthly Stewardship Chart */}
+        {/* Monthly Stewardship Chart (Temporal) */}
         <div className="mb-6 p-5 rounded-2xl bg-[#1a2a24] border border-[#2a3a34] shadow-sm">
           <div className="flex items-center justify-between mb-1">
-            <h3 className="text-lg font-bold italic" style={{ fontFamily: '"Playfair Display", serif' }}>Monthly Stewardship</h3>
+            <h3 className="text-lg font-bold italic" style={{ fontFamily: '"Playfair Display", serif' }}>Stewardship Analysis</h3>
             <span className="bg-[#5a8a6a]/20 text-[#5a8a6a] text-xs px-2 py-1 rounded-full flex items-center gap-1">
-              <TrendingUp className="w-3 h-3" /> +12% Saved
+              <TrendingUp className="w-3 h-3" /> Growth
             </span>
           </div>
-          <p className="text-xs text-[#6a8a7a] mb-4">Oct 1 - Oct 31</p>
+          <p className="text-xs text-[#6a8a7a] mb-4">
+            {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
+          </p>
+
+          {/* Chart View Filters */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                chartView === 'weekly'
+                  ? "bg-[#5a8a6a] text-white border-[#5a8a6a]"
+                  : "bg-[#1a2a24] text-[#6a8a7a] border-[#2a3a34] hover:bg-[#2a3a34]"
+              )}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                chartView === 'monthly'
+                  ? "bg-[#5a8a6a] text-white border-[#5a8a6a]"
+                  : "bg-[#1a2a24] text-[#6a8a7a] border-[#2a3a34] hover:bg-[#2a3a34]"
+              )}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-3 py-1 rounded-full text-xs font-medium border transition-colors",
+                chartView === 'yearly'
+                  ? "bg-[#5a8a6a] text-white border-[#5a8a6a]"
+                  : "bg-[#1a2a24] text-[#6a8a7a] border-[#2a3a34] hover:bg-[#2a3a34]"
+              )}
+            >
+              Year
+            </button>
+          </div>
+
+          {/* Chart */}
           <div className="h-32 flex items-end gap-2">
-            {['W1', 'W2', 'W3', 'W4'].map((week, i) => {
-              const heights = [40, 60, 80, 50];
+            {chartData.map((item, i) => {
+              const max = Math.max(...chartData.map(d => d.amount)) || 1;
+              const sqrtValue = Math.sqrt(item.amount);
+              const sqrtMax = Math.sqrt(max);
+              let heightPercent = (sqrtValue / sqrtMax) * 100;
+              if (item.amount > 0 && heightPercent < 15) heightPercent = 15;
+              const isHighlighted = item.pattern === 'striped';
+
               return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-2">
+                <div key={item.week} className="flex-1 flex flex-col items-center gap-2">
                   <div className="w-full flex items-end justify-center h-24">
                     <div className={cn(
                       'w-full rounded-t transition-all',
-                      i === 2 ? 'bg-[#5a8a6a]' : 'bg-[#2a3a34]'
-                    )} style={{ height: `${heights[i]}%` }} />
+                      isHighlighted ? 'bg-[#5a8a6a]' : 'bg-[#2a3a34]'
+                    )} style={{ height: `${heightPercent}%` }} />
                   </div>
-                  <span className="text-[10px] text-[#6a8a7a] font-medium">{week}</span>
+                  <span className={cn(
+                    "text-[10px] font-medium",
+                    isHighlighted ? "text-[#5a8a6a]" : "text-[#6a8a7a]"
+                  )}>{item.week}</span>
                 </div>
               );
             })}

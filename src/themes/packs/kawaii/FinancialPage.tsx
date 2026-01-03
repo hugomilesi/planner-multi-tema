@@ -3,7 +3,6 @@ import { cn } from '@/lib/utils';
 import { Plus, Trash2, Flower2, Leaf, Droplets, Scissors, TrendingUp, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 // Floral Theme Implementation
 export function KawaiiFinancialPage({
@@ -20,10 +19,15 @@ export function KawaiiFinancialPage({
   deleteTransaction,
   selectedPeriod,
   setSelectedPeriod,
+  chartData,
+  chartView,
+  setChartView,
 }: FinancialPageProps) {
+  const expenseCategories = categories.filter(c => c.type === 'expense');
+  const incomeCategories = categories.filter(c => c.type === 'income');
   const today = new Date();
-  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
-
+  // Hook call removed
+  const topCategories = categorySpending.slice(0, 2);
   return (
     <div className="min-h-screen pb-24 relative overflow-x-hidden" style={{
       backgroundColor: '#2d1f24',

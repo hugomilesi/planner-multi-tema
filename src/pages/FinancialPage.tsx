@@ -7,6 +7,7 @@ import { createStableFinancialComponent } from '@/utils/stableFinancialComponent
 import { CreateTransactionDialog } from '@/components/dialogs/CreateTransactionDialog';
 import { PageSkeleton } from '@/components/layout/PageSkeleton';
 import { PeriodFilter, getDefaultPeriod, type PeriodRange } from '@/components/financial/PeriodFilter';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 const themedFinancial: Record<string, () => Promise<{ default: React.ComponentType<FinancialPageProps> }>> = {
   cyberpunk: () => import('@/themes/packs/cyberpunk/FinancialPage').then(m => ({ default: createStableFinancialComponent(m.CyberpunkFinancialPage) })),
@@ -38,6 +39,9 @@ export default function FinancialPage() {
     () => getBalanceByPeriod(selectedPeriod.startDate, selectedPeriod.endDate),
     [getBalanceByPeriod, selectedPeriod]
   );
+
+  // Centralized Chart Logic
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions || []);
 
   const formatCurrency = useCallback((amount: number) => {
     return new Intl.NumberFormat('pt-BR', {
@@ -115,10 +119,10 @@ export default function FinancialPage() {
     monthExpense,
     balance,
     formatCurrency,
-    pieData,
+    pieData: [], // TODO: Implement pie data logic if needed
     last7Days,
     categorySpending,
-    recentTransactions: filteredTransactions.slice(0, 10),
+    recentTransactions: transactions.slice(0, 5), // Show 5 most recent overall
     filteredTransactions,
     categories,
     isDialogOpen,
@@ -126,6 +130,9 @@ export default function FinancialPage() {
     deleteTransaction,
     selectedPeriod,
     setSelectedPeriod,
+    chartData,
+    chartView,
+    setChartView,
   }), [
     monthIncome,
     monthExpense,

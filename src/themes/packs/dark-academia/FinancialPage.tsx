@@ -5,13 +5,13 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, Trash2, Plus, BookOpen, Feather, Coffee } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function DarkAcademiaFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -98,26 +98,74 @@ export function DarkAcademiaFinancialPage({
           </div>
         </div>
 
-        {/* Analytics Chart */}
+        {/* Analytics Chart (Temporal) */}
         <div className="px-6 mb-8">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-serif font-medium text-white">Weekly Overview</h3>
+            <div>
+              <h3 className="text-base font-serif font-medium text-white">Spending Analysis</h3>
+              <p className="text-xs text-stone-400 mt-1">
+                {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
+              </p>
+            </div>
             <button className="text-[#C5A059] text-xs font-semibold tracking-wide uppercase hover:opacity-80">View Report</button>
           </div>
+
+          {/* Chart View Filters */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-3 py-1.5 rounded text-[10px] font-semibold tracking-wider uppercase transition-all border",
+                chartView === 'weekly'
+                  ? "bg-[#C5A059] text-black border-[#C5A059]"
+                  : "bg-[#1E1E1E] text-stone-400 border-[#333333] hover:border-[#C5A059]/50"
+              )}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-3 py-1.5 rounded text-[10px] font-semibold tracking-wider uppercase transition-all border",
+                chartView === 'monthly'
+                  ? "bg-[#C5A059] text-black border-[#C5A059]"
+                  : "bg-[#1E1E1E] text-stone-400 border-[#333333] hover:border-[#C5A059]/50"
+              )}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-3 py-1.5 rounded text-[10px] font-semibold tracking-wider uppercase transition-all border",
+                chartView === 'yearly'
+                  ? "bg-[#C5A059] text-black border-[#C5A059]"
+                  : "bg-[#1E1E1E] text-stone-400 border-[#333333] hover:border-[#C5A059]/50"
+              )}
+            >
+              Year
+            </button>
+          </div>
+
           <div className="bg-[#18181B] rounded-xl p-5 border border-slate-800 shadow-none">
             <div className="flex items-end justify-between h-32 gap-3">
-              {['W1', 'W2', 'W3', 'W4', 'W5'].map((week, i) => {
-                const heights = [40, 65, 85, 30, 50];
-                const isActive = i === 2;
+              {chartData.map((item, i) => {
+                const max = Math.max(...chartData.map(d => d.amount)) || 1;
+                const sqrtValue = Math.sqrt(item.amount);
+                const sqrtMax = Math.sqrt(max);
+                let heightPercent = (sqrtValue / sqrtMax) * 100;
+                if (item.amount > 0 && heightPercent < 10) heightPercent = 10;
+                const isActive = item.pattern === 'striped';
+
                 return (
-                  <div key={week} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+                  <div key={item.week} className="flex flex-col items-center gap-2 flex-1 group cursor-default">
                     <div className="w-full relative h-24 flex items-end justify-center">
                       <div className={cn(
                         'w-2 rounded-full transition-all duration-500 ease-out',
                         isActive ? 'bg-[#C5A059] shadow-[0_0_15px_rgba(197,160,89,0.3)]' : 'bg-slate-700 group-hover:bg-[#C5A059]/40'
-                      )} style={{ height: `${heights[i]}%` }} />
+                      )} style={{ height: `${heightPercent}%` }} />
                     </div>
-                    <span className={cn('text-[9px] font-medium uppercase tracking-wide', isActive ? 'font-bold text-[#C5A059]' : 'text-slate-500')}>{week}</span>
+                    <span className={cn('text-[9px] font-medium uppercase tracking-wide', isActive ? 'font-bold text-[#C5A059]' : 'text-slate-500')}>{item.week}</span>
                   </div>
                 );
               })}

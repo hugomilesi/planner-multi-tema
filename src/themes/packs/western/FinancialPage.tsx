@@ -6,21 +6,18 @@ import { TrendingUp, Trash2, Plus, EyeOff, ShoppingBag, Compass } from 'lucide-r
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { WesternBarChart } from '@/components/charts/WesternBarChart';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function WesternFinancialPage({
     monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
     categorySpending, recentTransactions, filteredTransactions, categories,
     isDialogOpen, setIsDialogOpen, deleteTransaction,
     selectedPeriod, setSelectedPeriod,
+    chartData, chartView, setChartView,
 }: FinancialPageProps) {
     const expenseCategories = categories.filter(c => c.type === 'expense');
     const incomeCategories = categories.filter(c => c.type === 'income');
     const today = new Date();
     const topCategories = categorySpending.slice(0, 2);
-
-    // Usar hook para gerenciar dados do gráfico
-    const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
     return (
         <div className="min-h-screen font-courier-prime text-[#2c1810]"

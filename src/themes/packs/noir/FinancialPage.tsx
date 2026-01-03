@@ -5,17 +5,17 @@ import { cn } from '@/lib/utils';
 import { Trash2, Plus, PiggyBank, Settings, PlusCircle, MinusCircle, BarChart3, Gift, IceCream, Gamepad2 } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
-import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function NoirFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
   selectedPeriod, setSelectedPeriod,
+  chartData, chartView, setChartView,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
-  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
+  // Hook call removed
   const goalProgress = Math.min(100, (balance / 60) * 100);
 
   return (
@@ -108,7 +108,93 @@ export function NoirFinancialPage({
           </div>
         </div>
 
-        {/* Spending Chart */}
+        {/* Spending Chart (Temporal) */}
+        <div className="px-6 mb-8">
+          <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.08)]">
+            <div className="flex flex-col mb-4">
+              <h3 className="text-xl font-[family-name:var(--font-fredoka)] font-extrabold text-slate-800 flex items-center gap-2 mb-1">
+                <div className="p-1.5 bg-[#2EC4B6]/10 rounded-lg">
+                  <BarChart3 className="w-5 h-5 text-[#2EC4B6]" />
+                </div>
+                Spending Analysis
+              </h3>
+              <p className="text-xs font-bold text-slate-400 ml-9">
+                {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
+              </p>
+            </div>
+
+            {/* Filters */}
+            <div className="flex gap-2 mb-6 ml-9">
+              <button
+                onClick={() => setChartView('weekly')}
+                className={cn(
+                  "px-4 py-2 rounded-xl text-sm font-bold transition-all border-2",
+                  chartView === 'weekly'
+                    ? "bg-[#2EC4B6] text-white border-[#2EC4B6] shadow-[0_4px_0px_0px_#208b81] translate-y-[-2px]"
+                    : "bg-slate-50 text-slate-500 border-slate-200 hover:border-[#2EC4B6] hover:text-[#2EC4B6]"
+                )}
+              >
+                Week
+              </button>
+              <button
+                onClick={() => setChartView('monthly')}
+                className={cn(
+                  "px-4 py-2 rounded-xl text-sm font-bold transition-all border-2",
+                  chartView === 'monthly'
+                    ? "bg-[#2EC4B6] text-white border-[#2EC4B6] shadow-[0_4px_0px_0px_#208b81] translate-y-[-2px]"
+                    : "bg-slate-50 text-slate-500 border-slate-200 hover:border-[#2EC4B6] hover:text-[#2EC4B6]"
+                )}
+              >
+                Month
+              </button>
+              <button
+                onClick={() => setChartView('yearly')}
+                className={cn(
+                  "px-4 py-2 rounded-xl text-sm font-bold transition-all border-2",
+                  chartView === 'yearly'
+                    ? "bg-[#2EC4B6] text-white border-[#2EC4B6] shadow-[0_4px_0px_0px_#208b81] translate-y-[-2px]"
+                    : "bg-slate-50 text-slate-500 border-slate-200 hover:border-[#2EC4B6] hover:text-[#2EC4B6]"
+                )}
+              >
+                Year
+              </button>
+            </div>
+
+            {/* Chart */}
+            <div className="flex items-end justify-between h-48 gap-3 px-2">
+              {chartData.map((item, i) => {
+                const max = Math.max(...chartData.map(d => d.amount)) || 1;
+                const sqrtValue = Math.sqrt(item.amount);
+                const sqrtMax = Math.sqrt(max);
+                let heightPercent = (sqrtValue / sqrtMax) * 100;
+                if (item.amount > 0 && heightPercent < 15) heightPercent = 15;
+                const isHighlighted = item.pattern === 'striped';
+
+                return (
+                  <div key={item.week} className="flex flex-col items-center gap-2 flex-1 group cursor-default">
+                    <div className="w-full relative h-36 flex items-end justify-center">
+                      {/* Tooltip on hover */}
+                      <div className="absolute -top-10 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800 text-white text-xs font-bold px-2 py-1 rounded-lg pointer-events-none whitespace-nowrap z-10">
+                        {formatCurrency(item.amount)}
+                      </div>
+                      <div className={cn(
+                        "w-full mx-1 rounded-t-xl transition-all duration-300 relative shadow-sm border-2 border-white/50",
+                        isHighlighted ? "bg-[#2EC4B6]" : "bg-slate-200"
+                      )}
+                        style={{ height: `${heightPercent}%` }} />
+                    </div>
+                    <span className={cn(
+                      "text-xs font-bold",
+                      isHighlighted ? "text-[#2EC4B6]" : "text-slate-400"
+                    )}>{item.week}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        {/* Expenses by Category Chart */}
         <div className="px-6 mb-8">
           <div className="bg-white rounded-3xl p-6 border-2 border-slate-200 shadow-[0_4px_20px_-2px_rgba(0,0,0,0.08)]">
             <div className="flex items-center justify-between mb-6">

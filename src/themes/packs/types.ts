@@ -1,6 +1,14 @@
 import { Task } from '@/stores/taskStore';
 import type { PeriodRange } from '@/components/financial/PeriodFilter';
 
+export type ChartViewType = 'weekly' | 'monthly' | 'yearly';
+
+export interface ChartDataPoint {
+  week: string;
+  amount: number;
+  pattern?: 'solid' | 'striped';
+}
+
 // Props compartilhadas para páginas de Tasks (view-model)
 export interface TasksPageProps {
   tasks: Task[];
@@ -50,6 +58,11 @@ export interface FinancialPageProps {
   // Period filter
   selectedPeriod?: PeriodRange;
   setSelectedPeriod?: (period: PeriodRange) => void;
+
+  // Chart Data (Centralized)
+  chartData: ChartDataPoint[];
+  chartView: ChartViewType;
+  setChartView: (view: ChartViewType) => void;
 }
 
 // Props compartilhadas para páginas de Settings (view-model)
