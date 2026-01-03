@@ -56,7 +56,7 @@ export function WesternTasksPage({
   };
 
   return (
-    <div className="min-h-screen font-[family-name:var(--font-courier-prime)] text-[#3E2723]"
+    <div className="min-h-screen font-courier-prime text-[#3E2723]"
       style={{ backgroundColor: '#F0EAD6' }}>
 
       <div className="relative z-10 pb-24">
@@ -81,7 +81,7 @@ export function WesternTasksPage({
               <p className="text-[#8B4513]/70 text-base font-semibold italic tracking-wide">
                 {today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
               </p>
-              <h1 className="text-[#8B4513] font-[family-name:var(--font-rye)] text-3xl leading-tight"
+              <h1 className="text-[#8B4513] font-rye text-3xl leading-tight"
                 style={{ textShadow: '1px 1px 0 rgba(0,0,0,0.1)' }}>
                 Howdy, Partner
               </h1>
@@ -110,7 +110,7 @@ export function WesternTasksPage({
                 <span className={cn('text-xs font-bold uppercase tracking-widest', d.isToday && 'opacity-90 mt-1')}>
                   {d.day}
                 </span>
-                <span className={cn('font-[family-name:var(--font-rye)] mt-1', d.isToday ? 'text-3xl' : 'text-2xl font-bold')}>
+                <span className={cn('font-rye mt-1', d.isToday ? 'text-3xl' : 'text-2xl font-bold')}>
                   {d.date}
                 </span>
                 {d.isToday && <Star className="w-2.5 h-2.5 text-[#DAA520] mt-1" />}
@@ -127,7 +127,7 @@ export function WesternTasksPage({
               <Star className="w-16 h-16 rotate-12" />
             </div>
             <div className="flex gap-6 justify-between items-center z-10">
-              <p className="text-[#3E2723] text-lg font-[family-name:var(--font-rye)] tracking-wide">Daily Bounty</p>
+              <p className="text-[#3E2723] text-lg font-rye tracking-wide">Daily Bounty</p>
               <span className="text-[#A0522D] font-bold bg-[#D2B48C]/20 px-3 py-1 rounded-sm border border-[#D2B48C]/50 text-sm">
                 {Math.round(progressValue)}% Done
               </span>
@@ -149,7 +149,7 @@ export function WesternTasksPage({
         {/* Section Title */}
         <div className="flex items-center px-4 pt-6 pb-2">
           <div className="h-px bg-[#D2B48C] flex-1 opacity-50" />
-          <h2 className="text-[#3E2723] font-[family-name:var(--font-rye)] text-2xl px-4 text-center">Today's Tasks</h2>
+          <h2 className="text-[#3E2723] font-rye text-2xl px-4 text-center">Today's Tasks</h2>
           <div className="h-px bg-[#D2B48C] flex-1 opacity-50" />
         </div>
 
@@ -173,13 +173,13 @@ export function WesternTasksPage({
           {filteredTasks.length === 0 ? (
             <div className="p-8 text-center border-2 border-dashed border-[#D2B48C] bg-[#FDF5E6]/50 rounded-lg">
               <Star className="w-12 h-12 mx-auto text-[#D2B48C] mb-2" />
-              <p className="text-[#8B4513] font-[family-name:var(--font-rye)]">No tasks found</p>
+              <p className="text-[#8B4513] font-rye">No tasks found</p>
               <p className="text-[#8B4513]/60 text-sm mt-1 italic">Tap + to create your first bounty</p>
             </div>
           ) : (
             filteredTasks.map((task) => {
               const isCompleted = task.status === 'completed';
-              
+
               return (
                 <div key={task.id}
                   className={cn(
@@ -190,7 +190,7 @@ export function WesternTasksPage({
                   {!isCompleted && (
                     <div className="absolute top-0 right-0 border-t-[16px] border-r-[16px] border-t-[#F0EAD6] border-r-[#D2B48C] shadow-sm" />
                   )}
-                  
+
                   {/* Checkbox */}
                   <button onClick={() => toggleTaskStatus(task.id)}
                     className={cn(
@@ -208,7 +208,7 @@ export function WesternTasksPage({
                       <div className="absolute top-1/2 left-0 w-full h-0.5 bg-[#3E2723]/30 -rotate-1" />
                     )}
                     <p className={cn(
-                      'text-lg font-bold leading-tight font-[family-name:var(--font-rye)] tracking-wide',
+                      'text-lg font-bold leading-tight font-rye tracking-wide',
                       isCompleted ? 'text-[#3E2723] opacity-60' : 'text-[#3E2723]'
                     )}>
                       {task.title}
@@ -253,7 +253,7 @@ export function WesternTasksPage({
           <DialogContent className="bg-[#FDF5E6] border-4 border-[#8B4513] text-[#3E2723] max-w-[90vw] rounded-lg"
             style={{ boxShadow: '8px 8px 0 rgba(139,69,19,0.3)' }}>
             <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-rye)] text-[#8B4513] text-xl flex items-center gap-2">
+              <DialogTitle className="font-rye text-[#8B4513] text-xl flex items-center gap-2">
                 <Star className="w-5 h-5 text-[#DAA520]" />
                 New Bounty
               </DialogTitle>
@@ -266,7 +266,7 @@ export function WesternTasksPage({
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] placeholder:text-[#8B4513]/50 focus:border-[#8B4513] rounded-lg" />
               </div>
-              
+
               <div className="space-y-2">
                 <Label className="text-[#8B4513] font-bold">Notes</Label>
                 <Input placeholder="Additional details..."
@@ -283,7 +283,7 @@ export function WesternTasksPage({
                     onChange={(e) => setNewTask({ ...newTask, dueDate: e.target.value })}
                     className="bg-[#F0EAD6] border-2 border-[#D2B48C] text-[#3E2723] focus:border-[#8B4513] rounded-lg" />
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label className="text-[#8B4513] font-bold">Priority</Label>
                   <Select value={newTask.priority}
@@ -301,7 +301,7 @@ export function WesternTasksPage({
               </div>
 
               <button onClick={handleAddTask}
-                className="w-full py-3 bg-[#8B4513] text-[#FDF5E6] font-[family-name:var(--font-rye)] border-2 border-[#5D4037] hover:bg-[#A0522D] transition-all rounded-lg"
+                className="w-full py-3 bg-[#8B4513] text-[#FDF5E6] font-rye border-2 border-[#5D4037] hover:bg-[#A0522D] transition-all rounded-lg"
                 style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.2)' }}>
                 Post Bounty
               </button>

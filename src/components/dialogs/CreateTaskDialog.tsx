@@ -7,6 +7,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useToast } from '@/components/ui/toast';
+import { useThemedDialog } from '@/hooks/useThemedDialog';
+import { cn } from '@/lib/utils';
 
 interface CreateTaskDialogProps {
   open: boolean;
@@ -15,6 +18,8 @@ interface CreateTaskDialogProps {
 
 export function CreateTaskDialog({ open, onOpenChange }: CreateTaskDialogProps) {
   const { addTask } = useTaskStore();
+  const { addToast } = useToast();
+  const dialogStyles = useThemedDialog();
   const [newTask, setNewTask] = useState({
     title: '',
     notes: '',
@@ -22,10 +27,10 @@ export function CreateTaskDialog({ open, onOpenChange }: CreateTaskDialogProps) 
     priority: 'medium' as Task['priority'],
   });
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!newTask.title.trim()) return;
 
-    addTask({
+    await addTask({
       title: newTask.title,
       notes: newTask.notes,
       dueDate: newTask.dueDate,
@@ -33,6 +38,8 @@ export function CreateTaskDialog({ open, onOpenChange }: CreateTaskDialogProps) 
       status: 'pending',
       tags: [],
     });
+
+    addToast('success', 'Tarefa criada com sucesso!');
 
     // Reset form
     setNewTask({
@@ -53,11 +60,11 @@ export function CreateTaskDialog({ open, onOpenChange }: CreateTaskDialogProps) 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[90vw] rounded-2xl">
-        <DialogHeader>
-          <DialogTitle>{labels.actions.newTask}</DialogTitle>
+      <DialogContent className={cn("max-w-[90vw] sm:max-w-lg", dialogStyles.content)}>
+        <DialogHeader className={dialogStyles.header}>
+          <DialogTitle className={dialogStyles.title}>{labels.actions.newTask}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 pt-4">
+        <div className="space-y-4 pt-2">
           <div className="space-y-2">
             <Label htmlFor="task-title">{labels.tasks.title}</Label>
             <Input

@@ -58,6 +58,8 @@ export const useTaskStore = create<TaskStore>()((set, get) => ({
       .eq('user_id', userId)
       .order('created_at', { ascending: false });
 
+    console.log('Fetched tasks:', data?.length, 'Error:', error);
+
     if (error) {
       console.error('Error fetching tasks:', error);
       set({ isLoading: false });
@@ -184,10 +186,10 @@ export const useTaskStore = create<TaskStore>()((set, get) => ({
       tasks: state.tasks.map((t) =>
         t.id === id
           ? {
-              ...t,
-              status: newStatus,
-              completedAt: newStatus === 'completed' ? new Date().toISOString() : undefined,
-            }
+            ...t,
+            status: newStatus,
+            completedAt: newStatus === 'completed' ? new Date().toISOString() : undefined,
+          }
           : t
       ),
     }));

@@ -40,22 +40,29 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const fetchUserData = useCallback(async (authUser: User) => {
     try {
+      console.log('Fetching user data for:', authUser.id);
+
       // Fetch profile
-      const { data: profileData } = await supabase
+      const { data: profileData, error: profileError } = await supabase
         .from('profiles')
         .select('*')
         .eq('id', authUser.id)
         .single();
 
+      if (profileError) console.error('Error fetching profile:', profileError);
+
       // Fetch tenant membership
-      const { data: membership } = await supabase
+      const { data: membership, error: membershipError } = await supabase
         .from('tenant_members')
         .select('tenant_id, role')
         .eq('user_id', authUser.id)
         .limit(1)
         .single();
 
+      if (membershipError) console.error('Error fetching membership:', membershipError);
+
       const userTenantId = membership?.tenant_id || null;
+      console.log('Found tenant ID:', userTenantId);
 
       setUser(authUser);
       setProfile(profileData || null);

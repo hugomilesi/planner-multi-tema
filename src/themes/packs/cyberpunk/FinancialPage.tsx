@@ -4,11 +4,15 @@ import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Trash2, Plus, Eye, EyeOff, ShoppingCart, Car } from 'lucide-react';
 import { useState } from 'react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
+import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
 
 export function CyberpunkFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
+  categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const [showBalance, setShowBalance] = useState(true);
   const today = new Date();
@@ -39,26 +43,34 @@ export function CyberpunkFinancialPage({
                 FINANCIAL OVERVIEW
               </h2>
             </div>
-            <button onClick={() => setShowBalance(!showBalance)}
-              className="w-10 h-10 rounded-md border border-white/20 hover:border-[#00ffff] hover:bg-[#00ffff]/10 transition-all flex items-center justify-center group">
-              {showBalance ? <Eye className="w-5 h-5 group-hover:text-[#00ffff]" /> : <EyeOff className="w-5 h-5 group-hover:text-[#00ffff]" />}
-            </button>
+            <div className="flex items-center gap-2">
+              {selectedPeriod && filteredTransactions && (
+                <ExportButtons
+                  transactions={filteredTransactions}
+                  period={selectedPeriod}
+                  categories={categories}
+                  categorySpending={categorySpending}
+                  summary={{ income: monthIncome, expense: monthExpense, balance }}
+                />
+              )}
+              <button onClick={() => setShowBalance(!showBalance)}
+                className="w-10 h-10 rounded-md border border-white/20 hover:border-[#00ffff] hover:bg-[#00ffff]/10 transition-all flex items-center justify-center group">
+                {showBalance ? <Eye className="w-5 h-5 group-hover:text-[#00ffff]" /> : <EyeOff className="w-5 h-5 group-hover:text-[#00ffff]" />}
+              </button>
+            </div>
           </div>
         </header>
 
         {/* Period Filter */}
-        <div className="flex gap-3 px-4 pt-4 pb-2 overflow-x-auto no-scrollbar">
-          <button className="flex-shrink-0 h-9 px-5 rounded-sm border border-[#00ffff] bg-[#00ffff]/10 text-[#00ffff] text-sm font-bold uppercase tracking-wide transition-transform active:scale-95"
-            style={{ boxShadow: '0 0 10px rgba(0,243,255,0.4)' }}>
-            This Month
-          </button>
-          <button className="flex-shrink-0 h-9 px-5 rounded-sm bg-[#151725] border border-white/10 text-slate-400 text-sm font-medium hover:border-[#ff00ff] hover:text-[#ff00ff] transition-colors uppercase">
-            {today.toLocaleDateString('en-US', { month: 'long' })}
-          </button>
-          <button className="flex-shrink-0 h-9 px-5 rounded-sm bg-[#151725] border border-white/10 text-slate-400 text-sm font-medium hover:border-[#ff00ff] hover:text-[#ff00ff] transition-colors uppercase">
-            {today.getFullYear()}
-          </button>
-        </div>
+        {selectedPeriod && setSelectedPeriod && (
+          <div className="px-4 pt-4 pb-2">
+            <PeriodFilter 
+              value={selectedPeriod} 
+              onChange={setSelectedPeriod}
+              className="w-full"
+            />
+          </div>
+        )}
 
         {/* Balance Display */}
         <div className="flex flex-col items-center pt-6 pb-4 px-4 relative">

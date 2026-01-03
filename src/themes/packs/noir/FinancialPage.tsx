@@ -3,17 +3,14 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, PiggyBank, Settings, PlusCircle, MinusCircle, BarChart3, Gift, IceCream, Gamepad2 } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 
 export function NoirFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  categorySpending, recentTransactions, filteredTransactions, categories,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -39,19 +36,33 @@ export function NoirFinancialPage({
               </div>
               <h2 className="text-3xl font-[family-name:var(--font-fredoka)] font-black text-slate-900 tracking-tight">Financial Overview</h2>
             </div>
-            <button className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm border-2 border-slate-200 hover:bg-slate-50 transition-colors text-slate-500 hover:text-[#FF9F1C]">
-              <Settings className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-2">
+              {selectedPeriod && filteredTransactions && (
+                <ExportButtons
+                  transactions={filteredTransactions}
+                  period={selectedPeriod}
+                  categories={categories}
+                  categorySpending={categorySpending}
+                  summary={{ income: monthIncome, expense: monthExpense, balance }}
+                />
+              )}
+              <button className="flex items-center justify-center w-12 h-12 rounded-full bg-white shadow-sm border-2 border-slate-200 hover:bg-slate-50 transition-colors text-slate-500 hover:text-[#FF9F1C]">
+                <Settings className="w-5 h-5" />
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Period Tabs */}
-        <div className="px-6 mb-4">
-          <div className="bg-white p-1.5 rounded-2xl flex shadow-sm border border-slate-200">
-            <button className="flex-1 py-2.5 rounded-xl bg-[#FF9F1C] text-white font-extrabold text-sm shadow-md transition-all">This Week</button>
-            <button className="flex-1 py-2.5 rounded-xl text-slate-600 font-bold text-sm hover:bg-slate-50 transition-colors">Month</button>
+        {/* Period Filter */}
+        {selectedPeriod && setSelectedPeriod && (
+          <div className="px-6 mb-4">
+            <PeriodFilter 
+              value={selectedPeriod} 
+              onChange={setSelectedPeriod}
+              className="w-full"
+            />
           </div>
-        </div>
+        )}
 
         {/* Piggy Bank Card */}
         <div className="px-6 mb-8">
@@ -187,64 +198,13 @@ export function NoirFinancialPage({
           </div>
         </div>
 
-        {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-6 right-6 w-16 h-16 bg-[#FF9F1C] text-white rounded-full shadow-lg shadow-[#FF9F1C]/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 border-4 border-white">
-              <Plus className="w-8 h-8" strokeWidth={3} />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#FFF9F0] border-2 border-[#FF9F1C]/30 text-slate-800 max-w-[90vw] rounded-3xl shadow-[5px_5px_0px_0px_rgba(0,0,0,0.1)]">
-            <DialogHeader>
-              <DialogTitle className="text-slate-800 text-xl font-[family-name:var(--font-fredoka)] font-bold flex items-center gap-2">
-                <span className="text-2xl">💰</span> New Transaction
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-slate-100 rounded-xl">
-                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white font-bold">💵 Income</TabsTrigger>
-                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-red-500 data-[state=active]:text-white font-bold">🛒 Expenses</TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-slate-600 text-sm font-bold">How much?</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-white border-2 border-slate-200 rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-slate-600 text-sm font-bold">What for?</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-white border-2 border-slate-200 rounded-xl"><SelectValue placeholder="Select..." /></SelectTrigger>
-                  <SelectContent className="bg-white border-2 border-slate-200 rounded-xl">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-slate-600 text-sm font-bold">When?</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-white border-2 border-slate-200 rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-slate-600 text-sm font-bold">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-white border-2 border-slate-200 rounded-xl" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 bg-[#FF9F1C] text-white rounded-xl font-bold text-lg shadow-[0_4px_0_rgb(217,119,6)] active:shadow-none active:translate-y-[4px] transition-all">
-                Save! 🎉
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* FAB - Opens Global Dialog */}
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-6 right-6 w-16 h-16 bg-[#FF9F1C] text-white rounded-full shadow-lg shadow-[#FF9F1C]/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 border-4 border-white"
+        >
+          <Plus className="w-8 h-8" strokeWidth={3} />
+        </button>
       </div>
     </div>
   );

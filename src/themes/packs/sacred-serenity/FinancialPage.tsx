@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import { FinancialPageProps } from '../types';
+import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 
 export function SacredSerenityFinancialPage({
   monthIncome,
@@ -10,7 +13,10 @@ export function SacredSerenityFinancialPage({
   pieData,
   categorySpending,
   recentTransactions,
+  filteredTransactions,
   categories,
+  selectedPeriod,
+  setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
 

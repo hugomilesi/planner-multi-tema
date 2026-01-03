@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { ThemeId } from '@/themes/types';
 import { SettingsPageProps } from '@/themes/packs/types';
+import { PageSkeleton } from '@/components/layout/PageSkeleton';
 
 const themedSettings: Record<string, () => Promise<{ default: React.ComponentType<SettingsPageProps> }>> = {
   cyberpunk: () => import('@/themes/packs/cyberpunk/SettingsPage').then(m => ({ default: m.CyberpunkSettingsPage })),
@@ -94,7 +95,7 @@ export default function SettingsPage() {
   if (ThemedSettings) {
     const LazyThemedSettings = lazy(ThemedSettings);
     return (
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
+      <Suspense fallback={<PageSkeleton />}>
         <LazyThemedSettings {...pageProps} />
       </Suspense>
     );

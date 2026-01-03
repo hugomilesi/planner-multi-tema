@@ -1,31 +1,28 @@
-import { lazy, Suspense, useMemo, useCallback } from 'react';
+import { useMemo } from 'react';
+import { useTheme } from '@/themes/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTaskStore } from '@/stores/taskStore';
 import { useFinancialStore } from '@/stores/financialStore';
-import { useTheme } from '@/themes/ThemeContext';
-import { DashboardPageProps } from '@/themes/packs/types';
 
-// Lazy load theme-specific dashboard pages
-const themedDashboards: Record<string, () => Promise<{ default: React.ComponentType<DashboardPageProps> }>> = {
-  cyberpunk: () => import('@/themes/packs/cyberpunk/DashboardPage').then(m => ({ default: m.CyberpunkDashboardPage })),
-  western: () => import('@/themes/packs/western/DashboardPage').then(m => ({ default: m.WesternDashboardPage })),
-  nordic: () => import('@/themes/packs/nordic/DashboardPage').then(m => ({ default: m.NordicDashboardPage })),
-  'dark-academia': () => import('@/themes/packs/dark-academia/DashboardPage').then(m => ({ default: m.DarkAcademiaDashboardPage })),
-  ocean: () => import('@/themes/packs/ocean/DashboardPage').then(m => ({ default: m.OceanDashboardPage })),
-  synthwave: () => import('@/themes/packs/synthwave/DashboardPage').then(m => ({ default: m.SynthwaveDashboardPage })),
-  kawaii: () => import('@/themes/packs/kawaii/DashboardPage').then(m => ({ default: m.KawaiiDashboardPage })),
-  noir: () => import('@/themes/packs/noir/DashboardPage').then(m => ({ default: m.NoirDashboardPage })),
-  space: () => import('@/themes/packs/space/DashboardPage').then(m => ({ default: m.SpaceDashboardPage })),
-  'sacred-serenity': () => import('@/themes/packs/sacred-serenity/DashboardPage').then(m => ({ default: m.SacredSerenityDashboardPage })),
-};
+// Import theme-specific components
+import { CyberpunkDashboardPage } from '@/themes/packs/cyberpunk/DashboardPage';
+import { WesternDashboardPage } from '@/themes/packs/western/DashboardPage';
+import { NordicDashboardPage } from '@/themes/packs/nordic/DashboardPage';
+import { DarkAcademiaDashboardPage } from '@/themes/packs/dark-academia/DashboardPage';
+import { OceanDashboardPage } from '@/themes/packs/ocean/DashboardPage';
+import { SynthwaveDashboardPage } from '@/themes/packs/synthwave/DashboardPage';
+import { KawaiiDashboardPage } from '@/themes/packs/kawaii/DashboardPage';
+import { NoirDashboardPage } from '@/themes/packs/noir/DashboardPage';
+import { SpaceDashboardPage } from '@/themes/packs/space/DashboardPage';
+import { SacredSerenityDashboardPage } from '@/themes/packs/sacred-serenity/DashboardPage';
 
 export default function DashboardPage() {
-  const { user } = useAuth();
   const { themeId } = useTheme();
+  const { user } = useAuth();
   const tasks = useTaskStore((state) => state.tasks);
   const getMonthlyBalance = useFinancialStore((state) => state.getMonthlyBalance);
 
-  const userName = useMemo(() =>
+  const userName = useMemo(() => 
     user?.user_metadata?.name || user?.email?.split('@')[0] || 'User',
     [user]
   );
@@ -36,37 +33,22 @@ export default function DashboardPage() {
     [getMonthlyBalance, now]
   );
 
-  const todayTasks = useMemo(() => tasks.filter(t => {
-    if (!t.dueDate) return false;
-    const today = new Date().toDateString();
-    return new Date(t.dueDate).toDateString() === today;
-  }), [tasks]);
+  const today = now.toISOString().split('T')[0];
+  const todayTasks = tasks.filter((task) => task.dueDate === today);
+  const completedToday = todayTasks.filter((task) => task.status === 'completed').length;
+  const pendingTasks = tasks.filter((task) => task.status === 'pending').length;
+  const overdueTasks = tasks.filter(
+    (task) => task.status === 'pending' && task.dueDate && task.dueDate < today
+  ).length;
+  const progressValue = tasks.length > 0 
+    ? (tasks.filter((t) => t.status === 'completed').length / tasks.length) * 100 
+    : 0;
 
-  const completedToday = useMemo(() =>
-    todayTasks.filter(t => t.completedAt).length,
-    [todayTasks]
-  );
-
-  const pendingTasks = useMemo(() =>
-    tasks.filter(t => !t.completedAt).length,
-    [tasks]
-  );
-
-  const overdueTasks = useMemo(() => tasks.filter(t => {
-    if (!t.dueDate || t.completedAt) return false;
-    return new Date(t.dueDate) < new Date();
-  }).length, [tasks]);
-
-  const progressValue = useMemo(() =>
-    tasks.length > 0 ? (completedToday / tasks.length) * 100 : 0,
-    [tasks.length, completedToday]
-  );
-
-  const formatCurrency = useCallback((value: number) => {
+  const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value);
-  }, []);
+  };
 
-  const pageProps: DashboardPageProps = useMemo(() => ({
+  const commonProps = {
     todayTasks,
     completedToday,
     pendingTasks,
@@ -77,52 +59,30 @@ export default function DashboardPage() {
     balance,
     formatCurrency,
     userName,
-  }), [
-    todayTasks,
-    completedToday,
-    pendingTasks,
-    overdueTasks,
-    progressValue,
-    monthIncome,
-    monthExpense,
-    balance,
-    formatCurrency,
-    userName,
-  ]);
+  };
 
-  // Get themed dashboard component
-  const ThemedDashboard = themedDashboards[themeId];
-
-  if (ThemedDashboard) {
-    const LazyThemedDashboard = lazy(ThemedDashboard);
-    return (
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
-        <LazyThemedDashboard {...pageProps} />
-      </Suspense>
-    );
+  switch (themeId) {
+    case 'cyberpunk':
+      return <CyberpunkDashboardPage {...commonProps} />;
+    case 'western':
+      return <WesternDashboardPage {...commonProps} />;
+    case 'nordic':
+      return <NordicDashboardPage {...commonProps} />;
+    case 'dark-academia':
+      return <DarkAcademiaDashboardPage {...commonProps} />;
+    case 'ocean':
+      return <OceanDashboardPage {...commonProps} />;
+    case 'synthwave':
+      return <SynthwaveDashboardPage {...commonProps} />;
+    case 'kawaii':
+      return <KawaiiDashboardPage {...commonProps} />;
+    case 'noir':
+      return <NoirDashboardPage {...commonProps} />;
+    case 'space':
+      return <SpaceDashboardPage {...commonProps} />;
+    case 'sacred-serenity':
+      return <SacredSerenityDashboardPage {...commonProps} />;
+    default:
+      return <KawaiiDashboardPage {...commonProps} />;
   }
-
-  // Fallback dashboard
-  return (
-    <div className="p-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold">Welcome, {userName}!</h1>
-        <p className="text-muted-foreground">Here's your overview for today</p>
-      </div>
-      <div className="grid gap-4 md:grid-cols-3">
-        <div className="p-4 border rounded-lg bg-card">
-          <p className="text-sm text-muted-foreground">Total Tasks</p>
-          <p className="text-2xl font-bold">{tasks.length}</p>
-        </div>
-        <div className="p-4 border rounded-lg bg-card">
-          <p className="text-sm text-muted-foreground">Today's Tasks</p>
-          <p className="text-2xl font-bold">{todayTasks.length}</p>
-        </div>
-        <div className="p-4 border rounded-lg bg-card">
-          <p className="text-sm text-muted-foreground">Balance</p>
-          <p className="text-2xl font-bold">{formatCurrency(balance)}</p>
-        </div>
-      </div>
-    </div>
-  );
 }

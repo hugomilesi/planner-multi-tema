@@ -1,50 +1,77 @@
-import { lazy, Suspense, useState, useMemo, useCallback, memo } from 'react';
+import { useState } from 'react';
+import { useTheme } from '@/themes/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTaskStore, Task } from '@/stores/taskStore';
-import { useTheme } from '@/themes/ThemeContext';
-import { TasksPageProps } from '@/themes/packs/types';
-import { createMemoizedThemedComponent } from '@/utils/memoizedComponent';
 
-const themedTasks: Record<string, () => Promise<{ default: React.ComponentType<TasksPageProps> }>> = {
-  cyberpunk: () => import('@/themes/packs/cyberpunk/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.CyberpunkTasksPage) })),
-  western: () => import('@/themes/packs/western/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.WesternTasksPage) })),
-  nordic: () => import('@/themes/packs/nordic/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.NordicTasksPage) })),
-  'dark-academia': () => import('@/themes/packs/dark-academia/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.DarkAcademiaTasksPage) })),
-  ocean: () => import('@/themes/packs/ocean/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.OceanTasksPage) })),
-  synthwave: () => import('@/themes/packs/synthwave/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SynthwaveTasksPage) })),
-  kawaii: () => import('@/themes/packs/kawaii/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.KawaiiTasksPage) })),
-  noir: () => import('@/themes/packs/noir/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.NoirTasksPage) })),
-  space: () => import('@/themes/packs/space/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SpaceTasksPage) })),
-  'sacred-serenity': () => import('@/themes/packs/sacred-serenity/TasksPage').then(m => ({ default: createMemoizedThemedComponent(m.SacredSerenityTasksPage) })),
-};
+// Import theme-specific components
+import { CyberpunkTasksPage } from '@/themes/packs/cyberpunk/TasksPage';
+import { WesternTasksPage } from '@/themes/packs/western/TasksPage';
+import { NordicTasksPage } from '@/themes/packs/nordic/TasksPage';
+import { DarkAcademiaTasksPage } from '@/themes/packs/dark-academia/TasksPage';
+import { OceanTasksPage } from '@/themes/packs/ocean/TasksPage';
+import { SynthwaveTasksPage } from '@/themes/packs/synthwave/TasksPage';
+import { KawaiiTasksPage } from '@/themes/packs/kawaii/TasksPage';
+import { NoirTasksPage } from '@/themes/packs/noir/TasksPage';
+import { SpaceTasksPage } from '@/themes/packs/space/TasksPage';
+import { SacredSerenityTasksPage } from '@/themes/packs/sacred-serenity/TasksPage';
 
 export default function TasksPage() {
-  const { user } = useAuth();
   const { themeId } = useTheme();
+  const { user } = useAuth();
   const tasks = useTaskStore((state) => state.tasks);
+  const addTask = useTaskStore((state) => state.addTask);
   const toggleTaskStatus = useTaskStore((state) => state.toggleTaskStatus);
   const deleteTask = useTaskStore((state) => state.deleteTask);
+
   const [filter, setFilter] = useState<'all' | 'today' | 'pending' | 'completed'>('all');
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [newTask, setNewTask] = useState({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
+  const [newTask, setNewTask] = useState<Task>({
+    id: '',
+    title: '',
+    notes: '',
+    dueDate: new Date().toISOString().split('T')[0],
+    priority: 'medium',
+    status: 'pending',
+    tags: [],
+    createdAt: new Date().toISOString(),
+  });
 
-  const filteredTasks = useMemo(() => tasks.filter(t => {
-    if (filter === 'pending') return !t.completedAt;
-    if (filter === 'completed') return !!t.completedAt;
-    if (filter === 'today') {
-      const today = new Date().toDateString();
-      return t.dueDate && new Date(t.dueDate).toDateString() === today;
+  const handleAddTask = () => {
+    if (newTask.title?.trim()) {
+      addTask({
+        title: newTask.title,
+        notes: newTask.notes || '',
+        dueDate: newTask.dueDate || new Date().toISOString().split('T')[0],
+        priority: newTask.priority || 'medium',
+        status: 'pending',
+        tags: newTask.tags || [],
+      });
+      setNewTask({
+        id: '',
+        title: '',
+        notes: '',
+        dueDate: new Date().toISOString().split('T')[0],
+        priority: 'medium',
+        status: 'pending',
+        tags: [],
+        createdAt: new Date().toISOString(),
+      });
+      setIsDialogOpen(false);
     }
+  };
+
+  const today = new Date().toISOString().split('T')[0];
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === 'all') return true;
+    if (filter === 'today') return task.dueDate === today;
+    if (filter === 'pending') return task.status === 'pending';
+    if (filter === 'completed') return task.status === 'completed';
     return true;
-  }), [tasks, filter]);
+  });
 
-  const handleAddTask = useCallback(() => {
-    // This would be implemented with the actual add task logic
-    setIsDialogOpen(false);
-    setNewTask({ title: '', notes: '', dueDate: '', priority: 'medium' as 'low' | 'medium' | 'high', tags: [] as string[] });
-  }, []);
+  const userName = user?.user_metadata?.name || user?.email?.split('@')[0] || 'User';
 
-  const pageProps: TasksPageProps = useMemo(() => ({
+  const commonProps = {
     tasks,
     filteredTasks,
     filter,
@@ -56,64 +83,31 @@ export default function TasksPage() {
     handleAddTask,
     toggleTaskStatus,
     deleteTask,
-  }), [
-    tasks,
-    filteredTasks,
-    filter,
-    isDialogOpen,
-    newTask,
-    handleAddTask,
-    toggleTaskStatus,
-    deleteTask,
-  ]);
+    userName,
+  };
 
-  const ThemedTasks = themedTasks[themeId];
-
-  if (ThemedTasks) {
-    const LazyThemedTasks = lazy(ThemedTasks);
-    return (
-      <Suspense fallback={<div className="p-6">Loading...</div>}>
-        <LazyThemedTasks {...pageProps} />
-      </Suspense>
-    );
+  switch (themeId) {
+    case 'cyberpunk':
+      return <CyberpunkTasksPage {...commonProps} />;
+    case 'western':
+      return <WesternTasksPage {...commonProps} />;
+    case 'nordic':
+      return <NordicTasksPage {...commonProps} />;
+    case 'dark-academia':
+      return <DarkAcademiaTasksPage {...commonProps} />;
+    case 'ocean':
+      return <OceanTasksPage {...commonProps} />;
+    case 'synthwave':
+      return <SynthwaveTasksPage {...commonProps} />;
+    case 'kawaii':
+      return <KawaiiTasksPage {...commonProps} />;
+    case 'noir':
+      return <NoirTasksPage {...commonProps} />;
+    case 'space':
+      return <SpaceTasksPage {...commonProps} />;
+    case 'sacred-serenity':
+      return <SacredSerenityTasksPage {...commonProps} />;
+    default:
+      return <KawaiiTasksPage {...commonProps} />;
   }
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Tasks</h1>
-      <div className="space-y-2">
-        {tasks.length === 0 ? (
-          <p className="text-muted-foreground">No tasks yet</p>
-        ) : (
-          tasks.map((task: Task) => (
-            <div
-              key={task.id}
-              className="p-4 border rounded flex items-start gap-3 cursor-pointer hover:bg-accent/50"
-              onClick={() => toggleTaskStatus(task.id)}
-            >
-              <input
-                type="checkbox"
-                checked={!!task.completedAt}
-                onChange={() => { }}
-                className="mt-1"
-              />
-              <div className="flex-1">
-                <h3 className={`font-semibold ${task.completedAt ? 'line-through opacity-60' : ''}`}>
-                  {task.title}
-                </h3>
-                {task.notes && (
-                  <p className="text-sm text-muted-foreground">{task.notes}</p>
-                )}
-                {task.dueDate && (
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Due: {new Date(task.dueDate).toLocaleDateString()}
-                  </p>
-                )}
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-    </div>
-  );
 }

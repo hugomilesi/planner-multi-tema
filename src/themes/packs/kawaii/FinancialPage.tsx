@@ -1,10 +1,8 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import { Plus, Trash2, Flower2, Leaf, Droplets, Scissors, TrendingUp, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 
 // Floral Theme Implementation
 export function KawaiiFinancialPage({
@@ -14,15 +12,13 @@ export function KawaiiFinancialPage({
   formatCurrency,
   categorySpending,
   recentTransactions,
+  filteredTransactions,
   categories,
   isDialogOpen,
   setIsDialogOpen,
-  transactionType,
-  setTransactionType,
-  newTransaction,
-  setNewTransaction,
-  handleAddTransaction,
   deleteTransaction,
+  selectedPeriod,
+  setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
 
@@ -49,23 +45,30 @@ export function KawaiiFinancialPage({
               <span className="text-[#d47a96]">Floral</span>Finance
             </h1>
           </div>
-          <div className="w-12 h-12 bg-[#3d2a32] rounded-full flex items-center justify-center border border-rose-900/30">
-            <Leaf className="w-6 h-6 text-[#a3c9a8]" />
+          <div className="flex items-center gap-2">
+            {selectedPeriod && filteredTransactions && (
+              <ExportButtons
+                transactions={filteredTransactions}
+                period={selectedPeriod}
+                categories={categories}
+                categorySpending={categorySpending}
+                summary={{ income: monthIncome, expense: monthExpense, balance }}
+              />
+            )}
+            <div className="w-12 h-12 bg-[#3d2a32] rounded-full flex items-center justify-center border border-rose-900/30">
+              <Leaf className="w-6 h-6 text-[#a3c9a8]" />
+            </div>
           </div>
         </div>
 
-        {/* Period Tabs */}
-        <div className="flex p-1 bg-[#3d2a32] rounded-full border border-rose-900/30">
-          <button className="flex-1 py-2.5 px-4 rounded-full text-sm font-bold bg-[#d47a96] text-white shadow-lg shadow-[#d47a96]/20">
-            This Season
-          </button>
-          <button className="flex-1 py-2.5 px-4 rounded-full text-sm font-medium text-[#9e7f8a] hover:text-white transition-colors">
-            {today.toLocaleDateString('en-US', { month: 'long' })}
-          </button>
-          <button className="flex-1 py-2.5 px-4 rounded-full text-sm font-medium text-[#9e7f8a] hover:text-white transition-colors">
-            {new Date(today.setMonth(today.getMonth() + 1)).toLocaleDateString('en-US', { month: 'long' })}
-          </button>
-        </div>
+        {/* Period Filter */}
+        {selectedPeriod && setSelectedPeriod && (
+          <PeriodFilter 
+            value={selectedPeriod} 
+            onChange={setSelectedPeriod}
+            className="w-full"
+          />
+        )}
 
         {/* Total Nectar (Balance) */}
         <div className="text-center py-6">
@@ -247,105 +250,12 @@ export function KawaiiFinancialPage({
         </div>
 
         {/* Add Transaction FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-[#d47a96] hover:bg-[#b85c78] text-white shadow-xl shadow-[#d47a96]/40 z-50">
-              <Plus className="w-6 h-6" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md bg-[#3d2a32] border border-rose-900/30 rounded-[2rem] p-6" style={{ fontFamily: '"DM Sans", sans-serif' }}>
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white text-center" style={{ fontFamily: '"Playfair Display", serif' }}>
-                New Petal 🌸
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 py-4">
-              <div className="flex p-1 bg-[#2d1f24] rounded-xl">
-                <button
-                  type="button"
-                  onClick={() => setTransactionType('income')}
-                  className={cn(
-                    "flex-1 py-3 rounded-lg text-sm font-bold transition-all",
-                    transactionType === 'income' ? "bg-[#a3c9a8] text-[#2d1f24] shadow-sm" : "text-[#9e7f8a] hover:text-[#a3c9a8]"
-                  )}
-                >
-                  🌻 Harvest
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTransactionType('expense')}
-                  className={cn(
-                    "flex-1 py-3 rounded-lg text-sm font-bold transition-all",
-                    transactionType === 'expense' ? "bg-[#d47a96] text-white shadow-sm" : "text-[#9e7f8a] hover:text-[#d47a96]"
-                  )}
-                >
-                  🥀 Prune
-                </button>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Amount</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9e7f8a] font-bold">R$</span>
-                  <Input
-                    type="number"
-                    value={newTransaction.amount}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                    className="pl-10 h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl text-lg font-bold text-white focus:ring-2 focus:ring-[#d47a96] focus:border-transparent"
-                    placeholder="0.00"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Category</label>
-                <Select
-                  value={newTransaction.categoryId}
-                  onValueChange={(value) => setNewTransaction({ ...newTransaction, categoryId: value })}
-                >
-                  <SelectTrigger className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white">
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl bg-[#3d2a32] border-rose-900/30">
-                    {categories
-                      .filter(c => c.type === transactionType)
-                      .map((category) => (
-                        <SelectItem key={category.id} value={category.id} className="rounded-lg my-1 font-bold text-white hover:bg-[#d47a96]/10">
-                          <span className="flex items-center gap-2">
-                            <span>{category.icon}</span> {category.name}
-                          </span>
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Date</label>
-                <Input
-                  type="date"
-                  value={newTransaction.date}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                  className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Note (Optional)</label>
-                <Input
-                  value={newTransaction.note || ''}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                  placeholder="What bloomed?"
-                  className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white placeholder:text-[#9e7f8a]/50"
-                />
-              </div>
-
-              <Button onClick={handleAddTransaction} className="w-full h-14 bg-[#d47a96] hover:bg-[#b85c78] text-white rounded-xl text-lg font-bold mt-4">
-                Plant Petal 🌺
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-[#d47a96] hover:bg-[#b85c78] text-white shadow-xl shadow-[#d47a96]/40 z-50 flex items-center justify-center transition-all hover:scale-110"
+        >
+          <Plus className="w-6 h-6" />
+        </button>
       </div>
     </div>
   );

@@ -2,18 +2,15 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Trash2, Plus, Bell, TrendingUp, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { TrendingUp, TrendingDown, Trash2, Plus, Bell, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 
 export function DarkAcademiaFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  categorySpending, recentTransactions, filteredTransactions, categories,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -43,23 +40,32 @@ export function DarkAcademiaFinancialPage({
               <h2 className="text-2xl font-serif font-semibold text-stone-100 leading-none">Financial Overview</h2>
             </div>
           </div>
-          <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
-            <Bell className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {selectedPeriod && filteredTransactions && (
+              <ExportButtons
+                transactions={filteredTransactions}
+                period={selectedPeriod}
+                categories={categories}
+                categorySpending={categorySpending}
+                summary={{ income: monthIncome, expense: monthExpense, balance }}
+              />
+            )}
+            <button className="flex items-center justify-center rounded-full w-11 h-11 bg-[#1E1E1E] border border-[#333333] text-stone-200 hover:text-[#C5A065] transition-colors shadow-sm">
+              <Bell className="w-5 h-5" />
+            </button>
+          </div>
         </header>
 
-        {/* Month Tabs */}
-        <div className="flex items-center gap-4 px-6 mt-4 pb-4 overflow-x-auto no-scrollbar w-full flex-nowrap border-b border-[#333333]">
-          {months.map((month, i) => (
-            <button key={month} className={cn(
-              'flex-shrink-0 relative pb-2 font-medium text-sm transition-colors whitespace-nowrap',
-              i === 0 ? 'text-[#C5A065]' : 'text-stone-500 hover:text-stone-300'
-            )}>
-              {month}
-              {i === 0 && <span className="absolute bottom-0 left-0 w-full h-0.5 bg-[#C5A065] rounded-full" />}
-            </button>
-          ))}
-        </div>
+        {/* Period Filter */}
+        {selectedPeriod && setSelectedPeriod && (
+          <div className="px-6 mt-4 pb-4 border-b border-[#333333]">
+            <PeriodFilter 
+              value={selectedPeriod} 
+              onChange={setSelectedPeriod}
+              className="w-full"
+            />
+          </div>
+        )}
 
         {/* Balance Section */}
         <div className="flex flex-col items-center pt-6 pb-6 px-6">
@@ -159,64 +165,13 @@ export function DarkAcademiaFinancialPage({
           </div>
         </div>
 
-        {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-8 right-6 w-14 h-14 bg-[#C5A059] hover:bg-[#B08D45] text-white rounded-full shadow-lg shadow-[#C5A059]/30 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 z-30 group">
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#18181B] border border-slate-800 text-white max-w-[90vw] rounded-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-serif font-semibold">New Transaction</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-slate-800 rounded-xl">
-                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-slate-900 data-[state=active]:text-white">Expense</TabsTrigger>
-                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Income</TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-slate-400 text-sm font-medium">Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-slate-900 border-slate-700 rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-slate-400 text-sm font-medium">Category</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-slate-900 border-slate-700 rounded-xl">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#18181B] border-slate-700 rounded-xl">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label className="text-slate-400 text-sm font-medium">Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-slate-900 border-slate-700 rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-slate-400 text-sm font-medium">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-slate-900 border-slate-700 rounded-xl" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 rounded-xl bg-[#C5A059] hover:bg-[#B08D45] text-white font-medium transition-colors">
-                Add Transaction
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        {/* FAB - Opens Global Dialog */}
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-8 right-6 w-14 h-14 bg-[#C5A059] hover:bg-[#B08D45] text-white rounded-full shadow-lg shadow-[#C5A059]/30 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 z-30 group"
+        >
+          <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+        </button>
       </div>
     </div>
   );

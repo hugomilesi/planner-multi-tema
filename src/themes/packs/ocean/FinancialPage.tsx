@@ -2,12 +2,15 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Trash2, Plus, Wallet } from 'lucide-react';
+import { TrendingUp, TrendingDown, Trash2, Plus, Waves, Wallet } from 'lucide-react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 
 export function OceanFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
+  categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
 

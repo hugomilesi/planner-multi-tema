@@ -9,6 +9,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useToast } from '@/components/ui/toast';
+import { useThemedDialog } from '@/hooks/useThemedDialog';
+import { cn } from '@/lib/utils';
 
 interface CreateTransactionDialogProps {
   open: boolean;
@@ -22,6 +25,8 @@ export function CreateTransactionDialog({
   defaultType = 'expense'
 }: CreateTransactionDialogProps) {
   const { categories, addTransaction } = useFinancialStore();
+  const { addToast } = useToast();
+  const dialogStyles = useThemedDialog();
   const [transactionType, setTransactionType] = useState<'income' | 'expense'>(defaultType);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [newTransaction, setNewTransaction] = useState({
@@ -62,6 +67,7 @@ export function CreateTransactionDialog({
       });
 
       console.log('✅ Transaction added successfully');
+      addToast('success', `${transactionType === 'income' ? 'Receita' : 'Despesa'} adicionada com sucesso!`);
 
       // Reset form
       setNewTransaction({
@@ -73,6 +79,7 @@ export function CreateTransactionDialog({
       onOpenChange(false);
     } catch (error) {
       console.error('❌ Error adding transaction:', error);
+      addToast('error', 'Erro ao adicionar transação. Tente novamente.');
     } finally {
       console.log('🏁 Resetting isSubmitting');
       setIsSubmitting(false);
@@ -94,11 +101,11 @@ export function CreateTransactionDialog({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-[90vw] rounded-2xl">
-        <DialogHeader>
-          <DialogTitle>{labels.actions.newTransaction}</DialogTitle>
+      <DialogContent className={cn("max-w-[90vw] sm:max-w-lg", dialogStyles.content)}>
+        <DialogHeader className={dialogStyles.header}>
+          <DialogTitle className={dialogStyles.title}>{labels.actions.newTransaction}</DialogTitle>
         </DialogHeader>
-        <div className="space-y-4 pt-4">
+        <div className="space-y-4 pt-2">
           <Tabs value={transactionType} onValueChange={(v) => handleTypeChange(v as 'income' | 'expense')}>
             <TabsList className="w-full grid grid-cols-2">
               <TabsTrigger value="expense" className="gap-2">

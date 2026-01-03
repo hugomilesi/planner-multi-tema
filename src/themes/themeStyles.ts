@@ -37,8 +37,8 @@ export interface ThemeVisualConfig {
 export const themeVisuals: Record<string, ThemeVisualConfig> = {
   cyberpunk: {
     fonts: {
-      heading: 'font-[family-name:var(--font-orbitron)]',
-      body: 'font-[family-name:var(--font-space-grotesk)]',
+      heading: 'font-orbitron',
+      body: 'font-space-grotesk',
     },
     labels: {
       dashboard: 'COMMAND CENTER',
@@ -70,8 +70,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   western: {
     fonts: {
-      heading: 'font-[family-name:var(--font-rye)]',
-      body: 'font-[family-name:var(--font-geist-sans)]',
+      heading: 'font-rye',
+      body: 'font-inter',
     },
     labels: {
       dashboard: 'HOMESTEAD',
@@ -103,8 +103,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   kawaii: {
     fonts: {
-      heading: 'font-[family-name:var(--font-fredoka)]',
-      body: 'font-[family-name:var(--font-fredoka)]',
+      heading: 'font-fredoka',
+      body: 'font-fredoka',
     },
     labels: {
       dashboard: 'My Happy Place ✨',
@@ -136,8 +136,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   noir: {
     fonts: {
-      heading: 'font-[family-name:var(--font-playfair)] italic',
-      body: 'font-[family-name:var(--font-geist-sans)]',
+      heading: 'font-playfair italic',
+      body: 'font-inter',
     },
     labels: {
       dashboard: 'The Office',
@@ -169,8 +169,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   space: {
     fonts: {
-      heading: 'font-[family-name:var(--font-orbitron)]',
-      body: 'font-[family-name:var(--font-space-grotesk)]',
+      heading: 'font-orbitron',
+      body: 'font-space-grotesk',
     },
     labels: {
       dashboard: 'Mission Control',
@@ -202,8 +202,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   ocean: {
     fonts: {
-      heading: 'font-[family-name:var(--font-geist-sans)]',
-      body: 'font-[family-name:var(--font-geist-sans)]',
+      heading: 'font-inter',
+      body: 'font-inter',
     },
     labels: {
       dashboard: 'Captain\'s Log',
@@ -235,8 +235,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   synthwave: {
     fonts: {
-      heading: 'font-[family-name:var(--font-orbitron)]',
-      body: 'font-[family-name:var(--font-space-grotesk)]',
+      heading: 'font-orbitron',
+      body: 'font-space-grotesk',
     },
     labels: {
       dashboard: 'MAINFRAME',
@@ -268,8 +268,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   'dark-academia': {
     fonts: {
-      heading: 'font-[family-name:var(--font-cormorant)] font-semibold',
-      body: 'font-[family-name:var(--font-geist-sans)]',
+      heading: 'font-cormorant font-semibold',
+      body: 'font-inter',
     },
     labels: {
       dashboard: 'Study',
@@ -301,8 +301,8 @@ export const themeVisuals: Record<string, ThemeVisualConfig> = {
   },
   nordic: {
     fonts: {
-      heading: 'font-[family-name:var(--font-geist-sans)] font-semibold',
-      body: 'font-[family-name:var(--font-geist-sans)]',
+      heading: 'font-inter font-semibold',
+      body: 'font-inter',
     },
     labels: {
       dashboard: 'Overview',

@@ -2,7 +2,9 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Trash2, Plus, TrendingUp, TrendingDown, Eye } from 'lucide-react';
+import { TrendingUp, TrendingDown, Trash2, Plus, Eye, Leaf, Sprout, TreeDeciduous } from 'lucide-react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -11,9 +13,9 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function SpaceFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  categorySpending, recentTransactions, filteredTransactions, categories,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -181,64 +183,13 @@ export function SpaceFinancialPage({
         </div>
       </div>
 
-      {/* FAB and Dialog */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogTrigger asChild>
-          <button className="fixed bottom-24 right-5 z-20 flex w-14 h-14 items-center justify-center rounded-full bg-[#5a8a6a] text-white shadow-lg shadow-[#5a8a6a]/40 transition-transform active:scale-95 hover:scale-105 border-4 border-[#0d1a14]">
-            <Plus className="w-7 h-7" />
-          </button>
-        </DialogTrigger>
-        <DialogContent className="bg-[#1a2a24] border border-[#2a3a34] text-[#f5f0e8] max-w-[90vw] rounded-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-lg font-bold" style={{ fontFamily: '"Playfair Display", serif' }}>New Transaction</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 pt-4">
-            <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-              <TabsList className="w-full grid grid-cols-2 bg-[#0d1a14] rounded-xl">
-                <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-[#8a6a5a] data-[state=active]:text-white">Expense</TabsTrigger>
-                <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-[#5a8a6a] data-[state=active]:text-white">Income</TabsTrigger>
-              </TabsList>
-            </Tabs>
-            <div className="space-y-2">
-              <Label className="text-[#6a8a7a] text-sm font-medium">Amount</Label>
-              <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                className="bg-[#0d1a14] border-[#2a3a34] text-[#f5f0e8] rounded-xl" />
-            </div>
-            <div className="space-y-2">
-              <Label className="text-[#6a8a7a] text-sm font-medium">Category</Label>
-              <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                <SelectTrigger className="bg-[#0d1a14] border-[#2a3a34] text-[#f5f0e8] rounded-xl">
-                  <SelectValue placeholder="Select..." />
-                </SelectTrigger>
-                <SelectContent className="bg-[#1a2a24] border-[#2a3a34] text-[#f5f0e8] rounded-xl">
-                  {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                    <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label className="text-[#6a8a7a] text-sm font-medium">Date</Label>
-                <Input type="date" value={newTransaction.date}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                  className="bg-[#0d1a14] border-[#2a3a34] text-[#f5f0e8] rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-[#6a8a7a] text-sm font-medium">Note</Label>
-                <Input placeholder="Optional" value={newTransaction.note}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                  className="bg-[#0d1a14] border-[#2a3a34] text-[#f5f0e8] rounded-xl" />
-              </div>
-            </div>
-            <button onClick={handleAddTransaction}
-              className="w-full py-3 rounded-xl bg-[#5a8a6a] text-white font-semibold hover:opacity-90" style={{ fontFamily: '"Playfair Display", serif' }}>
-              Add Transaction
-            </button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* FAB - Opens Global Dialog */}
+      <button
+        onClick={() => setIsDialogOpen(true)}
+        className="fixed bottom-24 right-5 z-20 flex w-14 h-14 items-center justify-center rounded-full bg-[#5a8a6a] text-white shadow-lg shadow-[#5a8a6a]/40 transition-transform active:scale-95 hover:scale-105 border-4 border-[#0d1a14]"
+      >
+        <Plus className="w-7 h-7" />
+      </button>
     </div>
   );
 }

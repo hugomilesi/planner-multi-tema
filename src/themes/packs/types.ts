@@ -1,4 +1,5 @@
 import { Task } from '@/stores/taskStore';
+import type { PeriodRange } from '@/components/financial/PeriodFilter';
 
 // Props compartilhadas para páginas de Tasks (view-model)
 export interface TasksPageProps {
@@ -8,14 +9,8 @@ export interface TasksPageProps {
   setFilter: (filter: 'all' | 'today' | 'pending' | 'completed') => void;
   isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
-  newTask: {
-    title: string;
-    notes: string;
-    dueDate: string;
-    priority: Task['priority'];
-    tags: string[];
-  };
-  setNewTask: (task: TasksPageProps['newTask']) => void;
+  newTask: Task;
+  setNewTask: (task: Task) => void;
   handleAddTask: () => void;
   toggleTaskStatus: (id: string) => void;
   deleteTask: (id: string) => void;
@@ -46,11 +41,15 @@ export interface FinancialPageProps {
   last7Days: { day: string; income: number; expense: number }[];
   categorySpending: { id: string; name: string; icon: string; spent: number; budget?: number; percentage: number; color?: string }[];
   recentTransactions: { id: string; type: 'income' | 'expense'; amount: number; categoryId: string; date: string; note?: string }[];
+  filteredTransactions?: { id: string; type: 'income' | 'expense'; amount: number; categoryId: string; date: string; note?: string; createdAt: string }[];
   categories: { id: string; name: string; icon: string; type: 'income' | 'expense'; color?: string; budget?: number }[];
   // Dialog state - apenas controla a abertura, o CreateTransactionDialog global gerencia o resto
   isDialogOpen: boolean;
   setIsDialogOpen: (open: boolean) => void;
   deleteTransaction: (id: string) => void;
+  // Period filter
+  selectedPeriod?: PeriodRange;
+  setSelectedPeriod?: (period: PeriodRange) => void;
 }
 
 // Props compartilhadas para páginas de Settings (view-model)

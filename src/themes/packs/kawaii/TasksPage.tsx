@@ -72,8 +72,8 @@ export function KawaiiTasksPage({
                   <Calendar className="w-3 h-3" />
                   {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric', weekday: 'long' })}
                 </p>
-                <h1 className="text-3xl font-bold leading-tight text-white" style={{ fontFamily: '"Playfair Display", serif' }}>
-                  Hello, {userName}
+                <h1 className="text-3xl font-bold leading-tight text-[#d47a96]" style={{ fontFamily: '"Playfair Display", serif' }}>
+                  Tasks
                 </h1>
               </div>
             </div>
@@ -101,7 +101,7 @@ export function KawaiiTasksPage({
                   {d.isToday && <span className="text-xs font-medium uppercase tracking-wider opacity-90">{d.day}</span>}
                 </div>
                 {d.isToday && <Flower2 className="w-4 h-4 mb-1 relative z-10" />}
-                {!d.isToday && <div className="w-1.5 h-1.5 rounded-full bg-rose-900/30 mb-2" />}
+                {!d.isToday && <div className="w-1.5 h-1.5 rounded-full bg-[#d47a96]/30 mb-2" />}
               </button>
             ))}
           </div>
@@ -177,7 +177,7 @@ export function KawaiiTasksPage({
                   <div className={cn(
                     'absolute inset-0 rounded-full transition-all duration-300',
                     task.status === 'completed'
-                      ? 'bg-gradient-to-tr from-[#d47a96] to-[#b85c78]'
+                      ? 'bg-[#d47a96]'
                       : 'border-2 border-dashed border-rose-700 bg-transparent group-hover:border-solid group-hover:border-[#d47a96]'
                   )} />
                   {task.status === 'completed' ? (

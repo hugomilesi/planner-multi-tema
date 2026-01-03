@@ -2,12 +2,16 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { Trash2, Plus, Plane, ArrowDownLeft, ArrowUpRight, Utensils, Bus, Eye } from 'lucide-react';
+import { TrendingUp, Trash2, Plus, Plane, ArrowDownLeft, ArrowUpRight, Utensils, Bus, Eye } from 'lucide-react';
+import { PeriodFilter } from '@/components/financial/PeriodFilter';
+import { ExportButtons } from '@/components/financial/ExportButtons';
+import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
 
 export function NordicFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
-  categorySpending, recentTransactions, categories,
+  categorySpending, recentTransactions, filteredTransactions, categories,
   isDialogOpen, setIsDialogOpen, deleteTransaction,
+  selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
   const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
@@ -37,23 +41,32 @@ export function NordicFinancialPage({
             <Plane className="w-5 h-5 text-[#c24d3b]" />
             <h1 className="text-xl font-bold uppercase tracking-widest text-[#2c2825]" style={{ fontFamily: '"Courier Prime", monospace' }}>Travel Log</h1>
           </div>
-          <button className="w-8 h-8 rounded-full flex items-center justify-center text-[#5d5650] hover:bg-white/50 transition-colors">
-            <Eye className="w-5 h-5" />
-          </button>
+          <div className="flex items-center gap-2">
+            {selectedPeriod && filteredTransactions && (
+              <ExportButtons
+                transactions={filteredTransactions}
+                period={selectedPeriod}
+                categories={categories}
+                categorySpending={categorySpending}
+                summary={{ income: monthIncome, expense: monthExpense, balance }}
+              />
+            )}
+            <button className="w-8 h-8 rounded-full flex items-center justify-center text-[#5d5650] hover:bg-white/50 transition-colors">
+              <Eye className="w-5 h-5" />
+            </button>
+          </div>
         </header>
 
-        {/* Month Tabs */}
-        <div className="flex gap-2 mb-6">
-          <button className="px-4 py-2 rounded-lg bg-[#c24d3b] text-white text-xs font-bold uppercase tracking-wider" style={{ fontFamily: '"Courier Prime", monospace' }}>
-            Current
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-white/80 text-[#5d5650] text-xs font-bold uppercase tracking-wider border border-[#d1c7b0]" style={{ fontFamily: '"Courier Prime", monospace' }}>
-            {prevMonth} '{today.getFullYear().toString().slice(-2)}
-          </button>
-          <button className="px-4 py-2 rounded-lg bg-white/80 text-[#5d5650] text-xs font-bold uppercase tracking-wider border border-[#d1c7b0]" style={{ fontFamily: '"Courier Prime", monospace' }}>
-            Sep '{today.getFullYear().toString().slice(-2)}
-          </button>
-        </div>
+        {/* Period Filter */}
+        {selectedPeriod && setSelectedPeriod && (
+          <div className="mb-6">
+            <PeriodFilter 
+              value={selectedPeriod} 
+              onChange={setSelectedPeriod}
+              className="w-full"
+            />
+          </div>
+        )}
 
         {/* Trip Balance Card */}
         <div className="relative bg-gradient-to-br from-[#e8dfc5] to-[#d8c8b0] rounded-xl p-5 mb-4 shadow-md border border-[#c8b8a0]">

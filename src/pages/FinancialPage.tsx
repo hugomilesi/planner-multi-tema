@@ -5,6 +5,8 @@ import { useTheme } from '@/themes/ThemeContext';
 import { FinancialPageProps } from '@/themes/packs/types';
 import { createStableFinancialComponent } from '@/utils/stableFinancialComponent';
 import { CreateTransactionDialog } from '@/components/dialogs/CreateTransactionDialog';
+import { PageSkeleton } from '@/components/layout/PageSkeleton';
+import { PeriodFilter, getDefaultPeriod, type PeriodRange } from '@/components/financial/PeriodFilter';
 
 const themedFinancial: Record<string, () => Promise<{ default: React.ComponentType<FinancialPageProps> }>> = {
   cyberpunk: () => import('@/themes/packs/cyberpunk/FinancialPage').then(m => ({ default: createStableFinancialComponent(m.CyberpunkFinancialPage) })),
@@ -26,15 +28,15 @@ export default function FinancialPage() {
   // Optimized selectors - each selector is independent to prevent unnecessary re-renders
   const transactions = useFinancialStore((state) => state.transactions);
   const categories = useFinancialStore((state) => state.categories);
-  const getMonthlyBalance = useFinancialStore((state) => state.getMonthlyBalance);
+  const getBalanceByPeriod = useFinancialStore((state) => state.getBalanceByPeriod);
   const deleteTransaction = useFinancialStore((state) => state.deleteTransaction);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedPeriod, setSelectedPeriod] = useState<PeriodRange>(getDefaultPeriod());
 
-  const now = useMemo(() => new Date(), []);
-  const { income: monthIncome, expense: monthExpense, balance } = useMemo(
-    () => getMonthlyBalance(now.getFullYear(), now.getMonth()),
-    [getMonthlyBalance, now]
+  const { income: monthIncome, expense: monthExpense, balance, transactions: filteredTransactions } = useMemo(
+    () => getBalanceByPeriod(selectedPeriod.startDate, selectedPeriod.endDate),
+    [getBalanceByPeriod, selectedPeriod]
   );
 
   const formatCurrency = useCallback((amount: number) => {
@@ -44,15 +46,16 @@ export default function FinancialPage() {
     }).format(amount);
   }, []);
 
-  // Calculate last 7 days data
+  // Calculate last 7 days data based on filtered period
   const last7Days = useMemo(() => {
     const days = [];
+    const today = new Date();
     for (let i = 6; i >= 0; i--) {
-      const date = new Date(now);
+      const date = new Date(today);
       date.setDate(date.getDate() - i);
       const dateStr = date.toISOString().split('T')[0];
 
-      const dayTransactions = transactions.filter(t => t.date === dateStr);
+      const dayTransactions = filteredTransactions.filter(t => t.date.startsWith(dateStr));
       const income = dayTransactions
         .filter(t => t.type === 'income')
         .reduce((sum, t) => sum + t.amount, 0);
@@ -67,15 +70,15 @@ export default function FinancialPage() {
       });
     }
     return days;
-  }, [transactions, now]);
+  }, [filteredTransactions]);
 
-  // Calculate category spending
+  // Calculate category spending for filtered period
   const categorySpending = useMemo(() => {
     const spending = categories
       .filter(c => c.type === 'expense')
       .map(cat => {
-        const spent = transactions
-          .filter(t => t.type === 'expense' && t.categoryId === cat.id && t.date.startsWith(`${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`))
+        const spent = filteredTransactions
+          .filter(t => t.type === 'expense' && t.categoryId === cat.id)
           .reduce((sum, t) => sum + t.amount, 0);
 
         const budget = cat.budget || 500;
@@ -95,7 +98,16 @@ export default function FinancialPage() {
       .sort((a, b) => b.spent - a.spent);
 
     return spending;
-  }, [transactions, categories, now]);
+  }, [filteredTransactions, categories]);
+
+  // Calculate pie chart data for category distribution
+  const pieData = useMemo(() => {
+    return categorySpending.map(cat => ({
+      name: cat.name,
+      value: cat.spent,
+      color: cat.color,
+    }));
+  }, [categorySpending]);
 
   // Memoized props object - only recreates when dependencies change
   const pageProps: FinancialPageProps = useMemo(() => ({
@@ -103,25 +115,30 @@ export default function FinancialPage() {
     monthExpense,
     balance,
     formatCurrency,
-    pieData: [],
+    pieData,
     last7Days,
     categorySpending,
-    recentTransactions: transactions.slice(0, 10),
+    recentTransactions: filteredTransactions.slice(0, 10),
+    filteredTransactions,
     categories,
     isDialogOpen,
     setIsDialogOpen,
     deleteTransaction,
+    selectedPeriod,
+    setSelectedPeriod,
   }), [
     monthIncome,
     monthExpense,
     balance,
     formatCurrency,
-    transactions,
+    pieData,
+    filteredTransactions,
     categories,
     last7Days,
     categorySpending,
     isDialogOpen,
     deleteTransaction,
+    selectedPeriod,
   ]);
 
   const ThemedFinancial = themedFinancial[themeId];
@@ -130,7 +147,7 @@ export default function FinancialPage() {
     const LazyThemedFinancial = lazy(ThemedFinancial);
     return (
       <>
-        <Suspense fallback={<div className="p-6">Loading...</div>}>
+        <Suspense fallback={<PageSkeleton />}>
           <LazyThemedFinancial {...pageProps} />
         </Suspense>
         <CreateTransactionDialog

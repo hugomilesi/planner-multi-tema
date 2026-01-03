@@ -1,28 +1,13 @@
 @import "tailwindcss";
 
-/* Theme Fonts */
-:root {
-  --font-orbitron: 'Orbitron', sans-serif;
-  --font-space-grotesk: 'Space Grotesk', sans-serif;
-  --font-press-start: 'Press Start 2P', cursive;
-  --font-vt323: 'VT323', monospace;
-  --font-rye: 'Rye', serif;
-  --font-courier-prime: 'Courier Prime', monospace;
-  --font-playfair: 'Playfair Display', serif;
-  --font-cormorant: 'Cormorant Garamond', serif;
-  --font-caveat: 'Caveat', cursive;
-  --font-fredoka: 'Fredoka', sans-serif;
-  --font-inter: 'Inter', sans-serif;
-  --font-roboto-mono: 'Roboto Mono', monospace;
-  --font-lora: 'Lora', serif;
-  --font-lato: 'Lato', sans-serif;
-}
+
 
 /* Custom Animations */
 @keyframes spin-slow {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -33,12 +18,16 @@
 }
 
 @keyframes blob {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translate(0, 0) scale(1);
   }
+
   33% {
     transform: translate(30px, -50px) scale(1.1);
   }
+
   66% {
     transform: translate(-20px, 20px) scale(0.9);
   }
@@ -54,6 +43,43 @@
 
 .animation-delay-4000 {
   animation-delay: 4s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation-duration: 300ms;
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+.slide-in-from-bottom-4 {
+  animation-name: slide-in-from-bottom;
+}
+
+.duration-300 {
+  animation-duration: 300ms;
 }
 
 @theme {
@@ -77,6 +103,21 @@
   --color-input: #e4e4e7;
   --color-ring: #18181b;
   --radius: 0.5rem;
+
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-press-start: 'Press Start 2P', cursive;
+  --font-vt323: 'VT323', monospace;
+  --font-rye: 'Rye', serif;
+  --font-courier-prime: 'Courier Prime', monospace;
+  --font-playfair: 'Playfair Display', serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-caveat: 'Caveat', cursive;
+  --font-fredoka: 'Fredoka', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-roboto-mono: 'Roboto Mono', monospace;
+  --font-lora: 'Lora', serif;
+  --font-lato: 'Lato', sans-serif;
 }
 
 @media (prefers-color-scheme: dark) {

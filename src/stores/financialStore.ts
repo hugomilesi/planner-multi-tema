@@ -43,6 +43,7 @@ interface FinancialStore {
   setCurrency: (currency: string) => void;
 
   getMonthlyBalance: (year: number, month: number) => { income: number; expense: number; balance: number };
+  getBalanceByPeriod: (startDate: Date, endDate: Date) => { income: number; expense: number; balance: number; transactions: Transaction[] };
   getCategorySpending: (categoryId: string, year: number, month: number) => number;
   getTransactionsByMonth: (year: number, month: number) => Transaction[];
   clearData: () => void;
@@ -324,13 +325,33 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
 
   getMonthlyBalance: (year, month) => {
     const transactions = get().getTransactionsByMonth(year, month);
+    
     const income = transactions
       .filter((t) => t.type === 'income')
       .reduce((sum, t) => sum + t.amount, 0);
     const expense = transactions
       .filter((t) => t.type === 'expense')
       .reduce((sum, t) => sum + t.amount, 0);
+    
     return { income, expense, balance: income - expense };
+  },
+
+  getBalanceByPeriod: (startDate: Date, endDate: Date) => {
+    const allTransactions = get().transactions;
+    
+    const transactions = allTransactions.filter((t) => {
+      const transactionDate = new Date(t.date.split('T')[0]);
+      return transactionDate >= startDate && transactionDate <= endDate;
+    });
+
+    const income = transactions
+      .filter((t) => t.type === 'income')
+      .reduce((sum, t) => sum + t.amount, 0);
+    const expense = transactions
+      .filter((t) => t.type === 'expense')
+      .reduce((sum, t) => sum + t.amount, 0);
+
+    return { income, expense, balance: income - expense, transactions };
   },
 
   getCategorySpending: (categoryId, year, month) => {
@@ -341,9 +362,15 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
   },
 
   getTransactionsByMonth: (year, month) => {
-    return get().transactions.filter((t) => {
-      const date = new Date(t.date);
-      return date.getFullYear() === year && date.getMonth() === month;
+    const allTransactions = get().transactions;
+    
+    return allTransactions.filter((t) => {
+      // Parse date - handle both YYYY-MM-DD and ISO formats
+      const dateStr = t.date.split('T')[0]; // Get just the date part if ISO format
+      const [tYear, tMonth] = dateStr.split('-').map(Number);
+      
+      // month is 0-indexed (0-11), but date string is 1-indexed (1-12)
+      return tYear === year && tMonth === (month + 1);
     });
   },
 }));
