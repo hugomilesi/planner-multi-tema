@@ -169,13 +169,27 @@ export function NoirDashboardPage({
             <div className="flex items-end gap-2 h-16 mt-2 pb-1 px-2">
               {[30, 50, 40, 60, 45, 85, 20].map((h, i) => (
                 <div key={i} className={cn(
-                  'flex-1 rounded-t-xl border-t-2 border-x-2 transition-all',
+                  'flex-1 rounded-t-xl border-t-2 border-x-2 transition-all duration-1000 ease-out',
                   i === 5
                     ? 'bg-[#2ECC71] border-white/50 shadow-lg shadow-[#2ECC71]/20'
                     : i >= 3 ? 'bg-[#2ECC71]/40 border-white/50' : 'bg-slate-100 border-slate-50'
-                )} style={{ height: `${h}%` }} />
+                )} style={{ 
+                  height: `${h}%`,
+                  animation: `growBar 0.8s ease-out ${i * 0.1}s both`
+                }} />
               ))}
             </div>
+            <style>{`
+              @keyframes growBar {
+                from {
+                  height: 0%;
+                  opacity: 0;
+                }
+                to {
+                  opacity: 1;
+                }
+              }
+            `}</style>
           </div>
         </div>
 

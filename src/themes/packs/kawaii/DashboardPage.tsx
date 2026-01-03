@@ -197,19 +197,10 @@ export function KawaiiDashboardPage({
             {/* Mini Chart */}
             <div className="flex items-end gap-3 h-24 mt-4 border-b border-rose-900/30 pb-1 px-2">
               {[30, 50, 40, 60, 45, 85, 20].map((height, i) => (
-                <div key={i} className="flex-1 flex flex-col justify-end items-center h-full group">
+                <div key={i} className="flex-1 flex flex-col justify-end items-center h-full group" style={{ animation: `growBar 0.8s ease-out ${i * 0.1}s both` }}>
                   {i === 5 && <Flower2 className="w-4 h-4 text-[#d47a96] mb-0.5 animate-bounce" style={{ animationDuration: '2s' }} />}
-                  <div 
-                    className={cn(
-                      "w-full rounded-t-lg relative transition-all",
-                      i === 5 
-                        ? "bg-gradient-to-t from-[#d47a96] to-[#b85c78] shadow-[0_0_15px_rgba(212,122,150,0.4)]"
-                        : i === 3 || i === 4
-                          ? "bg-[#a3c9a8]/60"
-                          : "bg-rose-900/20 group-hover:bg-[#d47a96]/30"
-                    )}
-                    style={{ height: `${height}%` }}
-                  />
+                  <div className="w-full rounded-t-[1rem] transition-all duration-500 ease-out" style={{ height: `${height}%`, background: i === 5 ? 'linear-gradient(to top, #b85c78, #d47a96)' : 'linear-gradient(to top, #3d2a32, #4d3a42)' }} />
+                  {i === 0 && <style>{`@keyframes growBar { from { height: 0%; opacity: 0; } to { opacity: 1; } }`}</style>}
                 </div>
               ))}
             </div>

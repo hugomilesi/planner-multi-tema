@@ -122,10 +122,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const signOut = useCallback(async () => {
-    taskStore.clearTasks();
-    financialStore.clearData();
-    await supabase.auth.signOut();
-    navigate('/login');
+    try {
+      // Clear stores first
+      taskStore.clearTasks();
+      financialStore.clearData();
+      
+      // Sign out from Supabase
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error('Error signing out:', error);
+        throw error;
+      }
+      
+      // Clear local state
+      setUser(null);
+      setProfile(null);
+      setTenantId(null);
+      
+      // Navigate to login - onAuthStateChange will also handle this, but we do it here for immediate feedback
+      navigate('/login');
+    } catch (error) {
+      console.error('Sign out failed:', error);
+      // Even if there's an error, try to navigate to login
+      navigate('/login');
+    }
   }, [supabase, navigate, taskStore, financialStore]);
 
   const refreshUser = useCallback(async () => {

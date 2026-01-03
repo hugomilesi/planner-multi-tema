@@ -69,7 +69,9 @@ export default function SettingsPage() {
     setIsLoggingOut(true);
     try {
       await signOut();
-    } finally {
+      // Não precisa de setIsLoggingOut(false) aqui pois o componente será desmontado
+    } catch (error) {
+      console.error('Logout error:', error);
       setIsLoggingOut(false);
     }
   };
