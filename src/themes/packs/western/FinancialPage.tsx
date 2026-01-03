@@ -6,6 +6,7 @@ import { TrendingUp, Trash2, Plus, EyeOff, ShoppingBag, Compass } from 'lucide-r
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { WesternBarChart } from '@/components/charts/WesternBarChart';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function WesternFinancialPage({
     monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -18,49 +19,8 @@ export function WesternFinancialPage({
     const today = new Date();
     const topCategories = categorySpending.slice(0, 2);
 
-    // Processar transações para gerar dados semanais
-    const getWeeklyData = () => {
-        if (!filteredTransactions || filteredTransactions.length === 0) {
-            // Se não houver transações, retornar dados vazios
-            return [
-                { week: 'W1', amount: 0, pattern: 'solid' as const },
-                { week: 'W2', amount: 0, pattern: 'solid' as const },
-                { week: 'W3', amount: 0, pattern: 'striped' as const },
-                { week: 'W4', amount: 0, pattern: 'solid' as const },
-            ];
-        }
-
-        // Agrupar transações por semana do mês
-        const weeklyExpenses = [0, 0, 0, 0]; // 4 semanas
-
-        filteredTransactions.forEach(transaction => {
-            if (transaction.type === 'expense') {
-                const date = new Date(transaction.date);
-                const dayOfMonth = date.getDate();
-
-                // Determinar a semana (1-7 = W1, 8-14 = W2, 15-21 = W3, 22+ = W4)
-                let weekIndex = 0;
-                if (dayOfMonth <= 7) weekIndex = 0;
-                else if (dayOfMonth <= 14) weekIndex = 1;
-                else if (dayOfMonth <= 21) weekIndex = 2;
-                else weekIndex = 3;
-
-                weeklyExpenses[weekIndex] += transaction.amount;
-            }
-        });
-
-        // Encontrar a semana com maior gasto para aplicar o padrão listrado
-        const maxExpenseIndex = weeklyExpenses.indexOf(Math.max(...weeklyExpenses));
-
-        return [
-            { week: 'W1', amount: weeklyExpenses[0], pattern: maxExpenseIndex === 0 ? 'striped' as const : 'solid' as const },
-            { week: 'W2', amount: weeklyExpenses[1], pattern: maxExpenseIndex === 1 ? 'striped' as const : 'solid' as const },
-            { week: 'W3', amount: weeklyExpenses[2], pattern: maxExpenseIndex === 2 ? 'striped' as const : 'solid' as const },
-            { week: 'W4', amount: weeklyExpenses[3], pattern: maxExpenseIndex === 3 ? 'striped' as const : 'solid' as const },
-        ];
-    };
-
-    const weeklyData = getWeeklyData();
+    // Usar hook para gerenciar dados do gráfico
+    const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
     return (
         <div className="min-h-screen font-courier-prime text-[#2c1810]"
@@ -159,25 +119,60 @@ export function WesternFinancialPage({
                         <div className="absolute -top-2 -right-2 bg-neutral-400 w-4 h-4 rounded-full shadow border border-black z-10" />
 
                         {/* Header */}
-                        <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center justify-between mb-4">
                             <div>
                                 <h3 className="text-base font-bold text-[#2c1810] font-rye uppercase tracking-wider">
                                     Spending Trail
                                 </h3>
                                 <p className="text-xs text-[#2c1810]/60 mt-1">
-                                    Week 1 - Week 4
+                                    {chartView === 'weekly' ? 'Week 1 - Week 4' :
+                                        chartView === 'monthly' ? 'Last 12 Months' :
+                                            'Last 4 Years'}
                                 </p>
                             </div>
-                            {/* Small icon button in corner */}
-                            <button className="w-8 h-8 border-2 border-[#2c1810] bg-[#fffdf0] flex items-center justify-center text-[#2c1810] hover:bg-[#2c1810] hover:text-[#f3e5ab] transition-colors">
-                                <span className="text-xs font-bold">+12%</span>
+                        </div>
+
+                        {/* Filtros de visualização */}
+                        <div className="flex gap-2 mb-4 border-b border-[#2c1810]/20 pb-3">
+                            <button
+                                onClick={() => setChartView('weekly')}
+                                className={cn(
+                                    "px-3 py-1 text-xs font-bold font-rye uppercase border-2 border-[#2c1810] transition-colors",
+                                    chartView === 'weekly'
+                                        ? 'bg-[#2c1810] text-[#f3e5ab]'
+                                        : 'bg-[#fffdf0] text-[#2c1810] hover:bg-[#2c1810]/10'
+                                )}
+                            >
+                                Semana
+                            </button>
+                            <button
+                                onClick={() => setChartView('monthly')}
+                                className={cn(
+                                    "px-3 py-1 text-xs font-bold font-rye uppercase border-2 border-[#2c1810] transition-colors",
+                                    chartView === 'monthly'
+                                        ? 'bg-[#2c1810] text-[#f3e5ab]'
+                                        : 'bg-[#fffdf0] text-[#2c1810] hover:bg-[#2c1810]/10'
+                                )}
+                            >
+                                Mês
+                            </button>
+                            <button
+                                onClick={() => setChartView('yearly')}
+                                className={cn(
+                                    "px-3 py-1 text-xs font-bold font-rye uppercase border-2 border-[#2c1810] transition-colors",
+                                    chartView === 'yearly'
+                                        ? 'bg-[#2c1810] text-[#f3e5ab]'
+                                        : 'bg-[#fffdf0] text-[#2c1810] hover:bg-[#2c1810]/10'
+                                )}
+                            >
+                                Ano
                             </button>
                         </div>
 
                         {/* Bar Chart */}
                         <div className="w-full">
                             <WesternBarChart
-                                data={weeklyData}
+                                data={chartData}
                                 formatCurrency={formatCurrency}
                             />
                         </div>

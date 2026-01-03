@@ -2,9 +2,12 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Trash2, Plus, Eye, Leaf, Sprout, TreeDeciduous } from 'lucide-react';
+import { TrendingUp, Trash2, Plus, Rocket, Sparkles, Zap } from 'lucide-react';
+import { useState } from 'react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -23,9 +26,9 @@ export function SpaceFinancialPage({
   return (
     <div className="min-h-screen bg-[#0d1a14] text-[#f5f0e8] antialiased pb-24" style={{ fontFamily: '"Lato", sans-serif' }}>
       {/* Subtle pattern overlay */}
-      <div className="fixed inset-0 -z-10 opacity-5 pointer-events-none" 
+      <div className="fixed inset-0 -z-10 opacity-5 pointer-events-none"
         style={{ backgroundImage: "url('https://www.transparenttextures.com/patterns/dark-leather.png')" }} />
-      
+
       <div className="relative z-10 px-4 pt-6">
         {/* Header */}
         <header className="mb-4 flex items-center justify-between">

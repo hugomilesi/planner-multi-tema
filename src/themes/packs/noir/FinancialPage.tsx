@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { Trash2, Plus, PiggyBank, Settings, PlusCircle, MinusCircle, BarChart3, Gift, IceCream, Gamepad2 } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function NoirFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -14,6 +15,7 @@ export function NoirFinancialPage({
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
   const goalProgress = Math.min(100, (balance / 60) * 100);
 
   return (
@@ -56,8 +58,8 @@ export function NoirFinancialPage({
         {/* Period Filter */}
         {selectedPeriod && setSelectedPeriod && (
           <div className="px-6 mb-4">
-            <PeriodFilter 
-              value={selectedPeriod} 
+            <PeriodFilter
+              value={selectedPeriod}
               onChange={setSelectedPeriod}
               className="w-full"
             />

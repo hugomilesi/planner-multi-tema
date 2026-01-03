@@ -7,6 +7,7 @@ import { useState } from 'react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function CyberpunkFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -16,6 +17,7 @@ export function CyberpunkFinancialPage({
 }: FinancialPageProps) {
   const [showBalance, setShowBalance] = useState(true);
   const today = new Date();
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
   // Get top 2 spending categories
   const topCategories = categorySpending.slice(0, 2);
@@ -64,8 +66,8 @@ export function CyberpunkFinancialPage({
         {/* Period Filter */}
         {selectedPeriod && setSelectedPeriod && (
           <div className="px-4 pt-4 pb-2">
-            <PeriodFilter 
-              value={selectedPeriod} 
+            <PeriodFilter
+              value={selectedPeriod}
               onChange={setSelectedPeriod}
               className="w-full"
             />
@@ -126,44 +128,76 @@ export function CyberpunkFinancialPage({
             <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00ffff]" />
             <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00ffff]" />
 
-            <div className="flex items-center justify-between mb-6 border-b border-white/5 pb-4">
+            <div className="flex items-center justify-between mb-4 border-b border-white/5 pb-4">
               <div>
                 <h3 className="text-base font-bold uppercase tracking-wider text-white flex items-center gap-2">
                   <span className="w-1.5 h-1.5 bg-[#00ffff] animate-pulse" />
-                  Weekly Overview
+                  Spending Analysis
                 </h3>
                 <p className="text-[10px] font-mono text-slate-400 mt-1 uppercase">
-                  Cycle: {today.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(today.getFullYear(), today.getMonth() + 1, 0).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                  {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
                 </p>
               </div>
-              <div className="flex items-center gap-1 border border-[#00ff9f]/30 bg-[#00ff9f]/5 px-2 py-1 rounded-sm">
-                <TrendingUp className="w-4 h-4 text-[#00ff9f]" />
-                <span className="text-xs font-mono font-bold text-[#00ff9f]">
-                  {monthIncome > monthExpense ? '+' : ''}{monthIncome > 0 ? Math.round(((monthIncome - monthExpense) / monthIncome) * 100) : 0}%
-                </span>
-              </div>
+            </div>
+
+            {/* Chart View Filters */}
+            <div className="flex gap-2 mb-4 border-b border-white/5 pb-3">
+              <button
+                onClick={() => setChartView('weekly')}
+                className={cn(
+                  "px-3 py-1 text-[10px] font-mono font-bold uppercase border transition-colors",
+                  chartView === 'weekly'
+                    ? 'bg-[#00ffff] text-[#0b0c15] border-[#00ffff]'
+                    : 'bg-transparent text-[#00ffff] border-[#00ffff]/30 hover:bg-[#00ffff]/10'
+                )}
+              >
+                Week
+              </button>
+              <button
+                onClick={() => setChartView('monthly')}
+                className={cn(
+                  "px-3 py-1 text-[10px] font-mono font-bold uppercase border transition-colors",
+                  chartView === 'monthly'
+                    ? 'bg-[#00ffff] text-[#0b0c15] border-[#00ffff]'
+                    : 'bg-transparent text-[#00ffff] border-[#00ffff]/30 hover:bg-[#00ffff]/10'
+                )}
+              >
+                Month
+              </button>
+              <button
+                onClick={() => setChartView('yearly')}
+                className={cn(
+                  "px-3 py-1 text-[10px] font-mono font-bold uppercase border transition-colors",
+                  chartView === 'yearly'
+                    ? 'bg-[#00ffff] text-[#0b0c15] border-[#00ffff]'
+                    : 'bg-transparent text-[#00ffff] border-[#00ffff]/30 hover:bg-[#00ffff]/10'
+                )}
+              >
+                Year
+              </button>
             </div>
 
             {/* Bar Chart */}
             <div className="flex items-end justify-between h-40 gap-3 px-2 pb-2 border-b border-l border-white/10"
               style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)', backgroundSize: '10px 10px' }}>
-              {last7Days.slice(-4).map((day, i) => {
-                const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
-                const height = Math.max(day.income, day.expense);
-                const heightPercent = (height / max) * 100;
-                const isHighest = i === 2; // Highlight current week
+              {chartData.map((item, i) => {
+                const max = Math.max(...chartData.map(d => d.amount)) || 1;
+                const sqrtValue = Math.sqrt(item.amount);
+                const sqrtMax = Math.sqrt(max);
+                let heightPercent = (sqrtValue / sqrtMax) * 100;
+                if (item.amount > 0 && heightPercent < 10) heightPercent = 10;
+                const isHighest = item.pattern === 'striped';
 
                 return (
-                  <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
-                    <div className="w-full relative h-32 flex items-end justify-center">
+                  <div key={item.week} className="flex flex-col items-center justify-end h-full gap-2 flex-1 group cursor-pointer">
+                    <div className="w-full relative flex items-end justify-center" style={{ height: `${heightPercent}%`, minHeight: item.amount > 0 ? '10px' : '0px' }}>
                       <div className={cn(
-                        'w-full border-2 transition-all duration-300 relative',
+                        'w-full h-full border-2 transition-all duration-300 relative',
                         isHighest
                           ? 'border-[#00ffff] bg-[#00ffff]/20'
                           : 'border-[#bc13fe]/50 bg-[#bc13fe]/5 group-hover:bg-[#bc13fe]/20'
                       )}
                         style={{
-                          height: `${heightPercent}%`,
                           boxShadow: isHighest ? '0 0 15px rgba(0,243,255,0.3)' : '0 0 10px rgba(188,19,254,0.1)'
                         }}>
                         <div className={cn('absolute top-0 w-full h-[2px]', isHighest ? 'bg-white' : 'bg-[#bc13fe]')}
@@ -179,7 +213,7 @@ export function CyberpunkFinancialPage({
                     <span className={cn('text-[10px] font-mono font-bold uppercase',
                       isHighest ? 'text-[#00ffff]' : 'text-slate-500')}
                       style={isHighest ? { textShadow: '0 0 5px rgba(0,243,255,0.8)' } : {}}>
-                      W{i + 1}
+                      {item.week}
                     </span>
                   </div>
                 );

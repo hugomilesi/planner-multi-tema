@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, TrendingDown, Trash2, Plus, Waves, Wallet } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function OceanFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -13,6 +14,7 @@ export function OceanFinancialPage({
   selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
   return (
     <div className="min-h-screen bg-[#f6f7f8] dark:bg-[#101922] font-[family-name:var(--font-inter)] text-[#111418] dark:text-white pb-24">
@@ -61,24 +63,67 @@ export function OceanFinancialPage({
         {/* Chart */}
         <div className="mb-6 p-5 rounded-2xl bg-white dark:bg-[#1c2127] border border-[#e5e7eb] dark:border-[#283039] shadow-sm">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-base font-bold">Weekly Overview</h3>
-            <button className="text-[#137fec] text-xs font-bold uppercase tracking-wide px-3 py-1 bg-[#137fec]/10 rounded-full">
-              Details
+            <div>
+              <h3 className="text-base font-bold">Spending Analysis</h3>
+              <p className="text-xs text-[#637588] dark:text-[#9dabb9] mt-0.5">
+                {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
+              </p>
+            </div>
+          </div>
+
+          {/* Chart View Filters */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-colors",
+                chartView === 'weekly'
+                  ? 'bg-[#137fec] text-white'
+                  : 'bg-[#137fec]/10 text-[#137fec] hover:bg-[#137fec]/20'
+              )}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-colors",
+                chartView === 'monthly'
+                  ? 'bg-[#137fec] text-white'
+                  : 'bg-[#137fec]/10 text-[#137fec] hover:bg-[#137fec]/20'
+              )}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-colors",
+                chartView === 'yearly'
+                  ? 'bg-[#137fec] text-white'
+                  : 'bg-[#137fec]/10 text-[#137fec] hover:bg-[#137fec]/20'
+              )}
+            >
+              Year
             </button>
           </div>
           <div className="h-32 flex items-end gap-1.5">
-            {last7Days.map((day, i) => {
-              const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
-              const isToday = i === last7Days.length - 2;
+            {chartData.map((item, i) => {
+              const max = Math.max(...chartData.map(d => d.amount)) || 1;
+              const sqrtValue = Math.sqrt(item.amount);
+              const sqrtMax = Math.sqrt(max);
+              let heightPercent = (sqrtValue / sqrtMax) * 100;
+              if (item.amount > 0 && heightPercent < 5) heightPercent = 5;
+              const isHighlighted = item.pattern === 'striped';
               return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                  <div className="w-full flex items-end justify-center h-24">
+                <div key={item.week} className="flex-1 flex flex-col items-center justify-end h-full gap-1">
+                  <div className="w-full flex items-end justify-center" style={{ height: `${heightPercent}%` }}>
                     <div className={cn(
-                      'w-full rounded-t-sm transition-all',
-                      isToday ? 'bg-[#137fec]' : 'bg-slate-100 dark:bg-slate-700/50'
-                    )} style={{ height: `${Math.max(5, ((day.income + day.expense) / max) * 100)}% ` }} />
+                      'w-full h-full rounded-t-sm transition-all',
+                      isHighlighted ? 'bg-[#137fec]' : 'bg-slate-100 dark:bg-slate-700/50'
+                    )} />
                   </div>
-                  <span className="text-[10px] text-[#637588] dark:text-[#9dabb9] font-medium">{day.day}</span>
+                  <span className="text-[10px] text-[#637588] dark:text-[#9dabb9] font-medium">{item.week}</span>
                 </div>
               );
             })}

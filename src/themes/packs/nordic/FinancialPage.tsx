@@ -6,6 +6,7 @@ import { TrendingUp, Trash2, Plus, Plane, ArrowDownLeft, ArrowUpRight, Utensils,
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
 import { FinancialLineChart, FinancialPieChart } from '@/components/charts/FinancialCharts';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function NordicFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -14,6 +15,7 @@ export function NordicFinancialPage({
   selectedPeriod, setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
   const currentMonth = today.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
   const prevMonth = new Date(today.getFullYear(), today.getMonth() - 1).toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
 
@@ -60,8 +62,8 @@ export function NordicFinancialPage({
         {/* Period Filter */}
         {selectedPeriod && setSelectedPeriod && (
           <div className="mb-6">
-            <PeriodFilter 
-              value={selectedPeriod} 
+            <PeriodFilter
+              value={selectedPeriod}
               onChange={setSelectedPeriod}
               className="w-full"
             />
@@ -118,27 +120,69 @@ export function NordicFinancialPage({
         <div className="bg-gradient-to-br from-[#e8e0d0] to-[#d8d0c0] rounded-xl p-4 mb-6 shadow-md border border-[#c8c0b0]">
           <div className="flex justify-between items-center mb-3">
             <h3 className="text-sm font-bold uppercase tracking-widest text-[#2c2825]" style={{ fontFamily: '"Courier Prime", monospace' }}>Spending Chart</h3>
-            <span className="text-[10px] text-[#3d5a6b] font-bold" style={{ fontFamily: '"Courier Prime", monospace' }}>+12% vs last trip</span>
           </div>
           <p className="text-[10px] text-[#5d5650] mb-3" style={{ fontFamily: '"Courier Prime", monospace' }}>
-            {currentMonth} 1 - {currentMonth} {new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()}
+            {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
           </p>
+
+          {/* Chart View Filters */}
+          <div className="flex gap-2 mb-3">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-2 py-1 text-[9px] font-bold uppercase tracking-wider border-2 transition-colors",
+                chartView === 'weekly'
+                  ? 'bg-[#3d5a6b] text-white border-[#3d5a6b]'
+                  : 'bg-white/50 text-[#5d5650] border-[#c8b8a0] hover:bg-white'
+              )}
+              style={{ fontFamily: '"Courier Prime", monospace' }}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-2 py-1 text-[9px] font-bold uppercase tracking-wider border-2 transition-colors",
+                chartView === 'monthly'
+                  ? 'bg-[#3d5a6b] text-white border-[#3d5a6b]'
+                  : 'bg-white/50 text-[#5d5650] border-[#c8b8a0] hover:bg-white'
+              )}
+              style={{ fontFamily: '"Courier Prime", monospace' }}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-2 py-1 text-[9px] font-bold uppercase tracking-wider border-2 transition-colors",
+                chartView === 'yearly'
+                  ? 'bg-[#3d5a6b] text-white border-[#3d5a6b]'
+                  : 'bg-white/50 text-[#5d5650] border-[#c8b8a0] hover:bg-white'
+              )}
+              style={{ fontFamily: '"Courier Prime", monospace' }}
+            >
+              Year
+            </button>
+          </div>
           {/* Chart */}
           <div className="flex items-end gap-2 h-20 border-b-2 border-[#2c2825] pb-0">
-            {last7Days.slice(0, 4).map((day, i) => {
-              const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
-              const height = Math.max(15, ((day.income + day.expense) / max) * 100);
-              const isHighlighted = i === 2;
+            {chartData.map((item, i) => {
+              const max = Math.max(...chartData.map(d => d.amount)) || 1;
+              const sqrtValue = Math.sqrt(item.amount);
+              const sqrtMax = Math.sqrt(max);
+              let heightPercent = (sqrtValue / sqrtMax) * 100;
+              if (item.amount > 0 && heightPercent < 15) heightPercent = 15;
+              const isHighlighted = item.pattern === 'striped';
               return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-1">
+                <div key={item.week} className="flex-1 flex flex-col items-center gap-1">
                   <div className={cn(
                     'w-full rounded-t',
                     isHighlighted ? 'bg-[#3d5a6b]' : 'bg-[#c8b8a0]'
-                  )} style={{ height: `${height}%` }} />
+                  )} style={{ height: `${heightPercent}%` }} />
                   <span className={cn(
                     'text-[9px] uppercase',
                     isHighlighted ? 'text-[#3d5a6b] font-bold' : 'text-[#8a8078]'
-                  )} style={{ fontFamily: '"Courier Prime", monospace' }}>WK {i + 1}</span>
+                  )} style={{ fontFamily: '"Courier Prime", monospace' }}>{item.week}</span>
                 </div>
               );
             })}

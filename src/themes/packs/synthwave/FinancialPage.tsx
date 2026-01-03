@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils';
 import { TrendingUp, Trash2, Plus, Zap, Activity, DollarSign, EyeOff, ShoppingCart, Car } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function SynthwaveFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -15,6 +16,7 @@ export function SynthwaveFinancialPage({
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
   const today = new Date();
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
   const topCategories = categorySpending.slice(0, 2);
 
   return (
@@ -103,35 +105,75 @@ export function SynthwaveFinancialPage({
         <div className="px-4 mb-8">
           <div className="bg-[#1E1E1E] border-2 border-[#525252] p-4"
             style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
-            <div className="flex items-center justify-between mb-6 border-b-2 border-[#525252]/30 pb-2">
+            <div className="flex items-center justify-between mb-4 border-b-2 border-[#525252]/30 pb-2">
               <div>
-                <h3 className="text-2xl font-bold text-[#E5E5E5] uppercase leading-none">Weekly Overview</h3>
+                <h3 className="text-2xl font-bold text-[#E5E5E5] uppercase leading-none">Spending Analysis</h3>
                 <p className="text-lg text-[#A3A3A3] mt-1">
-                  {today.toLocaleDateString('en-US', { month: 'short' })} 01 - 31
+                  {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
                 </p>
               </div>
-              <div className="flex items-center gap-1 bg-[#10B981]/10 px-2 py-1 border border-[#10B981] border-dashed">
-                <TrendingUp className="w-4 h-4 text-[#10B981]" />
-                <span className="text-lg font-bold text-[#10B981] leading-none">12%</span>
-              </div>
+            </div>
+
+            {/* Chart View Filters */}
+            <div className="flex gap-2 mb-4">
+              <button
+                onClick={() => setChartView('weekly')}
+                className={cn(
+                  "h-10 px-4 text-xl leading-none border-2 border-[#525252] uppercase transition-all active:translate-x-[2px] active:translate-y-[2px]",
+                  chartView === 'weekly'
+                    ? 'bg-[#6366F1] text-white'
+                    : 'bg-[#1E1E1E] text-[#E5E5E5] hover:bg-[#525252] hover:text-[#121212]'
+                )}
+                style={{ boxShadow: '2px 2px 0px 0px #000000' }}
+              >
+                Week
+              </button>
+              <button
+                onClick={() => setChartView('monthly')}
+                className={cn(
+                  "h-10 px-4 text-xl leading-none border-2 border-[#525252] uppercase transition-all active:translate-x-[2px] active:translate-y-[2px]",
+                  chartView === 'monthly'
+                    ? 'bg-[#6366F1] text-white'
+                    : 'bg-[#1E1E1E] text-[#E5E5E5] hover:bg-[#525252] hover:text-[#121212]'
+                )}
+                style={{ boxShadow: '2px 2px 0px 0px #000000' }}
+              >
+                Month
+              </button>
+              <button
+                onClick={() => setChartView('yearly')}
+                className={cn(
+                  "h-10 px-4 text-xl leading-none border-2 border-[#525252] uppercase transition-all active:translate-x-[2px] active:translate-y-[2px]",
+                  chartView === 'yearly'
+                    ? 'bg-[#6366F1] text-white'
+                    : 'bg-[#1E1E1E] text-[#E5E5E5] hover:bg-[#525252] hover:text-[#121212]'
+                )}
+                style={{ boxShadow: '2px 2px 0px 0px #000000' }}
+              >
+                Year
+              </button>
             </div>
             <div className="flex items-end justify-between h-40 gap-3 px-2 bg-[#121212] border-2 border-[#525252] p-2 relative">
               <div className="absolute inset-0 w-full h-full pointer-events-none opacity-20"
                 style={{ backgroundImage: 'linear-gradient(#525252 1px, transparent 1px), linear-gradient(90deg, #525252 1px, transparent 1px)', backgroundSize: '20px 20px' }} />
-              {['W1', 'W2', 'W3', 'W4'].map((week, i) => {
-                const heights = [40, 65, 85, 30];
-                const isHighlighted = i === 2;
+              {chartData.map((item, i) => {
+                const max = Math.max(...chartData.map(d => d.amount)) || 1;
+                const sqrtValue = Math.sqrt(item.amount);
+                const sqrtMax = Math.sqrt(max);
+                let heightPercent = (sqrtValue / sqrtMax) * 100;
+                if (item.amount > 0 && heightPercent < 10) heightPercent = 10;
+                const isHighlighted = item.pattern === 'striped';
                 return (
-                  <div key={week} className="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
+                  <div key={item.week} className="flex flex-col items-center gap-1 flex-1 h-full justify-end z-10 group cursor-pointer">
                     <div className={cn(
                       'w-full border-2 border-[#525252] relative transition-colors',
                       isHighlighted ? 'bg-[#6366F1]' : 'bg-[#E5E5E5]/20 hover:bg-[#E5E5E5]/40'
-                    )} style={{ height: `${heights[i]}%` }}>
+                    )} style={{ height: `${heightPercent}%` }}>
                       <div className="w-full h-full opacity-40"
                         style={{ backgroundImage: 'linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.3) 50%)', backgroundSize: '100% 4px' }} />
                     </div>
                     <span className={cn('text-lg leading-none mt-1', isHighlighted ? 'font-bold text-[#6366F1]' : 'text-[#A3A3A3]')}>
-                      {week}
+                      {item.week}
                     </span>
                   </div>
                 );

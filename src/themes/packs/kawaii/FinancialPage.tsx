@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import { Plus, Trash2, Flower2, Leaf, Droplets, Scissors, TrendingUp, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 // Floral Theme Implementation
 export function KawaiiFinancialPage({
@@ -21,9 +22,10 @@ export function KawaiiFinancialPage({
   setSelectedPeriod,
 }: FinancialPageProps) {
   const today = new Date();
+  const { chartView, setChartView, chartData } = useFinancialChartData(filteredTransactions);
 
   return (
-    <div className="min-h-screen pb-24 relative overflow-x-hidden" style={{ 
+    <div className="min-h-screen pb-24 relative overflow-x-hidden" style={{
       backgroundColor: '#2d1f24',
       fontFamily: '"DM Sans", sans-serif'
     }}>
@@ -63,8 +65,8 @@ export function KawaiiFinancialPage({
 
         {/* Period Filter */}
         {selectedPeriod && setSelectedPeriod && (
-          <PeriodFilter 
-            value={selectedPeriod} 
+          <PeriodFilter
+            value={selectedPeriod}
             onChange={setSelectedPeriod}
             className="w-full"
           />
@@ -121,35 +123,80 @@ export function KawaiiFinancialPage({
                 Growth Garden
               </h3>
             </div>
-            <div className="flex items-center gap-1 text-[#a3c9a8] text-xs font-bold">
-              <TrendingUp className="w-4 h-4" />
-              <span>+12%</span>
-            </div>
           </div>
-          <p className="text-xs text-[#9e7f8a] mb-4">Oct 1 - Oct 31</p>
+          <p className="text-xs text-[#9e7f8a] mb-4">
+            {chartView === 'weekly' ? 'Week 1 - Week 4' : chartView === 'monthly' ? 'Last 12 Months' : 'Last 4 Years'}
+          </p>
+
+          {/* Chart View Filters */}
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setChartView('weekly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-all",
+                chartView === 'weekly'
+                  ? 'bg-[#d47a96] text-white'
+                  : 'bg-[#3d2a32] text-[#d47a96] border border-[#d47a96]/30 hover:bg-[#d47a96]/10'
+              )}
+            >
+              Week
+            </button>
+            <button
+              onClick={() => setChartView('monthly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-all",
+                chartView === 'monthly'
+                  ? 'bg-[#d47a96] text-white'
+                  : 'bg-[#3d2a32] text-[#d47a96] border border-[#d47a96]/30 hover:bg-[#d47a96]/10'
+              )}
+            >
+              Month
+            </button>
+            <button
+              onClick={() => setChartView('yearly')}
+              className={cn(
+                "px-3 py-1.5 text-xs font-bold uppercase tracking-wide rounded-full transition-all",
+                chartView === 'yearly'
+                  ? 'bg-[#d47a96] text-white'
+                  : 'bg-[#3d2a32] text-[#d47a96] border border-[#d47a96]/30 hover:bg-[#d47a96]/10'
+              )}
+            >
+              Year
+            </button>
+          </div>
 
           {/* Flower Chart */}
           <div className="flex items-end justify-around h-32 px-4">
-            {[40, 55, 70, 85].map((height, i) => (
-              <div key={i} className="flex flex-col items-center gap-1">
-                {i === 2 && (
-                  <div className="bg-[#2d1f24] text-white text-[10px] px-2 py-1 rounded-lg mb-1 font-bold">
-                    $2.3k
+            {chartData.map((item, i) => {
+              const max = Math.max(...chartData.map(d => d.amount)) || 1;
+              const sqrtValue = Math.sqrt(item.amount);
+              const sqrtMax = Math.sqrt(max);
+              let heightPercent = (sqrtValue / sqrtMax) * 100;
+              if (item.amount > 0 && heightPercent < 10) heightPercent = 10;
+              const height = (heightPercent / 100) * 85; // Convert to pixels (max 85px)
+              const isHighlighted = item.pattern === 'striped';
+
+              return (
+                <div key={item.week} className="flex flex-col items-center gap-1">
+                  {isHighlighted && (
+                    <div className="bg-[#2d1f24] text-white text-[10px] px-2 py-1 rounded-lg mb-1 font-bold">
+                      {formatCurrency(item.amount)}
+                    </div>
+                  )}
+                  <div className="relative">
+                    {/* Flower stem */}
+                    <div
+                      className="w-8 rounded-t-full bg-gradient-to-t from-[#d47a96] to-[#b85c78]"
+                      style={{ height: `${height}px` }}
+                    />
+                    {/* Leaves */}
+                    <div className="absolute -left-2 bottom-4 w-3 h-3 bg-[#a3c9a8] rounded-full transform -rotate-45" />
+                    <div className="absolute -right-2 bottom-8 w-3 h-3 bg-[#a3c9a8] rounded-full transform rotate-45" />
                   </div>
-                )}
-                <div className="relative">
-                  {/* Flower stem */}
-                  <div 
-                    className="w-8 rounded-t-full bg-gradient-to-t from-[#d47a96] to-[#b85c78]"
-                    style={{ height: `${height}px` }}
-                  />
-                  {/* Leaves */}
-                  <div className="absolute -left-2 bottom-4 w-3 h-3 bg-[#a3c9a8] rounded-full transform -rotate-45" />
-                  <div className="absolute -right-2 bottom-8 w-3 h-3 bg-[#a3c9a8] rounded-full transform rotate-45" />
+                  <span className="text-[10px] text-[#9e7f8a] mt-2 font-medium">{item.week}</span>
                 </div>
-                <span className="text-[10px] text-[#9e7f8a] mt-2 font-medium">Week {i + 1}</span>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -184,7 +231,7 @@ export function KawaiiFinancialPage({
                       </span>
                     </div>
                     <div className="h-2 bg-[#2d1f24] rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full rounded-full bg-gradient-to-r from-[#a3c9a8] to-[#d47a96]"
                         style={{ width: `${Math.min(cat.percentage, 100)}%` }}
                       />

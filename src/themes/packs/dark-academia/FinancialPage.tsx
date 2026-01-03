@@ -2,9 +2,10 @@
 
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Trash2, Plus, Bell, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
+import { TrendingUp, Trash2, Plus, BookOpen, Feather, Coffee } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function DarkAcademiaFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
@@ -59,8 +60,8 @@ export function DarkAcademiaFinancialPage({
         {/* Period Filter */}
         {selectedPeriod && setSelectedPeriod && (
           <div className="px-6 mt-4 pb-4 border-b border-[#333333]">
-            <PeriodFilter 
-              value={selectedPeriod} 
+            <PeriodFilter
+              value={selectedPeriod}
               onChange={setSelectedPeriod}
               className="w-full"
             />

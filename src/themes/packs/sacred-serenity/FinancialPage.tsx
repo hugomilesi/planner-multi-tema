@@ -1,9 +1,11 @@
+```
 import { Link } from 'react-router-dom';
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
-import { TrendingUp, TrendingDown, Eye, EyeOff } from 'lucide-react';
+import { TrendingUp, TrendingDown, Trash2, Plus, Eye, EyeOff, Leaf, Sprout, TreeDeciduous } from 'lucide-react';
 import { PeriodFilter } from '@/components/financial/PeriodFilter';
 import { ExportButtons } from '@/components/financial/ExportButtons';
+import { useFinancialChartData } from '@/hooks/useFinancialChartData';
 
 export function SacredSerenityFinancialPage({
   monthIncome,
@@ -114,12 +116,12 @@ export function SacredSerenityFinancialPage({
               <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
                 <div className="w-2.5 sm:w-4 bg-white/5 rounded-full relative h-32 flex items-end overflow-hidden">
                   <div
-                    className={`w-full rounded-full transition-all duration-500 ease-out ${
-                      i === 5
-                        ? 'bg-gradient-to-t from-[#9C7C33] to-[#C5A059] shadow-[0_0_10px_rgba(197,160,89,0.3)]'
-                        : 'bg-[#C5A059]/40 group-hover:bg-[#C5A059]/60'
-                    }`}
-                    style={{ height: `${height}%` }}
+                    className={`w - full rounded - full transition - all duration - 500 ease - out ${
+  i === 5
+    ? 'bg-gradient-to-t from-[#9C7C33] to-[#C5A059] shadow-[0_0_10px_rgba(197,160,89,0.3)]'
+    : 'bg-[#C5A059]/40 group-hover:bg-[#C5A059]/60'
+} `}
+                    style={{ height: `${ height }% ` }}
                   ></div>
                 </div>
                 <span className="text-[11px] font-medium text-slate-400 font-serif">W{i + 1}</span>
@@ -152,12 +154,12 @@ export function SacredSerenityFinancialPage({
                     <p className="font-medium text-white">{category?.name || 'Unknown'}</p>
                     <p className="text-xs text-slate-400">
                       {new Date(transaction.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      {transaction.note && ` • ${transaction.note}`}
+                      {transaction.note && ` • ${ transaction.note } `}
                     </p>
                   </div>
-                  <p className={`font-bold font-serif ${
-                    transaction.type === 'income' ? 'text-[#C5A059]' : 'text-white'
-                  }`}>
+                  <p className={`font - bold font - serif ${
+  transaction.type === 'income' ? 'text-[#C5A059]' : 'text-white'
+} `}>
                     {transaction.type === 'income' ? '+' : '-'}{formatCurrency(transaction.amount)}
                   </p>
                 </div>
