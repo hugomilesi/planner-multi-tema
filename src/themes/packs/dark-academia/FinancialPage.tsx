@@ -3,17 +3,11 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, Bell, TrendingUp, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function DarkAcademiaFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -160,63 +154,11 @@ export function DarkAcademiaFinancialPage({
         </div>
 
         {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-8 right-6 w-14 h-14 bg-[#C5A059] hover:bg-[#B08D45] text-white rounded-full shadow-lg shadow-[#C5A059]/30 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 z-30 group">
-              <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#18181B] border border-slate-800 text-white max-w-[90vw] rounded-2xl">
-            <DialogHeader>
-              <DialogTitle className="text-lg font-serif font-semibold">New Transaction</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-slate-800 rounded-xl">
-                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-slate-900 data-[state=active]:text-white">Expense</TabsTrigger>
-                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-600 data-[state=active]:text-white">Income</TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-slate-400 text-sm font-medium">Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-slate-900 border-slate-700 rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-slate-400 text-sm font-medium">Category</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-slate-900 border-slate-700 rounded-xl">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#18181B] border-slate-700 rounded-xl">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-3">
-                <div className="space-y-2">
-                  <Label className="text-slate-400 text-sm font-medium">Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-slate-900 border-slate-700 rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-slate-400 text-sm font-medium">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-slate-900 border-slate-700 rounded-xl" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 rounded-xl bg-[#C5A059] hover:bg-[#B08D45] text-white font-medium transition-colors">
-                Add Transaction
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-8 right-6 w-14 h-14 bg-[#C5A059] hover:bg-[#B08D45] text-white rounded-full shadow-lg shadow-[#C5A059]/30 flex items-center justify-center transition-all duration-300 hover:scale-105 active:scale-95 z-30 group">
+          <Plus className="w-6 h-6 group-hover:rotate-90 transition-transform duration-300" />
+        </button>
       </div>
     </div>
   );

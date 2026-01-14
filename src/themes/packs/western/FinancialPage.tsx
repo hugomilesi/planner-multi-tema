@@ -3,17 +3,11 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { TrendingUp, Trash2, Plus, EyeOff, ShoppingBag, Compass } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function WesternFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -119,16 +113,37 @@ export function WesternFinancialPage({
             </div>
             <div className="flex items-end justify-between h-40 gap-2 px-2 border-l-2 border-b-2 border-[#2c1810]"
               style={{ backgroundImage: 'repeating-linear-gradient(transparent, transparent 29px, #a89f91 30px)', backgroundAttachment: 'local' }}>
-              {['W1', 'W2', 'W3', 'W4'].map((week, i) => {
-                const heights = [40, 65, 85, 30];
-                const isHighlighted = i === 2;
+              {last7Days.slice(-4).map((day, i) => {
+                const max = Math.max(...last7Days.flatMap(d => [d.income, d.expense])) || 1;
+                const height = Math.max(day.income, day.expense);
+                const heightPercent = (height / max) * 100;
+                const isHighlighted = i === 2; // Keep highlight logic for demo
+
                 return (
-                  <div key={week} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+                  <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer relative">
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-48 bg-[#fffdf0] border-2 border-[#2c1810] p-3 hidden group-hover:block z-50 pointer-events-none shadow-[4px_4px_0_rgba(44,24,16,0.2)]">
+                      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-[#fffdf0] border-b-2 border-r-2 border-[#2c1810] transform rotate-45" />
+                      <p className="text-xs font-bold border-b-2 border-[#2c1810] pb-1 mb-2 text-[#2c1810] font-[family-name:var(--font-rye)] uppercase text-center">
+                        {day.day} Report
+                      </p>
+                      <div className="space-y-1">
+                        <div className="flex justify-between items-center text-xs font-bold">
+                          <span className="text-[#2e4a2e] uppercase font-[family-name:var(--font-rye)]">In:</span>
+                          <span className="text-[#2e4a2e] font-mono">+{formatCurrency(day.income)}</span>
+                        </div>
+                        <div className="flex justify-between items-center text-xs font-bold">
+                          <span className="text-[#8b0000] uppercase font-[family-name:var(--font-rye)]">Out:</span>
+                          <span className="text-[#8b0000] font-mono">-{formatCurrency(day.expense)}</span>
+                        </div>
+                      </div>
+                    </div>
+
                     <div className="w-full relative h-32 flex items-end overflow-hidden px-1">
                       <div className={cn('w-full border-2 border-[#2c1810] transition-all duration-300',
                         isHighlighted ? 'bg-[#d4af37]/20' : 'bg-[#2c1810]/20 group-hover:bg-[#2c1810]/40')}
                         style={{
-                          height: `${heights[i]}%`,
+                          height: `${Math.max(5, heightPercent)}%`,
                           backgroundImage: isHighlighted
                             ? 'repeating-linear-gradient(45deg, #2c1810, #2c1810 2px, transparent 2px, transparent 6px)'
                             : undefined,
@@ -136,7 +151,7 @@ export function WesternFinancialPage({
                     </div>
                     <span className={cn('text-[11px] font-bold',
                       isHighlighted ? 'text-[#2c1810] font-[family-name:var(--font-rye)] underline decoration-wavy decoration-[#d4af37]' : 'text-[#2c1810]/60')}>
-                      {week}
+                      {day.day}
                     </span>
                   </div>
                 );
@@ -231,70 +246,12 @@ export function WesternFinancialPage({
         </div>
 
         {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-6 w-16 h-16 bg-[#2c1810] text-[#d4af37] rounded-full border-2 border-[#d4af37] flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-30 group overflow-hidden"
-              style={{ boxShadow: '0 4px 0 #000' }}>
-              <Plus className="w-8 h-8 relative z-10 group-hover:rotate-90 transition-transform duration-300" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#f3e5ab] border-4 border-[#5c4033] text-[#2c1810] max-w-[90vw] rounded-lg"
-            style={{ boxShadow: '8px 8px 0 rgba(0,0,0,0.3)' }}>
-            <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-rye)] text-[#5c4033] text-xl">New Transaction</DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-[#d4c596] rounded-lg">
-                  <TabsTrigger value="expense" className="data-[state=active]:bg-[#8b0000] data-[state=active]:text-white rounded-md font-[family-name:var(--font-rye)]">
-                    Expenses
-                  </TabsTrigger>
-                  <TabsTrigger value="income" className="data-[state=active]:bg-[#2e4a2e] data-[state=active]:text-white rounded-md font-[family-name:var(--font-rye)]">
-                    Income
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-[#5c4033] font-bold">Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-[#fffdf0] border-2 border-[#5c4033] text-[#2c1810] rounded-lg" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-[#5c4033] font-bold">Category</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-[#fffdf0] border-2 border-[#5c4033] text-[#2c1810] rounded-lg">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#f3e5ab] border-2 border-[#5c4033] rounded-lg">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#5c4033] font-bold">Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-[#fffdf0] border-2 border-[#5c4033] text-[#2c1810] rounded-lg" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[#5c4033] font-bold">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-[#fffdf0] border-2 border-[#5c4033] text-[#2c1810] rounded-lg" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 bg-[#5c4033] text-[#f3e5ab] font-[family-name:var(--font-rye)] border-2 border-[#2c1810] hover:bg-[#3e2723] transition-all rounded-lg"
-                style={{ boxShadow: '4px 4px 0 rgba(0,0,0,0.2)' }}>
-                Record Transaction
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-6 w-16 h-16 bg-[#2c1810] text-[#d4af37] rounded-full border-2 border-[#d4af37] flex items-center justify-center transition-transform hover:scale-105 active:scale-95 z-30 group overflow-hidden"
+          style={{ boxShadow: '0 4px 0 #000' }}>
+          <Plus className="w-8 h-8 relative z-10 group-hover:rotate-90 transition-transform duration-300" />
+        </button>
       </div>
     </div>
   );

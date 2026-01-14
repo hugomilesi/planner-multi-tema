@@ -3,17 +3,11 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, PiggyBank, Settings, PlusCircle, MinusCircle, BarChart3, Gift, IceCream, Gamepad2 } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function NoirFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -188,63 +182,11 @@ export function NoirFinancialPage({
         </div>
 
         {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-6 right-6 w-16 h-16 bg-[#FF9F1C] text-white rounded-full shadow-lg shadow-[#FF9F1C]/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 border-4 border-white">
-              <Plus className="w-8 h-8" strokeWidth={3} />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#FFF9F0] border-2 border-[#FF9F1C]/30 text-slate-800 max-w-[90vw] rounded-3xl shadow-[5px_5px_0px_0px_rgba(0,0,0,0.1)]">
-            <DialogHeader>
-              <DialogTitle className="text-slate-800 text-xl font-[family-name:var(--font-fredoka)] font-bold flex items-center gap-2">
-                <span className="text-2xl">💰</span> New Transaction
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-slate-100 rounded-xl">
-                  <TabsTrigger value="income" className="rounded-xl data-[state=active]:bg-green-500 data-[state=active]:text-white font-bold">💵 Income</TabsTrigger>
-                  <TabsTrigger value="expense" className="rounded-xl data-[state=active]:bg-red-500 data-[state=active]:text-white font-bold">🛒 Expenses</TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-slate-600 text-sm font-bold">How much?</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-white border-2 border-slate-200 rounded-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-slate-600 text-sm font-bold">What for?</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-white border-2 border-slate-200 rounded-xl"><SelectValue placeholder="Select..." /></SelectTrigger>
-                  <SelectContent className="bg-white border-2 border-slate-200 rounded-xl">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-slate-600 text-sm font-bold">When?</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-white border-2 border-slate-200 rounded-xl" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-slate-600 text-sm font-bold">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-white border-2 border-slate-200 rounded-xl" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 bg-[#FF9F1C] text-white rounded-xl font-bold text-lg shadow-[0_4px_0_rgb(217,119,6)] active:shadow-none active:translate-y-[4px] transition-all">
-                Save! 🎉
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-6 right-6 w-16 h-16 bg-[#FF9F1C] text-white rounded-full shadow-lg shadow-[#FF9F1C]/40 flex items-center justify-center transition-all hover:scale-110 active:scale-95 z-50 border-4 border-white">
+          <Plus className="w-8 h-8" strokeWidth={3} />
+        </button>
       </div>
     </div>
   );

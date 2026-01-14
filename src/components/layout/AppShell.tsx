@@ -51,7 +51,7 @@ export function AppShell({ children }: AppShellProps) {
 
   // Show splash while loading auth
   if (isLoading) {
-    return null; // Don't show splash while checking auth
+    return null;
   }
 
   // Don't render content if not authenticated (will redirect)
@@ -60,13 +60,14 @@ export function AppShell({ children }: AppShellProps) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-hidden">
       <SplashScreen isVisible={showSplash} />
       <ThemeBackground />
-      <main className="flex-1 pb-24 relative z-10">
+      <main className="flex-1 pb-24 relative z-10 overflow-hidden">
         {children}
       </main>
       <BottomNav />
     </div>
   );
 }
+

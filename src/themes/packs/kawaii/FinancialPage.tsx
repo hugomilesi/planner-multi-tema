@@ -2,9 +2,6 @@ import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Plus, Trash2, Flower2, Leaf, Droplets, Scissors, TrendingUp, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 // Floral Theme Implementation
 export function KawaiiFinancialPage({
@@ -17,17 +14,12 @@ export function KawaiiFinancialPage({
   categories,
   isDialogOpen,
   setIsDialogOpen,
-  transactionType,
-  setTransactionType,
-  newTransaction,
-  setNewTransaction,
-  handleAddTransaction,
   deleteTransaction,
 }: FinancialPageProps) {
   const today = new Date();
 
   return (
-    <div className="min-h-screen pb-24 relative overflow-x-hidden" style={{ 
+    <div className="min-h-screen pb-24 relative overflow-x-hidden" style={{
       backgroundColor: '#2d1f24',
       fontFamily: '"DM Sans", sans-serif'
     }}>
@@ -136,7 +128,7 @@ export function KawaiiFinancialPage({
                 )}
                 <div className="relative">
                   {/* Flower stem */}
-                  <div 
+                  <div
                     className="w-8 rounded-t-full bg-gradient-to-t from-[#d47a96] to-[#b85c78]"
                     style={{ height: `${height}px` }}
                   />
@@ -181,7 +173,7 @@ export function KawaiiFinancialPage({
                       </span>
                     </div>
                     <div className="h-2 bg-[#2d1f24] rounded-full overflow-hidden">
-                      <div 
+                      <div
                         className="h-full rounded-full bg-gradient-to-r from-[#a3c9a8] to-[#d47a96]"
                         style={{ width: `${Math.min(cat.percentage, 100)}%` }}
                       />
@@ -247,105 +239,11 @@ export function KawaiiFinancialPage({
         </div>
 
         {/* Add Transaction FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <Button className="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-[#d47a96] hover:bg-[#b85c78] text-white shadow-xl shadow-[#d47a96]/40 z-50">
-              <Plus className="w-6 h-6" />
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-md bg-[#3d2a32] border border-rose-900/30 rounded-[2rem] p-6" style={{ fontFamily: '"DM Sans", sans-serif' }}>
-            <DialogHeader>
-              <DialogTitle className="text-2xl font-bold text-white text-center" style={{ fontFamily: '"Playfair Display", serif' }}>
-                New Petal 🌸
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 py-4">
-              <div className="flex p-1 bg-[#2d1f24] rounded-xl">
-                <button
-                  type="button"
-                  onClick={() => setTransactionType('income')}
-                  className={cn(
-                    "flex-1 py-3 rounded-lg text-sm font-bold transition-all",
-                    transactionType === 'income' ? "bg-[#a3c9a8] text-[#2d1f24] shadow-sm" : "text-[#9e7f8a] hover:text-[#a3c9a8]"
-                  )}
-                >
-                  🌻 Harvest
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setTransactionType('expense')}
-                  className={cn(
-                    "flex-1 py-3 rounded-lg text-sm font-bold transition-all",
-                    transactionType === 'expense' ? "bg-[#d47a96] text-white shadow-sm" : "text-[#9e7f8a] hover:text-[#d47a96]"
-                  )}
-                >
-                  🥀 Prune
-                </button>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Amount</label>
-                <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9e7f8a] font-bold">R$</span>
-                  <Input
-                    type="number"
-                    value={newTransaction.amount}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                    className="pl-10 h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl text-lg font-bold text-white focus:ring-2 focus:ring-[#d47a96] focus:border-transparent"
-                    placeholder="0.00"
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Category</label>
-                <Select
-                  value={newTransaction.categoryId}
-                  onValueChange={(value) => setNewTransaction({ ...newTransaction, categoryId: value })}
-                >
-                  <SelectTrigger className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white">
-                    <SelectValue placeholder="Select category" />
-                  </SelectTrigger>
-                  <SelectContent className="rounded-xl bg-[#3d2a32] border-rose-900/30">
-                    {categories
-                      .filter(c => c.type === transactionType)
-                      .map((category) => (
-                        <SelectItem key={category.id} value={category.id} className="rounded-lg my-1 font-bold text-white hover:bg-[#d47a96]/10">
-                          <span className="flex items-center gap-2">
-                            <span>{category.icon}</span> {category.name}
-                          </span>
-                        </SelectItem>
-                      ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Date</label>
-                <Input
-                  type="date"
-                  value={newTransaction.date}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                  className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white"
-                />
-              </div>
-
-              <div className="space-y-2">
-                <label className="text-sm font-bold text-[#9e7f8a] ml-1">Note (Optional)</label>
-                <Input
-                  value={newTransaction.note || ''}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                  placeholder="What bloomed?"
-                  className="h-14 bg-[#2d1f24] border-rose-900/30 rounded-xl font-bold text-white placeholder:text-[#9e7f8a]/50"
-                />
-              </div>
-
-              <Button onClick={handleAddTransaction} className="w-full h-14 bg-[#d47a96] hover:bg-[#b85c78] text-white rounded-xl text-lg font-bold mt-4">
-                Plant Petal 🌺
-              </Button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <Button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-6 w-14 h-14 rounded-full bg-[#d47a96] hover:bg-[#b85c78] text-white shadow-xl shadow-[#d47a96]/40 z-50">
+          <Plus className="w-6 h-6" />
+        </Button>
       </div>
     </div>
   );

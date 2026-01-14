@@ -145,18 +145,19 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
 
   addTransaction: async (transaction) => {
     const { tenantId, userId } = get();
-    console.log('🔵 addTransaction called with:', { transaction, tenantId, userId });
+    console.log('🔵 [Store] addTransaction started', { transaction, tenantId, userId });
 
     if (!tenantId || !userId) {
-      console.error('❌ Missing tenantId or userId');
-      return;
+      console.error('❌ [Store] Missing tenantId or userId in store');
+      throw new Error('Missing context');
     }
 
-    const supabase = createClient();
+    try {
+      console.log('🔵 [Store] Initializing Supabase client...');
+      const supabase = createClient();
+      console.log('🔵 [Store] Supabase client obtained');
 
-    const { data, error } = await supabase
-      .from('transactions')
-      .insert({
+      const payload = {
         tenant_id: tenantId,
         user_id: userId,
         type: transaction.type,
@@ -164,32 +165,64 @@ export const useFinancialStore = create<FinancialStore>()((set, get) => ({
         category_id: transaction.categoryId || null,
         date: transaction.date,
         note: transaction.note || null,
-      })
-      .select()
-      .single();
+      };
 
-    if (error) {
-      console.error('❌ Error adding transaction:', error);
-      return;
+      console.log('🔵 [Store] Preparing to insert into "transactions":', payload);
+
+      // Manual timeout trigger
+      let timedOut = false;
+      const timeoutHandle = setTimeout(() => {
+        timedOut = true;
+        console.error('❌ [Store] 15s MANUAL TIMEOUT TRIGGERED - Supabase call is hanging!');
+      }, 15000);
+
+      console.log('🔵 [Store] Awaiting supabase.insert().select()...');
+      const { data, error, status, statusText } = await supabase
+        .from('transactions')
+        .insert(payload)
+        .select();
+
+      clearTimeout(timeoutHandle);
+
+      if (timedOut) {
+        console.warn('⚠️ [Store] Supabase call finally finished AFTER manual timeout arrived');
+      }
+
+      console.log('🔵 [Store] Supabase response received:', { status, statusText, error, dataCount: data?.length });
+
+      if (error) {
+        console.error('❌ [Store] Supabase error detail:', error);
+        throw error;
+      }
+
+      const insertedData = data?.[0];
+      if (!insertedData) {
+        console.error('❌ [Store] No data returned from insert (likely RLS filtered it out)');
+        throw new Error('Empty response from database - possibly RLS issue');
+      }
+
+      console.log('✅ [Store] Transaction saved successfully. ID:', insertedData.id);
+
+      const newTransaction: Transaction = {
+        id: insertedData.id,
+        type: insertedData.type as 'income' | 'expense',
+        amount: insertedData.amount,
+        categoryId: insertedData.category_id || '',
+        date: insertedData.date,
+        note: insertedData.note || undefined,
+        createdAt: insertedData.created_at || new Date().toISOString(),
+      };
+
+      console.log('🔵 [Store] Updating Zustand state with new transaction...');
+      set((state) => ({
+        transactions: [newTransaction, ...state.transactions],
+      }));
+      console.log('✅ [Store] Zustand state update complete');
+
+    } catch (err: any) {
+      console.error('❌ [Store] Critical failure in addTransaction:', err.message || err);
+      throw err;
     }
-
-    console.log('✅ Transaction saved to database:', data);
-
-    const newTransaction: Transaction = {
-      id: data.id,
-      type: data.type as 'income' | 'expense',
-      amount: data.amount,
-      categoryId: data.category_id || '',
-      date: data.date,
-      note: data.note || undefined,
-      createdAt: data.created_at || new Date().toISOString(),
-    };
-
-    set((state) => {
-      const updatedTransactions = [newTransaction, ...state.transactions];
-      console.log('✅ Store updated, new transactions count:', updatedTransactions.length);
-      return { transactions: updatedTransactions };
-    });
   },
 
   updateTransaction: async (id, updates) => {

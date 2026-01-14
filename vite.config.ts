@@ -10,4 +10,7 @@ export default defineConfig({
             "@": path.resolve(__dirname, "./src"),
         },
     },
+    server: {
+        host: true, // Exposes the server to the network (0.0.0.0)
+    }
 })

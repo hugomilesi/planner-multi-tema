@@ -3,17 +3,11 @@
 import { FinancialPageProps } from '../types';
 import { cn } from '@/lib/utils';
 import { Trash2, Plus, EyeOff, TrendingUp, ShoppingCart, Car } from 'lucide-react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export function SynthwaveFinancialPage({
   monthIncome, monthExpense, balance, formatCurrency, pieData, last7Days,
   categorySpending, recentTransactions, categories,
-  isDialogOpen, setIsDialogOpen, transactionType, setTransactionType,
-  newTransaction, setNewTransaction, handleAddTransaction, deleteTransaction,
+  isDialogOpen, setIsDialogOpen, deleteTransaction,
 }: FinancialPageProps) {
   const expenseCategories = categories.filter(c => c.type === 'expense');
   const incomeCategories = categories.filter(c => c.type === 'income');
@@ -234,72 +228,12 @@ export function SynthwaveFinancialPage({
         </div>
 
         {/* FAB */}
-        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-          <DialogTrigger asChild>
-            <button className="fixed bottom-24 right-6 w-14 h-14 bg-[#6366F1] text-white border-2 border-[#525252] flex items-center justify-center transition-all z-30 group active:translate-x-1 active:translate-y-1"
-              style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
-              <Plus className="w-8 h-8 group-hover:rotate-90 transition-transform" />
-            </button>
-          </DialogTrigger>
-          <DialogContent className="bg-[#1E1E1E] border-4 border-[#525252] text-[#E5E5E5] max-w-[90vw]"
-            style={{ boxShadow: '8px 8px 0px 0px #000000' }}>
-            <DialogHeader>
-              <DialogTitle className="font-[family-name:var(--font-press-start)] text-[#6366F1] text-sm">
-                NEW TRANSACTION
-              </DialogTitle>
-            </DialogHeader>
-            <div className="space-y-4 pt-4">
-              <Tabs value={transactionType} onValueChange={(v) => setTransactionType(v as 'income' | 'expense')}>
-                <TabsList className="w-full grid grid-cols-2 bg-[#121212] border-2 border-[#525252]">
-                  <TabsTrigger value="expense" className="data-[state=active]:bg-[#EF4444] data-[state=active]:text-white uppercase font-bold">
-                    Expense
-                  </TabsTrigger>
-                  <TabsTrigger value="income" className="data-[state=active]:bg-[#10B981] data-[state=active]:text-white uppercase font-bold">
-                    Income
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
-              <div className="space-y-2">
-                <Label className="text-[#A3A3A3] text-lg">Amount</Label>
-                <Input type="number" placeholder="0.00" value={newTransaction.amount}
-                  onChange={(e) => setNewTransaction({ ...newTransaction, amount: e.target.value })}
-                  className="bg-[#121212] border-2 border-[#525252] text-[#E5E5E5] text-xl" />
-              </div>
-              <div className="space-y-2">
-                <Label className="text-[#A3A3A3] text-lg">Category</Label>
-                <Select value={newTransaction.categoryId} onValueChange={(v) => setNewTransaction({ ...newTransaction, categoryId: v })}>
-                  <SelectTrigger className="bg-[#121212] border-2 border-[#525252] text-[#E5E5E5] text-xl">
-                    <SelectValue placeholder="Select..." />
-                  </SelectTrigger>
-                  <SelectContent className="bg-[#1E1E1E] border-2 border-[#525252]">
-                    {(transactionType === 'expense' ? expenseCategories : incomeCategories).map((cat) => (
-                      <SelectItem key={cat.id} value={cat.id}>{cat.icon} {cat.name}</SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label className="text-[#A3A3A3] text-lg">Date</Label>
-                  <Input type="date" value={newTransaction.date}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, date: e.target.value })}
-                    className="bg-[#121212] border-2 border-[#525252] text-[#E5E5E5]" />
-                </div>
-                <div className="space-y-2">
-                  <Label className="text-[#A3A3A3] text-lg">Note</Label>
-                  <Input placeholder="Optional" value={newTransaction.note}
-                    onChange={(e) => setNewTransaction({ ...newTransaction, note: e.target.value })}
-                    className="bg-[#121212] border-2 border-[#525252] text-[#E5E5E5]" />
-                </div>
-              </div>
-              <button onClick={handleAddTransaction}
-                className="w-full py-3 bg-[#6366F1] text-white font-[family-name:var(--font-press-start)] text-sm border-2 border-[#525252] hover:brightness-110 transition-all"
-                style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
-                ADD TRANSACTION
-              </button>
-            </div>
-          </DialogContent>
-        </Dialog>
+        <button
+          onClick={() => setIsDialogOpen(true)}
+          className="fixed bottom-24 right-6 w-14 h-14 bg-[#6366F1] text-white border-2 border-[#525252] flex items-center justify-center transition-all z-30 group active:translate-x-1 active:translate-y-1"
+          style={{ boxShadow: '4px 4px 0px 0px #000000' }}>
+          <Plus className="w-8 h-8 group-hover:rotate-90 transition-transform" />
+        </button>
       </div>
     </div>
   );

@@ -142,7 +142,23 @@ export function CyberpunkFinancialPage({
                 const isHighest = i === 2; // Highlight current week
 
                 return (
-                  <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer">
+                  <div key={i} className="flex flex-col items-center gap-2 flex-1 group cursor-pointer relative">
+                    {/* Tooltip */}
+                    <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 w-48 bg-[#0b0c15] border border-[#00ffff] p-3 rounded-sm hidden group-hover:block z-50 pointer-events-none transition-all animate-in fade-in zoom-in-95 duration-200">
+                      <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#0b0c15] border-b border-r border-[#00ffff] transform rotate-45" />
+                      <div className="text-[10px] font-mono text-[#00ffff] mb-2 border-b border-[#00ffff]/30 pb-1 uppercase tracking-wider">
+                        {day.day} Stats
+                      </div>
+                      <div className="flex justify-between text-xs font-mono mb-1">
+                        <span className="text-[#00ff9f]">INCOME:</span>
+                        <span className="text-[#00ff9f] font-bold">+{formatCurrency(day.income)}</span>
+                      </div>
+                      <div className="flex justify-between text-xs font-mono">
+                        <span className="text-[#ff00ff]">EXPENSE:</span>
+                        <span className="text-[#ff00ff] font-bold">-{formatCurrency(day.expense)}</span>
+                      </div>
+                    </div>
+
                     <div className="w-full relative h-32 flex items-end justify-center">
                       <div className={cn(
                         'w-full border-2 transition-all duration-300 relative',
@@ -151,7 +167,7 @@ export function CyberpunkFinancialPage({
                           : 'border-[#bc13fe]/50 bg-[#bc13fe]/5 group-hover:bg-[#bc13fe]/20'
                       )}
                         style={{
-                          height: `${heightPercent}%`,
+                          height: `${Math.max(4, heightPercent)}%`,
                           boxShadow: isHighest ? '0 0 15px rgba(0,243,255,0.3)' : '0 0 10px rgba(188,19,254,0.1)'
                         }}>
                         <div className={cn('absolute top-0 w-full h-[2px]', isHighest ? 'bg-white' : 'bg-[#bc13fe]')}
@@ -167,7 +183,7 @@ export function CyberpunkFinancialPage({
                     <span className={cn('text-[10px] font-mono font-bold uppercase',
                       isHighest ? 'text-[#00ffff]' : 'text-slate-500')}
                       style={isHighest ? { textShadow: '0 0 5px rgba(0,243,255,0.8)' } : {}}>
-                      W{i + 1}
+                      {day.day}
                     </span>
                   </div>
                 );

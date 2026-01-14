@@ -32,6 +32,42 @@
   animation: spin-slow 3s linear infinite;
 }
 
+/* Page Transition Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+}
+
+.page-transition {
+  width: 100%;
+  min-height: 100%;
+}
+
+.page-transition.fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.page-transition.fadeOut {
+  animation: fadeOut 0.2s ease-in forwards;
+}
+
 @keyframes blob {
   0%, 100% {
     transform: translate(0, 0) scale(1);
